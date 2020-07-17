@@ -1,6 +1,6 @@
 import React from 'react'
 import { Global as GlobalStyles, css } from '@emotion/core'
-import { small } from '../style/space'
+import { small } from 'style/space'
 
 const styles = ({ root }) => css`
   html {

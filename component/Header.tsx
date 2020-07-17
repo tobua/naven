@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { small } from '../style/space'
-import { Link, TextLink, List } from './Elements'
+import { small } from 'style/space'
+import { Link, TextLink, List } from 'component/Elements'
 
 export const Wrapper = styled.header`
   padding: ${small};
@@ -10,11 +10,11 @@ export const Wrapper = styled.header`
 `
 
 export const Image = styled.img`
-  //
+  color: blue;
 `
 
 export const Meta = styled.nav`
-  //
+  color: black;
 `
 
 const LogoPlaceholder = () => (

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { small } from '../style/space'
+import { small } from 'style/space'
 
 export const FooterWrapper = styled.footer`
   padding: ${small};
