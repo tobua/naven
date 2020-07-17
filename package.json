@@ -1,5 +1,5 @@
 {
-  "name": "strappd",
+  "name": "naven",
   "version": "0.1.0",
   "description": "React based CSS-in-JS styling framework.",
   "main": "dist/index.js",
@@ -9,6 +9,7 @@
   "license": "MIT",
   "author": "Matthias Giger",
   "scripts": {
+    "start": "tsc --watch",
     "build": "tsc"
   },
   "prettier": {
