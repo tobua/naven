@@ -1,12 +1,16 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { small } from 'style/space'
-import { Link, TextLink, List } from 'component/Elements'
+import { small } from '../style/space'
+import { Link, TextLink, List } from '../component/Elements'
 
 export const Wrapper = styled.header`
   padding: ${small};
   background: lightgrey;
   grid-column: 2 / 5;
+
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto auto;
 `
 
 export const Image = styled.img`
@@ -15,6 +19,9 @@ export const Image = styled.img`
 
 export const Meta = styled.nav`
   color: black;
+  grid-column: 2 / 3;
+  grid-row: 1;
+  justify-self: end;
 `
 
 const LogoPlaceholder = () => (
@@ -67,12 +74,9 @@ export const Header = ({ logo = null, title }) => (
     <Title logo={logo} title={title} />
     <Meta>
       <List horizontal>
-        <li>
-          <TextLink href="/">About</TextLink>
-        </li>
-        <li>
-          <TextLink href="/">Login</TextLink>
-        </li>
+        <TextLink href="/">HTML</TextLink>
+        <TextLink href="/">CSS</TextLink>
+        <TextLink href="/">JavaScript</TextLink>
       </List>
     </Meta>
   </Wrapper>

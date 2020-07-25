@@ -1,8 +1,11 @@
 import React from 'react'
 import { Global as GlobalStyles, css } from '@emotion/core'
-import { small } from 'style/space'
+import emotionReset from 'emotion-reset'
+import { small } from '../style/space'
 
 const styles = ({ root }) => css`
+  ${emotionReset}
+
   html {
     font-family: -apple-system, Helvetica, Arial, san-serif;
   }
