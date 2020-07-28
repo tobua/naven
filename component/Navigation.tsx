@@ -1,4 +1,4 @@
-import React, { cloneElement, useState, useEffect } from 'react'
+import React, { cloneElement, useState } from 'react'
 import styled from '@emotion/styled'
 import { List, TextLink } from '../component/Elements'
 import { navigation } from '../config'
@@ -18,18 +18,17 @@ const Content = styled.div<{ open: boolean }>`
 `
 
 export const Tab = ({ children }) => {
-  return children[0]
-  // const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
-  // return (
-  //   <>
-  //     {cloneElement(children[0], {
-  //       onMouseEnter: () => setOpen(true),
-  //       onMouseLeave: () => setOpen(false),
-  //     })}
-  //     <Content open={open}>{children[1]}</Content>
-  //   </>
-  // )
+  return (
+    <>
+      {cloneElement(children[0], {
+        onMouseEnter: () => setOpen(true),
+        onMouseLeave: () => setOpen(false),
+      })}
+      <Content open={open}>{children[1]}</Content>
+    </>
+  )
 }
 
 export const SideBar = () => (
