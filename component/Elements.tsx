@@ -12,8 +12,27 @@ export const TextLink = styled.a`
   text-decoration: none;
 
   &:hover {
-    font-weight: bold;
+    text-decoration: underline;
   }
+
+  &:focus {
+    outline: none;
+    text-decoration: underline;
+  }
+`
+
+export const Heading = styled.h1`
+  font-size: 30px;
+  margin-bottom: 20px;
+`
+
+export const SubHeading = styled.h2`
+  font-size: 24px;
+  margin-bottom: 10px;
+`
+
+export const Paragraph = styled.p`
+  margin-bottom: 30px;
 `
 
 type ListProps = {
@@ -36,8 +55,8 @@ const ListLi = styled.li`
 
 export const List = ({ horizontal, children }: ListProps) => (
   <ListUl horizontal={horizontal}>
-    {children.map((child) => (
-      <ListLi>{child}</ListLi>
+    {children.map((child, index) => (
+      <ListLi key={index}>{child}</ListLi>
     ))}
   </ListUl>
 )

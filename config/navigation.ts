@@ -1,14 +1,14 @@
 import { Link, OptionalLink } from '.'
 
-export interface IFooter {
-  rows: {
+export interface INavigation {
+  top: {
     title: Link | OptionalLink
     links: Link[]
   }[]
 }
 
-export const footer: IFooter = {
-  rows: [
+export const navigation: INavigation = {
+  top: [
     {
       title: {
         name: 'JSX',

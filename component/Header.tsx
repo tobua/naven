@@ -4,8 +4,6 @@ import { small } from '../style/space'
 import { Link, TextLink, List } from '../component/Elements'
 
 export const Wrapper = styled.header`
-  padding: ${small};
-  background: lightgrey;
   grid-column: 2 / 5;
 
   display: grid;
@@ -20,7 +18,6 @@ export const Image = styled.img`
 export const Meta = styled.nav`
   color: black;
   grid-column: 2 / 3;
-  grid-row: 1;
   justify-self: end;
 `
 

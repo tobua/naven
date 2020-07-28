@@ -1,10 +1,27 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-export const Main = styled.main`
-  background: lightgrey;
-  grid-row: 3;
-  grid-column: 2 / 5;
+export const Main = styled.main<{ sidebar: boolean }>`
+  grid-column: ${({ sidebar }) => (sidebar ? 3 : 2)} / 5;
 `
 
-export const Content = () => <Main>Main</Main>
+export const Tiles = styled.div`
+  //
+`
+
+export const Wide = styled.div`
+  grid-column: 1 / 5;
+`
+
+export const Slim = styled.div`
+  grid-column: 3 / 4;
+`
+
+interface ContentProps {
+  children: React.ReactNode
+  sidebar?: boolean
+}
+
+export const Content = ({ children, sidebar = false }: ContentProps) => (
+  <Main sidebar={sidebar}>{children}</Main>
+)

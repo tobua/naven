@@ -11,7 +11,7 @@ const styles = ({ root }) => css`
   }
 
   body {
-    margin: 0;
+    margin: ${small};
   }
 
   ${root} {

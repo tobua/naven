@@ -6,9 +6,7 @@ import { footer } from '../config'
 
 const Wrapper = styled.footer(
   `
-  padding: ${small};
-  background: lightgrey;
-  grid-row: 4;
+  padding: 0 ${small};
   grid-column: 3 / 4;
 
   display: flex;
@@ -30,12 +28,14 @@ export const Footer = ({
   rowStyle = null,
 }) => (
   <Wrapper css={wrapperStyle}>
-    {data.rows.map((row) => (
-      <Row css={rowStyle}>
+    {data.rows.map((row, index) => (
+      <Row key={index} css={rowStyle}>
         <TextLink href={row.title.url}>{row.title.name}</TextLink>
         <List>
-          {row.links.map((item) => (
-            <TextLink href={item.url}>{item.name}</TextLink>
+          {row.links.map((item, index) => (
+            <TextLink key={index} href={item.url}>
+              {item.name}
+            </TextLink>
           ))}
         </List>
       </Row>
