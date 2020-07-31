@@ -1,13 +1,9 @@
-export { Content } from './component/Content'
-export { Global } from './component/Global'
-export { Navigation, SideBar } from './component/Navigation'
-export { Footer } from './component/Footer'
-export { Header, Wrapper, Image, Title } from './component/Header'
-export {
-  Link,
-  TextLink,
-  List,
-  Heading,
-  SubHeading,
-  Paragraph,
-} from './component/Elements'
+export { Content } from './markup/Content'
+export { Global } from './markup/Global'
+export { Navigation, SideBar } from './markup/Navigation'
+export { Footer } from './markup/Footer'
+export { Header, Wrapper, Image, Title } from './markup/Header'
+export * as Element from './markup/Element'
+export * as Size from './style/space'
+export * as Color from './style/color'
+export * as Breakpoint from './style/breakpoint'

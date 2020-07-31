@@ -35,6 +35,14 @@ export const Paragraph = styled.p`
   margin-bottom: 30px;
 `
 
+export const Loader = styled.div`
+  //
+`
+
+export { Spacer } from './element/Spacer'
+
+export { Input } from './element/Input'
+
 type ListProps = {
   horizontal?: boolean
   children: any[]

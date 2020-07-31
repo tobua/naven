@@ -1,6 +1,6 @@
 import React, { cloneElement, useState } from 'react'
 import styled from '@emotion/styled'
-import { List, TextLink } from '../component/Elements'
+import { List, TextLink } from './Element'
 import { navigation } from '../config'
 
 export const Wrapper = styled.nav`

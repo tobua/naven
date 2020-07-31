@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { small } from '../style/space'
-import { Link, TextLink, List } from '../component/Elements'
+import { Link, TextLink, List } from './Element'
 
 export const Wrapper = styled.header`
   grid-column: 2 / 5;
