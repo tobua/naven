@@ -2,6 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { Link, TextLink, List } from './Element'
 import { Logo } from '../icon/Logo'
+import { medium } from '../style/space'
 
 export const Wrapper = styled.header`
   grid-column: 2 / 5;
@@ -21,6 +22,16 @@ export const Meta = styled.nav`
   justify-self: end;
 `
 
+export const TitleText = styled.p`
+  font-size: ${medium};
+  font-weight: bold;
+  align-self: center;
+`
+
+const TitleLink = styled(Link)`
+  justify-self: start;
+`
+
 export const Title = ({ logo = null, title, link = '/', children = null }) => {
   let content = <Logo />
 
@@ -28,11 +39,15 @@ export const Title = ({ logo = null, title, link = '/', children = null }) => {
     content = <Image src={logo} />
   }
 
+  if (title) {
+    return <TitleText>{title}</TitleText>
+  }
+
   if (children) {
     content = children
   }
 
-  return <Link href={link}>{content}</Link>
+  return <TitleLink href={link}>{content}</TitleLink>
 }
 
 export const Header = ({ logo = null, title }) => (

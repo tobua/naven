@@ -12,6 +12,7 @@ export const Link = styled.a`
 `
 
 export const TextLink = styled.a`
+  cursor: pointer;
   color: ${black};
   text-decoration: none;
 

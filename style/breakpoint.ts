@@ -3,6 +3,6 @@ export const breakpoints = {
   tablet: 1000,
 }
 
-export const phone = `@media (min-width: ${breakpoints.phone}px)`
+export const Phone = `@media (max-width: ${breakpoints.phone}px)`
 
-export const tablet = `@media (min-width: ${breakpoints.tablet}px)`
+export const Tablet = `@media (max-width: ${breakpoints.tablet}px)`
