@@ -3,6 +3,10 @@ import styled from '@emotion/styled'
 import { small } from '../style/space'
 import { black } from '../style/color'
 
+export { Spacer } from './element/Spacer'
+export { Input } from './element/Input'
+export { Loader } from './element/Loader'
+
 export const Link = styled.a`
   text-decoration: none;
 `
@@ -34,14 +38,6 @@ export const SubHeading = styled.h2`
 export const Paragraph = styled.p`
   margin-bottom: 30px;
 `
-
-export const Loader = styled.div`
-  //
-`
-
-export { Spacer } from './element/Spacer'
-
-export { Input } from './element/Input'
 
 type ListProps = {
   horizontal?: boolean
