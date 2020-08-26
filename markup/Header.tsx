@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import { Link, TextLink, List } from './Element'
 import { Logo } from '../icon/Logo'
 import { medium } from '../style/space'
+import { header } from '../config'
 
 export const Wrapper = styled.header`
   grid-column: 2 / 5;
@@ -50,14 +51,14 @@ export const Title = ({ logo = null, title, link = '/', children = null }) => {
   return <TitleLink href={link}>{content}</TitleLink>
 }
 
-export const Header = ({ logo = null, title }) => (
+export const Header = ({ data = header, logo = null, title }) => (
   <Wrapper>
     <Title logo={logo} title={title} />
     <Meta>
       <List horizontal>
-        <TextLink href="/">HTML</TextLink>
-        <TextLink href="/">CSS</TextLink>
-        <TextLink href="/">JavaScript</TextLink>
+        {data.links.map((link) => (
+          <TextLink href={link.url}>{link.name}</TextLink>
+        ))}
       </List>
     </Meta>
   </Wrapper>

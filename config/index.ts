@@ -1,4 +1,5 @@
 import { footer as _footer, IFooter } from './footer'
+import { header as _header, IHeader } from './header'
 import { navigation as _navigation, INavigation } from './navigation'
 
 export type Link = {
@@ -18,3 +19,4 @@ export interface IConfig {
 
 export const footer = _footer
 export const navigation = _navigation
+export const header = _header
