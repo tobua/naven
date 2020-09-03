@@ -15,6 +15,10 @@ render(
       <Element.Paragraph>
         Here is a list of the included elements.
       </Element.Paragraph>
+      <Element.SubHeading>Button</Element.SubHeading>
+      <Element.Button />
+      <Element.Button highlight />
+      <Element.Button action />
     </Content>
     <Footer
       rowStyle={css`

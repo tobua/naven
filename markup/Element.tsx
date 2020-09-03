@@ -6,6 +6,7 @@ import { black } from '../style/color'
 export { Spacer } from './element/Spacer'
 export { Input } from './element/Input'
 export { Loader } from './element/Loader'
+export { Button } from './element/Button'
 
 export const Link = styled.a`
   text-decoration: none;
