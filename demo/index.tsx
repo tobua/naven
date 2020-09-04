@@ -1,6 +1,5 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { css } from '@emotion/core'
 import { Global, Header, Navigation, Content, Footer, Element } from 'naven'
 
 render(
@@ -16,15 +15,11 @@ render(
         Here is a list of the included elements.
       </Element.Paragraph>
       <Element.SubHeading>Button</Element.SubHeading>
-      <Element.Button />
-      <Element.Button highlight />
-      <Element.Button action />
+      <Element.Button>Button</Element.Button>
+      <Element.Button highlight>Highlight</Element.Button>
+      <Element.Button action>Action</Element.Button>
     </Content>
-    <Footer
-      rowStyle={css`
-        background: white;
-      `}
-    />
+    <Footer />
   </>,
   document.body
 )
