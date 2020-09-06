@@ -1,5 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
+// WORKAROUND https://github.com/emotion-js/emotion/issues/1431
+// to prevent TypeScript error.
+import '@emotion/core'
 import { Global, Header, Navigation, Content, Footer, Element } from 'naven'
 
 render(
@@ -8,7 +11,7 @@ render(
     <Header title="naven Demo" />
     <Navigation />
     <Content>
-      <Element.Heading>naven Preview</Element.Heading>
+      <Element.Heading>naven UI Library</Element.Heading>
       <Element.Paragraph>This is an introduction.</Element.Paragraph>
       <Element.SubHeading>naven Basics</Element.SubHeading>
       <Element.Paragraph>

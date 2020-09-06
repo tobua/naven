@@ -18,11 +18,11 @@ const styles = ({ root }) => css`
     display: grid;
     row-gap: ${small};
     grid-template-columns:
-      auto minmax(0, 250px) minmax(0, 1000px) minmax(0, 250px)
+      auto minmax(0, 250px) minmax(max-content, 1000px) minmax(0, 250px)
       auto;
   }
 `
 
-export const Global = ({ root = '#root' }) => (
+export const Global = ({ root = '#root' }: { root?: string }) => (
   <GlobalStyles styles={styles({ root })} />
 )

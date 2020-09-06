@@ -9,18 +9,20 @@ interface ButtonProps {
   children: any
 }
 
+const getButtonColor = ({ highlight = false, action = false }, opacity) => {
+  if (highlight) {
+    return Color.Shade(Color.highlight, opacity)
+  }
+  if (action) {
+    return Color.Shade(Color.action, opacity)
+  }
+
+  return Color.Shade(Color.Gray[700], opacity)
+}
+
 const Wrapper = styled.button<ButtonProps>`
   padding: ${Space.small};
-  background-color: ${({ highlight, action }) => {
-    if (highlight) {
-      return Color.highlight
-    }
-    if (action) {
-      return Color.action
-    }
-
-    return 'gray'
-  }};
+  background-color: ${(props) => getButtonColor(props, 0.8)};
   border: none;
   outline: none;
   cursor: pointer;
@@ -29,6 +31,10 @@ const Wrapper = styled.button<ButtonProps>`
 
   &:focus {
     outline: none;
+  }
+
+  &:hover {
+    background-color: ${(props) => getButtonColor(props, 1)};
   }
 `
 
