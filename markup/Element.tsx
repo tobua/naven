@@ -1,4 +1,5 @@
 import React from 'react'
+import '@emotion/core'
 import styled from '@emotion/styled'
 import { small } from '../style/space'
 import { black } from '../style/color'
@@ -27,14 +28,18 @@ export const TextLink = styled.a`
   }
 `
 
-export const Heading = styled.h1`
-  font-size: 30px;
-  margin-bottom: 20px;
-`
+// any because 'as' tag is missing in @emotion types.
+export const Heading = styled.h1<any>`
+  font-size: ${({ as = 'h1' }) => {
+    if (as === 'h1') {
+      return '30px'
+    }
 
-export const SubHeading = styled.h2`
-  font-size: 24px;
-  margin-bottom: 10px;
+    if (as === 'h2') {
+      return '24px'
+    }
+  }};
+  margin-bottom: 20px;
 `
 
 export const Paragraph = styled.p`

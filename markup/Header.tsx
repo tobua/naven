@@ -57,7 +57,9 @@ export const Header = ({ data = header, logo = null, title }) => (
     <Meta>
       <List horizontal>
         {data.links.map((link) => (
-          <TextLink href={link.url}>{link.name}</TextLink>
+          <TextLink key={link.url} href={link.url}>
+            {link.name}
+          </TextLink>
         ))}
       </List>
     </Meta>
