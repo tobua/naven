@@ -5,22 +5,22 @@ import { Color } from '../../style'
 
 interface ButtonProps {
   highlight?: boolean
-  action?: boolean
+  interact?: boolean
   children: any
 }
 
-const getButtonColor = ({ highlight = false, action = false }, opacity) => {
+const getButtonColor = ({ highlight = false, interact = false }, opacity) => {
   if (highlight) {
     return Color.Shade(Color.highlight, opacity)
   }
-  if (action) {
-    return Color.Shade(Color.action, opacity)
+  if (interact) {
+    return Color.Shade(Color.interact, opacity)
   }
 
   return Color.Shade(Color.Gray[700], opacity)
 }
 
-const Wrapper = styled.button<ButtonProps>`
+const Wrapper = styled.button<any>`
   padding: ${Space.small};
   background-color: ${(props) => getButtonColor(props, 0.8)};
   border: none;
@@ -40,6 +40,6 @@ const Wrapper = styled.button<ButtonProps>`
 
 export const Button = ({
   highlight = false,
-  action = false,
+  interact = false,
   children,
-}: ButtonProps) => <Wrapper {...{ highlight, action }}>{children}</Wrapper>
+}: any) => <Wrapper {...{ highlight, interact }}>{children}</Wrapper>
