@@ -1,18 +1,50 @@
-import * as DefaultColor from './Color'
+export interface IBreakpoint {
+  [key: string]: number
+}
 
-interface ITheme {
-  color: DefaultColor.IColor
+const defaultBreakpoints: IBreakpoint = {
+  phone: 500,
+  tablet: 1000,
+}
+
+export interface IColor {
+  highlight?: string
+  interact?: string
+  white?: string
+  black?: string
+  Gray?: any
+}
+
+const defaultColors: IColor = {
+  highlight: '#2196F3',
+  interact: '#E91E63',
+  white: '#FFF',
+  black: '#000',
+  // Shaded colors.
+  Gray: {
+    300: '#E0E0E0',
+    500: '#9E9E9E',
+    700: '#616161',
+  },
+}
+
+export interface IConfiguration {
+  colors?: IColor
   // space: ISpace;
-  // breakpoint: IBreakpoint;
+  breakpoints?: IBreakpoint
 }
 
-let defaultTheme = {
-  color: DefaultColor,
+const defaultConfiguration = {
+  colors: defaultColors,
+  breakpoints: defaultBreakpoints,
 }
 
-export const Color = defaultTheme.color
+export const Style = defaultConfiguration
 
-export const theme = (_theme: ITheme) => {
+export const configure = (configuration: IConfiguration) => {
   // Deep merge.
-  Object.assign(defaultTheme, _theme)
+  console.log('merge', configuration.colors.highlight)
+  console.log(defaultConfiguration.colors.highlight)
+  Object.assign(defaultConfiguration, configuration)
+  console.log(defaultConfiguration.colors.highlight)
 }

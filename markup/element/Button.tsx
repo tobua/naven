@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import * as Space from '../../style/space'
-import { Color } from '../../style'
+import * as Color from '../../style/color'
 
 interface ButtonProps {
   highlight?: boolean

@@ -1,23 +1,7 @@
 import hexToRgb from 'hex-rgb'
+import { Style } from '.'
 
-export interface IColor {
-  highlight: string
-  interact: string
-  white: string
-  black: string
-  Shade: (color: string, opacity: number) => string
-}
-
-export const highlight = '#2196F3'
-export const interact = '#E91E63'
-export const white = '#FFF'
-export const black = '#000'
-// Shaded colors.
-export const Gray = {
-  300: '#E0E0E0',
-  500: '#9E9E9E',
-  700: '#616161',
-}
+export const { highlight, interact, black, white, Gray } = Style.colors
 
 export const Shade = (color: string, opacity: number) => {
   const rgb = hexToRgb(color)

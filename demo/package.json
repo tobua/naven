@@ -1,28 +1,4 @@
 {
-  "scripts": {
-    "start": "papua start",
-    "test": "papua test"
-  },
-  "prettier": "papua/configuration/.prettierrc.json",
-  "eslintConfig": {
-    "extends": "./node_modules/papua/configuration/eslint.cjs"
-  },
-  "jest": {
-    "globals": {
-      "ts-jest": {
-        "tsConfig": "./node_modules/papua/configuration/tsconfig.json"
-      }
-    },
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest",
-      "^.+\\.jsx?$": [
-        "babel-jest",
-        {
-          "configFile": "./node_modules/papua/configuration/.babelrc"
-        }
-      ]
-    }
-  },
   "dependencies": {
     "papua": "^0.0.5",
     "react": "^16.13.1",
