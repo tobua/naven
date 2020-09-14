@@ -2,31 +2,13 @@ import React from 'react'
 import '@emotion/core'
 import styled from '@emotion/styled'
 import { small } from '../style/space'
-import { black } from '../style/color'
 
 export { Spacer } from './element/Spacer'
 export { Input } from './element/Input'
 export { Loader } from './element/Loader'
 export { Button } from './element/Button'
-
-export const Link = styled.a`
-  text-decoration: none;
-`
-
-export const TextLink = styled.a`
-  cursor: pointer;
-  color: ${black};
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-
-  &:focus {
-    outline: none;
-    text-decoration: underline;
-  }
-`
+export { Link, TextLink } from './element/Link'
+export { Alert } from './element/Alert'
 
 // any because 'as' tag is missing in @emotion types.
 export const Heading = styled.h1<any>`

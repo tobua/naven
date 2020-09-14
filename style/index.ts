@@ -12,7 +12,13 @@ export interface IColor {
   interact?: string
   white?: string
   black?: string
-  Gray?: any
+  warning?: string
+  error?: string
+  Gray?: {
+    300?: string
+    500?: string
+    700?: string
+  }
 }
 
 const defaultColors: IColor = {
@@ -20,6 +26,8 @@ const defaultColors: IColor = {
   interact: '#E91E63',
   white: '#FFF',
   black: '#000',
+  warning: '#FF9800',
+  error: '#F44336',
   // Shaded colors.
   Gray: {
     300: '#E0E0E0',

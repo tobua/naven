@@ -24,6 +24,10 @@ render(
       <Element.Heading as="h2">Input</Element.Heading>
       <Element.Input placeholder="Input here" />
       <Element.Input placeholder="Input here" value="value" />
+      <Element.Heading as="h2">Alert</Element.Heading>
+      <Element.Alert>Hey: This is an info</Element.Alert>
+      <Element.Alert type="warning">Ohh: This is a warning</Element.Alert>
+      <Element.Alert type="error">Whoopsie: This is an error</Element.Alert>
     </Content>
     <Footer />
   </>,
