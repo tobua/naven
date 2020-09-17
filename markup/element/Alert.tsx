@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { small } from '../../style/space'
-import { Gray, warning, error } from '../../style/color'
+import { Space, Color } from '../../style'
 
 type Type = 'info' | 'warning' | 'error'
 
@@ -20,10 +19,11 @@ const valueByType = (type: Type, values: [string, string, string]) => {
 const Wrapper = styled.div<{ type: Type }>`
   display: flex;
   align-items: center;
-  padding: ${small};
-  border-radius: ${small};
+  padding: ${Space.small};
+  border-radius: ${Space.small};
   border: 1px solid
-    ${({ type }) => valueByType(type, [Gray['500'], warning, error])};
+    ${({ type }) =>
+      valueByType(type, [Color.Gray['500'], Color.warning, Color.error])};
 `
 
 interface IAlert {

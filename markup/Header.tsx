@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { Link, TextLink, List } from './Element'
 import { Logo } from '../icon/Logo'
-import { medium } from '../style/space'
+import { Space } from '../style'
 import { header } from '../config'
 
 export const Wrapper = styled.header`
@@ -24,7 +24,7 @@ export const Meta = styled.nav`
 `
 
 export const TitleText = styled.p`
-  font-size: ${medium};
+  font-size: ${Space.medium};
   font-weight: bold;
   align-self: center;
 `

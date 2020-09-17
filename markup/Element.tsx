@@ -1,7 +1,7 @@
 import React from 'react'
 import '@emotion/core'
 import styled from '@emotion/styled'
-import { small } from '../style/space'
+import { Space } from '../style'
 
 export { Spacer } from './element/Spacer'
 export { Input } from './element/Input'
@@ -43,7 +43,7 @@ const ListUl = styled.ul<ListProps>(
 )
 
 const ListLi = styled.li`
-  padding: ${small};
+  padding: ${Space.small};
 `
 
 export const List = ({ horizontal, children }: ListProps) => (

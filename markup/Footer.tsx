@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { TextLink, List } from './Element'
-import { small } from '../style/space'
+import { Space } from '../style'
 import { footer } from '../config'
 
 const Wrapper = styled.footer(
   `
-  padding: 0 ${small};
+  padding: 0 ${Space.small};
   grid-column: 3 / 4;
 
   display: flex;

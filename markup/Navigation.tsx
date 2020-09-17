@@ -11,13 +11,13 @@ export const Aside = styled.aside`
   grid-column: 2 / 3;
 `
 
-const Content = styled.div<{ open: boolean }>`
-  height: ${({ open }) => (open ? 'auto' : 0)};
+const Content = styled.div<{ isOpen: boolean }>`
+  height: ${({ isOpen }) => (isOpen ? 'auto' : 0)};
   overflow: hidden;
   background: #d5d5d5;
 `
 
-export const Tab = ({ children }) => {
+export const Tab = ({ children }: { children: React.ReactElement[] }) => {
   const [open, setOpen] = useState(false)
 
   return (
@@ -26,7 +26,7 @@ export const Tab = ({ children }) => {
         onMouseEnter: () => setOpen(true),
         onMouseLeave: () => setOpen(false),
       })}
-      <Content open={open}>{children[1]}</Content>
+      <Content isOpen={open}>{children[1]}</Content>
     </>
   )
 }

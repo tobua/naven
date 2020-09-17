@@ -1,6 +1,8 @@
-export type Space = 'tiny' | 'small' | 'medium' | 'large'
+import { ISpace } from './types'
 
-export const tiny = '5px'
-export const small = '10px'
-export const medium = '20px'
-export const large = '40px'
+export const defaultSpace: ISpace = {
+  tiny: '5px',
+  small: '10px',
+  medium: '20px',
+  large: '40px',
+}

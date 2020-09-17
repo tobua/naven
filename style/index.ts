@@ -1,53 +1,32 @@
-export interface IBreakpoint {
-  [key: string]: number
-}
-
-const defaultBreakpoints: IBreakpoint = {
-  phone: 500,
-  tablet: 1000,
-}
-
-export interface IColor {
-  highlight?: string
-  interact?: string
-  white?: string
-  black?: string
-  warning?: string
-  error?: string
-  Gray?: {
-    300?: string
-    500?: string
-    700?: string
-  }
-}
-
-const defaultColors: IColor = {
-  highlight: '#2196F3',
-  interact: '#E91E63',
-  white: '#FFF',
-  black: '#000',
-  warning: '#FF9800',
-  error: '#F44336',
-  // Shaded colors.
-  Gray: {
-    300: '#E0E0E0',
-    500: '#9E9E9E',
-    700: '#616161',
-  },
-}
+import { IBreakpoint, IColor, ISpace } from './types'
+import { defaultColors } from './color'
+import {
+  defaultBreakpoints,
+  configure as configureBreakpoint,
+} from './breakpoint'
+import { defaultSpace } from './space'
 
 export interface IConfiguration {
   colors?: IColor
-  // space: ISpace;
+  space?: ISpace
   breakpoints?: IBreakpoint
 }
 
 const defaultConfiguration = {
   colors: defaultColors,
   breakpoints: defaultBreakpoints,
+  space: defaultSpace,
 }
 
-export const Style = defaultConfiguration
+export const Color = defaultConfiguration.colors
+export const Breakpoint = defaultConfiguration.breakpoints
+export const Space = defaultConfiguration.space
+
+// Types that can be used to type inputs requiring styles.
+export { Space as SpaceSize } from './types'
+
+// Methods that work with variables.
+export { Shade } from './color'
 
 export const configure = (configuration: IConfiguration) => {
   // Deep merge.
@@ -55,4 +34,5 @@ export const configure = (configuration: IConfiguration) => {
   console.log(defaultConfiguration.colors.highlight)
   Object.assign(defaultConfiguration, configuration)
   console.log(defaultConfiguration.colors.highlight)
+  configureBreakpoint(configuration.breakpoints)
 }

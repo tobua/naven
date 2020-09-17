@@ -1,10 +1,9 @@
 import styled from '@emotion/styled'
-import * as Space from '../../style/space'
-import { highlight } from '../../style/color'
+import { Color, Space } from '../../style'
 
 export const Input = styled.input`
   padding: ${Space.small};
-  border: 1px solid ${highlight};
+  border: 1px solid ${Color.highlight};
   border-radius: ${Space.small};
 
   &:focus {

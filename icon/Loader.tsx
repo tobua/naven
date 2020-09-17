@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-interface ILoader {
-  size: Size
-}
-
 export const enum Size {
   big,
   small,
+}
+
+interface ILoader {
+  size: Size
 }
 
 const SVG = styled.svg<ILoader & React.SVGProps<SVGSVGElement>>`
@@ -32,11 +32,6 @@ const path = (size: Size) =>
 
 export const Loader = ({ size = Size.big }: ILoader) => (
   <SVG viewBox="0 0 100 100" size={size}>
-    <path
-      fill="#000"
-      fillRule="evenodd"
-      d={path(size)}
-      clipRule="evenodd"
-    ></path>
+    <path fill="#000" fillRule="evenodd" d={path(size)} clipRule="evenodd" />
   </SVG>
 )

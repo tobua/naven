@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import * as Space from '../../style/space'
-import * as Color from '../../style/color'
+import { Space, Color, Shade } from '../../style'
 
 interface ButtonProps {
   highlight?: boolean
@@ -11,13 +10,13 @@ interface ButtonProps {
 
 const getButtonColor = ({ highlight = false, interact = false }, opacity) => {
   if (highlight) {
-    return Color.Shade(Color.highlight, opacity)
+    return Shade(Color.highlight, opacity)
   }
   if (interact) {
-    return Color.Shade(Color.interact, opacity)
+    return Shade(Color.interact, opacity)
   }
 
-  return Color.Shade(Color.Gray[700], opacity)
+  return Shade(Color.Gray[700], opacity)
 }
 
 const Wrapper = styled.button<any>`

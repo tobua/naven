@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { black, interact } from '../../style/color'
+import { Color } from '../../style'
 
 export const Link = styled.a`
   text-decoration: none;
@@ -7,17 +7,17 @@ export const Link = styled.a`
 
 export const TextLink = styled.a`
   cursor: pointer;
-  color: ${black};
+  color: ${Color.black};
   text-decoration: none;
 
   &:hover {
     text-decoration: underline;
-    color: ${interact};
+    color: ${Color.interact};
   }
 
   &:focus {
     outline: none;
     text-decoration: underline;
-    color: ${interact};
+    color: ${Color.interact};
   }
 `
