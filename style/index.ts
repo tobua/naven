@@ -27,12 +27,11 @@ export { Space as SpaceSize } from './types'
 
 // Methods that work with variables.
 export { Shade } from './color'
+export { Phone, Tablet } from './breakpoint'
 
 export const configure = (configuration: IConfiguration) => {
-  // Deep merge.
-  console.log('merge', configuration.colors.highlight)
-  console.log(defaultConfiguration.colors.highlight)
-  Object.assign(defaultConfiguration, configuration)
-  console.log(defaultConfiguration.colors.highlight)
-  configureBreakpoint(configuration.breakpoints)
+  Object.assign(defaultConfiguration.colors, configuration.colors)
+  Object.assign(defaultConfiguration.breakpoints, configuration.breakpoints)
+  Object.assign(defaultConfiguration.space, configuration.space)
+  // configureBreakpoint(configuration.breakpoints)
 }
