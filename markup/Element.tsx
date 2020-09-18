@@ -9,6 +9,7 @@ export { Loader } from './element/Loader'
 export { Button } from './element/Button'
 export { Link, TextLink } from './element/Link'
 export { Alert } from './element/Alert'
+export { Popup } from './element/Popup'
 
 // any because 'as' tag is missing in @emotion types.
 export const Heading = styled.h1<any>`
