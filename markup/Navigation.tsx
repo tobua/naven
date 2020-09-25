@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { List, TextLink } from './Element'
 import { navigation } from '../config'
+import { Space, Color } from '../style'
 
 export const Wrapper = styled.nav`
   grid-column: 2 / 5;
@@ -22,9 +23,21 @@ const Content = styled.div<{ isOpen: boolean }>`
   right: 0;
 `
 
+const ContentContainer = styled.div`
+  padding: ${Space.medium};
+`
+
 const TabElement = styled.div`
   display: flex;
   flex-direction: column;
+
+  &:focus {
+    outline: none;
+
+    & > a {
+      color: ${Color.interact};
+    }
+  }
 `
 
 export const Tab = ({ children }: { children: React.ReactElement[] }) => {
@@ -39,7 +52,9 @@ export const Tab = ({ children }: { children: React.ReactElement[] }) => {
       onBlur={() => setOpen(false)}
     >
       {children[0]}
-      <Content isOpen={open}>{children[1]}</Content>
+      <Content isOpen={open}>
+        <ContentContainer>{children[1]}</ContentContainer>
+      </Content>
     </TabElement>
   )
 }
