@@ -1,19 +1,35 @@
 {
   "name": "naven",
-  "version": "0.1.0",
   "description": "React based CSS-in-JS styling framework.",
+  "version": "0.1.0",
   "repository": "github:tobua/naven",
   "license": "MIT",
   "author": "Matthias Giger",
+  "scripts": {
+    "start": "padua watch",
+    "test": "padua test"
+  },
+  "dependencies": {
+    "@emotion/core": "^10.0.35",
+    "@emotion/styled": "^10.0.27",
+    "emotion-reset": "^2.0.7",
+    "hex-rgb": "^4.2.0"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1"
+  },
   "main": "dist/index.js",
   "source": "index.ts",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "scripts": {
-    "start": "padua watch",
-    "test": "padua test"
+  "devDependencies": {
+    "@types/node": "^14.11.8",
+    "@types/react": "^16.9.52",
+    "@types/react-dom": "^16.9.8",
+    "padua": "^0.1.2",
+    "react": "^16.13.1"
   },
   "prettier": "padua/configuration/.prettierrc.json",
   "eslintConfig": {
@@ -34,22 +50,6 @@
         }
       ]
     }
-  },
-  "dependencies": {
-    "@emotion/core": "^10.0.35",
-    "@emotion/styled": "^10.0.27",
-    "emotion-reset": "^2.0.7",
-    "hex-rgb": "^4.2.0"
-  },
-  "devDependencies": {
-    "@types/node": "^14.10.3",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
-    "padua": "^0.0.11",
-    "react": "^16.13.1"
-  },
-  "peerDependencies": {
-    "react": "^16.13.1"
   },
   "engines": {
     "node": ">= 13.2.0"
