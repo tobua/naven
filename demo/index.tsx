@@ -43,6 +43,10 @@ render(
         <p>This is the popup content.</p>
       </Element.Popup>
       <Element.Spacer size="large" />
+      <Element.Heading as="h2">Checkbox</Element.Heading>
+      <Element.Checkbox value={true} />
+      <Element.Checkbox value={false} />
+      <Element.Spacer />
     </Content>
     <Footer />
   </>,

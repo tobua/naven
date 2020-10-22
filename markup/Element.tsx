@@ -5,6 +5,8 @@ import { Space } from '../style'
 
 export { Spacer } from './element/Spacer'
 export { Input } from './element/Input'
+export { Checkbox, Radio } from './element/Checkbox'
+export { Dropdown } from './element/Dropdown'
 export { Loader } from './element/Loader'
 export { Button } from './element/Button'
 export { Link, TextLink } from './element/Link'
