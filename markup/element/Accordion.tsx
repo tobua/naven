@@ -5,6 +5,8 @@ const Wrapper = styled.div`
   display: flex;
 `
 
-interface IAccordion {}
+interface IAccordion {
+  value?: string
+}
 
-export const Accordion = () => <Wrapper>Accordion</Wrapper>
+export const Accordion = ({ value = 'test' }: IAccordion) => <Wrapper>Accordion{value}</Wrapper>

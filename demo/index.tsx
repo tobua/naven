@@ -47,6 +47,26 @@ render(
       <Element.Checkbox value={true} />
       <Element.Checkbox value={false} />
       <Element.Spacer />
+      <Element.Spacer size="large" />
+      <Element.Heading as="h2">Accordion</Element.Heading>
+      <Element.Accordion />
+      <Element.Spacer />
+      <Element.Spacer size="large" />
+      <Element.Heading as="h2">Badge</Element.Heading>
+      <Element.Badge><p>hello</p></Element.Badge>
+      <Element.Spacer />
+      <Element.Spacer size="large" />
+      <Element.Heading as="h2">Dropdown</Element.Heading>
+      <Element.Dropdown options={[]} />
+      <Element.Spacer />
+      <Element.Spacer size="large" />
+      <Element.Heading as="h2">Notification</Element.Heading>
+      <Element.Notification />
+      <Element.Spacer />
+      <Element.Spacer size="large" />
+      <Element.Heading as="h2">Tabs</Element.Heading>
+      <Element.Tabs />
+      <Element.Spacer />
     </Content>
     <Footer />
   </>,

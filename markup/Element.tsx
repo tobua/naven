@@ -7,7 +7,11 @@ export { Spacer } from './element/Spacer'
 export { Input } from './element/Input'
 export { Checkbox, Radio } from './element/Checkbox'
 export { Dropdown } from './element/Dropdown'
+export { Accordion } from './element/Accordion'
+export { Notification } from './element/Notification'
 export { Loader } from './element/Loader'
+export { Tabs } from './element/Tabs'
+export { Badge } from './element/Badge'
 export { Button } from './element/Button'
 export { Link, TextLink } from './element/Link'
 export { Alert } from './element/Alert'
@@ -23,6 +27,8 @@ export const Heading = styled.h1<any>`
     if (as === 'h2') {
       return '24px'
     }
+
+    return '20px'
   }};
   margin-bottom: 20px;
 `
