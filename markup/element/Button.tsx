@@ -8,7 +8,10 @@ interface ButtonProps {
   children: any
 }
 
-const getButtonColor = ({ highlight = false, interact = false }, opacity) => {
+const getButtonColor = (
+  { highlight = false, interact = false },
+  opacity: number
+) => {
   if (highlight) {
     return Shade(Color.highlight, opacity)
   }
@@ -41,4 +44,9 @@ export const Button = ({
   highlight = false,
   interact = false,
   children,
-}: any) => <Wrapper {...{ highlight, interact }}>{children}</Wrapper>
+  ...props
+}: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+  <Wrapper {...{ highlight, interact }} {...props}>
+    {children}
+  </Wrapper>
+)

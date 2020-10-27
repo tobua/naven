@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { render } from 'react-dom'
 // WORKAROUND https://github.com/emotion-js/emotion/issues/1431
 // to prevent TypeScript error.
 import '@emotion/core'
 import { Global, Header, Navigation, Content, Footer, Element } from 'naven'
+
+const Popup = () => {
+  const [show, togglePopup] = useState(false)
+
+  return (
+    <>
+      <Element.Button onClick={() => togglePopup(!show)}>Open</Element.Button>
+      <Element.Popup show={show}>
+        <p>This is the popup content.</p>
+      </Element.Popup>
+    </>
+  )
+}
 
 render(
   <>
@@ -38,10 +51,7 @@ render(
       <Element.Alert type="error">Whoopsie: This is an error</Element.Alert>
       <Element.Spacer />
       <Element.Heading as="h2">Popup</Element.Heading>
-      <Element.Button>Open</Element.Button>
-      <Element.Popup show={false}>
-        <p>This is the popup content.</p>
-      </Element.Popup>
+      <Popup />
       <Element.Spacer size="large" />
       <Element.Heading as="h2">Checkbox</Element.Heading>
       <Element.Checkbox value={true} />
@@ -49,11 +59,25 @@ render(
       <Element.Spacer />
       <Element.Spacer size="large" />
       <Element.Heading as="h2">Accordion</Element.Heading>
-      <Element.Accordion />
+      <Element.Accordion titles={['First', 'Second', 'Third']}>
+        <div>First</div>
+        <div>Second</div>
+        <div>Third</div>
+      </Element.Accordion>
+      <Element.Heading as="h3">Custom Titles</Element.Heading>
+      <Element.Accordion
+        headers={[<p>First</p>, <span>Second</span>, <strong>Third</strong>]}
+      >
+        <div>First</div>
+        <div>Second</div>
+        <div>Third</div>
+      </Element.Accordion>
       <Element.Spacer />
       <Element.Spacer size="large" />
       <Element.Heading as="h2">Badge</Element.Heading>
-      <Element.Badge><p>hello</p></Element.Badge>
+      <Element.Badge>
+        <p>hello</p>
+      </Element.Badge>
       <Element.Spacer />
       <Element.Spacer size="large" />
       <Element.Heading as="h2">Dropdown</Element.Heading>
