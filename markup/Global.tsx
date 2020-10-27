@@ -7,7 +7,7 @@ const styles = ({ root }) => css`
   ${emotionReset}
 
   html {
-    font-family: -apple-system, Helvetica, Arial, san-serif;
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
   }
 
   body {

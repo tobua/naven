@@ -4,7 +4,7 @@ import { configure as configureSpace } from './space'
 import { configure as configureColor } from './color'
 
 export { Color, Shade } from './color'
-export { Breakpoints, Breakpoint, Phone, Tablet } from './breakpoint'
+export { Breakpoints, Breakpoint } from './breakpoint'
 export { Space } from './space'
 
 // Types that can be used to type inputs requiring styles.
