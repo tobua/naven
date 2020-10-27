@@ -1,18 +1,24 @@
 import { IBreakpoint } from './types'
 
-export const defaultBreakpoints: IBreakpoint = {
+export const Breakpoints: IBreakpoint = {
   phone: 500,
   tablet: 1000,
 }
 
-const breakpoints = defaultBreakpoints
-
-export const configure = (newBreakpoints: IBreakpoint) => {
-  Object.assign(breakpoints, newBreakpoints)
+export const configure = (_breakpoints: IBreakpoint) => {
+  Object.assign(Breakpoints, _breakpoints, { clone: false })
 }
 
-export const Phone = `@media (max-width: ${breakpoints.phone}px)`
-export const Tablet = `@media (max-width: ${breakpoints.tablet}px)`
+export const Breakpoint = new Proxy<{ Phone: string; Tablet: string }>({} as any, {
+  get: (_, property) => {
+    if (property === 'Phone') {
+      return `@media (max-width: ${Breakpoints.phone}px)`
+    }
 
-export const Breakpoint = (key: string) =>
-  `@media (max-width: ${breakpoints[key]}px)`
+    if (property === 'Tablet') {
+      return `@media (max-width: ${Breakpoints.tablet}px)`
+    }
+
+    return '@media screen'
+  }
+})

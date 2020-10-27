@@ -1,9 +1,9 @@
 // import React from 'react'
 // import { create } from 'react-test-renderer'
-import { configure, Phone, Tablet } from '..'
+import { configure, Breakpoint } from '..'
 
 test('Breakpoint helpers are correct.', () => {
-  expect(Phone).toEqual('@media (max-width: 500px)')
+  expect(Breakpoint.Phone).toEqual('@media (max-width: 500px)')
 
   configure({
     breakpoints: {
@@ -11,5 +11,5 @@ test('Breakpoint helpers are correct.', () => {
     },
   })
 
-  expect(Phone).toEqual('@media (max-width: 700px)')
+  expect(Breakpoint.Phone).toEqual('@media (max-width: 700px)')
 })

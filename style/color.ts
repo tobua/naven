@@ -1,12 +1,8 @@
+import assign from 'object-assign-deep'
 import hexToRgb from 'hex-rgb'
 import { IColor } from './types'
 
-export const Shade = (color: string, opacity: number) => {
-  const rgb = hexToRgb(color)
-  return `rgba(${rgb.red}, ${rgb.green}, ${rgb.blue}, ${opacity})`
-}
-
-export const defaultColors: IColor = {
+export const Color: IColor = {
   highlight: '#2196F3',
   interact: '#E91E63',
   white: '#FFF',
@@ -19,4 +15,13 @@ export const defaultColors: IColor = {
     500: '#9E9E9E',
     700: '#616161',
   },
+}
+
+export const configure = (_colors: IColor) => {
+  assign(Color, _colors)
+}
+
+export const Shade = (color: string, opacity: number) => {
+  const rgb = hexToRgb(color)
+  return `rgba(${rgb.red}, ${rgb.green}, ${rgb.blue}, ${opacity})`
 }

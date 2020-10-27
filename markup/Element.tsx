@@ -15,6 +15,7 @@ export { Badge } from './element/Badge'
 export { Button } from './element/Button'
 export { Link, TextLink } from './element/Link'
 export { Alert } from './element/Alert'
+export { Image } from './element/Image'
 export { Popup } from './element/Popup'
 
 // any because 'as' tag is missing in @emotion types.
