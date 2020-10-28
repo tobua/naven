@@ -18,6 +18,23 @@ const Popup = () => {
   )
 }
 
+const Notification = () => {
+  return (
+    <>
+      <Element.Notification />
+      <Element.Button
+        onClick={() =>
+          Element.addNotification({ message: 'notification', type: 'info' })
+        }
+      >
+        Regular
+      </Element.Button>
+      <Element.Button highlight>Warning</Element.Button>
+      <Element.Button interact>Error</Element.Button>
+    </>
+  )
+}
+
 render(
   <>
     <Global root="body" />
@@ -85,7 +102,7 @@ render(
       <Element.Spacer />
       <Element.Spacer size="large" />
       <Element.Heading as="h2">Notification</Element.Heading>
-      <Element.Notification />
+      <Notification />
       <Element.Spacer />
       <Element.Spacer size="large" />
       <Element.Heading as="h2">Tabs</Element.Heading>
