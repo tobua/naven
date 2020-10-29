@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { render } from 'react-dom'
 // WORKAROUND https://github.com/emotion-js/emotion/issues/1431
 // to prevent TypeScript error.
-import '@emotion/core'
+import { css } from '@emotion/core'
 import styled from '@emotion/styled'
 import {
   Global,
@@ -29,18 +29,32 @@ const Popup = () => {
 }
 
 const Notification = () => {
+  const [message, setMessage] = useState<string>()
+  const [type, setType] = useState<string>()
+
   return (
     <>
       <Element.Notification />
+      <Element.Input
+        value={message}
+        onChange={(event) => setMessage(event.target.value)}
+        placeholder="Message"
+      />
+      <Element.Dropdown
+        value={type}
+        onChange={(option) => setType(option.value)}
+        options={[
+          { value: 'info', label: 'Information' },
+          { value: 'warning', label: 'Warning' },
+          { value: 'error', label: 'Error' },
+        ]}
+        placeholder="Type"
+      />
       <Element.Button
-        onClick={() =>
-          Element.addNotification({ message: 'notification', type: 'info' })
-        }
+        onClick={() => Element.addNotification({ message, type })}
       >
-        Regular
+        Send
       </Element.Button>
-      <Element.Button highlight>Warning</Element.Button>
-      <Element.Button interact>Error</Element.Button>
     </>
   )
 }
@@ -136,16 +150,30 @@ render(
       <Element.Spacer size="large" />
       <Element.Heading as="h2">Badge</Element.Heading>
       <Element.Badge>
-        <p>hello</p>
+        <p>hey badge</p>
       </Element.Badge>
+      <Element.Spacer />
       <Element.Heading as="h3">With Count</Element.Heading>
       <Element.Spacer />
-      <Element.Badge count={5}>
-        <span>hoi</span>
+      <Element.Badge
+        count={5}
+        css={css`
+          margin-right: 30px;
+        `}
+      >
+        <span>count me</span>
+      </Element.Badge>
+      <Element.Badge count={987}>
+        <span>big number</span>
       </Element.Badge>
       <Element.Spacer size="large" />
       <Element.Heading as="h2">Dropdown</Element.Heading>
-      <Element.Dropdown options={[]} />
+      <Element.Dropdown
+        options={[
+          { value: 'first', label: 'First choice' },
+          { value: 'second', label: 'Second choice' },
+        ]}
+      />
       <Element.Spacer />
       <Element.Spacer size="large" />
       <Element.Heading as="h2">Notification</Element.Heading>
