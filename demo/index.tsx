@@ -58,6 +58,18 @@ const Notification = () => {
   )
 }
 
+const Checkboxes = () => {
+  const [first, setFirst] = useState(false)
+  const [second, setSecond] = useState(true)
+
+  return (
+    <>
+      <Element.Checkbox value={first} onChange={() => setFirst(!first)} />
+      <Element.Checkbox value={second} onChange={() => setSecond(!second)} />
+    </>
+  )
+}
+
 const ColorPreview = styled.div<{ color: string; contrast?: string }>`
   background: ${({ color }) => color};
   display: flex;
@@ -127,8 +139,7 @@ render(
       <Popup />
       <Element.Spacer size="large" />
       <Element.Heading as="h2">Checkbox</Element.Heading>
-      <Element.Checkbox value={true} />
-      <Element.Checkbox value={false} />
+      <Checkboxes />
       <Element.Spacer />
       <Element.Spacer size="large" />
       <Element.Heading as="h2">Accordion</Element.Heading>
