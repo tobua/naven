@@ -3,7 +3,17 @@ import { render } from 'react-dom'
 // WORKAROUND https://github.com/emotion-js/emotion/issues/1431
 // to prevent TypeScript error.
 import '@emotion/core'
-import { Global, Header, Navigation, Content, Footer, Element } from 'naven'
+import styled from '@emotion/styled'
+import {
+  Global,
+  Header,
+  Navigation,
+  Content,
+  Footer,
+  Element,
+  Color,
+  Space,
+} from 'naven'
 
 const Popup = () => {
   const [show, togglePopup] = useState(false)
@@ -35,6 +45,20 @@ const Notification = () => {
   )
 }
 
+const ColorPreview = styled.div<{ color: string; contrast?: string }>`
+  background: ${({ color }) => color};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: ${Space.small};
+  color: ${({ contrast = Color.contrast }) => contrast};
+
+  :hover {
+    transform: scale(1.25);
+    transition: transform 300ms;
+  }
+`
+
 render(
   <>
     <Global root="body" />
@@ -43,7 +67,26 @@ render(
     <Content>
       <Element.Heading>naven UI Library</Element.Heading>
       <Element.Paragraph>This is an introduction.</Element.Paragraph>
-      <Element.Heading as="h2">naven Basics</Element.Heading>
+      <Element.Heading as="h2">naven Styles</Element.Heading>
+      <Element.Heading as="h3">Colors</Element.Heading>
+      <div style={{ display: 'flex' }}>
+        <ColorPreview color={Color.highlight}>highlight</ColorPreview>
+        <ColorPreview color={Color.interact}>interact</ColorPreview>
+        <ColorPreview color={Color.black}>black</ColorPreview>
+        <ColorPreview color={Color.white} contrast={Color.black}>
+          white
+        </ColorPreview>
+        <ColorPreview color={Color.warning}>warning</ColorPreview>
+        <ColorPreview color={Color.error}>error</ColorPreview>
+        <ColorPreview color={Color.contrast} contrast={Color.black}>
+          contrast
+        </ColorPreview>
+      </div>
+      <Element.Spacer />
+      <Element.Heading as="h2">naven Configuration</Element.Heading>
+      <div>interactive configuration</div>
+      <Element.Spacer />
+      <Element.Heading as="h2">naven Elements</Element.Heading>
       <Element.Paragraph>
         Here is a list of the included elements.
       </Element.Paragraph>
