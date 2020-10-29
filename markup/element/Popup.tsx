@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { Close } from '../../icon'
 import { Space, Color } from '../../style'
 
 const Wrapper = styled.div`
@@ -11,15 +12,39 @@ const Wrapper = styled.div`
   padding: ${Space.medium};
   display: flex;
   background: ${Color.white};
+`
+
+const Content = styled.div`
+  position: relative;
   width: 100%;
-  height: 100%;
+`
+
+const CloseContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  width: ${Space.medium};
+  height: ${Space.medium};
 `
 
 interface IPopup {
   show?: boolean
+  onClose: () => any
   children: any
 }
 
-export const Popup = ({ show = true, children }: IPopup) => (
-  <>{show ? <Wrapper>{children}</Wrapper> : null}</>
+export const Popup = ({ show = true, onClose, children }: IPopup) => (
+  <>
+    {show ? (
+      <Wrapper>
+        <Content>
+          <CloseContainer onClick={onClose}>
+            <Close />
+          </CloseContainer>
+          {children}
+        </Content>
+      </Wrapper>
+    ) : null}
+  </>
 )

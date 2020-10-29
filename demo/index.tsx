@@ -11,7 +11,7 @@ const Popup = () => {
   return (
     <>
       <Element.Button onClick={() => togglePopup(!show)}>Open</Element.Button>
-      <Element.Popup show={show}>
+      <Element.Popup show={show} onClose={() => togglePopup(false)}>
         <p>This is the popup content.</p>
       </Element.Popup>
     </>
