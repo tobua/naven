@@ -1,21 +1,32 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { Color, Space } from '../../style'
 
 const Wrapper = styled.div`
-  display: flex;
   position: relative;
+  display: flex;
+  flex: 0;
 `
 
 const Dot = styled.div`
-    position: absolute;
-    left: 0;
-    top: 0;
+  position: absolute;
+  width: ${Space.small};
+  height: ${Space.small};
+  border-radius: ${Space.small};
+  background: ${Color.highlight};
+  right: -${Space.tiny};
+  top: -${Space.tiny};
+  color: ${Color.contrast};
 `
 
 interface IBadge {
-    children: any
+  children: any
+  count?: number | string
 }
 
-export const Badge = ({children}: IBadge) => <Wrapper><Dot />{children}</Wrapper>
-
-// As wrapper for any element, absolute positioned, with optional count.
+export const Badge = ({ children, count = null }: IBadge) => (
+  <Wrapper>
+    <Dot>{count}</Dot>
+    {children}
+  </Wrapper>
+)

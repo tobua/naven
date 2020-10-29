@@ -7,6 +7,7 @@ export interface IColor {
   interact?: string
   white?: string
   black?: string
+  contrast?: string
   warning?: string
   error?: string
   Gray?: {

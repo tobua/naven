@@ -95,7 +95,11 @@ render(
       <Element.Badge>
         <p>hello</p>
       </Element.Badge>
+      <Element.Heading as="h3">With Count</Element.Heading>
       <Element.Spacer />
+      <Element.Badge count={5}>
+        <span>hoi</span>
+      </Element.Badge>
       <Element.Spacer size="large" />
       <Element.Heading as="h2">Dropdown</Element.Heading>
       <Element.Dropdown options={[]} />

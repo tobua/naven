@@ -7,6 +7,8 @@ export const Color: IColor = {
   interact: '#E91E63',
   white: '#FFF',
   black: '#000',
+  // Color to display stuff inside highlight or interact.
+  contrast: '#FFF',
   warning: '#FF9800',
   error: '#F44336',
   // Shaded colors.
