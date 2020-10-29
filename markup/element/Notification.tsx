@@ -1,68 +1,81 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import styled from '@emotion/styled'
-import { Space } from '../../style'
+import { Space, Color, Layer } from '../../style'
 
-const NotificationState = {}
-let updateComponent
+const ActiveNotifications = []
+let rerender: () => void
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: flex-end;
   position: fixed;
   bottom: 0;
   right: 0;
   padding: ${Space.small};
+  z-index: ${Layer.Notification};
+  max-width: 50%;
 `
 
 const NotificationContainer = styled.div`
   display: flex;
-  background-color: red;
+  flex-direction: column;
+  align-items: flex-end;
+`
+
+const NotificationElement = styled.div`
+  display: flex;
+  background-color: white;
+  border: 1px solid ${Color.highlight};
+  margin-top: ${Space.small};
+  padding: ${Space.medium};
+  min-width: 30%;
 `
 
 interface INotification {
   message: string
-  duration: number
+  duration?: number
   type: 'info' | 'warning' | 'error'
 }
 
 export const addNotification = ({
   message,
-  duration = 3,
+  duration = 8,
   type,
 }: INotification) => {
-  const randomId = Math.floor(Math.random() * 99999) + 1
-  NotificationState[randomId] = { message, type }
+  ActiveNotifications.push({ message, type })
 
-  if (updateComponent) {
-    updateComponent()
+  if (rerender) {
+    rerender()
   }
 
   setTimeout(() => {
-    delete NotificationState[randomId]
+    ActiveNotifications.shift()
 
-    if (updateComponent) {
-      updateComponent()
+    if (rerender) {
+      rerender()
     }
   }, duration * 1000)
 }
 
-// TODO similar to notyf
 export const Notification = () => {
-  const [, update] = useState()
-  // Make update accessible from outside.
-  updateComponent = update
+  const [, setState] = useState(0)
+  // Forces the component to update and can be accessed from outside.
+  rerender = useCallback(() => setState((count) => count + 1), [])
 
   // No notifications to show.
-  if (!Object.keys(NotificationState).length) {
+  if (!ActiveNotifications.length) {
     return null
   }
 
   return (
     <Wrapper>
-      {Object.keys(NotificationState).map((key) => (
-        <NotificationContainer>
-          {NotificationState[key].message}
-        </NotificationContainer>
-      ))}
+      <NotificationContainer>
+        {ActiveNotifications.map((notification, index) => (
+          <NotificationElement key={index}>
+            {notification.message}
+          </NotificationElement>
+        ))}
+      </NotificationContainer>
     </Wrapper>
   )
 }

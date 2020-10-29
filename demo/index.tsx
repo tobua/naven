@@ -41,7 +41,6 @@ const Notification = () => {
         placeholder="Message"
       />
       <Element.Dropdown
-        value={type}
         onChange={(option) => setType(option.value)}
         options={[
           { value: 'info', label: 'Information' },

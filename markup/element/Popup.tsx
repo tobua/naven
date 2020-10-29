@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { Close } from '../../icon'
-import { Space, Color } from '../../style'
+import { Space, Color, Layer } from '../../style'
 
 const Wrapper = styled.div`
   position: fixed;
@@ -12,6 +12,7 @@ const Wrapper = styled.div`
   padding: ${Space.medium};
   display: flex;
   background: ${Color.white};
+  z-index: ${Layer.Popup};
 `
 
 const Content = styled.div`

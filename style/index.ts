@@ -6,6 +6,7 @@ import { configure as configureColor } from './color'
 export { Color, Shade } from './color'
 export { Breakpoints, Breakpoint } from './breakpoint'
 export { Space } from './space'
+export { Layer } from './layer'
 
 // Types that can be used to type inputs requiring styles.
 export { Space as SpaceSize } from './types'
