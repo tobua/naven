@@ -6,13 +6,13 @@ const CheckboxInput = styled.input`
   border: 1px solid ${Color.highlight};
   border-radius: ${Space.tiny};
   appearance: none;
+  margin: 0;
 
   &:before {
     content: '';
     display: flex;
     width: ${Space.medium};
     height: ${Space.medium};
-    // border: 1px solid black;
   }
 
   &:checked {
@@ -21,16 +21,18 @@ const CheckboxInput = styled.input`
 
   &:focus {
     border-width: 2px;
-    margin-bottom: -6px;
     outline: none;
+
+    &:before {
+      height: calc(${Space.medium} - 2px);
+    }
   }
 `
 
 export const Checkbox = ({
-  value,
   ...props
-}: { value: boolean } & React.InputHTMLAttributes<HTMLInputElement>) => (
-  <CheckboxInput type="checkbox" checked={!!value} {...props} />
+}: React.InputHTMLAttributes<HTMLInputElement>) => (
+  <CheckboxInput type="checkbox" {...props} />
 )
 
 export const Radio = () => <input type="radio" />
