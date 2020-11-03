@@ -12,6 +12,8 @@ import {
   Content,
   Footer,
   Element,
+  Horizontal,
+  Vertical,
   Color,
   Space,
   Breakpoints,
@@ -66,10 +68,38 @@ const Checkboxes = () => {
   const [second, setSecond] = useState(true)
 
   return (
-    <>
-      <Element.Checkbox checked={first} onChange={() => setFirst(!first)} />
-      <Element.Checkbox checked={second} onChange={() => setSecond(!second)} />
-    </>
+    <Vertical>
+      <Element.Checkbox
+        label="First"
+        checked={first}
+        onChange={() => setFirst(!first)}
+      />
+      <Element.Checkbox
+        label="Second"
+        checked={second}
+        onChange={() => setSecond(!second)}
+      />
+    </Vertical>
+  )
+}
+
+const Radios = () => {
+  const [first, setFirst] = useState(false)
+  const [second, setSecond] = useState(true)
+
+  return (
+    <Vertical>
+      <Element.Radio
+        label="First"
+        checked={true}
+        onChange={() => setFirst(!first)}
+      />
+      <Element.Radio
+        label="Second"
+        checked={false}
+        onChange={() => setSecond(!second)}
+      />
+    </Vertical>
   )
 }
 
@@ -124,6 +154,19 @@ const app = () =>
           onChange={handleConfig}
         />
         <Element.Spacer />
+        <Element.Heading as="h2">naven Layout</Element.Heading>
+        <Horizontal>
+          <div>First</div>
+          <div>Second</div>
+          <div>Third</div>
+        </Horizontal>
+        <Element.Spacer />
+        <Vertical>
+          <div>First</div>
+          <div>Second</div>
+          <div>Third</div>
+        </Vertical>
+        <Element.Spacer />
         <Element.Heading as="h2">naven Elements</Element.Heading>
         <Element.Paragraph>
           Here is a list of the included elements.
@@ -155,6 +198,8 @@ const app = () =>
         <Element.Spacer size="large" />
         <Element.Heading as="h2">Checkbox</Element.Heading>
         <Checkboxes />
+        <Element.Heading as="h2">Radio</Element.Heading>
+        <Radios />
         <Element.Spacer />
         <Element.Spacer size="large" />
         <Element.Heading as="h2">Accordion</Element.Heading>

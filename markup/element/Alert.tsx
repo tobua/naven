@@ -58,7 +58,7 @@ export const Alert = ({
   return (
     <Wrapper type={type}>
       {closeable && (
-        <CloseContainer onClick={close}>
+        <CloseContainer onClick={() => close(true)}>
           <Close style={{ flex: 1 }} />
         </CloseContainer>
       )}
