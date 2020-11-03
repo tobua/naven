@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
+import { Close } from '../../icon'
 import { Space, Color } from '../../style'
 
 type Type = 'info' | 'warning' | 'error'
@@ -17,6 +18,7 @@ const valueByType = (type: Type, values: [string, string, string]) => {
 }
 
 const Wrapper = styled.div<{ type: Type }>`
+  position: relative;
   display: flex;
   align-items: center;
   padding: ${Space.small};
@@ -26,11 +28,41 @@ const Wrapper = styled.div<{ type: Type }>`
       valueByType(type, [Color.Gray['500'], Color.warning, Color.error])};
 `
 
+const CloseContainer = styled.div`
+  position: absolute;
+  height: 100%;
+  display: flex;
+  right: ${Space.small};
+  cursor: pointer;
+  width: ${Space.small};
+  height: ${Space.small};
+`
+
 interface IAlert {
   type?: Type
+  closeable?: boolean
   children: string
 }
 
-export const Alert = ({ type = 'info', children }: IAlert) => (
-  <Wrapper type={type}>{children}</Wrapper>
-)
+export const Alert = ({
+  type = 'info',
+  closeable = false,
+  children,
+}: IAlert) => {
+  const [closed, close] = useState(false)
+
+  if (closeable && closed) {
+    return null
+  }
+
+  return (
+    <Wrapper type={type}>
+      {closeable && (
+        <CloseContainer onClick={close}>
+          <Close style={{ flex: 1 }} />
+        </CloseContainer>
+      )}
+      {children}
+    </Wrapper>
+  )
+}

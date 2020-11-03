@@ -144,7 +144,9 @@ const app = () =>
         <Element.Heading as="h2">Alert</Element.Heading>
         <Element.Alert>Hey: This is an info</Element.Alert>
         <Element.Spacer size="tiny" />
-        <Element.Alert type="warning">Ohh: This is a warning</Element.Alert>
+        <Element.Alert type="warning" closeable>
+          Ohh: This is a <b>closeable</b> warning
+        </Element.Alert>
         <Element.Spacer size="tiny" />
         <Element.Alert type="error">Whoopsie: This is an error</Element.Alert>
         <Element.Spacer />
