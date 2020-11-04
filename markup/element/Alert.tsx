@@ -41,7 +41,7 @@ const CloseContainer = styled.div`
 interface IAlert {
   type?: Type
   closeable?: boolean
-  children: string
+  children: React.ReactNode
 }
 
 export const Alert = ({

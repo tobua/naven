@@ -69,7 +69,7 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & { label: string }
 
 export const Checkbox = ({ label, id = uniqueID(), ...props }: Props) => (
   <Wrapper>
-    <CheckboxInput type="checkbox" {...props} />
+    <CheckboxInput id={id} type="checkbox" {...props} />
     <Label htmlFor={id}>{label}</Label>
   </Wrapper>
 )

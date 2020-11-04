@@ -28,8 +28,8 @@ const Dot = styled.div<{ hasContent: boolean; css: SerializedStyles }>`
 interface IBadge {
   children: any
   count?: number | string
-  css: SerializedStyles
-  cssDot: SerializedStyles
+  css?: SerializedStyles
+  cssDot?: SerializedStyles
 }
 
 export const Badge = ({ children, count = null, css, cssDot }: IBadge) => (

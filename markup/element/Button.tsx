@@ -30,6 +30,7 @@ const Wrapper = styled.button<any>`
   cursor: pointer;
   border-radius: ${Space.tiny};
   color: ${Color.white};
+  text-decoration: ${({ disabled }) => (disabled ? 'line-through' : '')};
 
   &:focus {
     outline: none;

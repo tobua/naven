@@ -34,8 +34,9 @@ const Popup = () => {
 }
 
 const Notification = () => {
+  type Value = 'info' | 'warning' | 'error'
   const [message, setMessage] = useState<string>()
-  const [type, setType] = useState<string>()
+  const [type, setType] = useState<Value>('info')
 
   return (
     <>
@@ -46,7 +47,7 @@ const Notification = () => {
         placeholder="Message"
       />
       <Element.Dropdown
-        onChange={(option) => setType(option.value)}
+        onChange={(option) => setType((option as any).value)}
         options={[
           { value: 'info', label: 'Information' },
           { value: 'warning', label: 'Warning' },
@@ -55,6 +56,7 @@ const Notification = () => {
         placeholder="Type"
       />
       <Element.Button
+        disabled={!type || !message || message === ''}
         onClick={() => Element.addNotification({ message, type })}
       >
         Send
@@ -175,6 +177,7 @@ const app = () =>
         <Element.Button>Button</Element.Button>
         <Element.Button highlight>Highlight</Element.Button>
         <Element.Button interact>Interaction</Element.Button>
+        <Element.Button disabled>Disabled</Element.Button>
         <Element.Spacer />
         <Element.Heading as="h2">Input</Element.Heading>
         <Element.Input placeholder="Input here" />
@@ -251,7 +254,13 @@ const app = () =>
         <Element.Spacer />
         <Element.Spacer size="large" />
         <Element.Heading as="h2">Tabs</Element.Heading>
-        <Element.Tabs />
+        <Element.Tabs
+          items={[
+            { title: 'First', content: <p>Content First</p> },
+            { title: 'Second', content: <p>Content Second</p> },
+            { title: 'Third', content: <p>Content Third</p> },
+          ]}
+        />
         <Element.Spacer />
       </Content>
       <Footer />

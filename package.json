@@ -11,9 +11,9 @@
     "test": "padua test"
   },
   "dependencies": {
-    "@emotion/core": "^10.0.35",
+    "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
-    "@types/react-select": "^3.0.22",
+    "@types/react-select": "^3.0.23",
     "emotion-reset": "^2.0.7",
     "hex-rgb": "^4.2.0",
     "object-assign-deep": "^0.4.0",
