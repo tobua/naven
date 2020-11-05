@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { css } from '@emotion/core'
 import styled from '@emotion/styled'
 import { Close } from '../../icon'
 import { Space, Color } from '../../style'
@@ -59,7 +60,11 @@ export const Alert = ({
     <Wrapper type={type}>
       {closeable && (
         <CloseContainer onClick={() => close(true)}>
-          <Close style={{ flex: 1 }} />
+          <Close
+            css={css`
+              flex: 1;
+            `}
+          />
         </CloseContainer>
       )}
       {children}

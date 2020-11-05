@@ -1,7 +1,7 @@
 import React from 'react'
 import { Global as GlobalStyles, css } from '@emotion/core'
 import emotionReset from 'emotion-reset'
-import { Space } from '../style'
+import { Breakpoint, Space } from '../style'
 
 const styles = ({ root }) => css`
   ${emotionReset}
@@ -20,6 +20,10 @@ const styles = ({ root }) => css`
     grid-template-columns:
       auto minmax(0, 250px) minmax(max-content, 1000px) minmax(0, 250px)
       auto;
+
+    ${Breakpoint.Phone} {
+      grid-template-columns: 0 0 1fr 0 0;
+    }
   }
 `
 

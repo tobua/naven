@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { css } from '@emotion/core'
 import styled from '@emotion/styled'
 import { Link, TextLink, List } from './Element'
+import { showMobileNavigation } from './Navigation'
 import { Logo } from '../icon/Logo'
-import { Space } from '../style'
+import { Menu } from '../icon/Menu'
+import { Close } from '../icon/Close'
+import { Space, Breakpoint } from '../style'
 import { header } from '../config'
 
 export const Wrapper = styled.header`
@@ -33,6 +37,39 @@ const TitleLink = styled(Link)`
   justify-self: start;
 `
 
+export const ToggleIconWrapper = styled.div`
+  display: flex;
+`
+
+const ToggleIcon = () => {
+  const [open, setOpen] = useState(false)
+  const toggleNavigation = () => {
+    setOpen(!open)
+    showMobileNavigation(!open)
+  }
+
+  const iconStyles = css`
+    cursor: pointer;
+    width: ${Space.medium};
+    height: ${Space.medium};
+    display: none;
+
+    ${Breakpoint.Phone} {
+      display: flex;
+    }
+  `
+
+  return (
+    <ToggleIconWrapper>
+      {open ? (
+        <Close onClick={toggleNavigation} css={iconStyles} />
+      ) : (
+        <Menu onClick={toggleNavigation} css={iconStyles} />
+      )}
+    </ToggleIconWrapper>
+  )
+}
+
 export const Title = ({ logo = null, title, link = '/', children = null }) => {
   let content = <Logo />
 
@@ -55,7 +92,15 @@ export const Header = ({ data = header, logo = null, title }) => (
   <Wrapper>
     <Title logo={logo} title={title} />
     <Meta>
-      <List horizontal>
+      <ToggleIcon />
+      <List
+        css={css`
+          ${Breakpoint.Phone} {
+            display: none;
+          }
+        `}
+        horizontal
+      >
         {data.links.map((link) => (
           <TextLink key={link.url} href={link.url}>
             {link.name}

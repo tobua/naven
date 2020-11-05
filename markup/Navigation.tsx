@@ -2,11 +2,21 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { List, TextLink } from './Element'
 import { navigation } from '../config'
-import { Space, Color } from '../style'
+import { Space, Color, Breakpoint } from '../style'
 
-export const Wrapper = styled.nav`
+export const Wrapper = styled.nav<{ showNavigation: boolean }>`
   grid-column: 2 / 5;
   position: relative;
+
+  ${Breakpoint.Phone} {
+    display: ${({ showNavigation }) => (showNavigation ? 'flex' : 'none')};
+    ${({ showNavigation }) =>
+      showNavigation
+        ? `
+    height: 100vh;
+    `
+        : ''}
+  }
 `
 
 export const Aside = styled.aside`
@@ -65,15 +75,27 @@ export const SideBar = () => (
   </Aside>
 )
 
-export const Navigation = () => (
-  <Wrapper>
-    <List horizontal>
-      {navigation.top.map((link, index) => (
-        <Tab key={index}>
-          <TextLink href={link.title.url}>{link.title.name}</TextLink>
-          <p>content</p>
-        </Tab>
-      ))}
-    </List>
-  </Wrapper>
-)
+let toggleMobileNavigation = null
+
+export const Navigation = () => {
+  const [showNavigation, toggleMobileNavigationState] = useState(false)
+
+  toggleMobileNavigation = toggleMobileNavigationState
+
+  return (
+    <Wrapper showNavigation={showNavigation}>
+      <List horizontal>
+        {navigation.top.map((link, index) => (
+          <Tab key={index}>
+            <TextLink href={link.title.url}>{link.title.name}</TextLink>
+            <p>content</p>
+          </Tab>
+        ))}
+      </List>
+    </Wrapper>
+  )
+}
+
+export const showMobileNavigation = (show) => {
+  toggleMobileNavigation(show)
+}

@@ -136,7 +136,7 @@ const app = () =>
         <Element.Paragraph>This is an introduction.</Element.Paragraph>
         <Element.Heading as="h2">naven Styles</Element.Heading>
         <Element.Heading as="h3">Colors</Element.Heading>
-        <div style={{ display: 'flex' }}>
+        <Horizontal>
           <ColorPreview color={Color.highlight}>highlight</ColorPreview>
           <ColorPreview color={Color.interact}>interact</ColorPreview>
           <ColorPreview color={Color.black}>black</ColorPreview>
@@ -148,7 +148,7 @@ const app = () =>
           <ColorPreview color={Color.contrast} contrast={Color.black}>
             contrast
           </ColorPreview>
-        </div>
+        </Horizontal>
         <Element.Spacer />
         <Element.Heading as="h2">naven Configuration</Element.Heading>
         <Konfi
