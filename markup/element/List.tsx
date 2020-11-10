@@ -3,13 +3,6 @@ import { SerializedStyles } from '@emotion/core'
 import styled from '@emotion/styled'
 import { Space } from '../../style'
 
-type ListProps = {
-  horizontal?: boolean
-  wrap?: boolean
-  css?: SerializedStyles
-  children: any[]
-}
-
 const ListUl = styled.ul<ListProps>(
   {
     display: 'flex',
@@ -23,12 +16,28 @@ const ListUl = styled.ul<ListProps>(
 
 const ListLi = styled.li`
   padding: ${Space.small};
+  ${({ css }) => css}
 `
 
-export const List = ({ horizontal, children, ...props }: ListProps) => (
+type ListProps = {
+  horizontal?: boolean
+  wrap?: boolean
+  css?: SerializedStyles
+  children: any[]
+  elementProps?: {}
+}
+
+export const List = ({
+  horizontal,
+  children,
+  elementProps,
+  ...props
+}: ListProps) => (
   <ListUl horizontal={horizontal} {...props}>
     {children.map((child, index) => (
-      <ListLi key={index}>{child}</ListLi>
+      <ListLi key={index} {...elementProps}>
+        {child}
+      </ListLi>
     ))}
   </ListUl>
 )
