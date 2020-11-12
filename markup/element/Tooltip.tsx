@@ -1,5 +1,11 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { usePopper } from 'react-popper'
+import styled from '@emotion/styled'
+import { SerializedStyles } from '@emotion/react'
+
+const Wrapper = styled.div`
+  display: inline-flex;
+`
 
 const wrapper = {
   marginLeft: 10,
@@ -11,20 +17,7 @@ const wrapper = {
   borderColor: 'black',
 }
 
-const color = (background: string) => ({
-  display: 'inline-flex',
-  position: 'relative' as 'relative', // Workaround for weird TS issue.
-  cursor: 'pointer',
-  backgroundColor: background,
-  width: 25,
-  height: 25,
-  marginBottom: -8,
-  marginRight: 5,
-  borderRadius: 5,
-  border: '1px solid black',
-})
-
-const close = {
+const closeStyle = {
   position: 'absolute' as 'absolute',
   padding: 0,
   display: 'flex',
@@ -60,7 +53,7 @@ const hideBorder = {
   background: 'white',
 }
 
-const arrow = {
+const arrowStyle = {
   width: 10,
   height: 10,
   marginLeft: 5,
@@ -72,24 +65,23 @@ const arrow = {
 
 interface ContentProps {
   children: React.ReactNode
-  value: string
-  onChange: (color: string) => void
   referenceElement: any
   open: boolean
   setOpen: (state: boolean) => void
+  arrow?: boolean
+  close?: boolean
 }
 
 const Content = ({
   children,
-  value,
-  onChange,
   referenceElement,
   open,
   setOpen,
+  arrow,
+  close,
 }: ContentProps) => {
   const [popperElement, setPopperElement] = useState(null)
   const [arrowElement, setArrowElement] = useState(null)
-  const [currentValue, setCurrentValue] = useState(value)
 
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     modifiers: [{ name: 'arrow', options: { element: arrowElement } }],
@@ -111,31 +103,29 @@ const Content = ({
       {...attributes.popper}
     >
       <div style={wrapper}>{children}</div>
-      <div ref={setArrowElement} style={styles.arrow}>
-        <div style={arrow} />
-      </div>
-      <button
-        style={close}
-        type="button"
-        onClick={() => {
-          setOpen(false)
-          if (currentValue && currentValue !== value) {
-            onChange(currentValue)
-          }
-        }}
-        onKeyUp={(event) => {
-          if (event.key === 'Escape') {
+      {arrow && (
+        <div ref={setArrowElement} style={styles.arrow}>
+          <div style={arrowStyle} />
+        </div>
+      )}
+      {close && (
+        <button
+          style={closeStyle}
+          type="button"
+          onClick={() => {
             setOpen(false)
-            if (currentValue && currentValue !== value) {
-              onChange(currentValue)
+          }}
+          onKeyUp={(event) => {
+            if (event.key === 'Escape') {
+              setOpen(false)
             }
-          }
-        }}
-      >
-        <span style={hideBorder} />
-        <span style={closeLine(45)} />
-        <span style={closeLine(-45)} />
-      </button>
+          }}
+        >
+          <span style={hideBorder} />
+          <span style={closeLine(45)} />
+          <span style={closeLine(-45)} />
+        </button>
+      )}
     </div>
   )
 }
@@ -145,6 +135,7 @@ interface Props {
   arrow?: boolean
   close?: boolean
   children: React.ReactNode
+  css?: SerializedStyles
 }
 
 export const Tooltip = ({
@@ -152,10 +143,15 @@ export const Tooltip = ({
   arrow = true,
   close = false,
   children,
+  css,
 }: Props) => {
   const [referenceElement, setReferenceElement] = useState(null)
-  const [open, setOpen] = useState(false)
+  // Only initialize plugin (absolutely position hidden tooltip element)
+  // when it's actually needed.
   const [initialized, setInitialized] = useState(false)
+  // Once initialized the tooltip content is always rendered but only
+  // visible if it's currently open.
+  const [open, setOpen] = useState(false)
 
   if (open && !initialized) {
     setInitialized(true)
@@ -163,7 +159,7 @@ export const Tooltip = ({
 
   return (
     <>
-      <div
+      <Wrapper
         ref={setReferenceElement}
         role="button"
         tabIndex={0}
@@ -175,11 +171,18 @@ export const Tooltip = ({
           }
         }}
         onClick={() => setOpen(!open)}
+        css={css}
       >
         {children}
-      </div>
+      </Wrapper>
       {initialized && (
-        <Content arrow={arrow} close={close}>
+        <Content
+          referenceElement={referenceElement}
+          arrow={arrow}
+          close={close}
+          open={open}
+          setOpen={setOpen}
+        >
           {content}
         </Content>
       )}
