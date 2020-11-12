@@ -279,6 +279,9 @@ const app = () =>
           <span>Third</span>
         </Element.List>
         <Element.Spacer />
+        <Element.Heading as="h2">Date Picker</Element.Heading>
+        <Element.DatePicker />
+        <Element.Spacer />
       </Content>
       <Footer />
     </>,
