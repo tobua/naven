@@ -1,5 +1,5 @@
 import React from 'react'
-import { Global as GlobalStyles, css } from '@emotion/core'
+import { Global as GlobalStyles, css } from '@emotion/react'
 import emotionReset from 'emotion-reset'
 import { Breakpoint, Space } from '../style'
 

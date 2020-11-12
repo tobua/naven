@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { render } from 'react-dom'
-// WORKAROUND https://github.com/emotion-js/emotion/issues/1431
-// to prevent TypeScript error.
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Konfi } from 'konfi'
 import {
@@ -261,6 +259,25 @@ const app = () =>
             { title: 'Third', content: <p>Content Third</p> },
           ]}
         />
+        <Element.Spacer size="large" />
+        <Element.Heading as="h2">Tooltip</Element.Heading>
+        <Element.Tooltip content={<p>Hello content</p>}>
+          <span>open tooltip</span>
+        </Element.Tooltip>
+        <Element.Spacer size="large" />
+        <Element.Heading as="h2">List</Element.Heading>
+        <Element.List>
+          <span>First</span>
+          <span>Second</span>
+          <span>Third</span>
+        </Element.List>
+        <Element.Spacer size="large" />
+        <Element.Heading as="h3">horizontal</Element.Heading>
+        <Element.List horizontal>
+          <span>First</span>
+          <span>Second</span>
+          <span>Third</span>
+        </Element.List>
         <Element.Spacer />
       </Content>
       <Footer />

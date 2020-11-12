@@ -1,18 +1,14 @@
 import React from 'react'
-import { SerializedStyles } from '@emotion/core'
+import { SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Space } from '../../style'
 
-const ListUl = styled.ul<ListProps>(
-  {
-    display: 'flex',
-  },
-  ({ horizontal, wrap, css }) => ({
-    flexDirection: horizontal ? 'row' : 'column',
-    ...css,
-    flexWrap: wrap ? 'wrap' : 'inherit',
-  })
-)
+const ListUl = styled.ul<ListProps>`
+  display: flex;
+  flex-direction: ${({ horizontal }) => (horizontal ? 'row' : 'column')};
+  flex-wrap: ${({ wrap }) => (wrap ? 'wrap' : 'inherit')};
+  ${({ css }) => css}
+`
 
 const ListLi = styled.li`
   padding: ${Space.small};

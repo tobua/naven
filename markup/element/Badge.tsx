@@ -1,5 +1,5 @@
 import React from 'react'
-import { SerializedStyles } from '@emotion/core'
+import { SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Color, Space } from '../../style'
 
