@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { List, TextLink } from './Element'
@@ -10,12 +11,12 @@ export const Wrapper = styled.nav<{ showNavigation: boolean }>`
   position: relative;
 
   ${Breakpoint.Phone} {
+    flex-direction: column;
+    overflow: auto;
     display: ${({ showNavigation }) => (showNavigation ? 'flex' : 'none')};
     ${({ showNavigation }) =>
       showNavigation
-        ? `
-    height: 100vh;
-    `
+        ? `height: calc(100vh - ${Space.medium} - 2 * ${Space.small});`
         : ''}
   }
 `
@@ -104,12 +105,21 @@ export const SideBar = () => (
 let toggleMobileNavigation = null
 
 export const Navigation = () => {
+  const scrollContainerRef = useRef()
   const [showNavigation, toggleMobileNavigationState] = useState(false)
 
   toggleMobileNavigation = toggleMobileNavigationState
 
+  useEffect(() => {
+    if (scrollContainerRef.current && showNavigation) {
+      disableBodyScroll(scrollContainerRef.current)
+    } else {
+      clearAllBodyScrollLocks()
+    }
+  }, [showNavigation])
+
   return (
-    <Wrapper showNavigation={showNavigation}>
+    <Wrapper ref={scrollContainerRef} showNavigation={showNavigation}>
       <List
         css={listStyles}
         elementProps={{ css: listElementStyles }}

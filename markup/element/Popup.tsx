@@ -1,10 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import styled from '@emotion/styled'
-import {
-  disableBodyScroll,
-  enableBodyScroll,
-  clearAllBodyScrollLocks,
-} from 'body-scroll-lock'
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { Close } from '../../icon'
 import { Space, Color, Layer } from '../../style'
 
@@ -14,7 +10,6 @@ const Wrapper = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  padding: ${Space.medium};
   display: flex;
   background: ${Color.white};
   z-index: ${Layer.Popup};
@@ -27,8 +22,8 @@ const Content = styled.div`
 
 const CloseContainer = styled.div`
   position: absolute;
-  top: 0;
-  right: 0;
+  top: ${Space.medium};
+  right: ${Space.medium};
   cursor: pointer;
   width: ${Space.medium};
   height: ${Space.medium};
@@ -36,6 +31,8 @@ const CloseContainer = styled.div`
 
 const ScrollContainer = styled.div`
   overflow: auto;
+  height: calc(100% - 2 * ${Space.medium});
+  padding: ${Space.medium};
 `
 
 interface IPopup {
@@ -64,86 +61,6 @@ export const Popup = ({ show = true, onClose, children }: IPopup) => {
             </CloseContainer>
             <ScrollContainer ref={scrollContainerRef}>
               {children}
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
-              <p>tstsfds</p>
             </ScrollContainer>
           </Content>
         </Wrapper>
