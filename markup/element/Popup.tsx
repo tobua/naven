@@ -1,5 +1,10 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from '@emotion/styled'
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+} from 'body-scroll-lock'
 import { Close } from '../../icon'
 import { Space, Color, Layer } from '../../style'
 
@@ -29,23 +34,120 @@ const CloseContainer = styled.div`
   height: ${Space.medium};
 `
 
+const ScrollContainer = styled.div`
+  overflow: auto;
+`
+
 interface IPopup {
   show?: boolean
   onClose: () => any
   children: any
 }
 
-export const Popup = ({ show = true, onClose, children }: IPopup) => (
-  <>
-    {show ? (
-      <Wrapper>
-        <Content>
-          <CloseContainer onClick={onClose}>
-            <Close />
-          </CloseContainer>
-          {children}
-        </Content>
-      </Wrapper>
-    ) : null}
-  </>
-)
+export const Popup = ({ show = true, onClose, children }: IPopup) => {
+  const scrollContainerRef = useRef()
+  useEffect(() => {
+    if (scrollContainerRef.current && show) {
+      disableBodyScroll(scrollContainerRef.current)
+    } else {
+      clearAllBodyScrollLocks()
+    }
+  }, [show])
+
+  return (
+    <>
+      {show ? (
+        <Wrapper>
+          <Content>
+            <CloseContainer onClick={onClose}>
+              <Close />
+            </CloseContainer>
+            <ScrollContainer ref={scrollContainerRef}>
+              {children}
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+              <p>tstsfds</p>
+            </ScrollContainer>
+          </Content>
+        </Wrapper>
+      ) : null}
+    </>
+  )
+}
