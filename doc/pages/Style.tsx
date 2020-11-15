@@ -24,12 +24,6 @@ const ColorPreview = styled.div<{ color: string; contrast?: string }>`
   }
 `
 
-// Rerender when config was changed to reflect changes.
-const handleConfig = (configuration: any) => {
-  configure(configuration)
-  // TODO onStyleChange
-}
-
 export const Style = ({ onStyleChange }: { onStyleChange: () => void }) => (
   <>
     <Element.Heading as="h2">naven Styles</Element.Heading>
@@ -51,7 +45,11 @@ export const Style = ({ onStyleChange }: { onStyleChange: () => void }) => (
     <Element.Heading as="h2">naven Configuration</Element.Heading>
     <Konfi
       data={{ colors: Color, space: Space, breakpoints: Breakpoints }}
-      onChange={handleConfig}
+      onChange={(configuration: any) => {
+        // Rerender when config was changed to reflect changes.
+        configure(configuration)
+        onStyleChange()
+      }}
     />
     <Element.Spacer />
   </>

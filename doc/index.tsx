@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from 'react-dom'
+import { render, unmountComponentAtNode } from 'react-dom'
 import { Router, Page } from 'epic-react-router'
 import { Global, Header, Navigation, Content, Footer } from 'naven'
 import { Configuration } from './pages/Configuration'
@@ -19,7 +19,12 @@ Router.setPages(
   'overview'
 )
 
-// TODO configure pages
+const rerender = () => {
+  // Just rerendering will only update components where props have changed.
+  // Changing configuration at run-time only for demonstration purposes.
+  unmountComponentAtNode(document.body)
+  app()
+}
 
 const app = () =>
   render(
@@ -28,7 +33,7 @@ const app = () =>
       <Header title="naven Demo" />
       <Navigation />
       <Content>
-        <Page onStyleChange={app} />
+        <Page onStyleChange={rerender} />
       </Content>
       <Footer />
     </>,
