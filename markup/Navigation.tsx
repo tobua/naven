@@ -33,18 +33,20 @@ const listStyles = css`
 `
 
 const listElementStyles = css`
+  padding: 0;
+  margin-right: ${Space.small};
+
   ${Breakpoint.Phone} {
-    padding: 0;
     margin-bottom: ${Space.medium};
   }
 `
 
 const Content = styled.div<{ isOpen: boolean }>`
   height: ${({ isOpen }) => (isOpen ? 'auto' : 0)};
+  background: #fff;
   overflow: hidden;
-  background: #d5d5d5;
   position: absolute;
-  top: 30px;
+  top: 100%;
   left: 0;
   right: 0;
 
@@ -52,12 +54,14 @@ const Content = styled.div<{ isOpen: boolean }>`
     position: relative;
     height: auto;
     top: inherit;
-    margin-top: ${Space.small};
+    margin-top: ${Space.medium};
   }
 `
 
 const ContentContainer = styled.div`
-  padding: ${Space.medium};
+  display: flex;
+  flex-direction: column;
+  padding: ${Space.medium} 0;
 
   ${Breakpoint.Phone} {
     padding: 0;
@@ -128,7 +132,11 @@ export const Navigation = () => {
         {navigation.top.map((link, index) => (
           <Tab key={index}>
             <TextLink href={link.title.url}>{link.title.name}</TextLink>
-            <p>content</p>
+            <>
+              {link.links.map((secondLink) => (
+                <TextLink href={secondLink.url}>{secondLink.name}</TextLink>
+              ))}
+            </>
           </Tab>
         ))}
       </List>
