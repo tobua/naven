@@ -1,4 +1,4 @@
-import { Link } from '.'
+import { Link } from './types'
 
 export interface IHeader {
   links: Link[]

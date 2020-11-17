@@ -3,7 +3,7 @@ import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { List, TextLink } from './Element'
-import { navigation } from '../config'
+import { navigation, INavigation } from '../config'
 import { Space, Color, Breakpoint } from '../style'
 
 export const Wrapper = styled.nav<{ showNavigation: boolean }>`
@@ -108,7 +108,7 @@ export const SideBar = () => (
 
 let toggleMobileNavigation = null
 
-export const Navigation = () => {
+export const Navigation = ({ data = navigation }: { data?: INavigation }) => {
   const scrollContainerRef = useRef()
   const [showNavigation, toggleMobileNavigationState] = useState(false)
 
@@ -129,13 +129,17 @@ export const Navigation = () => {
         elementProps={{ css: listElementStyles }}
         horizontal
       >
-        {navigation.top.map((link, index) => (
-          <Tab key={index}>
+        {data.top.map((link) => (
+          <Tab key={link.title.name}>
             <TextLink href={link.title.url}>{link.title.name}</TextLink>
             <>
-              {link.links.map((secondLink) => (
-                <TextLink href={secondLink.url}>{secondLink.name}</TextLink>
-              ))}
+              {link.links &&
+                link.links.length &&
+                link.links.map((secondLink) => (
+                  <TextLink key={secondLink.name} href={secondLink.url}>
+                    {secondLink.name}
+                  </TextLink>
+                ))}
             </>
           </Tab>
         ))}

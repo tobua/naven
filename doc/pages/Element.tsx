@@ -99,7 +99,9 @@ export const Elements = () => (
     <Element.Button interact>Interaction</Element.Button>
     <Element.Button disabled>Disabled</Element.Button>
     <Element.Spacer />
-    <Element.Heading as="h2">Input</Element.Heading>
+    <Element.Heading as="h2">
+      <a id="input"></a>Input
+    </Element.Heading>
     <Element.Input placeholder="Input here" />
     <Element.Input placeholder="Input here" value="value" onChange={() => {}} />
     <Element.Spacer />

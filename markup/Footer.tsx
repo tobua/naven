@@ -2,7 +2,8 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { TextLink, List } from './Element'
 import { Space } from '../style'
-import { footer } from '../config'
+import { footer, IFooter } from '../config'
+import { SerializedStyles } from '@emotion/react'
 
 const Wrapper = styled.footer(
   `
@@ -24,9 +25,14 @@ const Row = styled.div(
 
 export const Footer = ({
   data = footer,
-  wrapperStyle = null,
-  rowStyle = null,
-  children = null,
+  wrapperStyle,
+  rowStyle,
+  children,
+}: {
+  data?: IFooter
+  wrapperStyle?: SerializedStyles
+  rowStyle?: SerializedStyles
+  children?: React.ReactNode
 }) => {
   if (children) {
     return <Wrapper css={wrapperStyle}>{children}</Wrapper>
@@ -38,8 +44,8 @@ export const Footer = ({
         <Row key={index} css={rowStyle}>
           <TextLink href={row.title.url}>{row.title.name}</TextLink>
           <List>
-            {row.links.map((item, index) => (
-              <TextLink key={index} href={item.url}>
+            {row.links.map((item, rowLinkIndex) => (
+              <TextLink key={rowLinkIndex} href={item.url}>
                 {item.name}
               </TextLink>
             ))}

@@ -7,7 +7,7 @@ import { Logo } from '../icon/Logo'
 import { Menu } from '../icon/Menu'
 import { Close } from '../icon/Close'
 import { Space, Breakpoint } from '../style'
-import { header } from '../config'
+import { header, IHeader } from '../config'
 
 export const Wrapper = styled.header`
   grid-column: 2 / 5;
@@ -88,7 +88,15 @@ export const Title = ({ logo = null, title, link = '/', children = null }) => {
   return <TitleLink href={link}>{content}</TitleLink>
 }
 
-export const Header = ({ data = header, logo = null, title }) => (
+export const Header = ({
+  data = header,
+  logo = null,
+  title,
+}: {
+  data?: IHeader
+  logo?: string
+  title?: string
+}) => (
   <Wrapper>
     <Title logo={logo} title={title} />
     <Meta>

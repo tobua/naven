@@ -1,4 +1,4 @@
-import { Link, OptionalLink } from '.'
+import { Link, OptionalLink } from './types'
 
 export interface IFooter {
   rows: {

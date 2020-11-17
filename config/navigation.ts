@@ -1,9 +1,9 @@
-import { Link, OptionalLink } from '.'
+import { Link, OptionalLink } from './types'
 
 export interface INavigation {
   top: {
     title: Link | OptionalLink
-    links: Link[]
+    links?: Link[]
   }[]
 }
 

@@ -30,8 +30,35 @@ const app = () =>
   render(
     <>
       <Global root="body" />
-      <Header title="naven Demo" />
-      <Navigation />
+      <Header
+        title="naven Demo"
+        data={{
+          links: [
+            { name: 'Overview', url: 'overview' },
+            { name: 'Installation', url: 'installation' },
+          ],
+        }}
+      />
+      <Navigation
+        data={{
+          top: [
+            {
+              title: { name: 'Element', url: 'element' },
+              links: [{ name: 'Input', url: 'element#input' }],
+            },
+            {
+              title: { name: 'Layout', url: 'layout' },
+            },
+            {
+              title: { name: 'Style', url: 'style' },
+            },
+            {
+              title: { name: 'Configuration', url: 'configuration' },
+              links: [{ name: 'Header', url: 'configuration#header' }],
+            },
+          ],
+        }}
+      />
       <Content>
         <Page onStyleChange={rerender} />
       </Content>
