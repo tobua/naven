@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/tobua/naven/raw/master/logo.svg" alt="naven">
+</p>
+
 # naven
 
 React based CSS-in-JS styling framework.
