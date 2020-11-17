@@ -1,19 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import {
-  Global,
-  Header,
-  Navigation,
-  Content,
-  Footer,
-  Element,
-  Horizontal,
-  Vertical,
-  Color,
-  Space,
-  Breakpoints,
-  configure,
-} from 'naven'
+import { Global, Header, Navigation, Content, Footer, Element } from 'naven'
 
 render(
   <>
