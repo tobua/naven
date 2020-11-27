@@ -36,6 +36,7 @@ const app = () =>
           links: [
             { name: 'Overview', url: 'overview' },
             { name: 'Installation', url: 'installation' },
+            { name: 'Usage', url: 'usage' },
           ],
         }}
       />

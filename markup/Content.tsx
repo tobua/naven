@@ -6,7 +6,7 @@ export const Main = styled.main<{ sidebar: boolean }>`
 `
 
 export const Tiles = styled.div`
-  //
+  display: flex;
 `
 
 export const Wide = styled.div`

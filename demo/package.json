@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "konfi": "^0.1.4",
-    "papua": "^0.1.5",
+    "papua": "^0.1.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },

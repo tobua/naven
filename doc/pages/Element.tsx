@@ -202,5 +202,14 @@ export const Elements = () => (
     <Element.Heading as="h2">Date Picker</Element.Heading>
     <Element.DatePicker />
     <Element.Spacer />
+    <Element.Heading as="h2">Code</Element.Heading>
+    <Element.Code language="javascript">
+      {`// Hello JS
+export const hello = () => console.log('world')`}
+    </Element.Code>
+    <Element.Spacer />
+    <Element.Code language="typescript">{`// Hello TS
+export const greet = (greeting: string) => console.log(\`hello \${greeting}!\`)`}</Element.Code>
+    <Element.Spacer />
   </>
 )
