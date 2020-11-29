@@ -14,4 +14,8 @@ export const Heading = styled.h1<any>`
     return '20px'
   }};
   margin-bottom: ${({ noSpace }) => (noSpace ? '0' : '20px')};
+  ${({ code }) =>
+    code
+      ? 'font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;'
+      : ''}
 `

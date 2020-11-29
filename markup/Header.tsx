@@ -19,6 +19,7 @@ export const Wrapper = styled.header`
 
 export const Image = styled.img`
   color: blue;
+  max-height: 100%;
 `
 
 export const Meta = styled.nav`
@@ -35,6 +36,8 @@ export const TitleText = styled.p`
 
 const TitleLink = styled(Link)`
   justify-self: start;
+  display: flex;
+  height: ${Space.large};
 `
 
 export const ToggleIconWrapper = styled.div`
@@ -70,15 +73,22 @@ const ToggleIcon = () => {
   )
 }
 
-export const Title = ({ logo = null, title, link = '/', children = null }) => {
+interface TitleProps {
+  logo?: string
+  title?: string
+  link?: string
+  children?: any
+}
+
+export const Title = ({ logo = null, title, link, children }: TitleProps) => {
   let content = <Logo />
+
+  if (!logo && !children) {
+    return <TitleText>{title}</TitleText>
+  }
 
   if (logo) {
     content = <Image src={logo} />
-  }
-
-  if (title) {
-    return <TitleText>{title}</TitleText>
   }
 
   if (children) {
@@ -88,17 +98,25 @@ export const Title = ({ logo = null, title, link = '/', children = null }) => {
   return <TitleLink href={link}>{content}</TitleLink>
 }
 
-export const Header = ({
-  data = header,
-  logo = null,
-  title,
-}: {
+interface Props {
   data?: IHeader
   logo?: string
   title?: string
-}) => (
+  link?: string
+  children?: any
+}
+
+export const Header = ({
+  data = header,
+  logo = null,
+  title = 'naven',
+  link = '/',
+  children,
+}: Props) => (
   <Wrapper>
-    <Title logo={logo} title={title} />
+    <Title logo={logo} title={title} link={link}>
+      {children}
+    </Title>
     <Meta>
       <ToggleIcon />
       <List
@@ -109,9 +127,9 @@ export const Header = ({
         `}
         horizontal
       >
-        {data.links.map((link) => (
-          <TextLink key={link.url} href={link.url}>
-            {link.name}
+        {data.links.map((currentLink) => (
+          <TextLink key={currentLink.url} href={currentLink.url}>
+            {currentLink.name}
           </TextLink>
         ))}
       </List>

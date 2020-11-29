@@ -93,9 +93,11 @@ export const Tab = ({ children }: { children: React.ReactElement[] }) => {
       onBlur={() => setOpen(false)}
     >
       {children[0]}
-      <Content isOpen={open}>
-        <ContentContainer>{children[1]}</ContentContainer>
-      </Content>
+      {children[1].props.children && (
+        <Content isOpen={open}>
+          <ContentContainer>{children[1]}</ContentContainer>
+        </Content>
+      )}
     </TabElement>
   )
 }

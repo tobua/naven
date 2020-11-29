@@ -2,12 +2,6 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { Space, Color, Shade } from '../../style'
 
-interface ButtonProps {
-  highlight?: boolean
-  interact?: boolean
-  children: any
-}
-
 const getButtonColor = (
   { highlight = false, interact = false },
   opacity: number
@@ -39,7 +33,15 @@ const Wrapper = styled.button<any>`
   &:hover {
     background-color: ${(props) => getButtonColor(props, 1)};
   }
+
+  ${({ css }) => css}
 `
+
+interface ButtonProps {
+  highlight?: boolean
+  interact?: boolean
+  children: any
+}
 
 export const Button = ({
   highlight = false,

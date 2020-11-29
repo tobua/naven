@@ -11,4 +11,6 @@ export const Input = styled.input`
     margin-bottom: -2px;
     outline: none;
   }
+
+  ${({ css }) => css}
 `

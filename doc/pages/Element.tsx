@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { css } from '@emotion/react'
-import { Element, Vertical } from 'naven'
+import { Element, Vertical, Space } from 'naven'
 
 const Popup = () => {
   const [show, togglePopup] = useState(false)
@@ -57,6 +57,9 @@ const Checkboxes = () => {
         label="First"
         checked={first}
         onChange={() => setFirst(!first)}
+        wrapperCss={css`
+          margin-bottom: ${Space.small};
+        `}
       />
       <Element.Checkbox
         label="Second"
@@ -68,20 +71,24 @@ const Checkboxes = () => {
 }
 
 const Radios = () => {
-  const [first, setFirst] = useState(false)
-  const [second, setSecond] = useState(true)
+  const [selected, setSelected] = useState('first')
 
   return (
     <Vertical>
       <Element.Radio
         label="First"
-        checked={true}
-        onChange={() => setFirst(!first)}
+        name="group"
+        checked={selected === 'first'}
+        onChange={() => setSelected('first')}
+        wrapperCss={css`
+          margin-bottom: ${Space.small};
+        `}
       />
       <Element.Radio
         label="Second"
-        checked={false}
-        onChange={() => setSecond(!second)}
+        name="group"
+        checked={selected === 'second'}
+        onChange={() => setSelected('second')}
       />
     </Vertical>
   )
@@ -94,15 +101,40 @@ export const Elements = () => (
       Here is a list of the included elements.
     </Element.Paragraph>
     <Element.Heading as="h2">Button</Element.Heading>
-    <Element.Button>Button</Element.Button>
-    <Element.Button highlight>Highlight</Element.Button>
-    <Element.Button interact>Interaction</Element.Button>
+    <Element.Button
+      css={css`
+        margin-right: ${Space.small};
+      `}
+    >
+      Button
+    </Element.Button>
+    <Element.Button
+      highlight
+      css={css`
+        margin-right: ${Space.small};
+      `}
+    >
+      Highlight
+    </Element.Button>
+    <Element.Button
+      interact
+      css={css`
+        margin-right: ${Space.small};
+      `}
+    >
+      Interaction
+    </Element.Button>
     <Element.Button disabled>Disabled</Element.Button>
     <Element.Spacer />
     <Element.Heading as="h2">
       <a id="input"></a>Input
     </Element.Heading>
-    <Element.Input placeholder="Input here" />
+    <Element.Input
+      placeholder="Input here"
+      css={css`
+        margin-right: ${Space.small};
+      `}
+    />
     <Element.Input placeholder="Input here" value="value" onChange={() => {}} />
     <Element.Spacer />
     <Element.Heading as="h2">Alert</Element.Heading>
@@ -119,6 +151,7 @@ export const Elements = () => (
     <Element.Spacer size="large" />
     <Element.Heading as="h2">Checkbox</Element.Heading>
     <Checkboxes />
+    <Element.Spacer />
     <Element.Heading as="h2">Radio</Element.Heading>
     <Radios />
     <Element.Spacer />
