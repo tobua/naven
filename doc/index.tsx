@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
 import { Router, Page } from 'epic-react-router'
-import { Global, Header, Navigation, Content } from 'naven'
+import { Global, Header, Navigation } from 'naven'
 import { Configuration } from 'pages/Configuration'
 import { Elements } from 'pages/Element'
 import { Layout } from 'pages/Layout'
@@ -38,8 +38,6 @@ const app = () =>
         data={{
           links: [
             { name: 'Overview', url: 'overview' },
-            { name: 'Installation', url: 'installation' },
-            { name: 'Usage', url: 'usage' },
             { name: 'Demo', url: 'https://tobua.github.io/naven/demo' },
             { name: 'GitHub', url: 'https://github.com/tobua/naven' },
           ],
@@ -49,8 +47,33 @@ const app = () =>
         data={{
           top: [
             {
+              title: { name: 'Configuration', url: 'configuration' },
+              links: [{ name: 'Header', url: 'configuration#header' }],
+            },
+            {
               title: { name: 'Elements', url: 'element' },
-              links: [{ name: 'Input', url: 'element#input' }],
+              links: [
+                { name: 'Accordion', url: 'element#accordion' },
+                { name: 'Alert', url: 'element#alert' },
+                { name: 'Badge', url: 'element#badge' },
+                { name: 'Button', url: 'element#button' },
+                { name: 'Checkbox', url: 'element#checkbox' },
+                { name: 'Code', url: 'element#code' },
+                { name: 'Date', url: 'element#date' },
+                { name: 'Dropdown', url: 'element#dropdown' },
+                { name: 'Heading', url: 'element#heading' },
+                { name: 'Image', url: 'element#image' },
+                { name: 'Input', url: 'element#input' },
+                { name: 'Link', url: 'element#link' },
+                { name: 'List', url: 'element#list' },
+                { name: 'Loader', url: 'element#loader' },
+                { name: 'Notification', url: 'element#notification' },
+                { name: 'Popup', url: 'element#popup' },
+                { name: 'Spacer', url: 'element#spacer' },
+                { name: 'Tabs', url: 'element#tabs' },
+                { name: 'Text', url: 'element#text' },
+                { name: 'Tooltip', url: 'element#tooltip' },
+              ],
             },
             {
               title: { name: 'Layout', url: 'layout' },
@@ -58,16 +81,10 @@ const app = () =>
             {
               title: { name: 'Style', url: 'style' },
             },
-            {
-              title: { name: 'Configuration', url: 'configuration' },
-              links: [{ name: 'Header', url: 'configuration#header' }],
-            },
           ],
         }}
       />
-      <Content>
-        <Page onStyleChange={rerender} />
-      </Content>
+      <Page onStyleChange={rerender} />
     </>,
     document.body
   )

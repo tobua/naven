@@ -16,12 +16,12 @@ const styles = ({ root }) => css`
 
   ${root} {
     display: grid;
-    row-gap: ${Space.small};
+    row-gap: ${Space.medium};
     grid-template-columns:
-      auto minmax(0, 250px) minmax(max-content, 1000px) minmax(0, 250px)
+      auto minmax(0, 250px) 980px minmax(0, 250px)
       auto;
 
-    ${Breakpoint.Phone} {
+    ${Breakpoint.Tablet} {
       grid-template-columns: 0 0 1fr 0 0;
     }
   }

@@ -1,8 +1,8 @@
 import React from 'react'
-import { Element } from 'naven'
+import { Content, Element } from 'naven'
 
 export const Configuration = () => (
-  <>
+  <Content>
     <Element.Heading>Configuration</Element.Heading>
     <Element.Paragraph>
       Components like <Element.InlineCode>{`<Header />`}</Element.InlineCode>{' '}
@@ -29,7 +29,8 @@ export const Configuration = () => (
       />`}
     </Element.Code>
     <Element.Heading as="h2" code>{`<Navigation />`}</Element.Heading>
+    <Element.Heading as="h2" code>{`<Content />`}</Element.Heading>
     <Element.Heading as="h2" code>{`<Footer />`}</Element.Heading>
     <Element.Spacer />
-  </>
+  </Content>
 )

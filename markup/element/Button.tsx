@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { SerializedStyles } from '@emotion/react'
 import { Space, Color, Shade } from '../../style'
 
 const getButtonColor = (
@@ -40,6 +41,7 @@ const Wrapper = styled.button<any>`
 interface ButtonProps {
   highlight?: boolean
   interact?: boolean
+  css?: SerializedStyles
   children: any
 }
 

@@ -1,27 +1,20 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { SerializedStyles } from '@emotion/react'
 
 export const Main = styled.main<{ sidebar: boolean }>`
   grid-column: ${({ sidebar }) => (sidebar ? 3 : 2)} / 5;
-`
-
-export const Tiles = styled.div`
-  display: flex;
-`
-
-export const Wide = styled.div`
-  grid-column: 1 / 5;
-`
-
-export const Slim = styled.div`
-  grid-column: 3 / 4;
+  ${({ css }) => css}
 `
 
 interface ContentProps {
   children: React.ReactNode
+  css?: SerializedStyles
   sidebar?: boolean
 }
 
-export const Content = ({ children, sidebar = false }: ContentProps) => (
-  <Main sidebar={sidebar}>{children}</Main>
+export const Content = ({ css, children, sidebar = false }: ContentProps) => (
+  <Main css={css} sidebar={sidebar}>
+    {children}
+  </Main>
 )

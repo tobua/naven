@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { css } from '@emotion/react'
-import { Element, Vertical, Space } from 'naven'
+import { Content, Element, Vertical, Space } from 'naven'
 
 const Popup = () => {
   const [show, togglePopup] = useState(false)
@@ -95,7 +95,7 @@ const Radios = () => {
 }
 
 export const Elements = () => (
-  <>
+  <Content>
     <Element.Heading as="h2">naven Elements</Element.Heading>
     <Element.Paragraph>
       Here is a list of the included elements.
@@ -244,5 +244,5 @@ export const hello = () => console.log('world')`}
     <Element.Code language="typescript">{`// Hello TS
 export const greet = (greeting: string) => console.log(\`hello \${greeting}!\`)`}</Element.Code>
     <Element.Spacer />
-  </>
+  </Content>
 )
