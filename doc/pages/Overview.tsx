@@ -1,8 +1,8 @@
 import React from 'react'
-import { Element } from 'naven'
+import { Element, Content } from 'naven'
 
 export const Overview = () => (
-  <>
+  <Content>
     <Element.Heading>naven UI Library</Element.Heading>
     <Element.Heading as="h2">Overview</Element.Heading>
     <Element.Paragraph>
@@ -37,5 +37,5 @@ render(
 )
 `}</Element.Code>
     <Element.Spacer />
-  </>
+  </Content>
 )

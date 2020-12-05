@@ -1,14 +1,19 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { Konfi } from 'konfi'
+import merge from 'deepmerge'
+import { diff } from 'deep-object-diff'
 import {
   Element,
+  Content,
   Horizontal,
   Color,
   Space,
   Breakpoints,
   configure,
 } from 'naven'
+
+const defaultStyles = { colors: Color, space: Space, breakpoints: Breakpoints }
 
 const ColorPreview = styled.div<{ color: string; contrast?: string }>`
   background: ${({ color }) => color};
@@ -24,9 +29,14 @@ const ColorPreview = styled.div<{ color: string; contrast?: string }>`
   }
 `
 
+const getStoredStyles = () =>
+  JSON.parse(window.localStorage.getItem('styles') ?? '{}')
+
+export const configureUserStyles = () => configure(getStoredStyles())
+
 export const Style = ({ onStyleChange }: { onStyleChange: () => void }) => (
-  <>
-    <Element.Heading as="h2">naven Styles</Element.Heading>
+  <Content>
+    <Element.Heading as="h2">Style</Element.Heading>
     <Element.Heading as="h3">Colors</Element.Heading>
     <Horizontal>
       <ColorPreview color={Color.highlight}>highlight</ColorPreview>
@@ -42,15 +52,22 @@ export const Style = ({ onStyleChange }: { onStyleChange: () => void }) => (
       </ColorPreview>
     </Horizontal>
     <Element.Spacer />
-    <Element.Heading as="h2">naven Configuration</Element.Heading>
+    <Element.Heading as="h2">Configuration</Element.Heading>
     <Konfi
-      data={{ colors: Color, space: Space, breakpoints: Breakpoints }}
+      data={merge(defaultStyles, getStoredStyles(), { clone: true })}
       onChange={(configuration: any) => {
+        // Only store the diff, to save space ;)
+        const difference = diff(
+          defaultStyles,
+          merge(getStoredStyles(), configuration, { clone: true })
+        )
+        // Store configuration in localstorage to be reflected on other pages as well.
+        window.localStorage.setItem('styles', JSON.stringify(difference))
         // Rerender when config was changed to reflect changes.
         configure(configuration)
         onStyleChange()
       }}
     />
     <Element.Spacer />
-  </>
+  </Content>
 )

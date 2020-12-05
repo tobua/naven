@@ -5,7 +5,7 @@ import { Global, Header, Navigation } from 'naven'
 import { Configuration } from 'pages/Configuration'
 import { Elements } from 'pages/Element'
 import { Layout } from 'pages/Layout'
-import { Style } from 'pages/Style'
+import { Style, configureUserStyles } from 'pages/Style'
 import { Overview } from 'pages/Overview'
 // @ts-ignore
 import logo from 'logo.svg'
@@ -20,6 +20,9 @@ Router.setPages(
   },
   'overview'
 )
+
+// Apply possibly user configured styles from localStorage.
+configureUserStyles()
 
 const rerender = () => {
   // Just rerendering will only update components where props have changed.

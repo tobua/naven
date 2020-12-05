@@ -96,7 +96,7 @@ const Radios = () => {
 
 export const Elements = () => (
   <Content>
-    <Element.Heading as="h2">naven Elements</Element.Heading>
+    <Element.Heading as="h2">Elements</Element.Heading>
     <Element.Paragraph>
       Here is a list of the included elements.
     </Element.Paragraph>
