@@ -13,7 +13,10 @@ import {
   configure,
 } from 'naven'
 
-const defaultStyles = { colors: Color, space: Space, breakpoints: Breakpoints }
+const defaultStyles = merge(
+  {},
+  { colors: Color, space: Space, breakpoints: Breakpoints }
+)
 
 const ColorPreview = styled.div<{ color: string; contrast?: string }>`
   background: ${({ color }) => color};
@@ -53,14 +56,22 @@ export const Style = ({ onStyleChange }: { onStyleChange: () => void }) => (
     </Horizontal>
     <Element.Spacer />
     <Element.Heading as="h2">Configuration</Element.Heading>
+    <Element.Button
+      disabled={!Object.keys(getStoredStyles()).length}
+      onClick={() => {
+        window.localStorage.removeItem('styles')
+        configure(defaultStyles)
+        onStyleChange()
+      }}
+    >
+      Reset
+    </Element.Button>
+    <Element.Spacer />
     <Konfi
-      data={merge(defaultStyles, getStoredStyles(), { clone: true })}
+      data={merge(defaultStyles, getStoredStyles())}
       onChange={(configuration: any) => {
         // Only store the diff, to save space ;)
-        const difference = diff(
-          defaultStyles,
-          merge(getStoredStyles(), configuration, { clone: true })
-        )
+        const difference = diff(defaultStyles, configuration)
         // Store configuration in localstorage to be reflected on other pages as well.
         window.localStorage.setItem('styles', JSON.stringify(difference))
         // Rerender when config was changed to reflect changes.

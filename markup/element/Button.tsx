@@ -22,7 +22,7 @@ const Wrapper = styled.button<any>`
   background-color: ${(props) => getButtonColor(props, 0.8)};
   border: none;
   outline: none;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? 'auto' : 'pointer')};
   border-radius: ${Space.tiny};
   color: ${Color.white};
   text-decoration: ${({ disabled }) => (disabled ? 'line-through' : '')};
