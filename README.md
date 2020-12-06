@@ -4,6 +4,9 @@
 
 # naven
 
+[![naven Demo](https://img.shields.io/static/v1?label=naven&message=Demo&color=brightgreen)](https://tobua.github.io/naven/demo)
+[![naven Docs](https://img.shields.io/static/v1?label=naven&message=Docs&color=blue)](https://tobua.github.io/naven/doc)
+
 React based CSS-in-JS styling framework.
 
 ## Installation
