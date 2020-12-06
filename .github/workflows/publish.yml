@@ -23,9 +23,9 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: demo
+          BRANCH: publish
           FOLDER: demo/dist
-          CLEAN: true
+          TARGET_FOLDER: demo
       - name: Build Docs 🛠️
         run: |
           npm install
@@ -36,6 +36,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: doc
+          BRANCH: publish
           FOLDER: doc/dist
-          CLEAN: true
+          TARGET_FOLDER: doc
