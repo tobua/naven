@@ -5,7 +5,7 @@
 # naven
 
 [![naven Demo](https://img.shields.io/static/v1?label=naven&message=Demo&color=brightgreen)](https://tobua.github.io/naven/demo)
-[![naven Docs](https://img.shields.io/static/v1?label=naven&message=Docs&color=blue)](https://tobua.github.io/naven/doc)
+[![naven Docs](https://img.shields.io/static/v1?label=naven&message=Documentation&color=blue)](https://tobua.github.io/naven/doc)
 
 React based CSS-in-JS styling framework.
 
@@ -25,7 +25,7 @@ npm init now naven
 
 The following is an example of how to render a page generated with naven to display some minimal content.
 
-```tsx
+```jsx
 import React from 'react'
 import { render } from 'react-dom'
 import { Global, Header, Navigation, Content, Footer, Element } from 'naven'
@@ -33,7 +33,7 @@ import { Global, Header, Navigation, Content, Footer, Element } from 'naven'
 render(
   <>
     <Global root="body" />
-    <Header title="naven Demo" />
+    <Header title="My App" />
     <Navigation />
     <Content>
       <Element.Heading>naven Demo</Element.Heading>
@@ -43,6 +43,64 @@ render(
   </>,
   document.body
 )
+```
+
+## Configuration
+
+The base components are populated with some example date which you can see in the [demo](https://tobua.github.io/naven/demo). This data should be configured on the respective components for example the Header. Refer to the documentation how to configure the other components [Configuration](https://tobua.github.io/naven/doc/configuration).
+
+```jsx
+import logo from 'assets/logo.svg'
+
+const MyHeader = (
+  <Header
+    logo={logo}
+    data={{
+      links: [
+        { name: 'Home', url: '/' },
+        { name: 'About', url: 'about' },
+        { name: 'Shop', url: 'shop' },
+      ],
+    }}
+  />
+)
+```
+
+## Style
+
+```jsx
+import { configure } from 'naven'
+
+configure({
+  colors: //
+  breakpoint: //
+  space: //
+})
+```
+
+## Layout and Spacing
+
+```jsx
+import { Wide, Narrow } from 'naven'
+
+render(
+  <>
+    <Global root="body" />
+    <Header title="naven Demo" />
+    <Navigation />
+    <Wide>Wide (Screen Width)</Wide>
+    <Content>Regular Width (max 1500px)</Content>
+    <Narrow>Narrow Width (max 1000px)</Narrow>
+    <Footer />
+  </>,
+  document.body
+)
+```
+
+## Responsive
+
+```jsx
+import { Breakpoint, Breakpoints } from 'naven'
 ```
 
 ## Development

@@ -7,7 +7,6 @@ import { Elements } from 'pages/Element'
 import { Layout } from 'pages/Layout'
 import { Style, configureUserStyles } from 'pages/Style'
 import { Overview } from 'pages/Overview'
-// @ts-ignore
 import logo from 'logo.svg'
 
 Router.setPages(
