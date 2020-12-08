@@ -2,10 +2,14 @@ import React from 'react'
 import { Content, Element, Horizontal, Vertical, Wide, Narrow } from 'naven'
 import { css } from '@emotion/react'
 
-export const Layout = () => (
+export const Advanced = () => (
   <>
     <Content>
-      <Element.Heading as="h2">Layout</Element.Heading>
+      <Element.Heading>Advanced</Element.Heading>
+      <Element.Heading as="h2">
+        <Element.Anchor name="layout" />
+        Layout
+      </Element.Heading>
       <Element.Heading as="h3" code>{`<Wide />`}</Element.Heading>
       <Element.Spacer />
     </Content>
@@ -50,7 +54,10 @@ export const Layout = () => (
         <div>Second</div>
         <div>Third</div>
       </Vertical>
-      <Element.Spacer />
+      <Element.Heading as="h2">
+        <Element.Anchor name="spacing" />
+        Spacing
+      </Element.Heading>
     </Content>
   </>
 )

@@ -4,7 +4,7 @@ import { Router, Page } from 'epic-react-router'
 import { Global, Header, Navigation } from 'naven'
 import { Configuration } from 'pages/Configuration'
 import { Elements } from 'pages/Element'
-import { Layout } from 'pages/Layout'
+import { Advanced } from 'pages/Advanced'
 import { Style, configureUserStyles } from 'pages/Style'
 import { Overview } from 'pages/Overview'
 import logo from 'logo.svg'
@@ -14,7 +14,7 @@ Router.setPages(
     overview: Overview,
     configuration: Configuration,
     element: Elements,
-    layout: Layout,
+    advanced: Advanced,
     style: Style,
   },
   'overview'
@@ -50,7 +50,12 @@ const app = () =>
           top: [
             {
               title: { name: 'Configuration', url: 'configuration' },
-              links: [{ name: 'Header', url: 'configuration#header' }],
+              links: [
+                { name: 'Global', url: 'configuration#global' },
+                { name: 'Header', url: 'configuration#header' },
+                { name: 'Navigation', url: 'configuration#navigation' },
+                { name: 'Footer', url: 'configuration#footer' },
+              ],
             },
             {
               title: { name: 'Elements', url: 'element' },
@@ -78,10 +83,14 @@ const app = () =>
               ],
             },
             {
-              title: { name: 'Layout', url: 'layout' },
+              title: { name: 'Style', url: 'style' },
             },
             {
-              title: { name: 'Style', url: 'style' },
+              title: { name: 'Advanced', url: 'advanced' },
+              links: [
+                { name: 'Layout', url: 'advanced#layout' },
+                { name: 'Spacing', url: 'spacing' },
+              ],
             },
           ],
         }}

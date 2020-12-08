@@ -78,7 +78,7 @@ configure({
 })
 ```
 
-## Layout and Spacing
+## Layout
 
 ```jsx
 import { Wide, Narrow } from 'naven'
@@ -96,6 +96,20 @@ render(
   document.body
 )
 ```
+
+## Spacing
+
+This library assumes that elements are spaced to the bottom. By default every element will get a 20px `margin-bottom`.
+
+```
+<Element.Paragraph>20px margin-bottom</Element.Paragraph>
+<Element.Paragraph space={0}>No bottom margin</Element.Paragraph>
+<Element.Paragraph space={Space.large}>40px margin-bottom</Element.Paragraph>
+<Element.Paragraph space={4}>4px margin-bottom</Element.Paragraph>
+<Element.Paragraph space={'3vh'}>3vh margin-bottom</Element.Paragraph>
+```
+
+// TODO Element.Spacer
 
 ## Responsive
 

@@ -127,7 +127,8 @@ export const Elements = () => (
     <Element.Button disabled>Disabled</Element.Button>
     <Element.Spacer />
     <Element.Heading as="h2">
-      <a id="input"></a>Input
+      <Element.Anchor name="input" />
+      Input
     </Element.Heading>
     <Element.Input
       placeholder="Input here"

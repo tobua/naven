@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import React from 'react'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { Color } from '../../style'
+import { Color, spaceStyleProp } from '../../style'
 
 export const InlineCode = styled.code`
   background-color: ${Color.Gray[300]};
@@ -12,9 +12,17 @@ export const InlineCode = styled.code`
 
 interface ICode {
   children: string
+  space?: number | string
   language?: 'javascript' | 'typescript'
 }
 
-export const Code = ({ children, language = 'typescript' }: ICode) => {
-  return <SyntaxHighlighter language={language}>{children}</SyntaxHighlighter>
+export const Code = ({ space, children, language = 'typescript' }: ICode) => {
+  return (
+    <SyntaxHighlighter
+      language={language}
+      customStyle={{ ...spaceStyleProp(space) }}
+    >
+      {children}
+    </SyntaxHighlighter>
+  )
 }
