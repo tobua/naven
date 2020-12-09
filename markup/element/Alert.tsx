@@ -3,6 +3,7 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Close } from '../../icon'
 import { Space, Color } from '../../style'
+import { Paragraph } from './Text'
 
 type Type = 'info' | 'warning' | 'error'
 
@@ -67,7 +68,7 @@ export const Alert = ({
           />
         </CloseContainer>
       )}
-      {children}
+      <Paragraph>{children}</Paragraph>
     </Wrapper>
   )
 }

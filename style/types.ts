@@ -26,3 +26,7 @@ export interface ISpace {
 }
 
 export type Space = 'tiny' | 'small' | 'medium' | 'large'
+
+export interface ILook {
+  corner?: number
+}

@@ -9,13 +9,14 @@ import {
   Horizontal,
   Color,
   Space,
+  Look,
   Breakpoints,
   configure,
 } from 'naven'
 
 const defaultStyles = merge(
   {},
-  { colors: Color, space: Space, breakpoints: Breakpoints }
+  { colors: Color, space: Space, breakpoints: Breakpoints, look: Look }
 )
 
 const ColorPreview = styled.div<{ color: string; contrast?: string }>`

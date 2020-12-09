@@ -3,10 +3,10 @@ import { spaceProp } from '../../style'
 
 // @ts-ignore
 export const Paragraph = styled.p<{ space?: number | string }>`
-  display: flex;
+  display: block;
   ${spaceProp}
 `
 
 export const Text = styled.span`
-  display: inline-flex;
+  display: inline;
 `
