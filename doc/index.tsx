@@ -46,6 +46,7 @@ const app = () =>
         }}
       />
       <Navigation
+        linkActive={(url: string) => url === Router.route}
         data={{
           top: [
             {
@@ -89,7 +90,8 @@ const app = () =>
               title: { name: 'Advanced', url: 'advanced' },
               links: [
                 { name: 'Layout', url: 'advanced#layout' },
-                { name: 'Spacing', url: 'spacing' },
+                { name: 'Spacing', url: 'advanced#spacing' },
+                { name: 'Utility Methods', url: 'advanced#utility' },
               ],
             },
           ],

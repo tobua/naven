@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { uniqueID } from '../../utility/unique-id'
-import { Color, Space } from '../../style'
+import { Color, Space, radius } from '../../style'
 
 const CheckboxInput = styled.input`
   border: 1px solid ${Color.black};
@@ -28,7 +28,7 @@ const CheckboxInput = styled.input`
 
 const RadioInput = styled.input`
   border: 1px solid ${Color.black};
-  border-radius: ${Space.medium};
+  ${() => radius()}
   appearance: none;
   margin: 0;
 

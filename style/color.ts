@@ -19,9 +19,7 @@ export const Color: IColor = {
   },
 }
 
-export const configure = (_colors: IColor) => {
-  assign(Color, _colors)
-}
+export const configure = (_colors: IColor) => assign(Color, _colors)
 
 export const Shade = (color: string, opacity: number) => {
   const rgb = hexToRgb(color)

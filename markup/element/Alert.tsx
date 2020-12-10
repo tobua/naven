@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Close } from '../../icon'
-import { Space, Color } from '../../style'
+import { Space, Color, radius } from '../../style'
 import { Paragraph } from './Text'
 
 type Type = 'info' | 'warning' | 'error'
@@ -24,10 +24,10 @@ const Wrapper = styled.div<{ type: Type }>`
   display: flex;
   align-items: center;
   padding: ${Space.small};
-  border-radius: ${Space.small};
+  ${() => radius()}
   border: 1px solid
     ${({ type }) =>
-      valueByType(type, [Color.Gray['500'], Color.warning, Color.error])};
+    valueByType(type, [Color.Gray['500'], Color.warning, Color.error])};
 `
 
 const CloseContainer = styled.div`
@@ -68,7 +68,7 @@ export const Alert = ({
           />
         </CloseContainer>
       )}
-      <Paragraph>{children}</Paragraph>
+      <Paragraph space={0}>{children}</Paragraph>
     </Wrapper>
   )
 }

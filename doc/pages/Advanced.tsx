@@ -57,6 +57,16 @@ export const Advanced = () => (
         <Element.Anchor name="spacing" />
         Spacing
       </Element.Heading>
+      <Element.Heading as="h2">
+        <Element.Anchor name="utility" />
+        Utility Methods
+      </Element.Heading>
+      <Element.Code>{`import { toPx } from 'naven'
+
+css\`
+  padding: \${toPx(5)};
+  margin: \${toPx('5vh')}
+\``}</Element.Code>
     </Content>
   </>
 )

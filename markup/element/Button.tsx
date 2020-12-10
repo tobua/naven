@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
-import { Space, Color, Shade } from '../../style'
+import { Space, Color, Shade, radius } from '../../style'
 
 const getButtonColor = (
   { highlight = false, interact = false },
@@ -23,7 +23,7 @@ const Wrapper = styled.button<any>`
   border: none;
   outline: none;
   cursor: ${({ disabled }) => (disabled ? 'auto' : 'pointer')};
-  border-radius: ${Space.tiny};
+  ${() => radius()}
   color: ${Color.white};
   text-decoration: ${({ disabled }) => (disabled ? 'line-through' : '')};
 

@@ -101,12 +101,14 @@ render(
 
 This library assumes that elements are spaced to the bottom. By default every element will get a 20px `margin-bottom`.
 
-```
-<Element.Paragraph>20px margin-bottom</Element.Paragraph>
-<Element.Paragraph space={0}>No bottom margin</Element.Paragraph>
-<Element.Paragraph space={Space.large}>40px margin-bottom</Element.Paragraph>
-<Element.Paragraph space={4}>4px margin-bottom</Element.Paragraph>
-<Element.Paragraph space={'3vh'}>3vh margin-bottom</Element.Paragraph>
+```jsx
+import { Element } from 'naven'
+
+const SpacedParagraph = (
+  <Element.Paragraph space={0 | Space.large | 5 | '3vh' | undefined}>
+    Hello
+  </Element.Paragraph>
+)
 ```
 
 // TODO Element.Spacer

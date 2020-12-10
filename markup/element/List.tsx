@@ -1,17 +1,19 @@
 import React from 'react'
 import { SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
-import { Space } from '../../style'
+import { Space, toPx } from '../../style'
 
 const ListUl = styled.ul<ListProps>`
   display: flex;
   flex-direction: ${({ horizontal }) => (horizontal ? 'row' : 'column')};
   flex-wrap: ${({ wrap }) => (wrap ? 'wrap' : 'inherit')};
+  row-gap: ${({ gap }) => toPx(gap)};
+  column-gap: ${({ gap }) => toPx(gap)};
+
   ${({ css }) => css}
 `
 
 const ListLi = styled.li`
-  padding: ${Space.small};
   ${({ css }) => css}
 `
 
@@ -19,17 +21,24 @@ type ListProps = {
   horizontal?: boolean
   wrap?: boolean
   css?: SerializedStyles
+  gap?: number | string
   children: any[]
-  elementProps?: {}
+  elementProps?: {
+    css?: SerializedStyles
+  } & React.DetailedHTMLProps<
+    React.LiHTMLAttributes<HTMLLIElement>,
+    HTMLLIElement
+  >
 }
 
 export const List = ({
   horizontal,
   children,
   elementProps,
+  gap = Space.small,
   ...props
 }: ListProps) => (
-  <ListUl horizontal={horizontal} {...props}>
+  <ListUl horizontal={horizontal} gap={gap} {...props}>
     {children.map((child, index) => (
       <ListLi key={index} {...elementProps}>
         {child}
