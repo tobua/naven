@@ -110,7 +110,15 @@ export const SideBar = () => (
 
 let toggleMobileNavigation = null
 
-export const Navigation = ({ data = navigation }: { data?: INavigation }) => {
+interface Props {
+  linkActive?: (url: string) => boolean
+  data?: INavigation
+}
+
+export const Navigation = ({
+  data = navigation,
+  linkActive = () => false,
+}: Props) => {
   const scrollContainerRef = useRef()
   const [showNavigation, toggleMobileNavigationState] = useState(false)
 
@@ -133,7 +141,9 @@ export const Navigation = ({ data = navigation }: { data?: INavigation }) => {
       >
         {data.top.map((link) => (
           <Tab key={link.title.name}>
-            <TextLink href={link.title.url}>{link.title.name}</TextLink>
+            <TextLink href={link.title.url} bold={linkActive(link.title.url)}>
+              {link.title.name}
+            </TextLink>
             <>
               {link.links &&
                 link.links.length &&

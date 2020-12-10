@@ -5,7 +5,6 @@ import { css } from '@emotion/react'
 export const Advanced = () => (
   <>
     <Content>
-      <Element.Heading>Advanced</Element.Heading>
       <Element.Heading as="h2">
         <Element.Anchor name="layout" />
         Layout

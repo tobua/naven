@@ -40,7 +40,6 @@ export const configureUserStyles = () => configure(getStoredStyles())
 
 export const Style = ({ onStyleChange }: { onStyleChange: () => void }) => (
   <Content>
-    <Element.Heading as="h2">Style</Element.Heading>
     <Element.Heading as="h3">Colors</Element.Heading>
     <Horizontal>
       <ColorPreview color={Color.highlight}>highlight</ColorPreview>

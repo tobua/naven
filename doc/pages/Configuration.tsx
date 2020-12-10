@@ -3,7 +3,6 @@ import { Content, Element } from 'naven'
 
 export const Configuration = () => (
   <Content>
-    <Element.Heading>Configuration</Element.Heading>
     <Element.Paragraph>
       Components like <Element.InlineCode>{`<Header />`}</Element.InlineCode>{' '}
       are prefilled with some default link data.

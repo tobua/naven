@@ -4,7 +4,6 @@ import { Element, Content } from 'naven'
 export const Overview = () => (
   <Content>
     <Element.Heading>naven UI Library</Element.Heading>
-    <Element.Heading as="h2">Overview</Element.Heading>
     <Element.Paragraph>
       Quickly prototype and implement custom designed web applications with
       React and CSS-in-JS. Avoid wasting time styling components from scratch
