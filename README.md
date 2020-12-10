@@ -15,10 +15,10 @@ React based CSS-in-JS styling framework.
 npm i naven
 ```
 
-or to generate a new project with a naven template:
+or to generate a new project with a naven template using [now](https://github.com/tobua/now):
 
 ```
-npm init now naven
+npm init now naven ./my-app
 ```
 
 ## Getting Started
@@ -99,7 +99,7 @@ render(
 
 ## Spacing
 
-This library assumes that elements are spaced to the bottom. By default every element will get a 20px `margin-bottom`.
+By default applicable elements will get a 20px `margin-bottom`. This space can be changed on the element with the `space` property.
 
 ```jsx
 import { Element } from 'naven'
@@ -110,8 +110,6 @@ const SpacedParagraph = (
   </Element.Paragraph>
 )
 ```
-
-// TODO Element.Spacer
 
 ## Responsive
 

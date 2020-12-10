@@ -1,7 +1,8 @@
+import React, { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
-import React from 'react'
-import SyntaxHighlighter from 'react-syntax-highlighter'
 import { Color, spaceStyleProp } from '../../style'
+import { Loader } from './Loader'
+import { Paragraph } from './Text'
 
 export const InlineCode = styled.code`
   background-color: ${Color.Gray[300]};
@@ -17,12 +18,31 @@ interface ICode {
 }
 
 export const Code = ({ space, children, language = 'typescript' }: ICode) => {
+  const [Component, setComponent] = useState(null)
+
+  useEffect(() => {
+    import('react-syntax-highlighter')
+      .then((result) => {
+        setComponent(result)
+      })
+      .catch(() => setComponent('error'))
+  })
+
+  if (!Component) {
+    return <Loader />
+  }
+
+  if (Component === 'error') {
+    return <Paragraph>Error loading component.</Paragraph>
+  }
+
   return (
-    <SyntaxHighlighter
+    // eslint-disable-next-line react/jsx-pascal-case
+    <Component.default
       language={language}
       customStyle={{ ...spaceStyleProp(space) }}
     >
       {children}
-    </SyntaxHighlighter>
+    </Component.default>
   )
 }

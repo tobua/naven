@@ -6,12 +6,10 @@ import { Breakpoint, Space } from '../style'
 const styles = ({ root }) => css`
   ${emotionReset}
 
-  html {
-    font-family: -apple-system, Helvetica, Arial, sans-serif;
-  }
-
   body {
     margin: ${Space.small};
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+    line-height: 1.2;
   }
 
   ${root} {
