@@ -8,7 +8,8 @@ export { Color, Shade } from './color'
 export { Breakpoints, Breakpoint } from './breakpoint'
 export { Space, spaceProp, spaceStyleProp } from './space'
 export { Layer } from './layer'
-export { Look, radius } from './look'
+export { Look, radius, radiusStyleProp } from './look'
+export { toPx } from './utility'
 
 // Types that can be used to type inputs requiring styles.
 export { Space as SpaceSize } from './types'
@@ -18,14 +19,6 @@ export interface IConfiguration {
   space?: ISpace
   breakpoints?: IBreakpoint
   look?: ILook
-}
-
-export const toPx = (value: number | string) => {
-  if (typeof value === 'number') {
-    return `${value}px`
-  }
-
-  return value
 }
 
 export const configure = (configuration: IConfiguration) => {

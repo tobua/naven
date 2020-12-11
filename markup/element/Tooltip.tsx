@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { usePopper } from 'react-popper'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
+import { Lazy } from './Lazy'
 
 const Wrapper = styled.div`
   display: inline-flex;
@@ -70,6 +70,7 @@ interface ContentProps {
   setOpen: (state: boolean) => void
   arrow?: boolean
   close?: boolean
+  usePopper: any
 }
 
 const Content = ({
@@ -79,6 +80,7 @@ const Content = ({
   setOpen,
   arrow,
   close,
+  usePopper,
 }: ContentProps) => {
   const [popperElement, setPopperElement] = useState(null)
   const [arrowElement, setArrowElement] = useState(null)
@@ -153,39 +155,47 @@ export const Tooltip = ({
   // visible if it's currently open.
   const [open, setOpen] = useState(false)
 
-  if (open && !initialized) {
-    setInitialized(true)
-  }
-
   return (
-    <>
-      <Wrapper
-        ref={setReferenceElement}
-        role="button"
-        tabIndex={0}
-        aria-label="Open tooltip"
-        onMouseEnter={() => setOpen(true)}
-        onKeyUp={(event) => {
-          if (event.key === 'Enter') {
-            setOpen(!open)
-          }
-        }}
-        onClick={() => setOpen(!open)}
-        css={css}
-      >
-        {children}
-      </Wrapper>
-      {initialized && (
-        <Content
-          referenceElement={referenceElement}
-          arrow={arrow}
-          close={close}
-          open={open}
-          setOpen={setOpen}
-        >
-          {content}
-        </Content>
-      )}
-    </>
+    <Lazy
+      imports={import('react-popper')}
+      result={({ usePopper }) => {
+        if (open && !initialized) {
+          setInitialized(true)
+        }
+
+        return (
+          <>
+            <Wrapper
+              ref={setReferenceElement}
+              role="button"
+              tabIndex={0}
+              aria-label="Open tooltip"
+              onMouseEnter={() => setOpen(true)}
+              onKeyUp={(event) => {
+                if (event.key === 'Enter') {
+                  setOpen(!open)
+                }
+              }}
+              onClick={() => setOpen(!open)}
+              css={css}
+            >
+              {children}
+            </Wrapper>
+            {initialized && (
+              <Content
+                referenceElement={referenceElement}
+                arrow={arrow}
+                close={close}
+                open={open}
+                setOpen={setOpen}
+                usePopper={usePopper}
+              >
+                {content}
+              </Content>
+            )}
+          </>
+        )
+      }}
+    />
   )
 }

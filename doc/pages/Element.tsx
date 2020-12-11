@@ -241,5 +241,12 @@ export const hello = () => console.log('world')`}
     <Element.Code language="typescript">{`// Hello TS
 export const greet = (greeting: string) => console.log(\`hello \${greeting}!\`)`}</Element.Code>
     <Element.Spacer />
+    <Element.Heading as="h2">Lazy</Element.Heading>
+    <Element.Lazy
+      // Mocking an import('./whatever')
+      imports={new Promise((done) => done(() => <p>lazy loaded...</p>))}
+      result={(Component) => Component}
+    />
+    <Element.Spacer />
   </Content>
 )

@@ -1,8 +1,9 @@
 import React, { useState, Component } from 'react'
 import { Global, css } from '@emotion/react'
-import ReactDatePicker from 'react-datepicker'
+// TODO support multiple imports with Lazy.
 import 'react-datepicker/dist/react-datepicker.css'
 import { Input } from './Input'
+import { Lazy } from './Lazy'
 
 interface IDate {
   initialDate?: Date
@@ -25,17 +26,25 @@ export const DatePicker = ({
   initialDate = new Date(),
   styleOverrides = '',
 }: IDate) => {
+  // Hook inside result will fail.
   const [startDate, setStartDate] = useState(initialDate)
-
   return (
-    <>
-      <Global styles={css(styleOverrides)} />
-      <ReactDatePicker
-        selected={startDate}
-        onChange={(date: Date) => setStartDate(date)}
-        // @ts-ignore
-        customInput={<DateInput />}
-      />
-    </>
+    <Lazy
+      imports={import('react-datepicker')}
+      result={(ImportedComponent) => {
+        const ReactDatePicker = ImportedComponent.default
+        return (
+          <>
+            <Global styles={css(styleOverrides)} />
+            <ReactDatePicker
+              selected={startDate}
+              onChange={(date: Date) => setStartDate(date)}
+              // @ts-ignore
+              customInput={<DateInput />}
+            />
+          </>
+        )
+      }}
+    />
   )
 }
