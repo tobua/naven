@@ -30,3 +30,10 @@ export type Space = 'tiny' | 'small' | 'medium' | 'large'
 export interface ILook {
   corner?: number
 }
+
+export interface ILayer {
+  Content?: number
+  Navigation?: number
+  Popup?: number
+  Notification?: number
+}

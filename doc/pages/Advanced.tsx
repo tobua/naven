@@ -70,6 +70,22 @@ css\`
         <Element.Anchor name="layers" />
         Layers
       </Element.Heading>
+      <Element.Paragraph>
+        Use layers to assign the{' '}
+        <Element.InlineCode>z-index</Element.InlineCode> in a structured way.
+        The default values used by the plugin can be configured.
+      </Element.Paragraph>
+      <Element.Code>{`import { configure, Layer } from 'naven'
+
+configure({
+  layer: {
+    Popup: 14
+  }
+})
+
+css\`
+  z-index: \${Layer.Popup};
+\``}</Element.Code>
     </Content>
   </>
 )
