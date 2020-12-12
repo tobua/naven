@@ -35,7 +35,11 @@ export const Code = ({
           <SyntaxHighlighter
             language={language}
             style={github}
-            customStyle={{ ...spaceStyleProp(space), ...radiusStyleProp() }}
+            customStyle={{
+              ...spaceStyleProp(space),
+              ...radiusStyleProp(),
+              fontFamily: 'monospace, monospace',
+            }}
             {...props}
           >
             {children}

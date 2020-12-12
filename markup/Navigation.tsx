@@ -4,11 +4,12 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { List, TextLink } from './Element'
 import { navigation, INavigation } from '../config'
-import { Space, Color, Breakpoint } from '../style'
+import { Space, Color, Breakpoint, Layer } from '../style'
 
 export const Wrapper = styled.nav<{ showNavigation: boolean }>`
   grid-column: 2 / 5;
   position: relative;
+  z-index: ${Layer.Navigation};
 
   ${Breakpoint.Phone} {
     flex-direction: column;

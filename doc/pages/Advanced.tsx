@@ -67,6 +67,10 @@ css\`
   padding: \${toPx(5)};
   margin: \${toPx('5vh')}
 \``}</Element.Code>
+      <Element.Heading as="h2">
+        <Element.Anchor name="layers" />
+        Layers
+      </Element.Heading>
     </Content>
   </>
 )

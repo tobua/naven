@@ -92,6 +92,7 @@ const app = () =>
                 { name: 'Layout', url: 'advanced#layout' },
                 { name: 'Spacing', url: 'advanced#spacing' },
                 { name: 'Utility Methods', url: 'advanced#utility' },
+                { name: 'Layers', url: 'advanced#layers' },
               ],
             },
           ],
