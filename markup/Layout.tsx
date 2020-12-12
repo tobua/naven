@@ -1,14 +1,24 @@
 import { SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
+import { Space, spaceProp, toPx } from '../style'
 
-export const Horizontal = styled.div`
+interface DirectionProps {
+  space?: number | string
+  gap?: number | string
+}
+
+export const Horizontal = styled.div<DirectionProps>`
   display: flex;
   overflow: auto;
+  column-gap: ${({ gap = Space.medium }) => toPx(gap)};
+  ${spaceProp}
 `
 
-export const Vertical = styled.div`
+export const Vertical = styled.div<DirectionProps>`
   display: flex;
   flex-direction: column;
+  row-gap: ${({ gap = Space.medium }) => toPx(gap)};
+  ${spaceProp}
 `
 
 export const Tiles = styled.div`

@@ -8,7 +8,11 @@ export const Space: ISpace = {
 }
 
 // For injecting into @emotion template.
-export const spaceProp = ({ space }: { space: number | string }) => {
+export const spaceProp = ({
+  space = Space.medium,
+}: {
+  space?: number | string
+}) => {
   if (!space && space !== 0) {
     return `margin-bottom: ${Space.medium};`
   }

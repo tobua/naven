@@ -46,7 +46,6 @@ export const Advanced = () => (
         <div>Second</div>
         <div>Third</div>
       </Horizontal>
-      <Element.Spacer />
       <Element.Heading as="h3" code>{`<Vertical>`}</Element.Heading>
       <Vertical>
         <div>First</div>
