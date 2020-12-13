@@ -1,11 +1,20 @@
 import React, { useState, Component } from 'react'
-import { Global, css } from '@emotion/react'
+import { Global, css as cssSheet, SerializedStyles } from '@emotion/react'
+import styled from '@emotion/styled'
 import { Input } from './Input'
 import { Lazy } from './Lazy'
+import { Space, spaceProp } from '../../style'
+
+const Wrapper = styled.div`
+  ${spaceProp}
+  ${({ css }) => css}
+`
 
 interface IDate {
+  css?: SerializedStyles
   initialDate?: Date
   styleOverrides?: string
+  space?: string | number
 }
 
 // Will throw an error related to refs the plugin tries to
@@ -21,8 +30,10 @@ class DateInput extends Component<{ value: any; onClick: any }> {
 
 // Date is already reserved in JS, therefore we use DatePicker.
 export const DatePicker = ({
+  css,
   initialDate = new Date(),
   styleOverrides = '',
+  space,
 }: IDate) => {
   // Hook inside result will fail.
   const [startDate, setStartDate] = useState(initialDate)
@@ -35,15 +46,16 @@ export const DatePicker = ({
       result={(ImportedComponent) => {
         const ReactDatePicker = ImportedComponent.default
         return (
-          <>
-            <Global styles={css(styleOverrides)} />
+          <Wrapper space={space} css={css}>
+            <Global styles={cssSheet(styleOverrides)} />
             <ReactDatePicker
+              style={{ marginBottom: 20 }}
               selected={startDate}
               onChange={(date: Date) => setStartDate(date)}
               // @ts-ignore
               customInput={<DateInput />}
             />
-          </>
+          </Wrapper>
         )
       }}
     />

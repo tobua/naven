@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Close } from '../../icon'
-import { Space, Color, radius } from '../../style'
+import { Space, Color, radius, spaceProp } from '../../style'
 import { Paragraph } from './Text'
 
 type Type = 'info' | 'warning' | 'error'
@@ -19,12 +19,13 @@ const valueByType = (type: Type, values: [string, string, string]) => {
   return values[0]
 }
 
-const Wrapper = styled.div<{ type: Type }>`
+const Wrapper = styled.div<{ type: Type; space?: string | number }>`
   position: relative;
   display: flex;
   align-items: center;
   padding: ${Space.small};
   ${() => radius()}
+  ${spaceProp}
   border: 1px solid
     ${({ type }) =>
     valueByType(type, [Color.Gray['500'], Color.warning, Color.error])};
@@ -43,12 +44,14 @@ const CloseContainer = styled.div`
 interface IAlert {
   type?: Type
   closeable?: boolean
+  space?: string | number
   children: React.ReactNode
 }
 
 export const Alert = ({
   type = 'info',
   closeable = false,
+  space,
   children,
 }: IAlert) => {
   const [closed, close] = useState(false)
@@ -58,7 +61,7 @@ export const Alert = ({
   }
 
   return (
-    <Wrapper type={type}>
+    <Wrapper space={space} type={type}>
       {closeable && (
         <CloseContainer onClick={() => close(true)}>
           <Close

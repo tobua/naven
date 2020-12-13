@@ -1,7 +1,7 @@
 import React from 'react'
 import { SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
-import { Space, toPx } from '../../style'
+import { Space, toPx, spaceProp } from '../../style'
 
 const ListUl = styled.ul<ListProps>`
   display: flex;
@@ -10,6 +10,7 @@ const ListUl = styled.ul<ListProps>`
   row-gap: ${({ gap }) => toPx(gap)};
   column-gap: ${({ gap }) => toPx(gap)};
 
+  ${spaceProp}
   ${({ css }) => css}
 `
 
@@ -23,6 +24,7 @@ type ListProps = {
   css?: SerializedStyles
   gap?: number | string
   children: any[]
+  space?: string | number
   elementProps?: {
     css?: SerializedStyles
   } & React.DetailedHTMLProps<

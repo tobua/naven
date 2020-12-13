@@ -52,14 +52,11 @@ const Checkboxes = () => {
   const [second, setSecond] = useState(true)
 
   return (
-    <Vertical>
+    <Vertical gap={Space.small}>
       <Element.Checkbox
         label="First"
         checked={first}
         onChange={() => setFirst(!first)}
-        wrapperCss={css`
-          margin-bottom: ${Space.small};
-        `}
       />
       <Element.Checkbox
         label="Second"
@@ -74,15 +71,12 @@ const Radios = () => {
   const [selected, setSelected] = useState('first')
 
   return (
-    <Vertical>
+    <Vertical gap={Space.small}>
       <Element.Radio
         label="First"
         name="group"
         checked={selected === 'first'}
         onChange={() => setSelected('first')}
-        wrapperCss={css`
-          margin-bottom: ${Space.small};
-        `}
       />
       <Element.Radio
         label="Second"
@@ -121,7 +115,6 @@ export const Elements = () => (
       Interaction
     </Element.Button>
     <Element.Button disabled>Disabled</Element.Button>
-    <Element.Spacer />
     <Element.Heading as="h2">
       <Element.Anchor name="input" />
       Input
@@ -133,26 +126,18 @@ export const Elements = () => (
       `}
     />
     <Element.Input placeholder="Input here" value="value" onChange={() => {}} />
-    <Element.Spacer />
     <Element.Heading as="h2">Alert</Element.Heading>
     <Element.Alert>Hey: This is an info</Element.Alert>
-    <Element.Spacer size="tiny" />
     <Element.Alert type="warning" closeable>
       Ohh: This is a <b>closeable</b> warning
     </Element.Alert>
-    <Element.Spacer size="tiny" />
     <Element.Alert type="error">Whoopsie: This is an error</Element.Alert>
-    <Element.Spacer />
     <Element.Heading as="h2">Popup</Element.Heading>
     <Popup />
-    <Element.Spacer size="large" />
     <Element.Heading as="h2">Checkbox</Element.Heading>
     <Checkboxes />
-    <Element.Spacer />
     <Element.Heading as="h2">Radio</Element.Heading>
     <Radios />
-    <Element.Spacer />
-    <Element.Spacer size="large" />
     <Element.Heading as="h2">Accordion</Element.Heading>
     <Element.Accordion titles={['First', 'Second', 'Third']}>
       <div>First</div>
@@ -167,15 +152,11 @@ export const Elements = () => (
       <div>Second</div>
       <div>Third</div>
     </Element.Accordion>
-    <Element.Spacer />
-    <Element.Spacer size="large" />
     <Element.Heading as="h2">Badge</Element.Heading>
     <Element.Badge>
-      <p>hey badge</p>
+      <Element.Paragraph>Hey Badge</Element.Paragraph>
     </Element.Badge>
-    <Element.Spacer />
     <Element.Heading as="h3">With Count</Element.Heading>
-    <Element.Spacer />
     <Element.Badge
       count={5}
       css={css`
@@ -187,7 +168,6 @@ export const Elements = () => (
     <Element.Badge count={987}>
       <span>big number</span>
     </Element.Badge>
-    <Element.Spacer size="large" />
     <Element.Heading as="h2">Dropdown</Element.Heading>
     <Element.Dropdown
       options={[
@@ -195,12 +175,8 @@ export const Elements = () => (
         { value: 'second', label: 'Second choice' },
       ]}
     />
-    <Element.Spacer />
-    <Element.Spacer size="large" />
     <Element.Heading as="h2">Notification</Element.Heading>
     <Notification />
-    <Element.Spacer />
-    <Element.Spacer size="large" />
     <Element.Heading as="h2">Tabs</Element.Heading>
     <Element.Tabs
       items={[
@@ -209,44 +185,40 @@ export const Elements = () => (
         { title: 'Third', content: <p>Content Third</p> },
       ]}
     />
-    <Element.Spacer size="large" />
     <Element.Heading as="h2">Tooltip</Element.Heading>
     <Element.Tooltip content={<p>Hello content</p>}>
       <span>open tooltip</span>
     </Element.Tooltip>
-    <Element.Spacer size="large" />
     <Element.Heading as="h2">List</Element.Heading>
     <Element.List>
       <span>First</span>
       <span>Second</span>
       <span>Third</span>
     </Element.List>
-    <Element.Spacer size="large" />
     <Element.Heading as="h3">horizontal</Element.Heading>
     <Element.List horizontal>
       <span>First</span>
       <span>Second</span>
       <span>Third</span>
     </Element.List>
-    <Element.Spacer />
     <Element.Heading as="h2">Date Picker</Element.Heading>
     <Element.DatePicker />
-    <Element.Spacer />
     <Element.Heading as="h2">Code</Element.Heading>
     <Element.Code language="javascript">
       {`// Hello JS
 export const hello = () => console.log('world')`}
     </Element.Code>
-    <Element.Spacer />
     <Element.Code language="typescript">{`// Hello TS
 export const greet = (greeting: string) => console.log(\`hello \${greeting}!\`)`}</Element.Code>
-    <Element.Spacer />
+    <Element.Code jsx language="typescript">
+      {`// Hello JSX / TSX
+export const Hello = () => <p>W<strong>o</strong>rld</p>`}
+    </Element.Code>
     <Element.Heading as="h2">Lazy</Element.Heading>
     <Element.Lazy
       // Mocking an import('./whatever')
       imports={new Promise((done) => done(() => <p>lazy loaded...</p>))}
       result={(Component) => Component}
     />
-    <Element.Spacer />
   </Content>
 )
