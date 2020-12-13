@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
-import { Color, Space } from '../../style'
+import { SerializedStyles } from '@emotion/react'
+import { Color, Space, spaceProp } from '../../style'
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  ${spaceProp}
+  ${({ css }) => css}
 `
 
 const TabWrapper = styled.div`
@@ -34,15 +37,17 @@ interface ITabs {
     content: React.ReactNode
   }[]
   initialTab?: number
+  css?: SerializedStyles
+  space?: string | number
 }
 
-export const Tabs = ({ items, initialTab = 0 }: ITabs) => {
+export const Tabs = ({ items, initialTab = 0, css, space }: ITabs) => {
   const [tab, setTab] = useState(initialTab)
 
   const { content } = items[tab]
 
   return (
-    <Wrapper>
+    <Wrapper css={css} space={space}>
       <TabWrapper>
         {items.map((_tab, index) => (
           <Tab

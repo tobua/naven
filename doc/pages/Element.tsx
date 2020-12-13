@@ -115,6 +115,11 @@ export const Elements = () => (
       Interaction
     </Element.Button>
     <Element.Button disabled>Disabled</Element.Button>
+    <Element.Code jsx language="typescript">
+      {`import { Element } from 'naven'
+      
+<Element.Button onClick={() => alert('Hello')}>Press me!</Element.Button>`}
+    </Element.Code>
     <Element.Heading as="h2">
       <Element.Anchor name="input" />
       Input
@@ -187,8 +192,11 @@ export const Elements = () => (
     />
     <Element.Heading as="h2">Tooltip</Element.Heading>
     <Element.Tooltip content={<p>Hello content</p>}>
-      <span>open tooltip</span>
+      <Element.Paragraph space={0}>
+        Hover or click to show tooltip.
+      </Element.Paragraph>
     </Element.Tooltip>
+    <Element.Spacer />
     <Element.Heading as="h2">List</Element.Heading>
     <Element.List>
       <span>First</span>
@@ -220,5 +228,19 @@ export const Hello = () => <p>W<strong>o</strong>rld</p>`}
       imports={new Promise((done) => done(() => <p>lazy loaded...</p>))}
       result={(Component) => Component}
     />
+    <Element.Spacer />
+    <Element.Heading as="h2">Table</Element.Heading>
+    <Element.Table>
+      <>
+        <Element.Text>First</Element.Text>
+        <Element.Text>Second</Element.Text>
+        <Element.Text>Third</Element.Text>
+      </>
+      <>
+        <Element.Text>Fourth</Element.Text>
+        <Element.Text>Fifth</Element.Text>
+        <Element.Text>Sixth</Element.Text>
+      </>
+    </Element.Table>
   </Content>
 )

@@ -1,0 +1,37 @@
+import React from 'react'
+import styled from '@emotion/styled'
+import { SerializedStyles } from '@emotion/react'
+import { Space, spaceProp } from '../../style'
+
+const Wrapper = styled.div<{
+  columns: number
+  gap?: number | string
+  space?: number | string
+}>`
+  display: grid;
+  grid-gap: ${Space.small};
+  grid-template-columns: repeat(${({ columns }) => columns}, 1fr);
+
+  /* First row */
+  > *:nth-child(-n + ${({ columns }) => columns}) {
+    font-weight: bold;
+  }
+
+  ${spaceProp}
+  ${({ css }) => css}
+`
+
+const getColumnCount = (children: any[]) =>
+  Math.max(...children.map((child) => child.props?.children?.length))
+
+interface Props {
+  css?: SerializedStyles
+  space?: string | number
+  children: any[]
+}
+
+export const Table = ({ children, css, space }: Props) => (
+  <Wrapper css={css} space={space} columns={getColumnCount(children)}>
+    {children}
+  </Wrapper>
+)
