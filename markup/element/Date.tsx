@@ -3,7 +3,7 @@ import { Global, css as cssSheet, SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Input } from './Input'
 import { Lazy } from './Lazy'
-import { Space, spaceProp } from '../../style'
+import { spaceProp } from '../../style'
 
 const Wrapper = styled.div`
   ${spaceProp}
@@ -41,7 +41,7 @@ export const DatePicker = ({
     <Lazy
       imports={Promise.all([
         import('react-datepicker'),
-        import('react-datepicker/dist/react-datepicker.css'),
+        import('react-datepicker/dist/react-datepicker.min.css'),
       ])}
       result={(ImportedComponent) => {
         const ReactDatePicker = ImportedComponent.default

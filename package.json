@@ -10,6 +10,13 @@
     "start": "padua watch",
     "test": "padua test"
   },
+  "padua": {
+    "tsconfig": {
+      "include": [
+        "./declarations.d.ts"
+      ]
+    }
+  },
   "dependencies": {
     "@emotion/react": "^11.1.2",
     "@emotion/styled": "^11.0.0",
