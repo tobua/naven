@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
-import { Space, Color, Shade, radius } from '../../style'
+import { Space, Color, Shade, radius, spaceProp } from '../../style'
 
 const getButtonColor = (
   { highlight = false, interact = false },
@@ -26,6 +26,7 @@ const Wrapper = styled.button<any>`
   ${() => radius()}
   color: ${Color.white};
   text-decoration: ${({ disabled }) => (disabled ? 'line-through' : '')};
+  ${spaceProp}
 
   &:focus {
     outline: none;
@@ -42,6 +43,7 @@ interface ButtonProps {
   highlight?: boolean
   interact?: boolean
   css?: SerializedStyles
+  space?: string | number
   children: any
 }
 

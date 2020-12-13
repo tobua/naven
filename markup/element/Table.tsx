@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
-import { Space, spaceProp } from '../../style'
+import { Space, Color, spaceProp, radius } from '../../style'
 
 const Wrapper = styled.div<{
   columns: number
@@ -11,9 +11,12 @@ const Wrapper = styled.div<{
   display: grid;
   grid-gap: ${Space.small};
   grid-template-columns: repeat(${({ columns }) => columns}, 1fr);
+  background: ${Color.Gray[300]};
+  ${() => radius()}
+  padding: ${Space.small};
 
   /* First row */
-  > *:nth-child(-n + ${({ columns }) => columns}) {
+  > *:nth-of-type(-n + ${({ columns }) => columns}) {
     font-weight: bold;
   }
 

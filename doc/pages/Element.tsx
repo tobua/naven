@@ -2,33 +2,85 @@ import React, { useState } from 'react'
 import { css } from '@emotion/react'
 import { Content, Element, Vertical, Space } from 'naven'
 
-const Popup = () => {
+const {
+  Accordion,
+  Alert,
+  Anchor,
+  Badge,
+  Button,
+  Checkbox,
+  Radio,
+  Code,
+  InlineCode,
+  DatePicker,
+  Dropdown,
+  Heading,
+  Image,
+  Input,
+  Lazy,
+  Link,
+  TextLink,
+  List,
+  Loader,
+  Notification,
+  addNotification,
+  Popup,
+  Spacer,
+  Table,
+  Tabs,
+  Paragraph,
+  Text,
+  Tooltip,
+} = Element
+
+const ElementPropertyTable = ({ children }: { children?: any }) => (
+  <Table>
+    <>
+      <Text>Property</Text>
+      <Text>Default</Text>
+      <Text>Values</Text>
+    </>
+    {children && <>{children}</>}
+    <>
+      <Text>space</Text>
+      <Text>Space.medium</Text>
+      <Text>string | number</Text>
+    </>
+    <>
+      <Text>css</Text>
+      <Text>Empty</Text>
+      <Text>SerializedStyles</Text>
+    </>
+  </Table>
+)
+
+const PopupToggle = () => {
   const [show, togglePopup] = useState(false)
 
   return (
     <>
-      <Element.Button onClick={() => togglePopup(!show)}>Open</Element.Button>
-      <Element.Popup show={show} onClose={() => togglePopup(false)}>
+      <Button onClick={() => togglePopup(!show)}>Open</Button>
+      <Popup show={show} onClose={() => togglePopup(false)}>
         <p>This is the popup content.</p>
-      </Element.Popup>
+      </Popup>
     </>
   )
 }
 
-const Notification = () => {
+const NotificationToggle = () => {
   type Value = 'info' | 'warning' | 'error'
   const [message, setMessage] = useState<string>()
   const [type, setType] = useState<Value>('info')
 
   return (
     <>
-      <Element.Notification />
-      <Element.Input
+      <Notification />
+      <Input
         value={message}
         onChange={(event) => setMessage(event.target.value)}
         placeholder="Message"
       />
-      <Element.Dropdown
+      <Dropdown
         onChange={(option) => setType((option as any).value)}
         options={[
           { value: 'info', label: 'Information' },
@@ -37,12 +89,12 @@ const Notification = () => {
         ]}
         placeholder="Type"
       />
-      <Element.Button
+      <Button
         disabled={!type || !message || message === ''}
-        onClick={() => Element.addNotification({ message, type })}
+        onClick={() => addNotification({ message, type })}
       >
         Send
-      </Element.Button>
+      </Button>
     </>
   )
 }
@@ -53,12 +105,12 @@ const Checkboxes = () => {
 
   return (
     <Vertical gap={Space.small}>
-      <Element.Checkbox
+      <Checkbox
         label="First"
         checked={first}
         onChange={() => setFirst(!first)}
       />
-      <Element.Checkbox
+      <Checkbox
         label="Second"
         checked={second}
         onChange={() => setSecond(!second)}
@@ -72,13 +124,13 @@ const Radios = () => {
 
   return (
     <Vertical gap={Space.small}>
-      <Element.Radio
+      <Radio
         label="First"
         name="group"
         checked={selected === 'first'}
         onChange={() => setSelected('first')}
       />
-      <Element.Radio
+      <Radio
         label="Second"
         name="group"
         checked={selected === 'second'}
@@ -90,157 +142,180 @@ const Radios = () => {
 
 export const Elements = () => (
   <Content>
-    <Element.Heading as="h2">Button</Element.Heading>
-    <Element.Button
+    <Heading as="h2">General</Heading>
+    <Code jsx language="typescript">
+      {`import { Element, Color, Space } from 'naven'
+import { css } from '@emotion/react'
+
+<Element.Button space={Space.large}>Press me!</Element.Button>
+
+const { Button } = Element
+
+<Button disabled space={0} css={css\`background: \${Color.black};\`}>Can't touch this</Button>`}
+    </Code>
+    <Heading as="h2">Button</Heading>
+    <Button
       css={css`
         margin-right: ${Space.small};
       `}
     >
       Button
-    </Element.Button>
-    <Element.Button
+    </Button>
+    <Button
       highlight
       css={css`
         margin-right: ${Space.small};
       `}
     >
       Highlight
-    </Element.Button>
-    <Element.Button
+    </Button>
+    <Button
       interact
       css={css`
         margin-right: ${Space.small};
       `}
     >
       Interaction
-    </Element.Button>
-    <Element.Button disabled>Disabled</Element.Button>
-    <Element.Code jsx language="typescript">
-      {`import { Element } from 'naven'
-      
-<Element.Button onClick={() => alert('Hello')}>Press me!</Element.Button>`}
-    </Element.Code>
-    <Element.Heading as="h2">
-      <Element.Anchor name="input" />
+    </Button>
+    <Button disabled>Disabled</Button>
+    <Code jsx language="typescript">
+      {`<Button onClick={() => alert('Hello')}>Press me!</Button>`}
+    </Code>
+    <ElementPropertyTable>
+      <>
+        <Text>highlight</Text>
+        <Text>false</Text>
+        <Text>boolean</Text>
+      </>
+      <>
+        <Text>interact</Text>
+        <Text>false</Text>
+        <Text>boolean</Text>
+      </>
+    </ElementPropertyTable>
+    <Heading as="h2">
+      <Anchor name="input" />
       Input
-    </Element.Heading>
-    <Element.Input
+    </Heading>
+    <Input
       placeholder="Input here"
       css={css`
         margin-right: ${Space.small};
       `}
     />
-    <Element.Input placeholder="Input here" value="value" onChange={() => {}} />
-    <Element.Heading as="h2">Alert</Element.Heading>
-    <Element.Alert>Hey: This is an info</Element.Alert>
-    <Element.Alert type="warning" closeable>
+    <Input placeholder="Input here" value="value" onChange={() => {}} />
+    <Code jsx language="typescript">
+      {`<Input placeholder="Input here" value="value" onChange={(event) => alert(event.target.value)} />`}
+    </Code>
+    <ElementPropertyTable />
+    <Heading as="h2">Alert</Heading>
+    <Alert>Hey: This is an info</Alert>
+    <Alert type="warning" closeable>
       Ohh: This is a <b>closeable</b> warning
-    </Element.Alert>
-    <Element.Alert type="error">Whoopsie: This is an error</Element.Alert>
-    <Element.Heading as="h2">Popup</Element.Heading>
-    <Popup />
-    <Element.Heading as="h2">Checkbox</Element.Heading>
+    </Alert>
+    <Alert type="error">Whoopsie: This is an error</Alert>
+    <Heading as="h2">Popup</Heading>
+    <PopupToggle />
+    <Heading as="h2">Checkbox</Heading>
     <Checkboxes />
-    <Element.Heading as="h2">Radio</Element.Heading>
+    <Heading as="h2">Radio</Heading>
     <Radios />
-    <Element.Heading as="h2">Accordion</Element.Heading>
-    <Element.Accordion titles={['First', 'Second', 'Third']}>
+    <Heading as="h2">Accordion</Heading>
+    <Accordion titles={['First', 'Second', 'Third']}>
       <div>First</div>
       <div>Second</div>
       <div>Third</div>
-    </Element.Accordion>
-    <Element.Heading as="h3">Custom Titles</Element.Heading>
-    <Element.Accordion
+    </Accordion>
+    <Heading as="h3">Custom Titles</Heading>
+    <Accordion
       headers={[<p>First</p>, <span>Second</span>, <strong>Third</strong>]}
     >
       <div>First</div>
       <div>Second</div>
       <div>Third</div>
-    </Element.Accordion>
-    <Element.Heading as="h2">Badge</Element.Heading>
-    <Element.Badge>
-      <Element.Paragraph>Hey Badge</Element.Paragraph>
-    </Element.Badge>
-    <Element.Heading as="h3">With Count</Element.Heading>
-    <Element.Badge
+    </Accordion>
+    <Heading as="h2">Badge</Heading>
+    <Badge>
+      <Paragraph>Hey Badge</Paragraph>
+    </Badge>
+    <Heading as="h3">With Count</Heading>
+    <Badge
       count={5}
       css={css`
         margin-right: 30px;
       `}
     >
       <span>count me</span>
-    </Element.Badge>
-    <Element.Badge count={987}>
+    </Badge>
+    <Badge count={987}>
       <span>big number</span>
-    </Element.Badge>
-    <Element.Heading as="h2">Dropdown</Element.Heading>
-    <Element.Dropdown
+    </Badge>
+    <Heading as="h2">Dropdown</Heading>
+    <Dropdown
       options={[
         { value: 'first', label: 'First choice' },
         { value: 'second', label: 'Second choice' },
       ]}
     />
-    <Element.Heading as="h2">Notification</Element.Heading>
-    <Notification />
-    <Element.Heading as="h2">Tabs</Element.Heading>
-    <Element.Tabs
+    <Heading as="h2">Notification</Heading>
+    <NotificationToggle />
+    <Heading as="h2">Tabs</Heading>
+    <Tabs
       items={[
         { title: 'First', content: <p>Content First</p> },
         { title: 'Second', content: <p>Content Second</p> },
         { title: 'Third', content: <p>Content Third</p> },
       ]}
     />
-    <Element.Heading as="h2">Tooltip</Element.Heading>
-    <Element.Tooltip content={<p>Hello content</p>}>
-      <Element.Paragraph space={0}>
-        Hover or click to show tooltip.
-      </Element.Paragraph>
-    </Element.Tooltip>
-    <Element.Spacer />
-    <Element.Heading as="h2">List</Element.Heading>
-    <Element.List>
+    <Heading as="h2">Tooltip</Heading>
+    <Tooltip content={<p>Hello content</p>}>
+      <Paragraph space={0}>Hover or click to show tooltip.</Paragraph>
+    </Tooltip>
+    <Spacer />
+    <Heading as="h2">List</Heading>
+    <List>
       <span>First</span>
       <span>Second</span>
       <span>Third</span>
-    </Element.List>
-    <Element.Heading as="h3">horizontal</Element.Heading>
-    <Element.List horizontal>
+    </List>
+    <Heading as="h3">horizontal</Heading>
+    <List horizontal>
       <span>First</span>
       <span>Second</span>
       <span>Third</span>
-    </Element.List>
-    <Element.Heading as="h2">Date Picker</Element.Heading>
-    <Element.DatePicker />
-    <Element.Heading as="h2">Code</Element.Heading>
-    <Element.Code language="javascript">
+    </List>
+    <Heading as="h2">Date Picker</Heading>
+    <DatePicker />
+    <Heading as="h2">Code</Heading>
+    <Code language="javascript">
       {`// Hello JS
 export const hello = () => console.log('world')`}
-    </Element.Code>
-    <Element.Code language="typescript">{`// Hello TS
-export const greet = (greeting: string) => console.log(\`hello \${greeting}!\`)`}</Element.Code>
-    <Element.Code jsx language="typescript">
+    </Code>
+    <Code language="typescript">{`// Hello TS
+export const greet = (greeting: string) => console.log(\`hello \${greeting}!\`)`}</Code>
+    <Code jsx language="typescript">
       {`// Hello JSX / TSX
 export const Hello = () => <p>W<strong>o</strong>rld</p>`}
-    </Element.Code>
-    <Element.Heading as="h2">Lazy</Element.Heading>
-    <Element.Lazy
+    </Code>
+    <Heading as="h2">Lazy</Heading>
+    <Lazy
       // Mocking an import('./whatever')
       imports={new Promise((done) => done(() => <p>lazy loaded...</p>))}
       result={(Component) => Component}
     />
-    <Element.Spacer />
-    <Element.Heading as="h2">Table</Element.Heading>
-    <Element.Table>
+    <Spacer />
+    <Heading as="h2">Table</Heading>
+    <Table>
       <>
-        <Element.Text>First</Element.Text>
-        <Element.Text>Second</Element.Text>
-        <Element.Text>Third</Element.Text>
+        <Text>First</Text>
+        <Text>Second</Text>
+        <Text>Third</Text>
       </>
       <>
-        <Element.Text>Fourth</Element.Text>
-        <Element.Text>Fifth</Element.Text>
-        <Element.Text>Sixth</Element.Text>
+        <Text>Fourth</Text>
+        <Text>Fifth</Text>
+        <Text>Sixth</Text>
       </>
-    </Element.Table>
+    </Table>
   </Content>
 )
