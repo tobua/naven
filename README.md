@@ -113,8 +113,19 @@ const SpacedParagraph = (
 
 ## Responsive
 
+This plugin assumes a Desktop-First approach where you override styles for `Breakpoint.Tablet` or `Breakpoint.Mobile`. You can `configure({ breakpoints: {...}})` the breakpoints while also adding new ones.
+
 ```jsx
 import { Breakpoint, Breakpoints } from 'naven'
+
+const hideMobileCss = css`
+  ${Breakpoint.Phone} {
+    display: none;
+  }
+  = > @media (max-width: 500px) {
+    display: none;
+  }
+`
 ```
 
 ## Development

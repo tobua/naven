@@ -1,7 +1,5 @@
 import React, { useState, Component } from 'react'
 import { Global, css } from '@emotion/react'
-// TODO support multiple imports with Lazy.
-import 'react-datepicker/dist/react-datepicker.css'
 import { Input } from './Input'
 import { Lazy } from './Lazy'
 
@@ -30,7 +28,10 @@ export const DatePicker = ({
   const [startDate, setStartDate] = useState(initialDate)
   return (
     <Lazy
-      imports={import('react-datepicker')}
+      imports={Promise.all([
+        import('react-datepicker'),
+        import('react-datepicker/dist/react-datepicker.css'),
+      ])}
       result={(ImportedComponent) => {
         const ReactDatePicker = ImportedComponent.default
         return (

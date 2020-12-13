@@ -4,7 +4,7 @@ import { Paragraph } from './Text'
 
 interface Props {
   imports: Promise<any>
-  result: (imports: any) => JSX.Element
+  result: (...imports: any) => JSX.Element
 }
 
 export const Lazy = ({ imports, result }: Props) => {
@@ -24,6 +24,10 @@ export const Lazy = ({ imports, result }: Props) => {
 
   if (Component === 'error') {
     return <Paragraph>Error loading component.</Paragraph>
+  }
+
+  if (Array.isArray(Component)) {
+    return result(...Component)
   }
 
   return result(Component)
