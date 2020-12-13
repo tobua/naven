@@ -30,6 +30,7 @@
   padding: ${C.small};
   border: 1px solid ${I.black};
   ${()=>L()}
+  ${O}
 
   &:focus {
     border-width: 2px;
@@ -215,6 +216,7 @@
   ${()=>L()}
   color: ${I.white};
   text-decoration: ${({disabled:e})=>e?"line-through":""};
+  ${O}
 
   &:focus {
     outline: none;
@@ -318,9 +320,12 @@
   display: grid;
   grid-gap: ${C.small};
   grid-template-columns: repeat(${({columns:e})=>e}, 1fr);
+  background: ${I.Gray[300]};
+  ${()=>L()}
+  padding: ${C.small};
 
   /* First row */
-  > *:nth-child(-n + ${({columns:e})=>e}) {
+  > *:nth-of-type(-n + ${({columns:e})=>e}) {
     font-weight: bold;
   }
 
