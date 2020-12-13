@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { github } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { Color, spaceStyleProp, radiusStyleProp } from '../../style'
 import { Lazy } from './Lazy'
 
@@ -16,6 +15,7 @@ interface ICode {
   space?: number | string
   jsx?: boolean
   language?: 'javascript' | 'typescript'
+  style?: string
 }
 
 export const Code = ({
@@ -23,29 +23,32 @@ export const Code = ({
   children,
   jsx = false,
   language = 'typescript',
+  style = 'github',
   ...props
-}: ICode) => {
-  return (
-    <Lazy
-      imports={import('react-syntax-highlighter')}
-      result={(Component) => {
-        const SyntaxHighlighter = jsx ? Component.PrismLight : Component.default
+}: ICode) => (
+  <Lazy
+    imports={Promise.all([
+      import('react-syntax-highlighter'),
+      import('react-syntax-highlighter/dist/esm/styles/hljs'),
+    ])}
+    result={(Component, styles) => {
+      const SyntaxHighlighter = jsx ? Component.PrismLight : Component.default
+      const importedStyle = styles[style] || styles.github
 
-        return (
-          <SyntaxHighlighter
-            language={language}
-            style={github}
-            customStyle={{
-              ...spaceStyleProp(space),
-              ...radiusStyleProp(),
-              fontFamily: 'monospace, monospace',
-            }}
-            {...props}
-          >
-            {children}
-          </SyntaxHighlighter>
-        )
-      }}
-    />
-  )
-}
+      return (
+        <SyntaxHighlighter
+          language={language}
+          style={importedStyle}
+          customStyle={{
+            ...spaceStyleProp(space),
+            ...radiusStyleProp(),
+            fontFamily: 'monospace, monospace',
+          }}
+          {...props}
+        >
+          {children}
+        </SyntaxHighlighter>
+      )
+    }}
+  />
+)

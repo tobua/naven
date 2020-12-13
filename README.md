@@ -121,10 +121,7 @@ import { Breakpoint, Breakpoints } from 'naven'
 const hideMobileCss = css`
   ${Breakpoint.Phone} {
     display: none;
-  }
-  = > @media (max-width: 500px) {
-    display: none;
-  }
+  } /* => @media (max-width: 500px) { display: none; } */
 `
 ```
 
