@@ -123,11 +123,13 @@ const Checkboxes = () => {
   return (
     <Vertical gap={Space.small}>
       <Checkbox
+        space={0}
         label="First"
         checked={first}
         onChange={() => setFirst(!first)}
       />
       <Checkbox
+        space={0}
         label="Second"
         checked={second}
         onChange={() => setSecond(!second)}
@@ -142,12 +144,14 @@ const Radios = () => {
   return (
     <Vertical gap={Space.small}>
       <Radio
+        space={0}
         label="First"
         name="group"
         checked={selected === 'first'}
         onChange={() => setSelected('first')}
       />
       <Radio
+        space={0}
         label="Second"
         name="group"
         checked={selected === 'second'}
@@ -292,22 +296,62 @@ const { Button } = Element
     </ElementPropertyTable>
     <Heading as="h2">Checkbox</Heading>
     <Checkboxes />
+    <Code jsx language="typescript">
+      {`<Checkbox label="Accept Terms" checked={terms} onChange={() => setTerms(!terms)} />`}
+    </Code>
+    <ElementPropertyTable>
+      <>
+        <Text>label</Text>
+        <Text></Text>
+        <Text>string</Text>
+      </>
+      <>
+        <Text>wrapperCss</Text>
+        <Text></Text>
+        <Text>SerializedStyles</Text>
+      </>
+    </ElementPropertyTable>
     <Heading as="h2">Radio</Heading>
     <Radios />
+    <Code jsx language="typescript">
+      {`<Radio label="Female" name="gender" checked={selection === 'female'} onChange={() => setGender('female')} />`}
+    </Code>
+    <ElementPropertyTable>
+      <>
+        <Text>label</Text>
+        <Text></Text>
+        <Text>string</Text>
+      </>
+      <>
+        <Text>wrapperCss</Text>
+        <Text></Text>
+        <Text>SerializedStyles</Text>
+      </>
+    </ElementPropertyTable>
     <Heading as="h2">Accordion</Heading>
-    <Accordion titles={['First', 'Second', 'Third']}>
-      <div>First</div>
-      <div>Second</div>
-      <div>Third</div>
+    <Accordion headers={['First', <Text bold>Second</Text>, 'Third']}>
+      <Text>First Content</Text>
+      <Text>Second Content</Text>
+      <Text>Third Content</Text>
     </Accordion>
-    <Heading as="h3">Custom Titles</Heading>
-    <Accordion
-      headers={[<p>First</p>, <span>Second</span>, <strong>Third</strong>]}
-    >
-      <div>First</div>
-      <div>Second</div>
-      <div>Third</div>
-    </Accordion>
+    <Code jsx language="typescript">
+      {`<Accordion headers={['Hello', <Text bold>World</Text>]}>
+  <Text>Hello</Text>
+  <Text>World</Text>
+</Accordion>`}
+    </Code>
+    <ElementPropertyTable>
+      <>
+        <Text>headers</Text>
+        <Text>required</Text>
+        <Text>(string | JSX.Element)[]</Text>
+      </>
+      <>
+        <Text>initialOpen</Text>
+        <Text>0</Text>
+        <Text>number</Text>
+      </>
+    </ElementPropertyTable>
     <Heading as="h2">Badge</Heading>
     <Badge>
       <Paragraph>Hey Badge</Paragraph>

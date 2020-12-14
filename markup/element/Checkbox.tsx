@@ -2,11 +2,11 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { uniqueID } from '../../utility/unique-id'
-import { Color, Space, radius } from '../../style'
+import { Color, Space, radius, spaceProp } from '../../style'
 
 const CheckboxInput = styled.input`
   border: 1px solid ${Color.black};
-  border-radius: ${Space.tiny};
+  ${() => radius()}
   appearance: none;
   margin: 0;
 
@@ -24,11 +24,13 @@ const CheckboxInput = styled.input`
   &:focus {
     outline: none;
   }
+
+  ${({ css }) => css}
 `
 
 const RadioInput = styled.input`
   border: 1px solid ${Color.black};
-  ${() => radius()}
+  border-radius: 100%;
   appearance: none;
   margin: 0;
 
@@ -53,12 +55,15 @@ const RadioInput = styled.input`
       width: calc(${Space.medium} - 2px);
     }
   }
+
+  ${({ css }) => css}
 `
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   ${({ css }) => css}
+  ${spaceProp}
 
   &:focus {
     outline: none;
@@ -86,15 +91,17 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string
   css?: SerializedStyles
   wrapperCss?: SerializedStyles
+  space?: string | number
 }
 
 export const Checkbox = ({
   label,
   id = uniqueID(),
-  wrapperCss = null,
+  wrapperCss,
+  space,
   ...props
 }: Props) => (
-  <Wrapper tabIndex={0} css={wrapperCss}>
+  <Wrapper tabIndex={0} css={wrapperCss} space={space}>
     <CheckboxInput tabIndex={-1} id={id} type="checkbox" {...props} />
     <Label htmlFor={id}>{label}</Label>
   </Wrapper>
@@ -103,10 +110,11 @@ export const Checkbox = ({
 export const Radio = ({
   label,
   id = uniqueID(),
-  wrapperCss = null,
+  wrapperCss,
+  space,
   ...props
 }: Props) => (
-  <Wrapper tabIndex={0} css={wrapperCss}>
+  <Wrapper tabIndex={0} css={wrapperCss} space={space}>
     <RadioInput tabIndex={-1} id={id} type="radio" {...props} />
     <Label htmlFor={id}>{label}</Label>
   </Wrapper>

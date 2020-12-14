@@ -1,19 +1,22 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
+import { SerializedStyles } from '@emotion/react'
 import { Heading } from './Heading'
 import { Space } from '../../style'
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  ${({ css }) => css}
 `
 
 const Head = styled.div`
   display: flex;
+  cursor: pointer;
 `
 
 const Content = styled.div<{ open: boolean }>`
-  display: flex;
+  display: ${({ open }) => (open ? 'flex' : 'none')};
 `
 
 const Group = styled.div`
@@ -23,35 +26,39 @@ const Group = styled.div`
 `
 
 interface IAccordion {
-  titles?: string[]
-  headers?: any[]
+  headers?: (string | JSX.Element)[]
   initialOpen?: number
   children: any[]
+  css?: SerializedStyles
 }
 
 export const Accordion = ({
-  titles,
   headers,
   children,
+  css,
   initialOpen = 0,
 }: IAccordion) => {
   const [openIndex, setOpen] = useState<number>(initialOpen)
   return (
-    <Wrapper>
-      {children.map((child, index) => (
-        <Group key={index}>
-          <Head onClick={() => setOpen(index)}>
-            {titles && titles.length ? (
-              <Heading as="h3" noSpace>
-                {titles[index]}
-              </Heading>
-            ) : (
-              headers[index]
-            )}
-          </Head>
-          <Content open={index === openIndex}>{child}</Content>
-        </Group>
-      ))}
+    <Wrapper css={css}>
+      {children.map((child, index) => {
+        let header = headers[index]
+
+        if (typeof header === 'string') {
+          header = (
+            <Heading as="h3" noSpace>
+              {header}
+            </Heading>
+          )
+        }
+
+        return (
+          <Group key={index}>
+            <Head onClick={() => setOpen(index)}>{header}</Head>
+            <Content open={index === openIndex}>{child}</Content>
+          </Group>
+        )
+      })}
     </Wrapper>
   )
 }

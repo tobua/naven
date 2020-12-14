@@ -7,6 +7,7 @@ export const Paragraph = styled.p<{ space?: number | string }>`
   ${spaceProp}
 `
 
-export const Text = styled.span`
+export const Text = styled.span<{ bold?: boolean }>`
   display: inline;
+  ${({ bold }) => (bold ? 'font-weight: bold' : null)}
 `
