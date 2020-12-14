@@ -15,7 +15,7 @@ interface ICode {
   space?: number | string
   jsx?: boolean
   language?: 'javascript' | 'typescript'
-  style?: string
+  style?: object
 }
 
 export const Code = ({
@@ -23,22 +23,25 @@ export const Code = ({
   children,
   jsx = false,
   language = 'typescript',
-  style = 'github',
+  style,
   ...props
 }: ICode) => (
   <Lazy
     imports={Promise.all([
       import('react-syntax-highlighter'),
-      import('react-syntax-highlighter/dist/esm/styles/hljs'),
+      // Default style
+      import('react-syntax-highlighter/dist/esm/styles/hljs/github'),
+      // Default style for jsx
+      import('react-syntax-highlighter/dist/esm/styles/prism/prism'),
     ])}
-    result={(Component, styles) => {
-      const SyntaxHighlighter = jsx ? Component.PrismLight : Component.default
-      const importedStyle = styles[style] || styles.github
+    result={(Component, stylesHljs, stylesPrism) => {
+      const SyntaxHighlighter = jsx ? Component.Prism : Component.default
+      const importedStyle = jsx ? stylesPrism.default : stylesHljs.default
 
       return (
         <SyntaxHighlighter
           language={language}
-          style={importedStyle}
+          style={style ?? importedStyle}
           customStyle={{
             ...spaceStyleProp(space),
             ...radiusStyleProp(),

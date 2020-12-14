@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { css } from '@emotion/react'
+import { css as cssStyles, SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Close } from '../../icon'
 import { Space, Color, radius, spaceProp } from '../../style'
@@ -19,13 +19,18 @@ const valueByType = (type: Type, values: [string, string, string]) => {
   return values[0]
 }
 
-const Wrapper = styled.div<{ type: Type; space?: string | number }>`
+const Wrapper = styled.div<{
+  type: Type
+  space?: string | number
+  css?: SerializedStyles
+}>`
   position: relative;
   display: flex;
   align-items: center;
   padding: ${Space.small};
   ${() => radius()}
   ${spaceProp}
+  ${({ css }) => css}
   border: 1px solid
     ${({ type }) =>
     valueByType(type, [Color.Gray['500'], Color.warning, Color.error])};
@@ -45,6 +50,7 @@ interface IAlert {
   type?: Type
   closeable?: boolean
   space?: string | number
+  css?: SerializedStyles
   children: React.ReactNode
 }
 
@@ -52,6 +58,7 @@ export const Alert = ({
   type = 'info',
   closeable = false,
   space,
+  css,
   children,
 }: IAlert) => {
   const [closed, close] = useState(false)
@@ -61,11 +68,11 @@ export const Alert = ({
   }
 
   return (
-    <Wrapper space={space} type={type}>
+    <Wrapper css={css} space={space} type={type}>
       {closeable && (
         <CloseContainer onClick={() => close(true)}>
           <Close
-            css={css`
+            css={cssStyles`
               flex: 1;
             `}
           />

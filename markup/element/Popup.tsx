@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import styled from '@emotion/styled'
+import { SerializedStyles } from '@emotion/react'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { Close } from '../../icon'
 import { Space, Color, Layer } from '../../style'
@@ -13,11 +14,13 @@ const Wrapper = styled.div`
   display: flex;
   background: ${Color.white};
   z-index: ${Layer.Popup};
+  ${({ css }) => css}
 `
 
 const Content = styled.div`
   position: relative;
   width: 100%;
+  ${({ css }) => css}
 `
 
 const CloseContainer = styled.div`
@@ -27,21 +30,39 @@ const CloseContainer = styled.div`
   cursor: pointer;
   width: ${Space.medium};
   height: ${Space.medium};
+  ${({ css }) => css}
 `
 
 const ScrollContainer = styled.div`
   overflow: auto;
   height: calc(100% - 2 * ${Space.medium});
   padding: ${Space.medium};
+  ${({ css }) => css}
 `
 
 interface IPopup {
   show?: boolean
   onClose: () => any
+  css?: SerializedStyles
+  contentCss?: SerializedStyles
+  scrollContainerCss?: SerializedStyles
+  closeContainerCss?: SerializedStyles
+  closeCss?: SerializedStyles
+  close?: JSX.Element
   children: any
 }
 
-export const Popup = ({ show = true, onClose, children }: IPopup) => {
+export const Popup = ({
+  show = true,
+  onClose,
+  css,
+  contentCss,
+  scrollContainerCss,
+  closeContainerCss,
+  closeCss,
+  close,
+  children,
+}: IPopup) => {
   const scrollContainerRef = useRef()
   useEffect(() => {
     if (scrollContainerRef.current && show) {
@@ -54,12 +75,12 @@ export const Popup = ({ show = true, onClose, children }: IPopup) => {
   return (
     <>
       {show ? (
-        <Wrapper>
-          <Content>
-            <CloseContainer onClick={onClose}>
-              <Close />
+        <Wrapper css={css}>
+          <Content css={contentCss}>
+            <CloseContainer css={closeContainerCss} onClick={onClose}>
+              {close || <Close css={closeCss} />}
             </CloseContainer>
-            <ScrollContainer ref={scrollContainerRef}>
+            <ScrollContainer css={scrollContainerCss} ref={scrollContainerRef}>
               {children}
             </ScrollContainer>
           </Content>

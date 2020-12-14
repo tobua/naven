@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import { css } from '@emotion/react'
 import { Content, Element, Vertical, Space } from 'naven'
 
@@ -33,26 +33,43 @@ const {
   Tooltip,
 } = Element
 
-const ElementPropertyTable = ({ children }: { children?: any }) => (
-  <Table>
-    <>
+const ElementPropertyTable = ({
+  space = true,
+  children,
+}: {
+  children?: any
+  space?: boolean
+}) => {
+  const contents = [
+    <Fragment key="head">
       <Text>Property</Text>
       <Text>Default</Text>
       <Text>Values</Text>
-    </>
-    {children && <>{children}</>}
-    <>
-      <Text>space</Text>
-      <Text>Space.medium</Text>
-      <Text>string | number</Text>
-    </>
-    <>
+    </Fragment>,
+  ]
+
+  contents.push(...children)
+
+  if (space) {
+    contents.push(
+      <Fragment key="space">
+        <Text>space</Text>
+        <Text>Space.medium</Text>
+        <Text>string | number</Text>
+      </Fragment>
+    )
+  }
+
+  contents.push(
+    <Fragment key="css">
       <Text>css</Text>
       <Text>Empty</Text>
       <Text>SerializedStyles</Text>
-    </>
-  </Table>
-)
+    </Fragment>
+  )
+
+  return <Table>{contents}</Table>
+}
 
 const PopupToggle = () => {
   const [show, togglePopup] = useState(false)
@@ -214,8 +231,65 @@ const { Button } = Element
       Ohh: This is a <b>closeable</b> warning
     </Alert>
     <Alert type="error">Whoopsie: This is an error</Alert>
+    <Code jsx language="typescript">
+      {`<Alert type="warning" closeable>Watch out!</Alert>`}
+    </Code>
+    <ElementPropertyTable>
+      <>
+        <Text>type</Text>
+        <Text>info</Text>
+        <Text>'info' | 'warning' | 'error'</Text>
+      </>
+      <>
+        <Text>closeable</Text>
+        <Text>false</Text>
+        <Text>boolean</Text>
+      </>
+    </ElementPropertyTable>
     <Heading as="h2">Popup</Heading>
     <PopupToggle />
+    <Code jsx language="typescript">
+      {`<Popup show={show} onClose={() => setShow(false)}>
+  <Text>Content</Text>
+</Popup>`}
+    </Code>
+    <ElementPropertyTable space={false}>
+      <Fragment key="show">
+        <Text>show</Text>
+        <Text>true</Text>
+        <Text>boolean</Text>
+      </Fragment>
+      <Fragment key="onClose">
+        <Text>onClose</Text>
+        <Text>required</Text>
+        <Text>{`() => any`}</Text>
+      </Fragment>
+      <Fragment key="contentCss">
+        <Text>contentCss</Text>
+        <Text></Text>
+        <Text>SerializedStyles</Text>
+      </Fragment>
+      <Fragment key="scrollContainerCss">
+        <Text>scrollContainerCss</Text>
+        <Text></Text>
+        <Text>SerializedStyles</Text>
+      </Fragment>
+      <Fragment key="closeContainerCss">
+        <Text>closeContainerCss</Text>
+        <Text></Text>
+        <Text>SerializedStyles</Text>
+      </Fragment>
+      <Fragment key="closeCss">
+        <Text>closeCss</Text>
+        <Text></Text>
+        <Text>SerializedStyles</Text>
+      </Fragment>
+      <Fragment key="close">
+        <Text>close</Text>
+        <InlineCode>{`<Close />`}</InlineCode>
+        <Text>JSX.Element</Text>
+      </Fragment>
+    </ElementPropertyTable>
     <Heading as="h2">Checkbox</Heading>
     <Checkboxes />
     <Heading as="h2">Radio</Heading>
