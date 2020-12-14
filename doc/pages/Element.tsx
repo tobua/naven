@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react'
 import { css } from '@emotion/react'
-import { Content, Element, Vertical, Space } from 'naven'
+import { Content, Element, Vertical, Horizontal, Space } from 'naven'
 
 const {
   Accordion,
@@ -353,21 +353,38 @@ const { Button } = Element
       </>
     </ElementPropertyTable>
     <Heading as="h2">Badge</Heading>
-    <Badge>
-      <Paragraph>Hey Badge</Paragraph>
-    </Badge>
-    <Heading as="h3">With Count</Heading>
-    <Badge
-      count={5}
+    <Horizontal
       css={css`
-        margin-right: 30px;
+        overflow: visible;
       `}
     >
-      <span>count me</span>
-    </Badge>
-    <Badge count={987}>
-      <span>big number</span>
-    </Badge>
+      <Badge>
+        <Text>Hey Badge</Text>
+      </Badge>
+      <Badge count={5}>
+        <Text>count me</Text>
+      </Badge>
+      <Badge count={987}>
+        <Text>big number</Text>
+      </Badge>
+    </Horizontal>
+    <Code jsx language="typescript">
+      {`<Badge count={30}>
+  <Text>Mail</Text>
+</Badge>`}
+    </Code>
+    <ElementPropertyTable>
+      <>
+        <Text>count</Text>
+        <Text></Text>
+        <Text>number | string</Text>
+      </>
+      <>
+        <Text>cssDot</Text>
+        <Text></Text>
+        <Text>SerializedStyles</Text>
+      </>
+    </ElementPropertyTable>
     <Heading as="h2">Dropdown</Heading>
     <Dropdown
       options={[

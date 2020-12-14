@@ -5,6 +5,7 @@ import { Space, spaceProp, toPx } from '../style'
 interface DirectionProps {
   space?: number | string
   gap?: number | string
+  css?: SerializedStyles
 }
 
 export const Horizontal = styled.div<DirectionProps>`
@@ -12,6 +13,7 @@ export const Horizontal = styled.div<DirectionProps>`
   overflow: auto;
   column-gap: ${({ gap = Space.medium }) => toPx(gap)};
   ${spaceProp}
+  ${({ css }) => css}
 `
 
 export const Vertical = styled.div<DirectionProps>`
@@ -19,6 +21,7 @@ export const Vertical = styled.div<DirectionProps>`
   flex-direction: column;
   row-gap: ${({ gap = Space.medium }) => toPx(gap)};
   ${spaceProp}
+  ${({ css }) => css}
 `
 
 export const Tiles = styled.div`
