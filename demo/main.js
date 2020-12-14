@@ -446,11 +446,13 @@
   overflow: auto;
   column-gap: ${({gap:e=C.medium})=>x(e)};
   ${O}
+  ${({css:e})=>e}
 `,Un=Mn.default.div`
   display: flex;
   flex-direction: column;
   row-gap: ${({gap:e=C.medium})=>x(e)};
   ${O}
+  ${({css:e})=>e}
 `,Bn=Mn.default.div`
   display: flex;
 `,Gn=Mn.default.div`
