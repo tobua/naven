@@ -471,25 +471,124 @@ const { Button } = Element
         { title: 'Third', content: <p>Content Third</p> },
       ]}
     />
+    <Code jsx language="typescript">
+      {`<Tabs items={[
+  { title: 'First', content: <Text>First Content</Text> },
+  { title: 'Second', content: <Text>Second Content</Text> }
+]} />`}
+    </Code>
+    <ElementPropertyTable>
+      <>
+        <Text>items</Text>
+        <Text>required</Text>
+        <Text>{`{ title: string, content: ReactNode }[]`}</Text>
+      </>
+      <>
+        <Text>initialTab</Text>
+        <Text>0</Text>
+        <Text>number</Text>
+      </>
+    </ElementPropertyTable>
     <Heading as="h2">Tooltip</Heading>
-    <Tooltip content={<p>Hello content</p>}>
-      <Paragraph space={0}>Hover or click to show tooltip.</Paragraph>
+    <Tooltip content={<Text>Hello content</Text>}>
+      <Text>Hover or click to show tooltip.</Text>
     </Tooltip>
     <Spacer />
+    <Code jsx language="typescript">
+      {`<Tooltip content={<Text>Me?</Text>}>
+  <Text>Who!</Text>
+</Tooltip>`}
+    </Code>
+    <ElementPropertyTable space={false}>
+      <>
+        <Text>content</Text>
+        <Text>required</Text>
+        <Text>ReactNode</Text>
+      </>
+      <>
+        <Text>children</Text>
+        <Text>required</Text>
+        <Text>ReactNode</Text>
+      </>
+      <>
+        <Text>arrow</Text>
+        <Text>true</Text>
+        <Text>boolean</Text>
+      </>
+      <>
+        <Text>close</Text>
+        <Text>false</Text>
+        <Text>boolean</Text>
+      </>
+    </ElementPropertyTable>
     <Heading as="h2">List</Heading>
     <List>
-      <span>First</span>
-      <span>Second</span>
-      <span>Third</span>
+      <Text>First</Text>
+      <Text>Second</Text>
+      <Text>Third</Text>
     </List>
-    <Heading as="h3">horizontal</Heading>
     <List horizontal>
-      <span>First</span>
-      <span>Second</span>
-      <span>Third</span>
+      <Text>First</Text>
+      <Text>Second</Text>
+      <Text>Third</Text>
     </List>
+    <Code jsx language="typescript">
+      {`<List horizontal>
+  <Text>First</Text>
+  <Text>Second</Text>
+</List>`}
+    </Code>
+    <ElementPropertyTable>
+      <>
+        <Text>horizontal</Text>
+        <Text>false</Text>
+        <Text>boolean</Text>
+      </>
+      <>
+        <Text>elementProps</Text>
+        <Text></Text>
+        <InlineCode>{`{ css: SerializedStyles } & LiElement`}</InlineCode>
+      </>
+      <>
+        <Text>wrap</Text>
+        <Text>false</Text>
+        <Text>boolean</Text>
+      </>
+      <>
+        <Text>gap</Text>
+        <Text>Space.small</Text>
+        <Text>number | string</Text>
+      </>
+    </ElementPropertyTable>
     <Heading as="h2">Date Picker</Heading>
-    <DatePicker />
+    <DatePicker initialDate={new Date(1990, 1, 17)} />
+    <Code jsx language="typescript">
+      {`<DatePicker initialDate={new Date(1990, 1, 17)} onChange={(date) => setDate(date)} />`}
+    </Code>
+    <ElementPropertyTable>
+      <>
+        <Text>initialDate</Text>
+        <Text>now</Text>
+        <Text>Date | null</Text>
+      </>
+      <>
+        <Text>onChange</Text>
+        <Text></Text>
+        <InlineCode>{`(date: Date) => void`}</InlineCode>
+      </>
+      <>
+        <Text>styleOverrides</Text>
+        <Text></Text>
+        <Text>SerializedStyles</Text>
+      </>
+      <>
+        <Text>...props</Text>
+        <Text></Text>
+        <TextLink href="https://reactdatepicker.com/">
+          See react-datepicker
+        </TextLink>
+      </>
+    </ElementPropertyTable>
     <Heading as="h2">Code</Heading>
     <Code language="javascript">
       {`// Hello JS

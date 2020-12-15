@@ -12,7 +12,8 @@ const Wrapper = styled.div`
 
 interface IDate {
   css?: SerializedStyles
-  initialDate?: Date
+  initialDate?: Date | null
+  onChange?: (date: Date) => void
   styleOverrides?: string
   space?: string | number
 }
@@ -32,8 +33,10 @@ class DateInput extends Component<{ value: any; onClick: any }> {
 export const DatePicker = ({
   css,
   initialDate = new Date(),
+  onChange,
   styleOverrides = '',
   space,
+  ...props
 }: IDate) => {
   // Hook inside result will fail.
   const [startDate, setStartDate] = useState(initialDate)
@@ -51,9 +54,15 @@ export const DatePicker = ({
             <ReactDatePicker
               style={{ marginBottom: 20 }}
               selected={startDate}
-              onChange={(date: Date) => setStartDate(date)}
+              onChange={(date: Date) => {
+                if (onChange) {
+                  onChange(date)
+                }
+                setStartDate(date)
+              }}
               // @ts-ignore
               customInput={<DateInput />}
+              {...props}
             />
           </Wrapper>
         )

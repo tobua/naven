@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Space, toPx, spaceProp } from '../../style'
@@ -9,6 +9,7 @@ const ListUl = styled.ul<ListProps>`
   flex-wrap: ${({ wrap }) => (wrap ? 'wrap' : 'inherit')};
   row-gap: ${({ gap }) => toPx(gap)};
   column-gap: ${({ gap }) => toPx(gap)};
+  overflow: ${({ wrap }) => (wrap ? 'visible' : 'auto')};
 
   ${spaceProp}
   ${({ css }) => css}
@@ -23,7 +24,7 @@ type ListProps = {
   wrap?: boolean
   css?: SerializedStyles
   gap?: number | string
-  children: any[]
+  children: ReactNode[]
   space?: string | number
   elementProps?: {
     css?: SerializedStyles

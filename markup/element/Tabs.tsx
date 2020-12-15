@@ -15,10 +15,11 @@ const TabWrapper = styled.div`
   margin-bottom: ${Space.medium};
 `
 
-const Tab = styled.div`
+const Tab = styled.div<{ active?: boolean }>`
   display: flex;
   cursor: pointer;
   margin-right: ${Space.medium};
+  font-weight: ${({ active }) => (active ? 'bold' : 'normal')};
 
   :hover,
   :focus {
@@ -53,6 +54,7 @@ export const Tabs = ({ items, initialTab = 0, css, space }: ITabs) => {
           <Tab
             key={index}
             tabIndex={0}
+            active={index === tab}
             onKeyUp={(event) => event.key === 'Enter' && setTab(index)}
             onClick={() => setTab(index)}
           >
