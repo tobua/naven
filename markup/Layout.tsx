@@ -10,7 +10,7 @@ interface DirectionProps {
 
 export const Horizontal = styled.div<DirectionProps>`
   display: flex;
-  overflow: auto;
+  overflow: visible;
   column-gap: ${({ gap = Space.medium }) => toPx(gap)};
   ${spaceProp}
   ${({ css }) => css}

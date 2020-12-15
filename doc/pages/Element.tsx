@@ -35,10 +35,12 @@ const {
 
 const ElementPropertyTable = ({
   space = true,
+  css = true,
   children,
 }: {
   children?: any
   space?: boolean
+  css?: boolean
 }) => {
   const contents = [
     <Fragment key="head">
@@ -60,13 +62,15 @@ const ElementPropertyTable = ({
     )
   }
 
-  contents.push(
-    <Fragment key="css">
-      <Text>css</Text>
-      <Text>Empty</Text>
-      <Text>SerializedStyles</Text>
-    </Fragment>
-  )
+  if (css) {
+    contents.push(
+      <Fragment key="css">
+        <Text>css</Text>
+        <Text>Empty</Text>
+        <Text>SerializedStyles</Text>
+      </Fragment>
+    )
+  }
 
   return <Table>{contents}</Table>
 }
@@ -90,14 +94,16 @@ const NotificationToggle = () => {
   const [type, setType] = useState<Value>('info')
 
   return (
-    <>
+    <Horizontal>
       <Notification />
       <Input
+        space={0}
         value={message}
         onChange={(event) => setMessage(event.target.value)}
         placeholder="Message"
       />
       <Dropdown
+        space={0}
         onChange={(option) => setType((option as any).value)}
         options={[
           { value: 'info', label: 'Information' },
@@ -107,12 +113,13 @@ const NotificationToggle = () => {
         placeholder="Type"
       />
       <Button
+        space={0}
         disabled={!type || !message || message === ''}
         onClick={() => addNotification({ message, type })}
       >
         Send
       </Button>
-    </>
+    </Horizontal>
   )
 }
 
@@ -392,8 +399,70 @@ const { Button } = Element
         { value: 'second', label: 'Second choice' },
       ]}
     />
+    <Code jsx language="typescript">
+      {`<Dropdown options={[
+  { value: 'first', label: 'First choice' },
+  { value: 'second', label: 'Second choice' },
+]} />`}
+    </Code>
+    <ElementPropertyTable css={false}>
+      <>
+        <Text>options</Text>
+        <Text>required</Text>
+        <TextLink href="https://react-select.com/props">
+          See react-select
+        </TextLink>
+      </>
+      <>
+        <Text>containerStyles</Text>
+        <Text></Text>
+        <Text>object</Text>
+      </>
+    </ElementPropertyTable>
     <Heading as="h2">Notification</Heading>
     <NotificationToggle />
+    <Heading as="h3" code>{`<Notification />`}</Heading>
+    <Code jsx language="typescript">
+      {`<Notification wrapperCss={css\`right: auto; left: 0;\`} />`}
+    </Code>
+    <ElementPropertyTable>
+      <>
+        <Text>gap</Text>
+        <Text></Text>
+        <Text>string | number</Text>
+      </>
+      <>
+        <Text>wrapperCss</Text>
+        <Text></Text>
+        <Text>SerializedStyles</Text>
+      </>
+      <>
+        <Text>containerCss</Text>
+        <Text></Text>
+        <Text>SerializedStyles</Text>
+      </>
+    </ElementPropertyTable>
+    <Heading as="h3" code>{`addNotification`}</Heading>
+    <Code jsx language="typescript">
+      {`addNotification({ message: 'No internet connection.', type: 'error'})`}
+    </Code>
+    <ElementPropertyTable css={false} space={false}>
+      <>
+        <Text>message</Text>
+        <Text>required</Text>
+        <Text>string</Text>
+      </>
+      <>
+        <Text>duration</Text>
+        <Text>8</Text>
+        <Text>number</Text>
+      </>
+      <>
+        <Text>type</Text>
+        <Text>info</Text>
+        <Text>'info' | 'warning' | 'error'</Text>
+      </>
+    </ElementPropertyTable>
     <Heading as="h2">Tabs</Heading>
     <Tabs
       items={[
