@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ReactNode } from 'react'
 import { Loader } from './Loader'
 import { Paragraph } from './Text'
 
 interface Props {
   imports: Promise<any>
-  result: (...imports: any) => JSX.Element
+  result: (...imports: any) => ReactNode
 }
 
 export const Lazy = ({ imports, result }: Props) => {

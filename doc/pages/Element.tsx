@@ -584,7 +584,7 @@ const { Button } = Element
       <>
         <Text>...props</Text>
         <Text></Text>
-        <TextLink href="https://reactdatepicker.com/">
+        <TextLink href="https://reactdatepicker.com">
           See react-datepicker
         </TextLink>
       </>
@@ -600,6 +600,33 @@ export const greet = (greeting: string) => console.log(\`hello \${greeting}!\`)`
       {`// Hello JSX / TSX
 export const Hello = () => <p>W<strong>o</strong>rld</p>`}
     </Code>
+    <Code jsx language="typescript">
+      {`<Code jsx language="typescript">{\`const doubleIt = (value: number) => value * 2\`}</Code>`}
+    </Code>
+    <ElementPropertyTable>
+      <>
+        <Text>language</Text>
+        <Text>typescript</Text>
+        <Text>'javascript' | 'typescript'</Text>
+      </>
+      <>
+        <Text>jsx</Text>
+        <Text>false</Text>
+        <Text>boolean</Text>
+      </>
+      <>
+        <Text>style</Text>
+        <Text></Text>
+        <Text>object</Text>
+      </>
+      <>
+        <Text>...props</Text>
+        <Text></Text>
+        <TextLink href="https://github.com/react-syntax-highlighter/react-syntax-highlighter">
+          See react-syntax-highlighter
+        </TextLink>
+      </>
+    </ElementPropertyTable>
     <Heading as="h2">Lazy</Heading>
     <Lazy
       // Mocking an import('./whatever')
@@ -607,6 +634,21 @@ export const Hello = () => <p>W<strong>o</strong>rld</p>`}
       result={(Component) => Component}
     />
     <Spacer />
+    <Code jsx language="typescript">
+      {`<Lazy imports={import('epic-react-router')} result={(Component) => <Component.Page />} />`}
+    </Code>
+    <ElementPropertyTable>
+      <>
+        <Text>imports</Text>
+        <Text>required</Text>
+        <Text>{`Promise<any>`}</Text>
+      </>
+      <>
+        <Text>result</Text>
+        <Text>required</Text>
+        <InlineCode>{`(...imports: any) => ReactNode`}</InlineCode>
+      </>
+    </ElementPropertyTable>
     <Heading as="h2">Table</Heading>
     <Table>
       <>
@@ -620,5 +662,18 @@ export const Hello = () => <p>W<strong>o</strong>rld</p>`}
         <Text>Sixth</Text>
       </>
     </Table>
+    <Code jsx language="typescript">
+      {`<Table>
+  <>
+    <Text>First</Text>
+    <Text>Second</Text>
+  </>
+  <>
+    <Text>Third</Text>
+    <Text>Fourth</Text>
+  </>
+</Table>`}
+    </Code>
+    <ElementPropertyTable />
   </Content>
 )
