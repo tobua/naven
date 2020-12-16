@@ -1,12 +1,11 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { SerializedStyles } from '@emotion/react'
+import { css as cssStyles, SerializedStyles } from '@emotion/react'
 import { TextLink, List } from './Element'
-import { Space } from '../style'
+import { Space, Color, Breakpoint } from '../style'
 import { footer, IFooter } from '../config'
 
 const Wrapper = styled.footer`
-  padding: 0 ${Space.small};
   grid-column: 3 / 4;
   display: flex;
   flex-wrap: wrap;
@@ -15,7 +14,24 @@ const Wrapper = styled.footer`
 
 const Row = styled.div`
   flex-basis: 25%;
+
+  ${Breakpoint.Tablet} {
+    flex-basis: 50%;
+  }
+
+  ${Breakpoint.Phone} {
+    flex-basis: 100%;
+  }
+
   ${({ css }) => css}
+`
+
+const firstLevelLinkStyles = cssStyles`
+  display: block;
+  border-bottom: 1px solid ${Color.Gray[300]};
+  margin-bottom: ${Space.small};
+  padding-bottom: ${Space.small}; 
+  margin-right: ${Space.medium};
 `
 
 export const Footer = ({
@@ -37,8 +53,10 @@ export const Footer = ({
     <Wrapper css={css}>
       {data.rows.map((row, index) => (
         <Row key={index} css={rowCss}>
-          <TextLink href={row.title.url}>{row.title.name}</TextLink>
-          <List>
+          <TextLink bold href={row.title.url} css={firstLevelLinkStyles}>
+            {row.title.name}
+          </TextLink>
+          <List css={cssStyles`margin-left: ${Space.medium};`}>
             {row.links.map((item, rowLinkIndex) => (
               <TextLink key={rowLinkIndex} href={item.url}>
                 {item.name}
