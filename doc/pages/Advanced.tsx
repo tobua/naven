@@ -1,6 +1,20 @@
 import React from 'react'
-import { Content, Element, Horizontal, Vertical, Wide, Narrow } from 'naven'
+import {
+  Content,
+  Element,
+  Horizontal,
+  Vertical,
+  Wide,
+  Narrow,
+  Color,
+  Space,
+} from 'naven'
 import { css } from '@emotion/react'
+
+const highlightLayoutCss = css`
+  background-color: ${Color.Gray[300]};
+  padding: ${Space.small};
+`
 
 export const Advanced = () => (
   <>
@@ -9,33 +23,21 @@ export const Advanced = () => (
         <Element.Anchor name="layout" />
         Layout
       </Element.Heading>
-      <Element.Heading as="h3" code>{`<Wide />`}</Element.Heading>
-      <Element.Spacer />
+      <Element.Heading as="h3" code space={0}>{`<Wide />`}</Element.Heading>
     </Content>
-
-    <Wide
-      css={css`
-        background-color: gray;
-      `}
-    >
+    <Wide css={highlightLayoutCss}>
       <span>Wide</span>
     </Wide>
     <Content>
-      <Element.Spacer />
       <Element.Code>{`<Wide>
   <span>Wide</span>
 </Wide>`}</Element.Code>
-      <Element.Heading as="h3" code>{`<Narrow />`}</Element.Heading>
+      <Element.Heading as="h3" code space={0}>{`<Narrow />`}</Element.Heading>
     </Content>
-    <Narrow
-      css={css`
-        background-color: gray;
-      `}
-    >
+    <Narrow css={highlightLayoutCss}>
       <span>Narrow</span>
     </Narrow>
     <Content>
-      <Element.Spacer />
       <Element.Code>{`<Narrow>
   <span>Narrow</span>
 </Narrow>`}</Element.Code>

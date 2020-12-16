@@ -2,21 +2,34 @@ import React from 'react'
 import { Content, Element } from 'naven'
 import { PropertyTable } from 'markup/PropertyTable'
 
-const { Text, Link, TextLink, InlineCode, Paragraph } = Element
+const {
+  Text,
+  Link,
+  TextLink,
+  InlineCode,
+  Paragraph,
+  Anchor,
+  Heading,
+  Code,
+  Spacer,
+} = Element
 
 export const Configuration = () => (
   <Content>
     <Paragraph>
-      Components like <Element.InlineCode>{`<Header />`}</Element.InlineCode>{' '}
-      are prefilled with some default link data.
+      Components like <InlineCode>{`<Header />`}</InlineCode> are prefilled with
+      some default link data.
     </Paragraph>
-    <Element.Heading as="h2" code>{`<Global />`}</Element.Heading>
-    <Element.Code>{`<Global root="body" />`}</Element.Code>
+    <Heading as="h2" code>
+      <Anchor name="global" />
+      {`<Global />`}
+    </Heading>
+    <Code>{`<Global root="body" />`}</Code>
     <Paragraph>
       Specify the root where you render the React application. By default an
-      element <Element.InlineCode>{`#root`}</Element.InlineCode> is assumed.
-      This component will not output anything but is required for the rest of
-      the components to work properly. It's also inserting the&nbsp;
+      element <InlineCode>{`#root`}</InlineCode> is assumed. This component will
+      not output anything but is required for the rest of the components to work
+      properly. It's also inserting the&nbsp;
       <Link href="https://github.com/Sayegh7/emotion-reset">
         <InlineCode>emotion-reset</InlineCode>
       </Link>
@@ -29,12 +42,15 @@ export const Configuration = () => (
         <Text>CSS Selector</Text>
       </>
     </PropertyTable>
-    <Element.Heading as="h2" code>{`<Header />`}</Element.Heading>
+    <Heading as="h2" code>
+      <Anchor name="header" />
+      {`<Header />`}
+    </Heading>
     <Paragraph>
       The header includes the logo and some links that are by default placed to
       the right.
     </Paragraph>
-    <Element.Code>
+    <Code>
       {`import logo from 'assets/logo.svg'
 
 const MyHeader = <Header
@@ -51,7 +67,7 @@ const MyHeader = <Header
 const HeaderText = <Header>
   <Text>My App</Text>
 </Header>`}
-    </Element.Code>
+    </Code>
     <PropertyTable space={false}>
       <>
         <Text>data</Text>
@@ -84,13 +100,16 @@ const HeaderText = <Header>
         <Text>SerializedStyles</Text>
       </>
     </PropertyTable>
-    <Element.Heading as="h2" code>{`<Navigation />`}</Element.Heading>
+    <Heading as="h2" code>
+      <Anchor name="navigation" />
+      {`<Navigation />`}
+    </Heading>
     <Paragraph>
       Navigation with the top-level links directly visible and another optional
       level per link that is visible on hover. On mobile the navigation is only
       visible after clicking on an icon in the top right corner.
     </Paragraph>
-    <Element.Code>
+    <Code>
       {`const MyNavigation = <Navigation data={{
     top: [
       {
@@ -106,7 +125,7 @@ const HeaderText = <Header>
     ],
   }}
 />`}
-    </Element.Code>
+    </Code>
     <PropertyTable space={false}>
       <>
         <Text>data</Text>
@@ -124,18 +143,21 @@ const HeaderText = <Header>
         <Text>SerializedStyles</Text>
       </>
     </PropertyTable>
-    <Element.Heading as="h2" code>{`<Content />`}</Element.Heading>
+    <Heading as="h2" code>
+      <Anchor name="content" />
+      {`<Content />`}
+    </Heading>
     <Paragraph>
       This is where you place the actual contents of the page. This container
       takes up to 1500px. There is also a <InlineCode>{`<Narrow>`}</InlineCode>{' '}
       and <InlineCode>{`<Narrow>`}</InlineCode> a wide one available which are
-      described in the <TextLink href="layout">Layout</TextLink> page.
+      described in the <TextLink href="advanced#layout">Layout</TextLink> page.
     </Paragraph>
-    <Element.Code>
+    <Code>
       {`const MyContent = <Content>
   <Text>Hello World</Text>
 </Content>`}
-    </Element.Code>
+    </Code>
     <PropertyTable space={false}>
       <>
         <Text>sidebar</Text>
@@ -143,12 +165,15 @@ const HeaderText = <Header>
         <Text>boolean</Text>
       </>
     </PropertyTable>
-    <Element.Heading as="h2" code>{`<Footer />`}</Element.Heading>
+    <Heading as="h2" code>
+      <Anchor name="footer" />
+      {`<Footer />`}
+    </Heading>
     <Paragraph>
       With this you can place more links or some common content for every page
       at the bottom.
     </Paragraph>
-    <Element.Code>
+    <Code>
       {`const FooterLinks = (
   <Footer
     data={{
@@ -170,7 +195,7 @@ const HeaderText = <Header>
 const CustomFooter = <Footer>
   <Paragraph>Copyright Notice</Paragraph>
 </Footer>`}
-    </Element.Code>
+    </Code>
     <PropertyTable space={false}>
       <>
         <Text>data</Text>
@@ -183,6 +208,6 @@ const CustomFooter = <Footer>
         <Text>SerializedStyles</Text>
       </>
     </PropertyTable>
-    <Element.Spacer />
+    <Spacer />
   </Content>
 )

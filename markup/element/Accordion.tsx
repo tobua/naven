@@ -46,7 +46,7 @@ export const Accordion = ({
 
         if (typeof header === 'string') {
           header = (
-            <Heading as="h3" noSpace>
+            <Heading as="h3" space={0}>
               {header}
             </Heading>
           )

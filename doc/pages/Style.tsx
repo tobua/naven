@@ -14,6 +14,8 @@ import {
   configure,
 } from 'naven'
 
+const { Heading, Button } = Element
+
 const defaultStyles = merge(
   {},
   { colors: Color, space: Space, breakpoints: Breakpoints, look: Look }
@@ -40,8 +42,8 @@ export const configureUserStyles = () => configure(getStoredStyles())
 
 export const Style = ({ onStyleChange }: { onStyleChange: () => void }) => (
   <Content>
-    <Element.Heading as="h3">Colors</Element.Heading>
-    <Horizontal>
+    <Heading as="h2">Colors</Heading>
+    <Horizontal gap={0}>
       <ColorPreview color={Color.highlight}>highlight</ColorPreview>
       <ColorPreview color={Color.interact}>interact</ColorPreview>
       <ColorPreview color={Color.black}>black</ColorPreview>
@@ -54,9 +56,8 @@ export const Style = ({ onStyleChange }: { onStyleChange: () => void }) => (
         contrast
       </ColorPreview>
     </Horizontal>
-    <Element.Spacer />
-    <Element.Heading as="h2">Configuration</Element.Heading>
-    <Element.Button
+    <Heading as="h2">Configuration</Heading>
+    <Button
       disabled={!Object.keys(getStoredStyles()).length}
       onClick={() => {
         window.localStorage.removeItem('styles')
@@ -65,8 +66,7 @@ export const Style = ({ onStyleChange }: { onStyleChange: () => void }) => (
       }}
     >
       Reset
-    </Element.Button>
-    <Element.Spacer />
+    </Button>
     <Konfi
       data={merge(defaultStyles, getStoredStyles())}
       onChange={(configuration: any) => {
@@ -79,6 +79,5 @@ export const Style = ({ onStyleChange }: { onStyleChange: () => void }) => (
         onStyleChange()
       }}
     />
-    <Element.Spacer />
   </Content>
 )

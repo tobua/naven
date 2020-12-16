@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
+import { spaceProp } from '../../style'
 
-// any because 'as' tag is missing in @emotion types.
-export const Heading = styled.h1<any>`
+export const Heading = styled.h1<{ code?: boolean; space?: string | number }>`
   font-size: ${({ as = 'h1' }) => {
     if (as === 'h1') {
       return '30px'
@@ -13,7 +13,7 @@ export const Heading = styled.h1<any>`
 
     return '20px'
   }};
-  margin-bottom: ${({ noSpace }) => (noSpace ? '0' : '20px')};
+  ${spaceProp}
   ${({ code }) =>
     code
       ? 'font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;'

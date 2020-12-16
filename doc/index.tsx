@@ -55,6 +55,7 @@ const app = () =>
                 { name: 'Global', url: 'configuration#global' },
                 { name: 'Header', url: 'configuration#header' },
                 { name: 'Navigation', url: 'configuration#navigation' },
+                { name: 'Content', url: 'configuration#content' },
                 { name: 'Footer', url: 'configuration#footer' },
               ],
             },

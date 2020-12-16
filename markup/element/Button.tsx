@@ -17,7 +17,12 @@ const getButtonColor = (
   return Shade(Color.Gray[700], opacity)
 }
 
-const Wrapper = styled.button<any>`
+const Wrapper = styled.button<{
+  highlight?: boolean
+  interact?: boolean
+  css?: SerializedStyles
+  space?: string | number
+}>`
   padding: ${Space.small};
   background-color: ${(props) => getButtonColor(props, 0.8)};
   border: none;
