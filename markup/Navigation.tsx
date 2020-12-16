@@ -136,6 +136,7 @@ export const Navigation = ({
   return (
     <Wrapper ref={scrollContainerRef} showNavigation={showNavigation}>
       <List
+        space={0}
         css={listStyles}
         elementProps={{ css: listElementStyles }}
         horizontal

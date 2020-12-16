@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from 'react'
 import { css } from '@emotion/react'
 import { Content, Element, Vertical, Horizontal, Space } from 'naven'
+import { PropertyTable } from 'markup/PropertyTable'
 
 const {
   Accordion,
@@ -32,48 +33,6 @@ const {
   Text,
   Tooltip,
 } = Element
-
-const ElementPropertyTable = ({
-  space = true,
-  css = true,
-  children,
-}: {
-  children?: any
-  space?: boolean
-  css?: boolean
-}) => {
-  const contents = [
-    <Fragment key="head">
-      <Text>Property</Text>
-      <Text>Default</Text>
-      <Text>Values</Text>
-    </Fragment>,
-  ]
-
-  contents.push(...children)
-
-  if (space) {
-    contents.push(
-      <Fragment key="space">
-        <Text>space</Text>
-        <Text>Space.medium</Text>
-        <Text>string | number</Text>
-      </Fragment>
-    )
-  }
-
-  if (css) {
-    contents.push(
-      <Fragment key="css">
-        <Text>css</Text>
-        <Text>Empty</Text>
-        <Text>SerializedStyles</Text>
-      </Fragment>
-    )
-  }
-
-  return <Table>{contents}</Table>
-}
 
 const PopupToggle = () => {
   const [show, togglePopup] = useState(false)
@@ -209,7 +168,7 @@ const { Button } = Element
     <Code jsx language="typescript">
       {`<Button onClick={() => alert('Hello')}>Press me!</Button>`}
     </Code>
-    <ElementPropertyTable>
+    <PropertyTable>
       <>
         <Text>highlight</Text>
         <Text>false</Text>
@@ -220,7 +179,7 @@ const { Button } = Element
         <Text>false</Text>
         <Text>boolean</Text>
       </>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h2">
       <Anchor name="input" />
       Input
@@ -235,7 +194,7 @@ const { Button } = Element
     <Code jsx language="typescript">
       {`<Input placeholder="Input here" value="value" onChange={(event) => alert(event.target.value)} />`}
     </Code>
-    <ElementPropertyTable />
+    <PropertyTable />
     <Heading as="h2">Alert</Heading>
     <Alert>Hey: This is an info</Alert>
     <Alert type="warning" closeable>
@@ -245,7 +204,7 @@ const { Button } = Element
     <Code jsx language="typescript">
       {`<Alert type="warning" closeable>Watch out!</Alert>`}
     </Code>
-    <ElementPropertyTable>
+    <PropertyTable>
       <>
         <Text>type</Text>
         <Text>info</Text>
@@ -256,7 +215,7 @@ const { Button } = Element
         <Text>false</Text>
         <Text>boolean</Text>
       </>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h2">Popup</Heading>
     <PopupToggle />
     <Code jsx language="typescript">
@@ -264,7 +223,7 @@ const { Button } = Element
   <Text>Content</Text>
 </Popup>`}
     </Code>
-    <ElementPropertyTable space={false}>
+    <PropertyTable space={false}>
       <Fragment key="show">
         <Text>show</Text>
         <Text>true</Text>
@@ -298,15 +257,15 @@ const { Button } = Element
       <Fragment key="close">
         <Text>close</Text>
         <InlineCode>{`<Close />`}</InlineCode>
-        <Text>JSX.Element</Text>
+        <Text>ReactNode</Text>
       </Fragment>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h2">Checkbox</Heading>
     <Checkboxes />
     <Code jsx language="typescript">
       {`<Checkbox label="Accept Terms" checked={terms} onChange={() => setTerms(!terms)} />`}
     </Code>
-    <ElementPropertyTable>
+    <PropertyTable>
       <>
         <Text>label</Text>
         <Text></Text>
@@ -317,13 +276,13 @@ const { Button } = Element
         <Text></Text>
         <Text>SerializedStyles</Text>
       </>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h2">Radio</Heading>
     <Radios />
     <Code jsx language="typescript">
       {`<Radio label="Female" name="gender" checked={selection === 'female'} onChange={() => setGender('female')} />`}
     </Code>
-    <ElementPropertyTable>
+    <PropertyTable>
       <>
         <Text>label</Text>
         <Text></Text>
@@ -334,7 +293,7 @@ const { Button } = Element
         <Text></Text>
         <Text>SerializedStyles</Text>
       </>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h2">Accordion</Heading>
     <Accordion headers={['First', <Text bold>Second</Text>, 'Third']}>
       <Text>First Content</Text>
@@ -347,18 +306,18 @@ const { Button } = Element
   <Text>World</Text>
 </Accordion>`}
     </Code>
-    <ElementPropertyTable>
+    <PropertyTable>
       <>
         <Text>headers</Text>
         <Text>required</Text>
-        <Text>(string | JSX.Element)[]</Text>
+        <Text>(string | ReactNode)[]</Text>
       </>
       <>
         <Text>initialOpen</Text>
         <Text>0</Text>
         <Text>number</Text>
       </>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h2">Badge</Heading>
     <Horizontal
       css={css`
@@ -380,7 +339,7 @@ const { Button } = Element
   <Text>Mail</Text>
 </Badge>`}
     </Code>
-    <ElementPropertyTable>
+    <PropertyTable>
       <>
         <Text>count</Text>
         <Text></Text>
@@ -391,7 +350,7 @@ const { Button } = Element
         <Text></Text>
         <Text>SerializedStyles</Text>
       </>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h2">Dropdown</Heading>
     <Dropdown
       options={[
@@ -405,7 +364,7 @@ const { Button } = Element
   { value: 'second', label: 'Second choice' },
 ]} />`}
     </Code>
-    <ElementPropertyTable css={false}>
+    <PropertyTable css={false}>
       <>
         <Text>options</Text>
         <Text>required</Text>
@@ -418,14 +377,14 @@ const { Button } = Element
         <Text></Text>
         <Text>object</Text>
       </>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h2">Notification</Heading>
     <NotificationToggle />
     <Heading as="h3" code>{`<Notification />`}</Heading>
     <Code jsx language="typescript">
       {`<Notification wrapperCss={css\`right: auto; left: 0;\`} />`}
     </Code>
-    <ElementPropertyTable>
+    <PropertyTable>
       <>
         <Text>gap</Text>
         <Text></Text>
@@ -441,12 +400,12 @@ const { Button } = Element
         <Text></Text>
         <Text>SerializedStyles</Text>
       </>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h3" code>{`addNotification`}</Heading>
     <Code jsx language="typescript">
       {`addNotification({ message: 'No internet connection.', type: 'error'})`}
     </Code>
-    <ElementPropertyTable css={false} space={false}>
+    <PropertyTable css={false} space={false}>
       <>
         <Text>message</Text>
         <Text>required</Text>
@@ -462,7 +421,7 @@ const { Button } = Element
         <Text>info</Text>
         <Text>'info' | 'warning' | 'error'</Text>
       </>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h2">Tabs</Heading>
     <Tabs
       items={[
@@ -477,7 +436,7 @@ const { Button } = Element
   { title: 'Second', content: <Text>Second Content</Text> }
 ]} />`}
     </Code>
-    <ElementPropertyTable>
+    <PropertyTable>
       <>
         <Text>items</Text>
         <Text>required</Text>
@@ -488,7 +447,7 @@ const { Button } = Element
         <Text>0</Text>
         <Text>number</Text>
       </>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h2">Tooltip</Heading>
     <Tooltip content={<Text>Hello content</Text>}>
       <Text>Hover or click to show tooltip.</Text>
@@ -499,7 +458,7 @@ const { Button } = Element
   <Text>Who!</Text>
 </Tooltip>`}
     </Code>
-    <ElementPropertyTable space={false}>
+    <PropertyTable space={false}>
       <>
         <Text>content</Text>
         <Text>required</Text>
@@ -520,7 +479,7 @@ const { Button } = Element
         <Text>false</Text>
         <Text>boolean</Text>
       </>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h2">List</Heading>
     <List>
       <Text>First</Text>
@@ -538,7 +497,7 @@ const { Button } = Element
   <Text>Second</Text>
 </List>`}
     </Code>
-    <ElementPropertyTable>
+    <PropertyTable>
       <>
         <Text>horizontal</Text>
         <Text>false</Text>
@@ -559,13 +518,13 @@ const { Button } = Element
         <Text>Space.small</Text>
         <Text>number | string</Text>
       </>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h2">Date Picker</Heading>
     <DatePicker initialDate={new Date(1990, 1, 17)} />
     <Code jsx language="typescript">
       {`<DatePicker initialDate={new Date(1990, 1, 17)} onChange={(date) => setDate(date)} />`}
     </Code>
-    <ElementPropertyTable>
+    <PropertyTable>
       <>
         <Text>initialDate</Text>
         <Text>now</Text>
@@ -588,7 +547,7 @@ const { Button } = Element
           See react-datepicker
         </TextLink>
       </>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h2">Code</Heading>
     <Code language="javascript">
       {`// Hello JS
@@ -603,7 +562,7 @@ export const Hello = () => <p>W<strong>o</strong>rld</p>`}
     <Code jsx language="typescript">
       {`<Code jsx language="typescript">{\`const doubleIt = (value: number) => value * 2\`}</Code>`}
     </Code>
-    <ElementPropertyTable>
+    <PropertyTable>
       <>
         <Text>language</Text>
         <Text>typescript</Text>
@@ -626,7 +585,7 @@ export const Hello = () => <p>W<strong>o</strong>rld</p>`}
           See react-syntax-highlighter
         </TextLink>
       </>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h2">Lazy</Heading>
     <Lazy
       // Mocking an import('./whatever')
@@ -637,7 +596,7 @@ export const Hello = () => <p>W<strong>o</strong>rld</p>`}
     <Code jsx language="typescript">
       {`<Lazy imports={import('epic-react-router')} result={(Component) => <Component.Page />} />`}
     </Code>
-    <ElementPropertyTable>
+    <PropertyTable>
       <>
         <Text>imports</Text>
         <Text>required</Text>
@@ -648,7 +607,7 @@ export const Hello = () => <p>W<strong>o</strong>rld</p>`}
         <Text>required</Text>
         <InlineCode>{`(...imports: any) => ReactNode`}</InlineCode>
       </>
-    </ElementPropertyTable>
+    </PropertyTable>
     <Heading as="h2">Table</Heading>
     <Table>
       <>
@@ -674,6 +633,6 @@ export const Hello = () => <p>W<strong>o</strong>rld</p>`}
   </>
 </Table>`}
     </Code>
-    <ElementPropertyTable />
+    <PropertyTable />
   </Content>
 )

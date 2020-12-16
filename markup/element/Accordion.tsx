@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ReactNode } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { Heading } from './Heading'
@@ -26,7 +26,7 @@ const Group = styled.div`
 `
 
 interface IAccordion {
-  headers?: (string | JSX.Element)[]
+  headers?: (string | ReactNode)[]
   initialOpen?: number
   children: any[]
   css?: SerializedStyles

@@ -3,7 +3,7 @@ import { Color } from '../../style'
 
 export const Link = styled.a`
   text-decoration: none;
-
+  color: ${Color.black};
   ${({ css }) => css}
 `
 

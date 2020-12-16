@@ -6,8 +6,7 @@ export const Overview = () => (
     <Element.Heading>naven UI Library</Element.Heading>
     <Element.Paragraph>
       Quickly prototype and implement custom designed web applications with
-      React and CSS-in-JS. Avoid wasting time styling and creating components
-      from scratch each time.
+      React and CSS-in-JS.
     </Element.Paragraph>
     <Element.Heading as="h2">Installation</Element.Heading>
     <Element.Paragraph>Add it to your project with</Element.Paragraph>

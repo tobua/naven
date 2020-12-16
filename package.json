@@ -20,10 +20,9 @@
   "dependencies": {
     "@emotion/react": "^11.1.2",
     "@emotion/styled": "^11.0.0",
-    "@popperjs/core": "^2.5.4",
-    "@types/react-select": "^3.0.28",
+    "@popperjs/core": "^2.6.0",
     "body-scroll-lock": "^3.1.5",
-    "emotion-reset": "^2.0.7",
+    "emotion-reset": "^3.0.0",
     "hex-rgb": "^4.2.0",
     "object-assign-deep": "^0.4.0",
     "react-datepicker": "^3.3.0",
@@ -41,9 +40,10 @@
     "dist"
   ],
   "devDependencies": {
-    "@types/node": "^14.14.13",
+    "@types/node": "^14.14.14",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/react-select": "^3.0.28",
     "padua": "^0.1.5",
     "react": "^17.0.1",
     "react-test-renderer": "^17.0.1"

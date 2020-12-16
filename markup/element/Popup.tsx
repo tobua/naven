@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, ReactNode } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
@@ -48,7 +48,7 @@ interface IPopup {
   scrollContainerCss?: SerializedStyles
   closeContainerCss?: SerializedStyles
   closeCss?: SerializedStyles
-  close?: JSX.Element
+  close?: ReactNode
   children: any
 }
 
