@@ -362,6 +362,8 @@
     display: ${({showNavigation:e})=>e?"flex":"none"};
     ${({showNavigation:e})=>e?`height: calc(100vh - ${C.medium} - 2 * ${C.small});`:""}
   }
+
+  ${({css:e})=>e}
 `,on=j.default.aside`
   grid-column: 2 / 3;
 `,sn=V.css`
@@ -410,14 +412,24 @@
       color: ${I.interact};
     }
   }
-`,pn=({children:e})=>{let[t,n]=Y.useState(!1);return Y.default.createElement(dn,{tabIndex:0,onMouseEnter:()=>n(!0),onFocus:()=>n(!0),onMouseLeave:()=>n(!1),onBlur:()=>n(!1)},e[0],e[1].props.children&&Y.default.createElement(cn,{isOpen:t},Y.default.createElement(un,null,e[1])))},mn=()=>Y.default.createElement(on,null,Y.default.createElement("nav",null,"Sidebar")),_n=null,gn=({data:e=rn,linkActive:t=(()=>!1)})=>{let n=Y.useRef(),[r,a]=Y.useState(!1);return _n=a,Y.useEffect((()=>{n.current&&r?H.disableBodyScroll(n.current):H.clearAllBodyScrollLocks()}),[r]),Y.default.createElement(an,{ref:n,showNavigation:r},Y.default.createElement(Dt,{space:0,css:sn,elementProps:{css:ln},horizontal:!0},e.top.map((e=>Y.default.createElement(pn,{key:e.title.name},Y.default.createElement(at,{href:e.title.url,bold:t(e.title.url)},e.title.name),Y.default.createElement(Y.default.Fragment,null,e.links&&e.links.length&&e.links.map((e=>Y.default.createElement(at,{key:e.name,href:e.url},e.name)))))))))},fn=g(n(67294)),En=g(n(24524)),bn=En.default.footer(`\n  padding: 0 ${C.small};\n  grid-column: 3 / 4;\n\n  display: flex;\n  flex-wrap: wrap;\n`,(e=>e.css)),hn=En.default.div("\n  flex-basis: 25%;\n",(e=>e.css)),Sn=({data:e=nn,wrapperStyle:t,rowStyle:n,children:r})=>r?fn.default.createElement(bn,{css:t},r):fn.default.createElement(bn,{css:t},e.rows.map(((e,t)=>fn.default.createElement(hn,{key:t,css:n},fn.default.createElement(at,{href:e.title.url},e.title.name),fn.default.createElement(Dt,null,e.links.map(((e,t)=>fn.default.createElement(at,{key:t,href:e.url},e.name)))))))),yn=g(n(67294)),vn=g(n(70917)),Tn=g(n(24524)),Cn=g(n(67294)),On=g(n(24524)).default.svg`
+  ${({css:e})=>e}
+`,pn=({css:e,children:t})=>{let[n,r]=Y.useState(!1);return Y.default.createElement(dn,{css:e,tabIndex:0,onMouseEnter:()=>r(!0),onFocus:()=>r(!0),onMouseLeave:()=>r(!1),onBlur:()=>r(!1)},t[0],t[1].props.children&&Y.default.createElement(cn,{isOpen:n},Y.default.createElement(un,null,t[1])))},mn=()=>Y.default.createElement(on,null,Y.default.createElement("nav",null,"Sidebar")),_n=null,gn=({data:e=rn,linkActive:t=(()=>!1),css:n,tabCss:r})=>{let a=Y.useRef(),[i,o]=Y.useState(!1);return _n=o,Y.useEffect((()=>{a.current&&i?H.disableBodyScroll(a.current):H.clearAllBodyScrollLocks()}),[i]),Y.default.createElement(an,{ref:a,showNavigation:i,css:n},Y.default.createElement(Dt,{space:0,css:sn,elementProps:{css:ln},horizontal:!0},e.top.map((e=>Y.default.createElement(pn,{key:e.title.name,css:r},Y.default.createElement(at,{href:e.title.url,bold:t(e.title.url)},e.title.name),Y.default.createElement(Y.default.Fragment,null,e.links&&e.links.length&&e.links.map((e=>Y.default.createElement(at,{key:e.name,href:e.url},e.name)))))))))},fn=g(n(67294)),En=g(n(24524)),bn=En.default.footer`
+  padding: 0 ${C.small};
+  grid-column: 3 / 4;
+  display: flex;
+  flex-wrap: wrap;
+  ${({css:e})=>e}
+`,hn=En.default.div`
+  flex-basis: 25%;
+  ${({css:e})=>e}
+`,Sn=({data:e=nn,css:t,rowCss:n,children:r})=>r?fn.default.createElement(bn,{css:t},r):fn.default.createElement(bn,{css:t},e.rows.map(((e,t)=>fn.default.createElement(hn,{key:t,css:n},fn.default.createElement(at,{href:e.title.url},e.title.name),fn.default.createElement(Dt,null,e.links.map(((e,t)=>fn.default.createElement(at,{key:t,href:e.url},e.name)))))))),yn=g(n(67294)),vn=g(n(70917)),Tn=g(n(24524)),Cn=g(n(67294)),On=g(n(24524)).default.svg`
   ${({css:e})=>e}
 `,Nn=e=>{var t=m(e,[]);return Cn.default.createElement(On,d(d({},t),{xmlns:"http://www.w3.org/2000/svg",fill:"none",viewBox:"0 0 120 120"}),Cn.default.createElement("g",{stroke:"#000",strokeWidth:"20",clipPath:"url(#clip0)"},Cn.default.createElement("path",{d:"M0 10L120 10"}),Cn.default.createElement("path",{d:"M40 110L120 110"}),Cn.default.createElement("path",{d:"M20 60L120 60"})),Cn.default.createElement("defs",null,Cn.default.createElement("clipPath",{id:"clip0"},Cn.default.createElement("path",{fill:"#fff",d:"M0 0H120V120H0z"}))))},Rn=Tn.default.header`
   grid-column: 2 / 5;
-
   display: grid;
   grid-template-columns: auto auto;
   grid-template-rows: auto auto auto;
+  ${({css:e})=>e}
 `,An=Tn.default.img`
   color: blue;
   max-height: 100%;
@@ -425,6 +437,7 @@
   color: black;
   grid-column: 2 / 3;
   justify-self: end;
+  ${({css:e})=>e}
 `,wn=Tn.default.p`
   font-size: ${C.medium};
   font-weight: bold;
@@ -433,6 +446,7 @@
   justify-self: start;
   display: flex;
   height: ${C.large};
+  ${({css:e})=>e}
 `,xn=Tn.default.div`
   display: flex;
 `,kn=()=>{let[e,t]=yn.useState(!1),n=()=>{t(!e),(e=>{_n(e)})(!e)},r=vn.css`
@@ -444,7 +458,7 @@
     ${T.Phone} {
       display: flex;
     }
-  `;return yn.default.createElement(xn,null,e?yn.default.createElement(ut,{onClick:n,css:r}):yn.default.createElement(Nn,{onClick:n,css:r}))},Ln=({logo:e=null,title:t,link:n,children:r})=>{let a=yn.default.createElement(pt,null);return e||r?(e&&(a=yn.default.createElement(An,{src:e})),r&&(a=r),yn.default.createElement(Dn,{href:n},a)):yn.default.createElement(wn,null,t)},Pn=({data:e=tn,logo:t=null,title:n="naven",link:r="/",children:a})=>yn.default.createElement(Rn,null,yn.default.createElement(Ln,{logo:t,title:n,link:r},a),yn.default.createElement(In,null,yn.default.createElement(kn,null),yn.default.createElement(Dt,{css:vn.css`
+  `;return yn.default.createElement(xn,null,e?yn.default.createElement(ut,{onClick:n,css:r}):yn.default.createElement(Nn,{onClick:n,css:r}))},Ln=({logo:e=null,title:t,link:n,css:r,children:a})=>{let i=yn.default.createElement(pt,null);return e||a?(e&&(i=yn.default.createElement(An,{src:e})),a&&(i=a),yn.default.createElement(Dn,{css:r,href:n},i)):yn.default.createElement(wn,null,t)},Pn=({data:e=tn,logo:t=null,title:n="naven",link:r="/",css:a,titleCss:i,metaCss:o,children:s})=>yn.default.createElement(Rn,{css:a},yn.default.createElement(Ln,{logo:t,title:n,link:r,css:i},s),yn.default.createElement(In,{css:o},yn.default.createElement(kn,null),yn.default.createElement(Dt,{css:vn.css`
           ${T.Phone} {
             display: none;
           }
