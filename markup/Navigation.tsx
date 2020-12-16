@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
-import { css } from '@emotion/react'
+import { css as cssStyles, SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
 import { List, TextLink } from './Element'
 import { navigation, INavigation } from '../config'
@@ -20,20 +20,22 @@ export const Wrapper = styled.nav<{ showNavigation: boolean }>`
         ? `height: calc(100vh - ${Space.medium} - 2 * ${Space.small});`
         : ''}
   }
+
+  ${({ css }) => css}
 `
 
 export const Aside = styled.aside`
   grid-column: 2 / 3;
 `
 
-const listStyles = css`
+const listStyles = cssStyles`
   ${Breakpoint.Phone} {
     flex: 1;
     flex-direction: column;
   }
 `
 
-const listElementStyles = css`
+const listElementStyles = cssStyles`
   padding: 0;
   margin-right: ${Space.small};
 
@@ -80,13 +82,21 @@ const TabElement = styled.div`
       color: ${Color.interact};
     }
   }
+  ${({ css }) => css}
 `
 
-export const Tab = ({ children }: { children: React.ReactElement[] }) => {
+export const Tab = ({
+  css,
+  children,
+}: {
+  css?: SerializedStyles
+  children: React.ReactElement[]
+}) => {
   const [open, setOpen] = useState(false)
 
   return (
     <TabElement
+      css={css}
       tabIndex={0}
       onMouseEnter={() => setOpen(true)}
       onFocus={() => setOpen(true)}
@@ -114,11 +124,15 @@ let toggleMobileNavigation = null
 interface Props {
   linkActive?: (url: string) => boolean
   data?: INavigation
+  css?: SerializedStyles
+  tabCss?: SerializedStyles
 }
 
 export const Navigation = ({
   data = navigation,
   linkActive = () => false,
+  css,
+  tabCss,
 }: Props) => {
   const scrollContainerRef = useRef()
   const [showNavigation, toggleMobileNavigationState] = useState(false)
@@ -134,7 +148,7 @@ export const Navigation = ({
   }, [showNavigation])
 
   return (
-    <Wrapper ref={scrollContainerRef} showNavigation={showNavigation}>
+    <Wrapper ref={scrollContainerRef} showNavigation={showNavigation} css={css}>
       <List
         space={0}
         css={listStyles}
@@ -142,7 +156,7 @@ export const Navigation = ({
         horizontal
       >
         {data.top.map((link) => (
-          <Tab key={link.title.name}>
+          <Tab key={link.title.name} css={tabCss}>
             <TextLink href={link.title.url} bold={linkActive(link.title.url)}>
               {link.title.name}
             </TextLink>

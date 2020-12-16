@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { css } from '@emotion/react'
+import { css as cssStyles, SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Link, TextLink, List } from './Element'
 import { showMobileNavigation } from './Navigation'
@@ -11,10 +11,10 @@ import { header, IHeader } from '../config'
 
 export const Wrapper = styled.header`
   grid-column: 2 / 5;
-
   display: grid;
   grid-template-columns: auto auto;
   grid-template-rows: auto auto auto;
+  ${({ css }) => css}
 `
 
 export const Image = styled.img`
@@ -26,6 +26,7 @@ export const Meta = styled.nav`
   color: black;
   grid-column: 2 / 3;
   justify-self: end;
+  ${({ css }) => css}
 `
 
 export const TitleText = styled.p`
@@ -38,6 +39,7 @@ const TitleLink = styled(Link)`
   justify-self: start;
   display: flex;
   height: ${Space.large};
+  ${({ css }) => css}
 `
 
 export const ToggleIconWrapper = styled.div`
@@ -51,7 +53,7 @@ const ToggleIcon = () => {
     showMobileNavigation(!open)
   }
 
-  const iconStyles = css`
+  const iconStyles = cssStyles`
     cursor: pointer;
     width: ${Space.medium};
     height: ${Space.medium};
@@ -77,10 +79,17 @@ interface TitleProps {
   logo?: string
   title?: string
   link?: string
+  css?: SerializedStyles
   children?: any
 }
 
-export const Title = ({ logo = null, title, link, children }: TitleProps) => {
+export const Title = ({
+  logo = null,
+  title,
+  link,
+  css,
+  children,
+}: TitleProps) => {
   let content = <Logo />
 
   if (!logo && !children) {
@@ -95,7 +104,11 @@ export const Title = ({ logo = null, title, link, children }: TitleProps) => {
     content = children
   }
 
-  return <TitleLink href={link}>{content}</TitleLink>
+  return (
+    <TitleLink css={css} href={link}>
+      {content}
+    </TitleLink>
+  )
 }
 
 interface Props {
@@ -103,6 +116,9 @@ interface Props {
   logo?: string
   title?: string
   link?: string
+  css?: SerializedStyles
+  titleCss?: SerializedStyles
+  metaCss?: SerializedStyles
   children?: any
 }
 
@@ -111,16 +127,19 @@ export const Header = ({
   logo = null,
   title = 'naven',
   link = '/',
+  css,
+  titleCss,
+  metaCss,
   children,
 }: Props) => (
-  <Wrapper>
-    <Title logo={logo} title={title} link={link}>
+  <Wrapper css={css}>
+    <Title logo={logo} title={title} link={link} css={titleCss}>
       {children}
     </Title>
-    <Meta>
+    <Meta css={metaCss}>
       <ToggleIcon />
       <List
-        css={css`
+        css={cssStyles`
           ${Breakpoint.Phone} {
             display: none;
           }
