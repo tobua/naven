@@ -142,7 +142,7 @@
   ${({bold:e})=>e?"font-weight: bold":null}
 `,Se=({imports:e,result:t})=>{let[n,r]=oe.useState(null);return oe.useEffect((()=>{e.then((e=>{r(e)})).catch((()=>r("error")))})),n?"error"===n?oe.default.createElement(be,null,"Error loading component."):Array.isArray(n)?t(...n):t(n):oe.default.createElement(fe,null)},ye=({space:e,containerStyles:t})=>({indicatorSeparator:e=>d(d({},e),{display:"none"}),container:n=>d(d(d(d({},n),{minWidth:200}),t),N(e))}),ve=e=>{var{space:t,containerStyles:r}=e,a=m(e,["space","containerStyles"]);return ie.default.createElement(Se,{imports:Promise.resolve().then((()=>g(n(50989)))),result:e=>{let n=e.default;return ie.default.createElement(n,d(d({},a),{styles:d(d({},ye({space:t,containerStyles:r})),a.styles),theme:{borderRadius:k.corner,colors:{primary:I.highlight}}}))}})},Te=g(n(67294)),Ce=g(n(24524)),Oe=g(n(24524)).default.h1`
   font-size: ${({as:e="h1"})=>"h1"===e?"30px":"h2"===e?"24px":"20px"};
-  margin-bottom: ${({noSpace:e})=>e?"0":"20px"};
+  ${O}
   ${({code:e})=>e?"font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;":""}
 `,Ne=Ce.default.div`
   display: flex;
@@ -157,7 +157,7 @@
   display: flex;
   flex-direction: column;
   margin-bottom: ${C.small};
-`,we=({headers:e,children:t,css:n,initialOpen:r=0})=>{let[a,i]=Te.useState(r);return Te.default.createElement(Ne,{css:n},t.map(((t,n)=>{let r=e[n];return"string"==typeof r&&(r=Te.default.createElement(Oe,{as:"h3",noSpace:!0},r)),Te.default.createElement(Ie,{key:n},Te.default.createElement(Re,{onClick:()=>i(n)},r),Te.default.createElement(Ae,{open:n===a},t))})))},De=g(n(67294)),xe=g(n(24524)),ke=[],Le=xe.default.div`
+`,we=({headers:e,children:t,css:n,initialOpen:r=0})=>{let[a,i]=Te.useState(r);return Te.default.createElement(Ne,{css:n},t.map(((t,n)=>{let r=e[n];return"string"==typeof r&&(r=Te.default.createElement(Oe,{as:"h3",space:0},r)),Te.default.createElement(Ie,{key:n},Te.default.createElement(Re,{onClick:()=>i(n)},r),Te.default.createElement(Ae,{open:n===a},t))})))},De=g(n(67294)),xe=g(n(24524)),ke=[],Le=xe.default.div`
   display: flex;
   justify-content: flex-end;
   position: fixed;
