@@ -3,8 +3,8 @@ import hexToRgb from 'hex-rgb'
 import { IColor } from './types'
 
 export const Color: IColor = {
-  highlight: '#2196F3',
-  interact: '#E91E63',
+  highlight: '#0047FF',
+  interact: '#FF007A',
   white: '#FFF',
   black: '#000',
   // Color to display stuff inside highlight or interact.
@@ -13,6 +13,9 @@ export const Color: IColor = {
   error: '#F44336',
   // Shaded colors.
   Gray: {
+    50: '#FAFAFA',
+    100: '#F5F5F5',
+    200: '#EEEEEE',
     300: '#E0E0E0',
     500: '#9E9E9E',
     700: '#616161',

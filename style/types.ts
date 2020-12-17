@@ -11,6 +11,9 @@ export interface IColor {
   warning?: string
   error?: string
   Gray?: {
+    50?: string
+    100?: string
+    200?: string
     300?: string
     500?: string
     700?: string

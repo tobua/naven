@@ -35,11 +35,16 @@ export const Configuration = () => (
       </Link>
       .
     </Paragraph>
-    <PropertyTable>
+    <PropertyTable space={false}>
       <>
         <Text>root</Text>
         <Text>#root</Text>
         <Text>CSS Selector</Text>
+      </>
+      <>
+        <Text>rootCss</Text>
+        <Text></Text>
+        <Text>SerializedStyles</Text>
       </>
     </PropertyTable>
     <Heading as="h2" code>

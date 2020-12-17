@@ -68,17 +68,33 @@ const MyHeader = (
 
 ## Style
 
+The default styles can be configured. In the [Style Demo](https://tobua.github.io/naven/demo/style) you can see the result in real time.
+
 ```jsx
 import { configure } from 'naven'
 
 configure({
-  colors: //
-  breakpoint: //
-  space: //
+  colors: {
+    highlight: '#00B76A',
+    interact: '#FF8C00'
+  },
+  breakpoint: {
+    Phone: 480,
+    Tablet: 768
+  },
+  space: {
+    small: '8px'
+    medium: '2vw'
+  },
+  look: {
+    corner: 10
+  }
 })
 ```
 
 ## Layout
+
+The CSS grid is attached to the root and there are [Layout](https://tobua.github.io/naven/demo/advanced#layout) components to work with it.
 
 ```jsx
 import { Wide, Narrow } from 'naven'
@@ -128,13 +144,3 @@ const hideMobileCss = css`
 ## Development
 
 To view your changes live run `npm start` in the `/demo` or `/doc` folder. This will open a preview in the browser and automatically build and watch the plugin for changes.
-
-## Reference
-
-Here are some existing UI libraries to use as inspiration.
-
-- https://getbootstrap.com/docs/3.4/css/
-- https://chakra-ui.com/
-- https://bumbag.style/
-- https://styleguide.republik.ch/
-- https://github.com/microsoft/fluentui
