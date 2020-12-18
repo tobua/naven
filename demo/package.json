@@ -1,6 +1,7 @@
 {
   "papua": {
-    "title": "naven Demo"
+    "title": "naven Demo",
+    "publicPath": "naven/demo"
   },
   "dependencies": {
     "konfi": "^0.1.5",
