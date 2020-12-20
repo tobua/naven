@@ -1,7 +1,6 @@
 {
   "papua": {
-    "title": "naven Documentation",
-    "publicPath": "/naven/doc"
+    "title": "naven Documentation"
   },
   "dependencies": {
     "deep-object-diff": "^1.1.0",
