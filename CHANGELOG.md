@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/tobua/naven/compare/v0.1.0...v0.1.1) (2020-12-23)
+
+
+### Bug Fixes
+
+* **demo:** leading slash to get path from root ([31b0ea8](https://github.com/tobua/naven/commit/31b0ea86886744504045e414074186b7da93a1ce))
+* **doc:** router issues have been fixed ([64700a9](https://github.com/tobua/naven/commit/64700a9c80b5aa6bde7a124f764319334f5b5e97))
+* **package:** router minify issue, update and ignore demo files ([653c246](https://github.com/tobua/naven/commit/653c24686ffac401ea43c747f2cd9f2d10feadf5))
+* **template:** update and fix default template ([8439d16](https://github.com/tobua/naven/commit/8439d16037b13128979401ac6f9a1726b1e74b98))
+* **types:** prevent type errors by always installing @types/react ([7c184b5](https://github.com/tobua/naven/commit/7c184b5f168d1064c913777ab06ed855d0221bfb))
+
 ## 0.1.0 (2020-12-17)
 
 
