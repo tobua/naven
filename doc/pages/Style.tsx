@@ -13,6 +13,7 @@ import {
   Breakpoints,
   configure,
 } from 'naven'
+import { getStoredStyles } from 'utility/configure'
 
 const { Heading, Button } = Element
 
@@ -34,11 +35,6 @@ const ColorPreview = styled.div<{ color: string; contrast?: string }>`
     transition: transform 300ms;
   }
 `
-
-const getStoredStyles = () =>
-  JSON.parse(window.localStorage.getItem('styles') ?? '{}')
-
-export const configureUserStyles = () => configure(getStoredStyles())
 
 export const Style = ({ onStyleChange }: { onStyleChange: () => void }) => (
   <Content>

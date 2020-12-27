@@ -71,6 +71,7 @@ const MyHeader = (
 The default styles can be configured. In the [Style Demo](https://tobua.github.io/naven/demo/style) you can see the result in real time.
 
 ```jsx
+// File: utility/configure.js
 import { configure } from 'naven'
 
 configure({
@@ -90,6 +91,32 @@ configure({
     corner: 10
   }
 })
+```
+
+To make sure the configuration is applied before the stylesheets are parsed with `@emotion` place the configuration in a separate file and include it before any files importing `naven`.
+
+```jsx
+// Entry file: index.js
+import React from 'react'
+import { render } from 'react-dom'
+import { Global, Header, Content, Element } from 'naven'
+// Import configuration before any components.
+import 'utility/configure.js'
+import { MyFooter } from 'markup/Footer.jsx'
+import { Homepage } from 'pages/Homepage.jsx'
+import { About } from 'pages/Homepage.jsx'
+
+render(
+  <>
+    <Global />
+    <Header />
+    <Content>
+      <p>...</p>
+    </Content>
+    <MyFooter />
+  </>,
+  document.body
+)
 ```
 
 ## Layout

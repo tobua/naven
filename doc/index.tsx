@@ -2,10 +2,11 @@ import React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
 import { Router, Page } from 'epic-react-router'
 import { Global, Header, Navigation } from 'naven'
+import 'utility/configure'
 import { Configuration } from 'pages/Configuration'
 import { Elements } from 'pages/Element'
 import { Advanced } from 'pages/Advanced'
-import { Style, configureUserStyles } from 'pages/Style'
+import { Style } from 'pages/Style'
 import { Overview } from 'pages/Overview'
 import logo from 'logo.svg'
 
@@ -19,9 +20,6 @@ Router.setPages(
   },
   'overview'
 )
-
-// Apply possibly user configured styles from localStorage.
-configureUserStyles()
 
 const rerender = () => {
   // Just rerendering will only update components where props have changed.
