@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react'
-import { Element } from 'naven'
-
-const { Text, Table } = Element
+import { Text, Table } from 'naven'
 
 export const PropertyTable = ({
   space = true,

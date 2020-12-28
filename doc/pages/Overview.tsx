@@ -1,22 +1,22 @@
 import React from 'react'
-import { Element, Content } from 'naven'
+import { Heading, Paragraph, Code, Content } from 'naven'
 
 export const Overview = () => (
   <Content>
-    <Element.Heading>naven UI Library</Element.Heading>
-    <Element.Paragraph>
+    <Heading>naven UI Library</Heading>
+    <Paragraph>
       Quickly prototype and implement custom designed web applications with
       React and CSS-in-JS.
-    </Element.Paragraph>
-    <Element.Heading as="h2">Installation</Element.Heading>
-    <Element.Paragraph>Add it to your project with</Element.Paragraph>
-    <Element.Code>{`npm install naven`}</Element.Code>
-    <Element.Paragraph>or start with a template:</Element.Paragraph>
-    <Element.Code>{`npm init now naven ./my-app`}</Element.Code>
-    <Element.Heading as="h2">Usage</Element.Heading>
-    <Element.Code>{`import React from 'react'
+    </Paragraph>
+    <Heading as="h2">Installation</Heading>
+    <Paragraph>Add it to your project with</Paragraph>
+    <Code>{`npm install naven`}</Code>
+    <Paragraph>or start with a template:</Paragraph>
+    <Code>{`npm init now naven ./my-app`}</Code>
+    <Heading as="h2">Usage</Heading>
+    <Code>{`import React from 'react'
 import { render } from 'react-dom'
-import { Global, Header, Navigation, Content, Footer, Element } from 'naven'
+import { Global, Header, Navigation, Content, Footer, Heading } from 'naven'
 
 render(
   <>
@@ -24,12 +24,12 @@ render(
     <Header title="naven Demo" />
     <Navigation />
     <Content>
-      <Element.Heading>naven Demo</Element.Heading>
+      <Heading>naven Demo</Heading>
     </Content>
     <Footer />
   </>,
   document.body
 )
-`}</Element.Code>
+`}</Code>
   </Content>
 )

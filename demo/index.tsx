@@ -7,13 +7,13 @@ import {
   Navigation,
   Content,
   Footer,
-  Element,
+  Heading,
+  Paragraph,
+  Button,
   Color,
   Space,
   Breakpoint,
 } from 'naven'
-
-const { Heading, Paragraph, Button } = Element
 
 render(
   <>

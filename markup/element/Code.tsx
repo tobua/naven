@@ -28,14 +28,17 @@ export const Code = ({
 }: ICode) => (
   <Lazy
     imports={Promise.all([
-      import('react-syntax-highlighter'),
+      // Default highlighter
+      import('react-syntax-highlighter/dist/esm/default-highlight.js'),
+      // Prism for JSX
+      import('react-syntax-highlighter/dist/esm/prism.js'),
       // Default style
-      import('react-syntax-highlighter/dist/esm/styles/hljs/github'),
+      import('react-syntax-highlighter/dist/esm/styles/hljs/github.js'),
       // Default style for jsx
-      import('react-syntax-highlighter/dist/esm/styles/prism/prism'),
+      import('react-syntax-highlighter/dist/esm/styles/prism/prism.js'),
     ])}
-    result={(Component, stylesHljs, stylesPrism) => {
-      const SyntaxHighlighter = jsx ? Component.Prism : Component.default
+    result={(defaultHighlight, Prism, stylesHljs, stylesPrism) => {
+      const SyntaxHighlighter = jsx ? Prism.default : defaultHighlight.default
       const importedStyle = jsx ? stylesPrism.default : stylesHljs.default
 
       return (

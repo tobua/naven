@@ -12,6 +12,11 @@
   },
   "padua": {
     "tsconfig": {
+      "compilerOptions": {
+        "types": [
+          "@emotion/core"
+        ]
+      },
       "include": [
         "./declarations.d.ts"
       ]
@@ -43,10 +48,10 @@
     "dist"
   ],
   "devDependencies": {
-    "@types/node": "^14.14.14",
+    "@types/node": "^14.14.16",
     "@types/react-dom": "^17.0.0",
     "@types/react-select": "^3.0.28",
-    "padua": "^0.2.1",
+    "padua": "^0.2.2",
     "react": "^17.0.1",
     "react-test-renderer": "^17.0.1"
   },

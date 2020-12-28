@@ -28,7 +28,15 @@ The following is an example of how to render a page generated with naven to disp
 ```jsx
 import React from 'react'
 import { render } from 'react-dom'
-import { Global, Header, Navigation, Content, Footer, Element } from 'naven'
+import {
+  Global,
+  Header,
+  Navigation,
+  Content,
+  Footer,
+  Heading,
+  Paragraph,
+} from 'naven'
 
 render(
   <>
@@ -36,8 +44,8 @@ render(
     <Header title="My App" />
     <Navigation />
     <Content>
-      <Element.Heading>naven Demo</Element.Heading>
-      <Element.Paragraph>Welcome home!</Element.Paragraph>
+      <Heading>naven Demo</Heading>
+      <Paragraph>Welcome home!</Paragraph>
     </Content>
     <Footer />
   </>,
@@ -99,7 +107,7 @@ To make sure the configuration is applied before the stylesheets are parsed with
 // Entry file: index.js
 import React from 'react'
 import { render } from 'react-dom'
-import { Global, Header, Content, Element } from 'naven'
+import { Global, Header, Content, Text } from 'naven'
 // Import configuration before any components.
 import 'utility/configure.js'
 import { MyFooter } from 'markup/Footer.jsx'
@@ -111,7 +119,7 @@ render(
     <Global />
     <Header />
     <Content>
-      <p>...</p>
+      <Text>...</Text>
     </Content>
     <MyFooter />
   </>,
@@ -145,12 +153,10 @@ render(
 By default applicable elements will get a 20px `margin-bottom`. This space can be changed on the element with the `space` property.
 
 ```jsx
-import { Element } from 'naven'
+import { Paragraph } from 'naven'
 
 const SpacedParagraph = (
-  <Element.Paragraph space={0 | Space.large | 5 | '3vh' | undefined}>
-    Hello
-  </Element.Paragraph>
+  <Paragraph space={0 | Space.large | 5 | '3vh' | undefined}>Hello</Paragraph>
 )
 ```
 

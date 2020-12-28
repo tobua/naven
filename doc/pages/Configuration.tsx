@@ -1,8 +1,6 @@
 import React from 'react'
-import { Content, Element } from 'naven'
-import { PropertyTable } from 'markup/PropertyTable'
-
-const {
+import {
+  Content,
   Text,
   Link,
   TextLink,
@@ -12,7 +10,8 @@ const {
   Heading,
   Code,
   Spacer,
-} = Element
+} from 'naven'
+import { PropertyTable } from 'markup/PropertyTable'
 
 export const Configuration = () => (
   <Content>

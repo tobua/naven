@@ -1,6 +1,14 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Global, Header, Navigation, Content, Footer, Element } from 'naven'
+import {
+  Global,
+  Header,
+  Navigation,
+  Content,
+  Footer,
+  Heading,
+  Paragraph,
+} from 'naven'
 
 render(
   <>
@@ -8,8 +16,8 @@ render(
     <Header title="naven Demo" />
     <Navigation />
     <Content>
-      <Element.Heading>naven Demo</Element.Heading>
-      <Element.Paragraph>Welcome home!</Element.Paragraph>
+      <Heading>naven Demo</Heading>
+      <Paragraph>Welcome home!</Paragraph>
     </Content>
     <Footer />
   </>,

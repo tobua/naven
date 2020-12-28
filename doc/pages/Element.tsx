@@ -1,9 +1,10 @@
 import React, { useState, Fragment } from 'react'
 import { css } from '@emotion/react'
-import { Content, Element, Vertical, Horizontal, Space } from 'naven'
-import { PropertyTable } from 'markup/PropertyTable'
-
-const {
+import {
+  Content,
+  Vertical,
+  Horizontal,
+  Space,
   Accordion,
   Alert,
   Anchor,
@@ -32,7 +33,8 @@ const {
   Paragraph,
   Text,
   Tooltip,
-} = Element
+} from 'naven'
+import { PropertyTable } from 'markup/PropertyTable'
 
 const PopupToggle = () => {
   const [show, togglePopup] = useState(false)
@@ -131,13 +133,10 @@ export const Elements = () => (
   <Content>
     <Heading as="h2">General</Heading>
     <Code jsx language="typescript">
-      {`import { Element, Color, Space } from 'naven'
+      {`import { Button, Color, Space } from 'naven'
 import { css } from '@emotion/react'
 
-<Element.Button space={Space.large}>Press me!</Element.Button>
-
-const { Button } = Element
-
+<Button space={Space.large}>Press me!</Button>
 <Button disabled space={0} css={css\`background: \${Color.black};\`}>Can't touch this</Button>`}
     </Code>
     <Heading as="h2">Button</Heading>

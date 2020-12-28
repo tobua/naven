@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { css as cssStyles, SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
-import { Link, TextLink, List } from './Element'
+import { List } from './element/List'
+import { Link, TextLink } from './element/Link'
 import { showMobileNavigation } from './Navigation'
 import { Logo } from '../icon/Logo'
 import { Menu } from '../icon/Menu'
@@ -9,7 +10,7 @@ import { Close } from '../icon/Close'
 import { Space, Breakpoint } from '../style'
 import { header, IHeader } from '../config'
 
-export const Wrapper = styled.header`
+const Wrapper = styled.header`
   grid-column: 2 / 5;
   display: grid;
   grid-template-columns: auto auto;
@@ -17,19 +18,19 @@ export const Wrapper = styled.header`
   ${({ css }) => css}
 `
 
-export const Image = styled.img`
+const Image = styled.img`
   color: blue;
   max-height: 100%;
 `
 
-export const Meta = styled.nav`
+const Meta = styled.nav`
   color: black;
   grid-column: 2 / 3;
   justify-self: end;
   ${({ css }) => css}
 `
 
-export const TitleText = styled.p`
+const TitleText = styled.p`
   font-size: ${Space.medium};
   font-weight: bold;
   align-self: center;
@@ -42,7 +43,7 @@ const TitleLink = styled(Link)`
   ${({ css }) => css}
 `
 
-export const ToggleIconWrapper = styled.div`
+const ToggleIconWrapper = styled.div`
   display: flex;
 `
 
@@ -83,7 +84,7 @@ interface TitleProps {
   children?: any
 }
 
-export const Title = ({
+export const HeaderTitle = ({
   logo = null,
   title,
   link,
@@ -133,9 +134,9 @@ export const Header = ({
   children,
 }: Props) => (
   <Wrapper css={css}>
-    <Title logo={logo} title={title} link={link} css={titleCss}>
+    <HeaderTitle logo={logo} title={title} link={link} css={titleCss}>
       {children}
-    </Title>
+    </HeaderTitle>
     <Meta css={metaCss}>
       <ToggleIcon />
       <List

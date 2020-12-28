@@ -1,7 +1,12 @@
 import React from 'react'
 import {
   Content,
-  Element,
+  Heading,
+  Anchor,
+  Code,
+  Spacer,
+  Paragraph,
+  InlineCode,
   Horizontal,
   Vertical,
   Wide,
@@ -19,65 +24,64 @@ const highlightLayoutCss = css`
 export const Advanced = () => (
   <>
     <Content>
-      <Element.Heading as="h2">
-        <Element.Anchor name="layout" />
+      <Heading as="h2">
+        <Anchor name="layout" />
         Layout
-      </Element.Heading>
-      <Element.Heading as="h3" code space={0}>{`<Wide />`}</Element.Heading>
+      </Heading>
+      <Heading as="h3" code space={0}>{`<Wide />`}</Heading>
     </Content>
     <Wide css={highlightLayoutCss}>
       <span>Wide</span>
     </Wide>
     <Content>
-      <Element.Code>{`<Wide>
+      <Code>{`<Wide>
   <span>Wide</span>
-</Wide>`}</Element.Code>
-      <Element.Heading as="h3" code space={0}>{`<Narrow />`}</Element.Heading>
+</Wide>`}</Code>
+      <Heading as="h3" code space={0}>{`<Narrow />`}</Heading>
     </Content>
     <Narrow css={highlightLayoutCss}>
       <span>Narrow</span>
     </Narrow>
     <Content>
-      <Element.Code>{`<Narrow>
+      <Code>{`<Narrow>
   <span>Narrow</span>
-</Narrow>`}</Element.Code>
-      <Element.Spacer />
-      <Element.Heading as="h3" code>{`<Horizontal>`}</Element.Heading>
+</Narrow>`}</Code>
+      <Spacer />
+      <Heading as="h3" code>{`<Horizontal>`}</Heading>
       <Horizontal>
         <div>First</div>
         <div>Second</div>
         <div>Third</div>
       </Horizontal>
-      <Element.Heading as="h3" code>{`<Vertical>`}</Element.Heading>
+      <Heading as="h3" code>{`<Vertical>`}</Heading>
       <Vertical>
         <div>First</div>
         <div>Second</div>
         <div>Third</div>
       </Vertical>
-      <Element.Heading as="h2">
-        <Element.Anchor name="spacing" />
+      <Heading as="h2">
+        <Anchor name="spacing" />
         Spacing
-      </Element.Heading>
-      <Element.Heading as="h2">
-        <Element.Anchor name="utility" />
+      </Heading>
+      <Heading as="h2">
+        <Anchor name="utility" />
         Utility Methods
-      </Element.Heading>
-      <Element.Code>{`import { toPx } from 'naven'
+      </Heading>
+      <Code>{`import { toPx } from 'naven'
 
 css\`
   padding: \${toPx(5)};
   margin: \${toPx('5vh')}
-\``}</Element.Code>
-      <Element.Heading as="h2">
-        <Element.Anchor name="layers" />
+\``}</Code>
+      <Heading as="h2">
+        <Anchor name="layers" />
         Layers
-      </Element.Heading>
-      <Element.Paragraph>
-        Use layers to assign the{' '}
-        <Element.InlineCode>z-index</Element.InlineCode> in a structured way.
-        The default values used by the plugin can be configured.
-      </Element.Paragraph>
-      <Element.Code>{`import { configure, Layer } from 'naven'
+      </Heading>
+      <Paragraph>
+        Use layers to assign the <InlineCode>z-index</InlineCode> in a
+        structured way. The default values used by the plugin can be configured.
+      </Paragraph>
+      <Code>{`import { configure, Layer } from 'naven'
 
 configure({
   layer: {
@@ -87,7 +91,7 @@ configure({
 
 css\`
   z-index: \${Layer.Popup};
-\``}</Element.Code>
+\``}</Code>
     </Content>
   </>
 )

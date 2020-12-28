@@ -4,7 +4,8 @@ import { Konfi } from 'konfi'
 import merge from 'deepmerge'
 import { diff } from 'deep-object-diff'
 import {
-  Element,
+  Heading,
+  Button,
   Content,
   Horizontal,
   Color,
@@ -14,8 +15,6 @@ import {
   configure,
 } from 'naven'
 import { getStoredStyles } from 'utility/configure'
-
-const { Heading, Button } = Element
 
 const defaultStyles = merge(
   {},

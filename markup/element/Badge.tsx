@@ -14,7 +14,7 @@ const Dot = styled.div<{ hasContent: boolean; css: SerializedStyles }>`
   min-width: ${({ hasContent }) => (hasContent ? 'auto' : Space.small)};
   height: ${({ hasContent }) => (hasContent ? Space.medium : Space.small)};
   border-radius: ${Space.small};
-  background: ${() => Color.highlight};
+  background: ${Color.highlight};
   right: -${({ hasContent }) => (hasContent ? Space.small : Space.tiny)};
   top: -${({ hasContent }) => (hasContent ? Space.small : Space.tiny)};
   color: ${Color.contrast};

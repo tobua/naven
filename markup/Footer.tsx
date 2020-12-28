@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { css as cssStyles, SerializedStyles } from '@emotion/react'
-import { TextLink, List } from './Element'
+import { TextLink } from './element/Link'
+import { List } from './element/List'
 import { Space, Color, Breakpoint } from '../style'
 import { footer, IFooter } from '../config'
 
