@@ -1,7 +1,7 @@
 {
   "name": "naven",
   "description": "React based CSS-in-JS styling framework.",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "repository": "github:tobua/naven",
   "license": "MIT",
   "author": "Matthias Giger",
@@ -14,7 +14,8 @@
     "tsconfig": {
       "compilerOptions": {
         "types": [
-          "@emotion/core"
+          "@emotion/core",
+          "@types/jest"
         ]
       },
       "include": [
@@ -48,6 +49,7 @@
     "dist"
   ],
   "devDependencies": {
+    "@types/jest": "^26.0.19",
     "@types/node": "^14.14.16",
     "@types/react-dom": "^17.0.0",
     "@types/react-select": "^3.0.28",
@@ -62,7 +64,7 @@
   "jest": {
     "globals": {
       "ts-jest": {
-        "tsconfig": "./node_modules/padua/configuration/tsconfig.json"
+        "tsconfig": "./tsconfig.json"
       }
     },
     "transform": {

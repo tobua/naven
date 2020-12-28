@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/tobua/naven/compare/v0.1.2...v0.2.0) (2020-12-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **build:** export Element removed, all elements can now be imported from the top-level
+
+### Bug Fixes
+
+* **configure:** document how to apply configured styles before render ([f4f1880](https://github.com/tobua/naven/commit/f4f188084bd21bd95d98b3235738b4480452fb04))
+
+
+* **build:** simplify ESModule structure as esbuild has issues still ([ef31dbf](https://github.com/tobua/naven/commit/ef31dbf3258d3a3aaf87eb6a70e8d13da0063353))
+
 ### [0.1.2](https://github.com/tobua/naven/compare/v0.1.1...v0.1.2) (2020-12-23)
 
 ### [0.1.1](https://github.com/tobua/naven/compare/v0.1.0...v0.1.1) (2020-12-23)
