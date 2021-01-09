@@ -8,6 +8,7 @@ export const InlineCode = styled.code`
   font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   border-radius: 3px;
   padding: 2px 4px;
+  ${({ css }) => css}
 `
 
 interface ICode {

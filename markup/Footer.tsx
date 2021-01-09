@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { DetailedHTMLProps } from 'react'
 import styled from '@emotion/styled'
 import { css as cssStyles, SerializedStyles } from '@emotion/react'
 import { TextLink } from './element/Link'
@@ -40,18 +40,23 @@ export const Footer = ({
   css,
   rowCss,
   children,
+  ...props
 }: {
   data?: IFooter
   css?: SerializedStyles
   rowCss?: SerializedStyles
   children?: React.ReactNode
-}) => {
+} & DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>) => {
   if (children) {
-    return <Wrapper css={css}>{children}</Wrapper>
+    return (
+      <Wrapper css={css} {...props}>
+        {children}
+      </Wrapper>
+    )
   }
 
   return (
-    <Wrapper css={css}>
+    <Wrapper css={css} {...props}>
       {data.rows.map((row, index) => (
         <Row key={index} css={rowCss}>
           <TextLink bold href={row.title.url} css={firstLevelLinkStyles}>
