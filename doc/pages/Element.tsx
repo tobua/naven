@@ -193,7 +193,13 @@ import { css } from '@emotion/react'
     <Code jsx language="typescript">
       {`<Input placeholder="Input here" value="value" onChange={(event) => alert(event.target.value)} />`}
     </Code>
-    <PropertyTable />
+    <PropertyTable>
+      <>
+        <Text>onValue</Text>
+        <Text>optional</Text>
+        <InlineCode>{`(value: string) => void`}</InlineCode>
+      </>
+    </PropertyTable>
     <Heading as="h2">Alert</Heading>
     <Alert>Hey: This is an info</Alert>
     <Alert type="warning" closeable>
