@@ -1,7 +1,7 @@
 {
   "name": "naven",
   "description": "React based CSS-in-JS styling framework.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "repository": "github:tobua/naven",
   "license": "MIT",
   "author": "Matthias Giger",
