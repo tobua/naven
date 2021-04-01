@@ -15,7 +15,7 @@ const ListUl = styled.ul<ListProps>`
   ${({ css }) => css}
 `
 
-const ListLi = styled.li`
+const ListLi = styled.li<{ css?: SerializedStyles }>`
   ${({ css }) => css}
 `
 

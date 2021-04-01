@@ -10,7 +10,7 @@ import { Close } from '../icon/Close'
 import { Space, Breakpoint } from '../style'
 import { header, IHeader } from '../config'
 
-const Wrapper = styled.header`
+const Wrapper = styled.header<{ css?: SerializedStyles }>`
   grid-column: 2 / 5;
   display: grid;
   grid-template-columns: auto auto;
@@ -23,7 +23,7 @@ const Image = styled.img`
   max-height: 100%;
 `
 
-const Meta = styled.nav`
+const Meta = styled.nav<{ css?: SerializedStyles }>`
   color: black;
   grid-column: 2 / 3;
   justify-self: end;

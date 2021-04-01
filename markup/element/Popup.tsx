@@ -5,7 +5,7 @@ import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { Close } from '../../icon'
 import { Space, Color, Layer } from '../../style'
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ css?: SerializedStyles }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -17,13 +17,13 @@ const Wrapper = styled.div`
   ${({ css }) => css}
 `
 
-const Content = styled.div`
+const Content = styled.div<{ css?: SerializedStyles }>`
   position: relative;
   width: 100%;
   ${({ css }) => css}
 `
 
-const CloseContainer = styled.div`
+const CloseContainer = styled.div<{ css?: SerializedStyles }>`
   position: absolute;
   top: ${Space.medium};
   right: ${Space.medium};
@@ -33,7 +33,7 @@ const CloseContainer = styled.div`
   ${({ css }) => css}
 `
 
-const ScrollContainer = styled.div`
+const ScrollContainer = styled.div<{ css?: SerializedStyles }>`
   overflow: auto;
   height: calc(100% - 2 * ${Space.medium});
   padding: ${Space.medium};

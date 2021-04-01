@@ -7,7 +7,10 @@ import { List } from './element/List'
 import { navigation, INavigation } from '../config'
 import { Space, Color, Breakpoint, Layer } from '../style'
 
-export const Wrapper = styled.nav<{ showNavigation: boolean }>`
+export const Wrapper = styled.nav<{
+  showNavigation: boolean
+  css?: SerializedStyles
+}>`
   grid-column: 2 / 5;
   position: relative;
   z-index: ${Layer.Navigation};
@@ -72,7 +75,7 @@ const ContentContainer = styled.div`
   }
 `
 
-const TabElement = styled.div`
+const TabElement = styled.div<{ css?: SerializedStyles }>`
   display: flex;
   flex-direction: column;
 

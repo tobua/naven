@@ -5,13 +5,13 @@
   "dependencies": {
     "deep-object-diff": "^1.1.0",
     "deepmerge": "^4.2.2",
-    "epic-react-router": "^2.1.3",
-    "konfi": "^0.1.5",
-    "mobx": "^6.0.4",
-    "mobx-react": "^7.0.5",
-    "papua": "^0.1.12",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "epic-react-router": "^2.1.6",
+    "konfi": "^0.1.9",
+    "mobx": "^6.1.8",
+    "mobx-react": "^7.1.0",
+    "papua": "^0.1.15",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "localDependencies": {
     "naven": ".."

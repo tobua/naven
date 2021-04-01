@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { SerializedStyles } from '@emotion/react'
 import { Color, spaceStyleProp, radiusStyleProp } from '../../style'
 import { Lazy } from './Lazy'
 
-export const InlineCode = styled.code`
+export const InlineCode = styled.code<{ css?: SerializedStyles }>`
   background-color: ${Color.Gray[300]};
   font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   border-radius: 3px;

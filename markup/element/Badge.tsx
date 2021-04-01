@@ -3,13 +3,13 @@ import { SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Color, Space } from '../../style'
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ css?: SerializedStyles }>`
   position: relative;
   display: inline-flex;
   ${({ css }) => css}
 `
 
-const Dot = styled.div<{ hasContent: boolean; css: SerializedStyles }>`
+const Dot = styled.div<{ hasContent: boolean; css?: SerializedStyles }>`
   position: absolute;
   min-width: ${({ hasContent }) => (hasContent ? 'auto' : Space.small)};
   height: ${({ hasContent }) => (hasContent ? Space.medium : Space.small)};

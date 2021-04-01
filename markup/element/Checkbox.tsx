@@ -4,7 +4,7 @@ import { SerializedStyles } from '@emotion/react'
 import { uniqueID } from '../../utility/unique-id'
 import { Color, Space, radius, spaceProp } from '../../style'
 
-const CheckboxInput = styled.input`
+const CheckboxInput = styled.input<{ css?: SerializedStyles }>`
   border: 1px solid ${Color.black};
   ${() => radius()}
   appearance: none;
@@ -28,7 +28,7 @@ const CheckboxInput = styled.input`
   ${({ css }) => css}
 `
 
-const RadioInput = styled.input`
+const RadioInput = styled.input<{ css?: SerializedStyles }>`
   border: 1px solid ${Color.black};
   border-radius: 100%;
   appearance: none;
@@ -59,7 +59,7 @@ const RadioInput = styled.input`
   ${({ css }) => css}
 `
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ css?: SerializedStyles; space?: string | number }>`
   display: flex;
   align-items: center;
   ${({ css }) => css}

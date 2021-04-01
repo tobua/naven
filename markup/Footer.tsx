@@ -6,14 +6,14 @@ import { List } from './element/List'
 import { Space, Color, Breakpoint } from '../style'
 import { footer, IFooter } from '../config'
 
-const Wrapper = styled.footer`
+const Wrapper = styled.footer<{ css?: SerializedStyles }>`
   grid-column: 3 / 4;
   display: flex;
   flex-wrap: wrap;
   ${({ css }) => css}
 `
 
-const Row = styled.div`
+const Row = styled.div<{ css?: SerializedStyles }>`
   flex-basis: 25%;
 
   ${Breakpoint.Tablet} {

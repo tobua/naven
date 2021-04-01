@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { Color, Space, spaceProp } from '../../style'
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ css?: SerializedStyles; space?: string | number }>`
   display: flex;
   flex-direction: column;
   ${spaceProp}

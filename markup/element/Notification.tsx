@@ -8,7 +8,7 @@ type NotificationType = 'info' | 'warning' | 'error'
 const ActiveNotifications = []
 let rerender: () => void
 
-const Wrapper = styled.div<{ space?: string | number }>`
+const Wrapper = styled.div<{ space?: string | number; css?: SerializedStyles }>`
   display: flex;
   justify-content: flex-end;
   position: fixed;
@@ -20,7 +20,10 @@ const Wrapper = styled.div<{ space?: string | number }>`
   ${({ css }) => css}
 `
 
-const NotificationContainer = styled.div<{ gap?: string | number }>`
+const NotificationContainer = styled.div<{
+  gap?: string | number
+  css?: SerializedStyles
+}>`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -28,7 +31,10 @@ const NotificationContainer = styled.div<{ gap?: string | number }>`
   ${({ css }) => css}
 `
 
-const NotificationElement = styled.div<{ type: NotificationType }>`
+const NotificationElement = styled.div<{
+  type: NotificationType
+  css?: SerializedStyles
+}>`
   display: flex;
   background-color: white;
   border: 1px solid

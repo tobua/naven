@@ -5,7 +5,7 @@ import { Input } from './Input'
 import { Lazy } from './Lazy'
 import { spaceProp } from '../../style'
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ css?: SerializedStyles; space?: string | number }>`
   ${spaceProp}
   ${({ css }) => css}
 `

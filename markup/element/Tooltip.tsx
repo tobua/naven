@@ -3,8 +3,9 @@ import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { Lazy } from './Lazy'
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ css?: SerializedStyles }>`
   display: inline-flex;
+  ${({ css }) => css}
 `
 
 const wrapper = {

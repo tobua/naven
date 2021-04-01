@@ -3,6 +3,7 @@
   "description": "React based CSS-in-JS styling framework.",
   "version": "0.2.1",
   "repository": "github:tobua/naven",
+  "homepage": "https://naven-documentation.vercel.app",
   "license": "MIT",
   "author": "Matthias Giger",
   "scripts": {
@@ -14,7 +15,6 @@
     "tsconfig": {
       "compilerOptions": {
         "types": [
-          "@emotion/core",
           "@types/jest"
         ]
       },
@@ -24,21 +24,21 @@
     }
   },
   "dependencies": {
-    "@emotion/react": "^11.1.4",
-    "@emotion/styled": "^11.0.0",
-    "@popperjs/core": "^2.6.0",
-    "@types/react": "^17.0.0",
+    "@emotion/react": "^11.1.5",
+    "@emotion/styled": "^11.1.5",
+    "@popperjs/core": "^2.9.1",
+    "@types/react": "^17.0.3",
     "body-scroll-lock": "^3.1.5",
     "emotion-reset": "^3.0.0",
     "hex-rgb": "^4.2.0",
     "object-assign-deep": "^0.4.0",
-    "react-datepicker": "^3.3.0",
-    "react-popper": "^2.2.4",
-    "react-select": "^3.1.1",
+    "react-datepicker": "^3.7.0",
+    "react-popper": "^2.2.5",
+    "react-select": "^4.3.0",
     "react-syntax-highlighter": "^15.4.3"
   },
   "peerDependencies": {
-    "react": "^17.0.1"
+    "react": "^17.0.2"
   },
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -49,15 +49,15 @@
     "dist"
   ],
   "devDependencies": {
-    "@testing-library/react": "^11.2.3",
-    "@types/jest": "^26.0.20",
-    "@types/node": "^14.14.20",
-    "@types/react-dom": "^17.0.0",
-    "@types/react-select": "^3.1.2",
-    "padua": "^0.2.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-test-renderer": "^17.0.1"
+    "@testing-library/react": "^11.2.6",
+    "@types/jest": "^26.0.22",
+    "@types/node": "^14.14.37",
+    "@types/react-dom": "^17.0.3",
+    "@types/react-select": "^4.0.13",
+    "padua": "^0.3.5",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-test-renderer": "^17.0.2"
   },
   "prettier": "padua/configuration/.prettierrc.json",
   "eslintConfig": {
@@ -80,6 +80,6 @@
     }
   },
   "engines": {
-    "node": ">= 13.2.0"
+    "node": ">= 14"
   }
 }

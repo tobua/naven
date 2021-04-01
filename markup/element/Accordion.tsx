@@ -2,11 +2,12 @@ import React, { useState, ReactNode } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { Heading } from './Heading'
-import { Space } from '../../style'
+import { Space, spaceProp } from '../../style'
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ css?: SerializedStyles; space?: string | number }>`
   display: flex;
   flex-direction: column;
+  ${spaceProp}
   ${({ css }) => css}
 `
 
@@ -30,17 +31,19 @@ interface IAccordion {
   initialOpen?: number
   children: any[]
   css?: SerializedStyles
+  space?: string | number
 }
 
 export const Accordion = ({
   headers,
   children,
   css,
+  space,
   initialOpen = 0,
 }: IAccordion) => {
   const [openIndex, setOpen] = useState<number>(initialOpen)
   return (
-    <Wrapper css={css}>
+    <Wrapper css={css} space={space}>
       {children.map((child, index) => {
         let header = headers[index]
 

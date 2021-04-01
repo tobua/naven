@@ -3,7 +3,10 @@ import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { Color, Space, radius, spaceProp } from '../../style'
 
-const Wrapper = styled.input`
+const Wrapper = styled.input<{
+  css?: SerializedStyles
+  space?: string | number
+}>`
   padding: ${Space.small};
   border: 1px solid ${Color.black};
   ${() => radius()}

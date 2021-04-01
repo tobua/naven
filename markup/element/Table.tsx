@@ -7,6 +7,7 @@ const Wrapper = styled.div<{
   columns: number
   gap?: number | string
   space?: number | string
+  css?: SerializedStyles
 }>`
   display: grid;
   grid-gap: ${Space.small};

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 
-export const Main = styled.main<{ sidebar: boolean }>`
+export const Main = styled.main<{ sidebar: boolean; css?: SerializedStyles }>`
   grid-column: ${({ sidebar }) => (sidebar ? 3 : 2)} / 5;
   ${({ css }) => css}
 `
