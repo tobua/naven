@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
 import { Router, Page } from 'epic-react-router'
 import { Global, Header, Navigation } from 'naven'

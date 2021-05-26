@@ -13,10 +13,7 @@ const Wrapper = styled.input<{
   ${spaceProp}
 
   &:focus {
-    border-width: 2px;
-    /* Offset shift due to border size change. */
-    margin-top: -1px;
-    margin-bottom: -1px;
+    box-shadow: inset 0 0 0 1px ${Color.black};
     outline: none;
   }
 
