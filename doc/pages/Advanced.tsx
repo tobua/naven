@@ -3,10 +3,8 @@ import {
   Content,
   Heading,
   Anchor,
-  Code,
   Spacer,
   Paragraph,
-  InlineCode,
   Horizontal,
   Vertical,
   Wide,
@@ -15,6 +13,7 @@ import {
   Space,
 } from 'naven'
 import { css } from '@emotion/react'
+import { InlineCode, Code } from 'naven/dist/feature/Code'
 
 const highlightLayoutCss = css`
   background-color: ${Color.Gray[300]};

@@ -4,13 +4,12 @@ import {
   Text,
   Link,
   TextLink,
-  InlineCode,
   Paragraph,
   Anchor,
   Heading,
-  Code,
   Spacer,
 } from 'naven'
+import { InlineCode, Code } from 'naven/dist/feature/Code'
 import { PropertyTable } from 'markup/PropertyTable'
 
 export const Configuration = () => (

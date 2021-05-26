@@ -12,10 +12,6 @@ import {
   Button,
   Checkbox,
   Radio,
-  Code,
-  InlineCode,
-  DatePicker,
-  Dropdown,
   Heading,
   Image,
   Input,
@@ -32,8 +28,11 @@ import {
   Tabs,
   Paragraph,
   Text,
-  Tooltip,
 } from 'naven'
+import { InlineCode, Code } from 'naven/dist/feature/Code'
+import { Tooltip } from 'naven/dist/feature/Tooltip'
+import { DatePicker } from 'naven/dist/feature/Date'
+import { Dropdown } from 'naven/dist/feature/Dropdown'
 import { PropertyTable } from 'markup/PropertyTable'
 
 const PopupToggle = () => {
@@ -364,7 +363,9 @@ import { css } from '@emotion/react'
       ]}
     />
     <Code jsx language="typescript">
-      {`<Dropdown options={[
+      {`import { Dropdown } from 'naven/dist/feature/Dropdown.js'
+      
+<Dropdown options={[
   { value: 'first', label: 'First choice' },
   { value: 'second', label: 'Second choice' },
 ]} />`}
@@ -459,7 +460,9 @@ import { css } from '@emotion/react'
     </Tooltip>
     <Spacer />
     <Code jsx language="typescript">
-      {`<Tooltip content={<Text>Me?</Text>}>
+      {`import { Tooltip } from 'naven/dist/feature/Tooltip.js'
+
+<Tooltip content={<Text>Me?</Text>}>
   <Text>Who!</Text>
 </Tooltip>`}
     </Code>
@@ -527,7 +530,9 @@ import { css } from '@emotion/react'
     <Heading as="h2">Date Picker</Heading>
     <DatePicker initialDate={new Date(1990, 1, 17)} />
     <Code jsx language="typescript">
-      {`<DatePicker initialDate={new Date(1990, 1, 17)} onChange={(date) => setDate(date)} />`}
+      {`import { DatePicker } from 'naven/dist/feature/Date.js'
+      
+<DatePicker initialDate={new Date(1990, 1, 17)} onChange={(date) => setDate(date)} />`}
     </Code>
     <PropertyTable>
       <>
@@ -565,7 +570,9 @@ export const greet = (greeting: string) => console.log(\`hello \${greeting}!\`)`
 export const Hello = () => <p>W<strong>o</strong>rld</p>`}
     </Code>
     <Code jsx language="typescript">
-      {`<Code jsx language="typescript">{\`const doubleIt = (value: number) => value * 2\`}</Code>`}
+      {`import { Code, InlineCode } from 'naven/dist/feature/Code.js'
+
+<Code jsx language="typescript">{\`const doubleIt = (value: number) => value * 2\`}</Code>`}
     </Code>
     <PropertyTable>
       <>

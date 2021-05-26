@@ -1,5 +1,6 @@
 import React from 'react'
-import { Heading, Paragraph, Code, Content } from 'naven'
+import { Heading, Paragraph, Content } from 'naven'
+import { Code } from 'naven/dist/feature/Code'
 
 export const Overview = () => (
   <Content>

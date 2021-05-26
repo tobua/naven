@@ -1,9 +1,9 @@
 import React, { useState, Component } from 'react'
 import { Global, css as cssSheet, SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
-import { Input } from './Input'
-import { Lazy } from './Lazy'
-import { spaceProp } from '../../style'
+// @ts-ignore
+import { Input, spaceProp } from 'naven'
+import ReactDatePicker from 'react-datepicker'
 
 const Wrapper = styled.div<{ css?: SerializedStyles; space?: string | number }>`
   ${spaceProp}
@@ -40,33 +40,23 @@ export const DatePicker = ({
 }: IDate) => {
   // Hook inside result will fail.
   const [startDate, setStartDate] = useState(initialDate)
+
   return (
-    <Lazy
-      imports={Promise.all([
-        import('react-datepicker'),
-        import('react-datepicker/dist/react-datepicker.min.css'),
-      ])}
-      result={(ImportedComponent) => {
-        const ReactDatePicker = ImportedComponent.default
-        return (
-          <Wrapper space={space} css={css}>
-            <Global styles={cssSheet(styleOverrides)} />
-            <ReactDatePicker
-              style={{ marginBottom: 20 }}
-              selected={startDate}
-              onChange={(date: Date) => {
-                if (onChange) {
-                  onChange(date)
-                }
-                setStartDate(date)
-              }}
-              // @ts-ignore
-              customInput={<DateInput />}
-              {...props}
-            />
-          </Wrapper>
-        )
-      }}
-    />
+    <Wrapper space={space} css={css}>
+      <Global styles={cssSheet(styleOverrides)} />
+      <ReactDatePicker
+        style={{ marginBottom: 20 }}
+        selected={startDate}
+        onChange={(date: Date) => {
+          if (onChange) {
+            onChange(date)
+          }
+          setStartDate(date)
+        }}
+        // @ts-ignore
+        customInput={<DateInput />}
+        {...props}
+      />
+    </Wrapper>
   )
 }
