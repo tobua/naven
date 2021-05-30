@@ -12,6 +12,7 @@ import {
   Color,
   Space,
   Breakpoint,
+  Image,
 } from 'naven'
 
 render(
@@ -30,6 +31,7 @@ render(
       >
         This is a paragraph with some custom styles.
       </Paragraph>
+      <Image width={200} height={100} />
       <Button
         space={0}
         interact

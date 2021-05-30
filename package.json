@@ -38,7 +38,7 @@
     "emotion-reset": "^3.0.0",
     "hex-rgb": "^5.0.0",
     "object-assign-deep": "^0.4.0",
-    "react-datepicker": "^3.8.0",
+    "react-datepicker": "^4.0.0",
     "react-popper": "^2.2.5",
     "react-select": "^4.3.1",
     "react-syntax-highlighter": "^15.4.3"
@@ -61,7 +61,7 @@
     "@types/node": "^15.6.1",
     "@types/react-dom": "^17.0.5",
     "@types/react-select": "^4.0.15",
-    "padua": "^0.3.5",
+    "padua": "^0.3.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-test-renderer": "^17.0.2"
