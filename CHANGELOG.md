@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/tobua/naven/compare/v0.2.1...v0.3.0) (2021-05-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **import:** additional import for some components required
+
+### Features
+
+* **element:** create placeholder mock image if src is missing ([2b5790c](https://github.com/tobua/naven/commit/2b5790c8ef296e9e8f2a3ea0ca66faf66671ba68))
+
+
+### Bug Fixes
+
+* **element:** prevent missing space below input on focus ([329b830](https://github.com/tobua/naven/commit/329b830aa5d566e7c4160d813f6612ecebdd1be6))
+* **general:** update dependencies and add css property to Image element ([708138d](https://github.com/tobua/naven/commit/708138d9608c72b9894a7c6d944fdff37b9ada7c))
+* **test:** prevent issue with missing transform for tests ([07d1e09](https://github.com/tobua/naven/commit/07d1e093649d6ae3f6ebedaff05e9aa9f7592280))
+
+
+* **import:** separate entries for complex components ([8c074df](https://github.com/tobua/naven/commit/8c074dff8378e0c347a22c1b4434503f25a2c95e))
+
 ### [0.2.1](https://github.com/tobua/naven/compare/v0.2.0...v0.2.1) (2021-01-09)
 
 
