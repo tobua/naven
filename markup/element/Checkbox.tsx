@@ -6,7 +6,8 @@ import { Color, Space, radius, spaceProp } from '../../style'
 
 const CheckboxInput = styled.input<{ css?: SerializedStyles }>`
   border: 1px solid ${Color.black};
-  ${() => radius()}
+  cursor: pointer;
+  ${() => radius(2)}
   appearance: none;
   margin: 0;
 

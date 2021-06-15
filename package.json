@@ -33,12 +33,12 @@
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
     "@popperjs/core": "^2.9.2",
-    "@types/react": "^17.0.8",
+    "@types/react": "^17.0.11",
     "body-scroll-lock": "^3.1.5",
     "emotion-reset": "^3.0.0",
     "hex-rgb": "^5.0.0",
     "object-assign-deep": "^0.4.0",
-    "react-datepicker": "^4.0.0",
+    "react-datepicker": "^4.1.1",
     "react-popper": "^2.2.5",
     "react-select": "^4.3.1",
     "react-syntax-highlighter": "^15.4.3"
@@ -58,10 +58,10 @@
     "@emotion/core": "^11.0.0",
     "@testing-library/react": "^11.2.7",
     "@types/jest": "^26.0.23",
-    "@types/node": "^15.6.1",
-    "@types/react-dom": "^17.0.5",
+    "@types/node": "^15.12.2",
+    "@types/react-dom": "^17.0.7",
     "@types/react-select": "^4.0.15",
-    "padua": "^0.3.6",
+    "padua": "^0.3.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-test-renderer": "^17.0.2"
@@ -70,12 +70,16 @@
   "eslintConfig": {
     "extends": "./node_modules/padua/configuration/eslint.cjs"
   },
+  "stylelint": {
+    "extends": "padua/configuration/stylelint.cjs"
+  },
   "jest": {
     "globals": {
       "ts-jest": {
         "tsconfig": "./tsconfig.json"
       }
     },
+    "testEnvironment": "jsdom",
     "transform": {
       "^.+\\.tsx?$": "ts-jest",
       "^.+\\.jsx?$": [
