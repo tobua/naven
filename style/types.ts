@@ -21,6 +21,19 @@ export interface IColor {
   Shade?: (color: string, opacity: number) => string
 }
 
+export interface IFont {
+  family?: {
+    regular?: string
+    serif?: string
+    mono?: string
+  }
+  size?: {
+    small?: string
+    medium?: string
+    large?: string
+  }
+}
+
 export interface ISpace {
   tiny?: string
   small?: string

@@ -174,6 +174,17 @@ const hideMobileCss = css`
 `
 ```
 
+## Font
+
+```jsx
+import { Font } from 'naven'
+
+const SmallSerifText = css`
+  ${Font.size.small}
+  ${Font.family.serif}
+`
+```
+
 ## Development
 
 To view your changes live run `npm start` in the `/demo` or `/doc` folder. This will open a preview in the browser and automatically build and watch the plugin for changes.

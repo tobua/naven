@@ -1,15 +1,17 @@
-import { IBreakpoint, IColor, ILook, ISpace, ILayer } from './types'
+import { IBreakpoint, IColor, ILook, ISpace, ILayer, IFont } from './types'
 import { configure as configureBreakpoints } from './breakpoint'
 import { configure as configureSpace } from './space'
 import { configure as configureColor } from './color'
 import { configure as configureLook } from './look'
 import { configure as configureLayer } from './layer'
+import { configure as configureFont } from './font'
 
 export { Color, Shade } from './color'
 export { Breakpoints, Breakpoint } from './breakpoint'
 export { Space, spaceProp, spaceStyleProp } from './space'
 export { Layer } from './layer'
 export { Look, radius, radiusStyleProp } from './look'
+export { Font } from './font'
 export { toPx } from './utility'
 
 // Types that can be used to type inputs requiring styles.
@@ -21,6 +23,7 @@ export interface IConfiguration {
   breakpoints?: IBreakpoint
   look?: ILook
   layer?: ILayer
+  font?: IFont
 }
 
 export const configure = (configuration: IConfiguration) => {
@@ -38,5 +41,8 @@ export const configure = (configuration: IConfiguration) => {
   }
   if (configuration.layer) {
     configureLayer(configuration.layer)
+  }
+  if (configuration.font) {
+    configureFont(configuration.font)
   }
 }

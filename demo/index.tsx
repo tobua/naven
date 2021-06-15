@@ -11,6 +11,7 @@ import {
   Button,
   Color,
   Space,
+  Font,
   Breakpoint,
   Image,
 } from 'naven'
@@ -27,6 +28,7 @@ render(
         css={css`
           background: ${Color.Gray[300]};
           padding: ${Space.small};
+          ${Font.family.serif}
         `}
       >
         This is a paragraph with some custom styles.

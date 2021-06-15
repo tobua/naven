@@ -1,7 +1,7 @@
 import React, { DetailedHTMLProps, TextareaHTMLAttributes } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
-import { Color, Space, radius, spaceProp } from '../../style'
+import { Color, Space, Font, radius, spaceProp } from '../../style'
 
 const Wrapper = styled.textarea<{
   css?: SerializedStyles
@@ -12,8 +12,9 @@ const Wrapper = styled.textarea<{
   resize: none;
   ${() => radius()}
   ${spaceProp}
+  ${Font.family.regular}
   
-    &:focus {
+  &:focus {
     box-shadow: inset 0 0 0 1px ${Color.black};
     outline: none;
   }
