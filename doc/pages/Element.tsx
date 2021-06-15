@@ -15,6 +15,7 @@ import {
   Heading,
   Image,
   Input,
+  TextArea,
   Lazy,
   Link,
   TextLink,
@@ -191,6 +192,21 @@ import { css } from '@emotion/react'
     <Input placeholder="Input here" value="value" onChange={() => {}} />
     <Code jsx language="typescript">
       {`<Input placeholder="Input here" value="value" onChange={(event) => alert(event.target.value)} />`}
+    </Code>
+    <PropertyTable>
+      <>
+        <Text>onValue</Text>
+        <Text>optional</Text>
+        <InlineCode>{`(value: string) => void`}</InlineCode>
+      </>
+    </PropertyTable>
+    <Heading as="h2">
+      <Anchor name="textarea" />
+      TextArea
+    </Heading>
+    <TextArea placeholder="Textarea with 5 rows." rows={5} />
+    <Code jsx language="typescript">
+      {`<TextArea placeholder="Textarea with 5 rows." rows={5} />`}
     </Code>
     <PropertyTable>
       <>

@@ -2,7 +2,7 @@
   "papua": {
     "title": "naven Demo",
     "publicPath": "/naven/demo",
-    "logo": "../logo.svg"
+    "icon": "../logo.svg"
   },
   "dependencies": {
     "papua": "^0.1.21",

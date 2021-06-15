@@ -70,6 +70,7 @@ const app = () =>
                 { name: 'Heading', url: 'element#heading' },
                 { name: 'Image', url: 'element#image' },
                 { name: 'Input', url: 'element#input' },
+                { name: 'TextArea', url: 'element#textarea' },
                 { name: 'Link', url: 'element#link' },
                 { name: 'List', url: 'element#list' },
                 { name: 'Loader', url: 'element#loader' },

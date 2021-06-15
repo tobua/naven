@@ -8,8 +8,8 @@ export const Look: ILook = {
 
 export const configure = (_look: ILook) => assign(Look, _look)
 
-export const radius = () =>
-  Look.corner ? `border-radius: ${Look.corner}px;` : ''
+export const radius = (divider = 1) =>
+  Look.corner ? `border-radius: ${Look.corner / divider}px;` : ''
 
 export const radiusStyleProp = () =>
   Look.corner ? { borderRadius: toPx(Look.corner) } : {}
