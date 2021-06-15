@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/tobua/naven/compare/v0.3.0...v0.3.1) (2021-06-15)
+
+
+### Features
+
+* **element:** add textarea component ([ceb5190](https://github.com/tobua/naven/commit/ceb51905c4d806c74d53275838637c04070239b7))
+* **style:** add Font properties ([123408d](https://github.com/tobua/naven/commit/123408db88e1e49e12995bb8151e332b52a7b364))
+
+
+### Bug Fixes
+
+* **element:** update project and improve checkbox styles ([f2fadbf](https://github.com/tobua/naven/commit/f2fadbfb119310c61c941b2534b3dfd0a7451cf7))
+
 ## [0.3.0](https://github.com/tobua/naven/compare/v0.2.1...v0.3.0) (2021-05-30)
 
 
