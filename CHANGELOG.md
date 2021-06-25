@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/tobua/naven/compare/v0.3.1...v0.4.0) (2021-06-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **package:** exports field added, features now have to be imported in a more concise way
+
+### Bug Fixes
+
+* **element:** center placeholder image text and improve styles ([6fecd76](https://github.com/tobua/naven/commit/6fecd76e71b29d9d8817968bcb67920bd5fa7513))
+
+
+* **package:** move InlineCode to main bundle and add exports ([c40c7cd](https://github.com/tobua/naven/commit/c40c7cd45496a5959728f7614ab885fa89e1d596))
+
 ### [0.3.1](https://github.com/tobua/naven/compare/v0.3.0...v0.3.1) (2021-06-15)
 
 
