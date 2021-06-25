@@ -38,6 +38,7 @@ const app = () =>
           links: [
             { name: 'Overview', url: 'overview' },
             { name: 'Demo', url: 'https://tobua.github.io/naven/demo' },
+            { name: 'npm', url: 'https://npmjs.com/naven' },
             { name: 'GitHub', url: 'https://github.com/tobua/naven' },
           ],
         }}

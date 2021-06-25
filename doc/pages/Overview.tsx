@@ -1,6 +1,5 @@
-import React from 'react'
 import { Heading, Paragraph, Content } from 'naven'
-import { Code } from 'naven/dist/feature/Code'
+import { Code } from 'naven/Code'
 
 export const Overview = () => (
   <Content>
@@ -15,8 +14,7 @@ export const Overview = () => (
     <Paragraph>or start with a template:</Paragraph>
     <Code>{`npm init now naven ./my-app`}</Code>
     <Heading as="h2">Usage</Heading>
-    <Code>{`import React from 'react'
-import { render } from 'react-dom'
+    <Code>{`import { render } from 'react-dom'
 import { Global, Header, Navigation, Content, Footer, Heading } from 'naven'
 
 render(

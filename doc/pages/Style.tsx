@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from '@emotion/styled'
 import { Konfi } from 'konfi'
 import merge from 'deepmerge'

@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   Content,
   Heading,
@@ -11,9 +10,10 @@ import {
   Narrow,
   Color,
   Space,
+  InlineCode,
 } from 'naven'
 import { css } from '@emotion/react'
-import { InlineCode, Code } from 'naven/dist/feature/Code'
+import { Code } from 'naven/Code'
 
 const highlightLayoutCss = css`
   background-color: ${Color.Gray[300]};

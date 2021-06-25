@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import { Text, Table } from 'naven'
 
 export const PropertyTable = ({

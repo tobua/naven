@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   Content,
   Text,
@@ -8,8 +7,9 @@ import {
   Anchor,
   Heading,
   Spacer,
+  InlineCode,
 } from 'naven'
-import { InlineCode, Code } from 'naven/dist/feature/Code'
+import { Code } from 'naven/Code'
 import { PropertyTable } from 'markup/PropertyTable'
 
 export const Configuration = () => (

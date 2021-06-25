@@ -35,7 +35,7 @@
     "@popperjs/core": "^2.9.2",
     "@types/react": "^17.0.11",
     "body-scroll-lock": "^3.1.5",
-    "emotion-reset": "^3.0.0",
+    "emotion-reset": "^3.0.1",
     "hex-rgb": "^5.0.0",
     "object-assign-deep": "^0.4.0",
     "react-datepicker": "^4.1.1",
@@ -47,7 +47,13 @@
     "react": "^17.0.2"
   },
   "main": "dist/index.js",
-  "module": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./Code": "./dist/feature/Code.js",
+    "./Date": "./dist/feature/Date.js",
+    "./Dropdown": "./dist/feature/Dropdown.js",
+    "./Tooltip": "./dist/feature/Tooltip.js"
+  },
   "sideEffects": false,
   "source": "index.ts",
   "types": "dist/index.d.ts",
@@ -56,11 +62,11 @@
   ],
   "devDependencies": {
     "@emotion/core": "^11.0.0",
-    "@testing-library/react": "^11.2.7",
+    "@testing-library/react": "^12.0.0",
     "@types/jest": "^26.0.23",
-    "@types/node": "^15.12.2",
-    "@types/react-dom": "^17.0.7",
-    "@types/react-select": "^4.0.15",
+    "@types/node": "^15.12.4",
+    "@types/react-dom": "^17.0.8",
+    "@types/react-select": "^4.0.16",
     "padua": "^0.3.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -95,5 +101,15 @@
   },
   "engines": {
     "node": ">= 14"
+  },
+  "typesVersions": {
+    "*": {
+      "dist/index.d.ts": [
+        "dist/index.d.ts"
+      ],
+      "*": [
+        "dist/feature/*"
+      ]
+    }
   }
 }

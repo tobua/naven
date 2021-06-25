@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import { useState, Fragment } from 'react'
 import { css } from '@emotion/react'
 import {
   Content,
@@ -29,11 +29,12 @@ import {
   Tabs,
   Paragraph,
   Text,
+  InlineCode,
 } from 'naven'
-import { InlineCode, Code } from 'naven/dist/feature/Code'
-import { Tooltip } from 'naven/dist/feature/Tooltip'
-import { DatePicker } from 'naven/dist/feature/Date'
-import { Dropdown } from 'naven/dist/feature/Dropdown'
+import { Code } from 'naven/Code'
+import { Tooltip } from 'naven/Tooltip'
+import { DatePicker } from 'naven/Date'
+import { Dropdown } from 'naven/Dropdown'
 import { PropertyTable } from 'markup/PropertyTable'
 
 const PopupToggle = () => {
@@ -379,8 +380,8 @@ import { css } from '@emotion/react'
       ]}
     />
     <Code jsx language="typescript">
-      {`import { Dropdown } from 'naven/dist/feature/Dropdown.js'
-      
+      {`import { Dropdown } from 'naven/Dropdown'
+
 <Dropdown options={[
   { value: 'first', label: 'First choice' },
   { value: 'second', label: 'Second choice' },
@@ -476,7 +477,7 @@ import { css } from '@emotion/react'
     </Tooltip>
     <Spacer />
     <Code jsx language="typescript">
-      {`import { Tooltip } from 'naven/dist/feature/Tooltip.js'
+      {`import { Tooltip } from 'naven/Tooltip'
 
 <Tooltip content={<Text>Me?</Text>}>
   <Text>Who!</Text>
@@ -546,8 +547,8 @@ import { css } from '@emotion/react'
     <Heading as="h2">Date Picker</Heading>
     <DatePicker initialDate={new Date(1990, 1, 17)} />
     <Code jsx language="typescript">
-      {`import { DatePicker } from 'naven/dist/feature/Date.js'
-      
+      {`import { DatePicker } from 'naven/Date'
+
 <DatePicker initialDate={new Date(1990, 1, 17)} onChange={(date) => setDate(date)} />`}
     </Code>
     <PropertyTable>
@@ -586,7 +587,7 @@ export const greet = (greeting: string) => console.log(\`hello \${greeting}!\`)`
 export const Hello = () => <p>W<strong>o</strong>rld</p>`}
     </Code>
     <Code jsx language="typescript">
-      {`import { Code, InlineCode } from 'naven/dist/feature/Code.js'
+      {`import { Code } from 'naven/Code'
 
 <Code jsx language="typescript">{\`const doubleIt = (value: number) => value * 2\`}</Code>`}
     </Code>
@@ -614,6 +615,17 @@ export const Hello = () => <p>W<strong>o</strong>rld</p>`}
         </TextLink>
       </>
     </PropertyTable>
+    <Heading as="h2">Inline Code</Heading>
+    <Paragraph>
+      The proof of the following equation <InlineCode>{'2+2=5'}</InlineCode> is
+      left to the reader.
+    </Paragraph>
+    <Code jsx language="typescript">
+      {`import { InlineCode } from 'naven'
+
+Use <InlineCode>const</InlineCode> to define variables.`}
+    </Code>
+    <PropertyTable space={false} />
     <Heading as="h2">Lazy</Heading>
     <Lazy
       // Mocking an import('./whatever')
