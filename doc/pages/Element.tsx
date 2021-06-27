@@ -373,12 +373,24 @@ import { css } from '@emotion/react'
       </>
     </PropertyTable>
     <Heading as="h2">Dropdown</Heading>
-    <Dropdown
-      options={[
-        { value: 'first', label: 'First choice' },
-        { value: 'second', label: 'Second choice' },
-      ]}
-    />
+    <Horizontal>
+      <Dropdown
+        space={0}
+        options={[
+          { value: 'first', label: 'First choice' },
+          { value: 'second', label: 'Second choice' },
+        ]}
+      />
+      <Dropdown
+        space={0}
+        backgroundColor="lightgray"
+        defaultValue={{ value: 'second', label: 'Second choice' }}
+        options={[
+          { value: 'first', label: 'First choice' },
+          { value: 'second', label: 'Second choice' },
+        ]}
+      />
+    </Horizontal>
     <Code jsx language="typescript">
       {`import { Dropdown } from 'naven/Dropdown'
 
@@ -399,6 +411,18 @@ import { css } from '@emotion/react'
         <Text>containerStyles</Text>
         <Text></Text>
         <Text>object</Text>
+      </>
+      <>
+        <Text>backgroundColor</Text>
+        <Text>Color.white</Text>
+        <Text>string</Text>
+      </>
+      <>
+        <Text>...props</Text>
+        <Text></Text>
+        <TextLink href="https://react-select.com/props">
+          All other props passed to react-select
+        </TextLink>
       </>
     </PropertyTable>
     <Heading as="h2">Notification</Heading>
