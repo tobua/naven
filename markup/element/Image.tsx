@@ -24,17 +24,16 @@ export const Image = ({
   src,
   css,
   space,
-  width,
-  height,
+  ...props
 }: IImage &
   React.DetailedHTMLProps<
     React.ImgHTMLAttributes<HTMLImageElement>,
     HTMLImageElement
   >) => {
-  if (!src && width && height) {
+  if (!src && props.width && props.height) {
     // eslint-disable-next-line no-param-reassign
-    src = placeholder(Number(width), Number(height))
+    src = placeholder(Number(props.width), Number(props.height))
   }
 
-  return <Wrapper css={css} space={space} src={src} />
+  return <Wrapper css={css} space={space} src={src} {...props} />
 }

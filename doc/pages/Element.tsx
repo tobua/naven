@@ -36,6 +36,7 @@ import { Tooltip } from 'naven/Tooltip'
 import { DatePicker } from 'naven/Date'
 import { Dropdown } from 'naven/Dropdown'
 import { PropertyTable } from 'markup/PropertyTable'
+import navenLogo from 'logo.svg'
 
 const PopupToggle = () => {
   const [show, togglePopup] = useState(false)
@@ -140,7 +141,10 @@ import { css } from '@emotion/react'
 <Button space={Space.large}>Press me!</Button>
 <Button disabled space={0} css={css\`background: \${Color.black};\`}>Can't touch this</Button>`}
     </Code>
-    <Heading as="h2">Button</Heading>
+    <Heading as="h2">
+      <Anchor name="button" />
+      Button
+    </Heading>
     <Button
       css={css`
         margin-right: ${Space.small};
@@ -216,7 +220,10 @@ import { css } from '@emotion/react'
         <InlineCode>{`(value: string) => void`}</InlineCode>
       </>
     </PropertyTable>
-    <Heading as="h2">Alert</Heading>
+    <Heading as="h2">
+      <Anchor name="alert" />
+      Alert
+    </Heading>
     <Alert>Hey: This is an info</Alert>
     <Alert type="warning" closeable>
       Ohh: This is a <b>closeable</b> warning
@@ -237,7 +244,10 @@ import { css } from '@emotion/react'
         <Text>boolean</Text>
       </>
     </PropertyTable>
-    <Heading as="h2">Popup</Heading>
+    <Heading as="h2">
+      <Anchor name="popup" />
+      Popup
+    </Heading>
     <PopupToggle />
     <Code jsx language="typescript">
       {`<Popup show={show} onClose={() => setShow(false)}>
@@ -281,7 +291,10 @@ import { css } from '@emotion/react'
         <Text>ReactNode</Text>
       </Fragment>
     </PropertyTable>
-    <Heading as="h2">Checkbox</Heading>
+    <Heading as="h2">
+      <Anchor name="checkbox" />
+      Checkbox
+    </Heading>
     <Checkboxes />
     <Code jsx language="typescript">
       {`<Checkbox label="Accept Terms" checked={terms} onChange={() => setTerms(!terms)} />`}
@@ -298,7 +311,10 @@ import { css } from '@emotion/react'
         <Text>SerializedStyles</Text>
       </>
     </PropertyTable>
-    <Heading as="h2">Radio</Heading>
+    <Heading as="h2">
+      <Anchor name="radio" />
+      Radio
+    </Heading>
     <Radios />
     <Code jsx language="typescript">
       {`<Radio label="Female" name="gender" checked={selection === 'female'} onChange={() => setGender('female')} />`}
@@ -315,7 +331,10 @@ import { css } from '@emotion/react'
         <Text>SerializedStyles</Text>
       </>
     </PropertyTable>
-    <Heading as="h2">Accordion</Heading>
+    <Heading as="h2">
+      <Anchor name="accordion" />
+      Accordion
+    </Heading>
     <Accordion headers={['First', <Text bold>Second</Text>, 'Third']}>
       <Text>First Content</Text>
       <Text>Second Content</Text>
@@ -339,7 +358,10 @@ import { css } from '@emotion/react'
         <Text>number</Text>
       </>
     </PropertyTable>
-    <Heading as="h2">Badge</Heading>
+    <Heading as="h2">
+      <Anchor name="badge" />
+      Badge
+    </Heading>
     <Horizontal
       css={css`
         overflow: visible;
@@ -372,7 +394,10 @@ import { css } from '@emotion/react'
         <Text>SerializedStyles</Text>
       </>
     </PropertyTable>
-    <Heading as="h2">Dropdown</Heading>
+    <Heading as="h2">
+      <Anchor name="dropdown" />
+      Dropdown
+    </Heading>
     <Horizontal>
       <Dropdown
         space={0}
@@ -425,7 +450,10 @@ import { css } from '@emotion/react'
         </TextLink>
       </>
     </PropertyTable>
-    <Heading as="h2">Notification</Heading>
+    <Heading as="h2">
+      <Anchor name="notification" />
+      Notification
+    </Heading>
     <NotificationToggle />
     <Heading as="h3" code>{`<Notification />`}</Heading>
     <Code jsx language="typescript">
@@ -469,7 +497,10 @@ import { css } from '@emotion/react'
         <Text>'info' | 'warning' | 'error'</Text>
       </>
     </PropertyTable>
-    <Heading as="h2">Tabs</Heading>
+    <Heading as="h2">
+      <Anchor name="tabs" />
+      Tabs
+    </Heading>
     <Tabs
       items={[
         { title: 'First', content: <p>Content First</p> },
@@ -495,7 +526,10 @@ import { css } from '@emotion/react'
         <Text>number</Text>
       </>
     </PropertyTable>
-    <Heading as="h2">Tooltip</Heading>
+    <Heading as="h2">
+      <Anchor name="tooltip" />
+      Tooltip
+    </Heading>
     <Tooltip content={<Text>Hello content</Text>}>
       <Text>Hover or click to show tooltip.</Text>
     </Tooltip>
@@ -529,7 +563,10 @@ import { css } from '@emotion/react'
         <Text>boolean</Text>
       </>
     </PropertyTable>
-    <Heading as="h2">List</Heading>
+    <Heading as="h2">
+      <Anchor name="list" />
+      List
+    </Heading>
     <List>
       <Text>First</Text>
       <Text>Second</Text>
@@ -568,7 +605,10 @@ import { css } from '@emotion/react'
         <Text>number | string</Text>
       </>
     </PropertyTable>
-    <Heading as="h2">Date Picker</Heading>
+    <Heading as="h2">
+      <Anchor name="date" />
+      Date Picker
+    </Heading>
     <DatePicker initialDate={new Date(1990, 1, 17)} />
     <Code jsx language="typescript">
       {`import { DatePicker } from 'naven/Date'
@@ -599,7 +639,10 @@ import { css } from '@emotion/react'
         </TextLink>
       </>
     </PropertyTable>
-    <Heading as="h2">Code</Heading>
+    <Heading as="h2">
+      <Anchor name="code" />
+      Code
+    </Heading>
     <Code language="javascript">
       {`// Hello JS
 export const hello = () => console.log('world')`}
@@ -639,7 +682,10 @@ export const Hello = () => <p>W<strong>o</strong>rld</p>`}
         </TextLink>
       </>
     </PropertyTable>
-    <Heading as="h2">Inline Code</Heading>
+    <Heading as="h2">
+      <Anchor name="inline-code" />
+      Inline Code
+    </Heading>
     <Paragraph>
       The proof of the following equation <InlineCode>{'2+2=5'}</InlineCode> is
       left to the reader.
@@ -658,7 +704,10 @@ export const Hello = () => <p>W<strong>o</strong>rld</p>`}
 Use <InlineCode>const</InlineCode> to define variables.`}
     </Code>
     <PropertyTable space={false} />
-    <Heading as="h2">Lazy</Heading>
+    <Heading as="h2">
+      <Anchor name="lazy" />
+      Lazy Load
+    </Heading>
     <Lazy
       // Mocking an import('./whatever')
       imports={new Promise((done) => done(() => <p>lazy loaded...</p>))}
@@ -672,7 +721,7 @@ Use <InlineCode>const</InlineCode> to define variables.`}
       <>
         <Text>imports</Text>
         <Text>required</Text>
-        <Text>{`Promise<any>`}</Text>
+        <InlineCode>{`Promise<any>`}</InlineCode>
       </>
       <>
         <Text>result</Text>
@@ -680,7 +729,10 @@ Use <InlineCode>const</InlineCode> to define variables.`}
         <InlineCode>{`(...imports: any) => ReactNode`}</InlineCode>
       </>
     </PropertyTable>
-    <Heading as="h2">Table</Heading>
+    <Heading as="h2">
+      <Anchor name="table" />
+      Table
+    </Heading>
     <Table>
       <>
         <Text>First</Text>
@@ -706,5 +758,54 @@ Use <InlineCode>const</InlineCode> to define variables.`}
 </Table>`}
     </Code>
     <PropertyTable />
+    <Heading as="h2">
+      <Anchor name="image" />
+      Image
+    </Heading>
+    <Horizontal space={0}>
+      <Image src={navenLogo} alt="naven Logo" height={100} />
+      <Image alt="Show placeholder" width={200} height={100} />
+    </Horizontal>
+    <Code jsx language="typescript">
+      {`<Image src={yourImage} />
+<Image height={100} width={200} /> // Shows placeholder if src missing (useful for development)`}
+    </Code>
+    <PropertyTable>
+      <>
+        <Text>src</Text>
+        <Text></Text>
+        <Text>string</Text>
+      </>
+      <>
+        <Text>width / height</Text>
+        <Text>if present but src missing, placeholder displayed</Text>
+        <Text>string | number</Text>
+      </>
+      <>
+        <Text>...props</Text>
+        <Text></Text>
+        <Text>
+          all props from React <InlineCode>img</InlineCode> element
+        </Text>
+      </>
+    </PropertyTable>
+    <Heading as="h2">
+      <Anchor name="loader" />
+      Loader
+    </Heading>
+    <Horizontal space={0}>
+      <Loader />
+      <Loader small />
+    </Horizontal>
+    <Code jsx language="typescript">
+      {`<Loader /> <Loader small />`}
+    </Code>
+    <PropertyTable>
+      <>
+        <Text>small</Text>
+        <Text>false</Text>
+        <InlineCode>boolean</InlineCode>
+      </>
+    </PropertyTable>
   </Content>
 )
