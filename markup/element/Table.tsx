@@ -17,7 +17,7 @@ const Wrapper = styled.div<{
   padding: ${Space.small};
 
   /* First row */
-  > *:nth-of-type(-n + ${({ columns }) => columns}) {
+  > *:nth-child(-n + ${({ columns }) => columns}) {
     font-weight: bold;
   }
 

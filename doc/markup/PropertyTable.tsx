@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { Text, Table } from 'naven'
+import { Text, Table, InlineCode } from 'naven'
 
 export const PropertyTable = ({
   space = true,
@@ -29,8 +29,8 @@ export const PropertyTable = ({
     contents.push(
       <Fragment key="space">
         <Text>space</Text>
-        <Text>Space.medium</Text>
-        <Text>string | number</Text>
+        <InlineCode>Space.medium</InlineCode>
+        <InlineCode>string | number</InlineCode>
       </Fragment>
     )
   }
@@ -40,7 +40,7 @@ export const PropertyTable = ({
       <Fragment key="css">
         <Text>css</Text>
         <Text>Empty</Text>
-        <Text>SerializedStyles</Text>
+        <InlineCode>SerializedStyles</InlineCode>
       </Fragment>
     )
   }
