@@ -9,6 +9,7 @@ export const Color: IColor = {
   black: '#000',
   // Color to display stuff inside highlight or interact.
   contrast: '#FFF',
+  valid: '#4CAF50',
   warning: '#FF9800',
   error: '#F44336',
   // Shaded colors.

@@ -7,5 +7,6 @@ export const InlineCode = styled.code<{ css?: SerializedStyles }>`
   font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   border-radius: 3px;
   padding: 2px 4px;
+  font-size: 0.9rem;
   ${({ css }) => css}
 `

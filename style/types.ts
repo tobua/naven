@@ -8,6 +8,7 @@ export interface IColor {
   white?: string
   black?: string
   contrast?: string
+  valid?: string
   warning?: string
   error?: string
   Gray?: {

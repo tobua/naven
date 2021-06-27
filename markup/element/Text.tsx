@@ -7,6 +7,7 @@ export const Paragraph = styled.p<{
   css?: SerializedStyles
 }>`
   display: block;
+  line-height: 1.4;
   ${spaceProp}
   ${({ css }) => css}
 `

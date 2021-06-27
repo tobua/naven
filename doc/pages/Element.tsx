@@ -644,6 +644,14 @@ export const Hello = () => <p>W<strong>o</strong>rld</p>`}
       The proof of the following equation <InlineCode>{'2+2=5'}</InlineCode> is
       left to the reader.
     </Paragraph>
+    <Paragraph
+      css={css`
+        max-width: 350px;
+      `}
+    >
+      Multiple <InlineCode>inline code blocks</InlineCode> shouldn't touch each
+      other even when <InlineCode>line-breaks</InlineCode> are present.
+    </Paragraph>
     <Code jsx language="typescript">
       {`import { InlineCode } from 'naven'
 
