@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.1](https://github.com/tobua/naven/compare/v0.4.0...v0.4.1) (2021-06-27)
+
+
+### Features
+
+* **element:** improve dropdown theme & pass theme props ([df7b5a1](https://github.com/tobua/naven/commit/df7b5a11da09d41c163891dc011ec822d8cedd9f))
+* **element:** proper paragraph spacing with inline code and valid color ([aafb9a9](https://github.com/tobua/naven/commit/aafb9a990219c442470998da76a33c0348d3a3d2))
+
+
+### Bug Fixes
+
+* **element:** make sure table heading highlight works with any tag ([54f0cf5](https://github.com/tobua/naven/commit/54f0cf58686806a2937e1dbe0cec60c36888aa9c))
+
 ## [0.4.0](https://github.com/tobua/naven/compare/v0.3.1...v0.4.0) (2021-06-25)
 
 
