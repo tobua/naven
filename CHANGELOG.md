@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.2](https://github.com/tobua/naven/compare/v0.4.1...v0.4.2) (2021-07-08)
+
+
+### Features
+
+* **style:** useBreakpoint React hook returning current breakpoint ([163a68d](https://github.com/tobua/naven/commit/163a68d6b97921a92e0ee1409fd2e42a079c9567))
+
+
+### Bug Fixes
+
+* **element:** prevent warning and update dependencies ([d79713b](https://github.com/tobua/naven/commit/d79713b2734dc6233a27f3369841dbc6d8cd373f))
+* **element:** show mobile navigation toggle only if links present ([1724ec7](https://github.com/tobua/naven/commit/1724ec73408e27596e55f75a55e405fcc4a3b61a))
+
 ### [0.4.1](https://github.com/tobua/naven/compare/v0.4.0...v0.4.1) (2021-06-27)
 
 
