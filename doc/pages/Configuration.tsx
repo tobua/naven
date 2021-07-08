@@ -145,6 +145,11 @@ const HeaderText = <Header>
         <Text></Text>
         <Text>SerializedStyles</Text>
       </>
+      <>
+        <Text>toggleCss</Text>
+        <Text></Text>
+        <Text>SerializedStyles</Text>
+      </>
     </PropertyTable>
     <Heading as="h2" code>
       <Anchor name="content" />

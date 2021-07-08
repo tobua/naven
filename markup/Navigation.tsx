@@ -6,6 +6,8 @@ import { TextLink } from './element/Link'
 import { List } from './element/List'
 import { navigation, INavigation } from '../config'
 import { Space, Color, Breakpoint, Layer } from '../style'
+import { Menu } from '../icon/Menu'
+import { Close } from '../icon/Close'
 
 export const Wrapper = styled.nav<{
   showNavigation: boolean
@@ -16,9 +18,13 @@ export const Wrapper = styled.nav<{
   z-index: ${Layer.Navigation};
 
   ${Breakpoint.Phone} {
+    display: ${({ showNavigation }) =>
+      showNavigation
+        ? 'flex'
+        : 'contents'}; /* Avoids grid space, while absolute children still visible. */
+    position: inherit;
     flex-direction: column;
     overflow: auto;
-    display: ${({ showNavigation }) => (showNavigation ? 'flex' : 'none')};
     ${({ showNavigation }) =>
       showNavigation
         ? `height: calc(100vh - ${Space.medium} - 2 * ${Space.small});`
@@ -32,8 +38,9 @@ export const Aside = styled.aside`
   grid-column: 2 / 3;
 `
 
-const listStyles = cssStyles`
+const listStyles = (visible: boolean) => cssStyles`
   ${Breakpoint.Phone} {
+    display: ${visible ? 'flex' : 'none'};
     flex: 1;
     flex-direction: column;
   }
@@ -74,6 +81,52 @@ const ContentContainer = styled.div`
     padding: 0;
   }
 `
+
+const ToggleIconWrapper = styled.div<{ css?: SerializedStyles }>`
+  display: flex;
+  position: absolute;
+  top: ${Space.small};
+  right: ${Space.small};
+
+  ${({ css }) => css}
+`
+
+const ToggleIcon = ({
+  css,
+  data,
+  showNavigation,
+  setShowNavigation,
+}: {
+  css?: SerializedStyles
+  data?: INavigation
+  showNavigation: boolean
+  setShowNavigation: (value: boolean) => void
+}) => {
+  if (!data || !Array.isArray(data.top) || data.top.length < 1) {
+    return null
+  }
+
+  const iconStyles = cssStyles`
+    cursor: pointer;
+    width: ${Space.medium};
+    height: ${Space.medium};
+    display: none;
+
+    ${Breakpoint.Phone} {
+      display: flex;
+    }
+  `
+
+  return (
+    <ToggleIconWrapper css={css}>
+      {showNavigation ? (
+        <Close onClick={() => setShowNavigation(false)} css={iconStyles} />
+      ) : (
+        <Menu onClick={() => setShowNavigation(true)} css={iconStyles} />
+      )}
+    </ToggleIconWrapper>
+  )
+}
 
 const TabElement = styled.div<{ css?: SerializedStyles }>`
   display: flex;
@@ -123,13 +176,12 @@ export const SideBar = () => (
   </Aside>
 )
 
-let toggleMobileNavigation = null
-
 interface Props {
   linkActive?: (url: string) => boolean
   data?: INavigation
   css?: SerializedStyles
   tabCss?: SerializedStyles
+  toggleCss?: SerializedStyles
 }
 
 export const Navigation = ({
@@ -137,11 +189,10 @@ export const Navigation = ({
   linkActive = () => false,
   css,
   tabCss,
+  toggleCss,
 }: Props) => {
   const scrollContainerRef = useRef()
-  const [showNavigation, toggleMobileNavigationState] = useState(false)
-
-  toggleMobileNavigation = toggleMobileNavigationState
+  const [showNavigation, setShowNavigation] = useState(false)
 
   useEffect(() => {
     if (scrollContainerRef.current && showNavigation) {
@@ -153,9 +204,15 @@ export const Navigation = ({
 
   return (
     <Wrapper ref={scrollContainerRef} showNavigation={showNavigation} css={css}>
+      <ToggleIcon
+        css={toggleCss}
+        data={data}
+        showNavigation={showNavigation}
+        setShowNavigation={setShowNavigation}
+      />
       <List
         space={0}
-        css={listStyles}
+        css={listStyles(showNavigation)}
         elementProps={{ css: listElementStyles }}
         horizontal
       >
@@ -166,7 +223,7 @@ export const Navigation = ({
             </TextLink>
             <>
               {link.links &&
-                link.links.length &&
+                link.links.length > 0 &&
                 link.links.map((secondLink) => (
                   <TextLink key={secondLink.name} href={secondLink.url}>
                     {secondLink.name}
@@ -178,8 +235,4 @@ export const Navigation = ({
       </List>
     </Wrapper>
   )
-}
-
-export const showMobileNavigation = (show) => {
-  toggleMobileNavigation(show)
 }

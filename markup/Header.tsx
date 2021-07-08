@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { css as cssStyles, SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
 import { List } from './element/List'
 import { Link, TextLink } from './element/Link'
-import { showMobileNavigation } from './Navigation'
 import { Logo } from '../icon/Logo'
-import { Menu } from '../icon/Menu'
-import { Close } from '../icon/Close'
 import { Space, Breakpoint } from '../style'
 import { header, IHeader } from '../config'
 
@@ -16,6 +13,12 @@ const Wrapper = styled.header<{ css?: SerializedStyles }>`
   grid-template-columns: auto auto;
   grid-template-rows: auto auto auto;
   ${({ css }) => css}
+
+  ${Breakpoint.Phone} {
+    display: flex;
+    flex-direction: column;
+    gap: ${Space.medium};
+  }
 `
 
 const Image = styled.img`
@@ -34,6 +37,10 @@ const TitleText = styled.p`
   font-size: ${Space.medium};
   font-weight: bold;
   align-self: center;
+
+  ${Breakpoint.Phone} {
+    align-self: inherit;
+  }
 `
 
 const TitleLink = styled(Link)`
@@ -42,39 +49,6 @@ const TitleLink = styled(Link)`
   height: ${Space.large};
   ${({ css }) => css}
 `
-
-const ToggleIconWrapper = styled.div`
-  display: flex;
-`
-
-const ToggleIcon = () => {
-  const [open, setOpen] = useState(false)
-  const toggleNavigation = () => {
-    setOpen(!open)
-    showMobileNavigation(!open)
-  }
-
-  const iconStyles = cssStyles`
-    cursor: pointer;
-    width: ${Space.medium};
-    height: ${Space.medium};
-    display: none;
-
-    ${Breakpoint.Phone} {
-      display: flex;
-    }
-  `
-
-  return (
-    <ToggleIconWrapper>
-      {open ? (
-        <Close onClick={toggleNavigation} css={iconStyles} />
-      ) : (
-        <Menu onClick={toggleNavigation} css={iconStyles} />
-      )}
-    </ToggleIconWrapper>
-  )
-}
 
 interface TitleProps {
   logo?: string
@@ -137,22 +111,16 @@ export const Header = ({
     <HeaderTitle logo={logo} title={title} link={link} css={titleCss}>
       {children}
     </HeaderTitle>
-    <Meta css={metaCss}>
-      <ToggleIcon />
-      <List
-        css={cssStyles`
-          ${Breakpoint.Phone} {
-            display: none;
-          }
-        `}
-        horizontal
-      >
-        {data.links.map((currentLink) => (
-          <TextLink key={currentLink.url} href={currentLink.url}>
-            {currentLink.name}
-          </TextLink>
-        ))}
-      </List>
-    </Meta>
+    {data.links && (
+      <Meta css={metaCss}>
+        <List space={0} horizontal>
+          {data.links.map((currentLink) => (
+            <TextLink key={currentLink.url} href={currentLink.url}>
+              {currentLink.name}
+            </TextLink>
+          ))}
+        </List>
+      </Meta>
+    )}
   </Wrapper>
 )
