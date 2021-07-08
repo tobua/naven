@@ -33,11 +33,9 @@ const Wrapper = styled.button<{
   text-decoration: ${({ disabled }) => (disabled ? 'line-through' : '')};
   ${spaceProp}
 
+  &:hover,
   &:focus {
     outline: none;
-  }
-
-  &:hover {
     background-color: ${(props) => getButtonColor(props, 1)};
   }
 

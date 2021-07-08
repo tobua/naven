@@ -7,7 +7,7 @@ import { configure as configureLayer } from './layer'
 import { configure as configureFont } from './font'
 
 export { Color, Shade } from './color'
-export { Breakpoints, Breakpoint } from './breakpoint'
+export { Breakpoints, Breakpoint, useBreakpoint } from './breakpoint'
 export { Space, spaceProp, spaceStyleProp } from './space'
 export { Layer } from './layer'
 export { Look, radius, radiusStyleProp } from './look'

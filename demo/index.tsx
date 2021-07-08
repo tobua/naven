@@ -14,7 +14,14 @@ import {
   Font,
   Breakpoint,
   Image,
+  useBreakpoint,
 } from 'naven'
+
+const Viewport = () => {
+  const { breakpoint } = useBreakpoint()
+
+  return <Paragraph>Viewport: {breakpoint ? breakpoint : 'Desktop'}</Paragraph>
+}
 
 render(
   <>
@@ -34,6 +41,7 @@ render(
         This is a paragraph with some custom styles.
       </Paragraph>
       <Image width={200} height={100} />
+      <Viewport />
       <Button
         space={0}
         interact
