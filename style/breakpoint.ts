@@ -30,6 +30,11 @@ export const Breakpoint = new Proxy<{ Phone: string; Tablet: string }>(
   }
 )
 
+type BreakpointWithPixel = {
+  name: keyof IBreakpoint | null
+  pixels: number
+}
+
 const getLargestBreakpoint = () =>
   Object.entries(Breakpoints).reduce((result, current) => {
     if (current[1] > result) {
@@ -53,7 +58,9 @@ const getMatcher = (
   return `${minWidthQuery(previousPixels)} and ${maxWidthQuery(currentPixels)}`
 }
 
-const attachBreakpointListeners = (setBreakpoint) => {
+const attachBreakpointListeners = (
+  setBreakpoint: (point: BreakpointWithPixel) => void
+) => {
   const largestBreakpoint = getLargestBreakpoint()
   const entries = Object.entries(Breakpoints)
   const matchers = entries.map(([name, pixels], index) => ({
@@ -82,15 +89,12 @@ const attachBreakpointListeners = (setBreakpoint) => {
 }
 
 export const useBreakpoint = () => {
-  const [breakpoint, setBreakpoint] = useState<{
-    name: keyof IBreakpoint | null
-    pixels: number
-  }>({
+  const [breakpoint, setBreakpoint] = useState<BreakpointWithPixel>({
     name: null,
     pixels: 9999,
   })
 
-  useEffect(attachBreakpointListeners.bind(this, setBreakpoint), [])
+  useEffect(attachBreakpointListeners.bind(null, setBreakpoint), [])
 
   return { breakpoint: breakpoint.name, pixels: breakpoint.pixels }
 }
