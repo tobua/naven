@@ -38,7 +38,6 @@ const Wrapper = styled.div<{
 
 const CloseContainer = styled.div`
   position: absolute;
-  height: 100%;
   display: flex;
   right: ${Space.small};
   cursor: pointer;

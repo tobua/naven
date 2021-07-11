@@ -17,7 +17,7 @@ const Dot = styled.div<{ hasContent: boolean; css?: SerializedStyles }>`
   background: ${Color.highlight};
   right: -${({ hasContent }) => (hasContent ? Space.small : Space.tiny)};
   top: -${({ hasContent }) => (hasContent ? Space.small : Space.tiny)};
-  color: ${Color.contrast};
+  color: ${Color.colorContrast};
   display: flex;
   justify-content: center;
   align-items: center;

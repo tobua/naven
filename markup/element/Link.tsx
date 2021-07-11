@@ -4,13 +4,13 @@ import { Color } from '../../style'
 
 export const Link = styled.a<{ css?: SerializedStyles }>`
   text-decoration: none;
-  color: ${Color.black};
+  color: ${() => Color.backgroundContrast};
   ${({ css }) => css}
 `
 
 export const TextLink = styled.a<{ css?: SerializedStyles; bold?: boolean }>`
   cursor: pointer;
-  color: ${Color.black};
+  color: ${() => Color.backgroundContrast};
   text-decoration: none;
   ${({ bold }) => (bold ? 'font-weight: bold;' : '')}
 

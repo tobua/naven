@@ -26,7 +26,7 @@ const ColorPreview = styled.div<{ color: string; contrast?: string }>`
   justify-content: center;
   align-items: center;
   padding: ${Space.small};
-  color: ${({ contrast = Color.contrast }) => contrast};
+  color: ${({ contrast = Color.colorContrast }) => contrast};
 
   :hover {
     transform: scale(1.25);
@@ -46,7 +46,7 @@ export const Style = ({ onStyleChange }: { onStyleChange: () => void }) => (
       </ColorPreview>
       <ColorPreview color={Color.warning}>warning</ColorPreview>
       <ColorPreview color={Color.error}>error</ColorPreview>
-      <ColorPreview color={Color.contrast} contrast={Color.black}>
+      <ColorPreview color={Color.colorContrast} contrast={Color.black}>
         contrast
       </ColorPreview>
     </Horizontal>
