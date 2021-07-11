@@ -44,6 +44,11 @@ export const Configuration = () => (
         <Text></Text>
         <Text>SerializedStyles</Text>
       </>
+      <>
+        <Text>bodyCss</Text>
+        <Text></Text>
+        <Text>SerializedStyles</Text>
+      </>
     </PropertyTable>
     <Heading as="h2" code>
       <Anchor name="header" />

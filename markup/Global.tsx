@@ -11,15 +11,18 @@ interface Props {
   root?: string
   css?: SerializedStyles
   rootCss?: SerializedStyles
+  bodyCss?: SerializedStyles
 }
 
-const styles = ({ root, css, rootCss }: Props) => cssStyles`
+const styles = ({ root, css, rootCss, bodyCss }: Props) => cssStyles`
   ${emotionReset}
 
   body {
     margin: ${Space.small};
     font-family: -apple-system, Helvetica, Arial, sans-serif;
     line-height: 1.2;
+
+    ${bodyCss}
   }
 
   ${root} {
@@ -39,6 +42,6 @@ const styles = ({ root, css, rootCss }: Props) => cssStyles`
   ${css}
 `
 
-export const Global = ({ root = '#root', css, rootCss }: Props) => (
-  <GlobalStyles styles={styles({ root, css, rootCss })} />
+export const Global = ({ root = '#root', css, rootCss, bodyCss }: Props) => (
+  <GlobalStyles styles={styles({ root, css, rootCss, bodyCss })} />
 )
