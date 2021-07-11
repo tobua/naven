@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/tobua/naven/compare/v0.4.2...v0.5.0) (2021-07-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **style:** Color.contrast is now Color.colorConstrast
+
+### Features
+
+* **element:** bodyCss to directly add styles to the body ([1ee971f](https://github.com/tobua/naven/commit/1ee971f2b589823279a0f8492c8e2e75b92c0f94))
+* **style:** new color to allow background configuration ([b915018](https://github.com/tobua/naven/commit/b91501834e97c9c1255d9d68f549eb3e6ad5fb97))
+
+
+### Bug Fixes
+
+* **feature:** combine customStyle property with defaults ([1363ff3](https://github.com/tobua/naven/commit/1363ff3aa18b723485fd722fc5611f21eab2ee42))
+
 ### [0.4.2](https://github.com/tobua/naven/compare/v0.4.1...v0.4.2) (2021-07-08)
 
 
