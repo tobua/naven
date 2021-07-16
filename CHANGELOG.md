@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/tobua/naven/compare/v0.5.0...v0.6.0) (2021-07-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **style:** font sizes now smaller on mobile viewports
+
+### Features
+
+* **element:** underline styles for TextLinks and Link documentation ([03f0dcd](https://github.com/tobua/naven/commit/03f0dcd0e63eb232b4790e02c6877429e32fd99f))
+* **style:** add wasser for responsive font sizing ([ddf2a05](https://github.com/tobua/naven/commit/ddf2a057f2cc45805001402af2b858fb56af7629))
+
 ## [0.5.0](https://github.com/tobua/naven/compare/v0.4.2...v0.5.0) (2021-07-11)
 
 
