@@ -15,7 +15,7 @@ export enum Underline {
   background,
 }
 
-const getTextLinkColor = ({ underline = Underline.regular }) => {
+const getTextLinkColor = ({ underline = Underline.none }) => {
   if (underline === Underline.regular) {
     return Color.interact
   }
@@ -23,7 +23,7 @@ const getTextLinkColor = ({ underline = Underline.regular }) => {
   return Color.backgroundContrast
 }
 
-const getTextLinkHoverColor = ({ underline = Underline.regular }) => {
+const getTextLinkHoverColor = ({ underline = Underline.none }) => {
   if (underline === Underline.animated) {
     return Color.backgroundContrast
   }
@@ -35,7 +35,7 @@ const getTextLinkHoverColor = ({ underline = Underline.regular }) => {
   return Color.interact
 }
 
-const getTextLinkUnderline = ({ underline = Underline.regular }) => {
+const getTextLinkUnderline = ({ underline = Underline.none }) => {
   if (underline === Underline.background) {
     return `background-image: linear-gradient(
       120deg,
@@ -59,7 +59,7 @@ const getTextLinkUnderline = ({ underline = Underline.regular }) => {
   return ''
 }
 
-const getTextLinkUnderlineHover = ({ underline = Underline.regular }) => {
+const getTextLinkUnderlineHover = ({ underline = Underline.none }) => {
   if (underline === Underline.regular) {
     return 'text-decoration: underline;'
   }

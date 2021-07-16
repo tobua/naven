@@ -30,9 +30,12 @@ export interface IFont {
     mono?: string
   }
   size?: {
+    tiny?: string
     small?: string
     medium?: string
     large?: string
+    h2?: string
+    h1?: string
   }
 }
 

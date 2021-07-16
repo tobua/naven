@@ -297,15 +297,11 @@ import { css } from '@emotion/react'
     <PropertyTable space={false}>
       <>
         <Text>underline</Text>
-        <Text>
-          <InlineCode>Underline.regular</InlineCode>
-        </Text>
-        <Text>
-          <InlineCode>
-            Underline.regular | Underline.none | Underline.animated |
-            Underline.backgorund
-          </InlineCode>
-        </Text>
+        <InlineCode>Underline.none</InlineCode>
+        <InlineCode>
+          Underline.regular | Underline.none | Underline.animated |
+          Underline.background
+        </InlineCode>
       </>
       <>
         <Text>

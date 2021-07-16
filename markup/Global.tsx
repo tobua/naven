@@ -5,7 +5,8 @@ import {
   SerializedStyles,
 } from '@emotion/react'
 import emotionReset from 'emotion-reset'
-import { Breakpoint, Space } from '../style'
+import { head } from 'wasser'
+import { Breakpoint, Space, Font } from '../style'
 
 interface Props {
   root?: string
@@ -31,6 +32,7 @@ const styles = ({ root, css, rootCss, bodyCss }: Props) => cssStyles`
     grid-template-columns:
       auto minmax(0, 250px) 980px minmax(0, 250px)
       auto;
+    ${Font.size.medium}
 
     ${Breakpoint.Tablet} {
       grid-template-columns: 0 0 1fr 0 0;
@@ -38,6 +40,8 @@ const styles = ({ root, css, rootCss, bodyCss }: Props) => cssStyles`
 
     ${rootCss}
   }
+
+  ${head()}
 
   ${css}
 `

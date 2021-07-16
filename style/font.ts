@@ -1,4 +1,5 @@
 import assign from 'object-assign-deep'
+import { font } from 'wasser'
 import { IFont } from './types'
 
 export const Font: IFont = {
@@ -8,9 +9,12 @@ export const Font: IFont = {
     mono: 'font-family: monospace;',
   },
   size: {
-    small: 'font-size: 12px;',
-    medium: 'font-size: 16px;',
-    large: 'font-size: 20px;',
+    tiny: font(8),
+    small: font(12),
+    medium: font(16),
+    large: font(20),
+    h2: font(24),
+    h1: font(30),
   },
 }
 
