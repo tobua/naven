@@ -19,6 +19,7 @@ import {
   Lazy,
   Link,
   TextLink,
+  Underline,
   List,
   Loader,
   Notification,
@@ -182,6 +183,136 @@ import { css } from '@emotion/react'
         <Text>interact</Text>
         <Text>false</Text>
         <Text>boolean</Text>
+      </>
+    </PropertyTable>
+    <Heading as="h2">
+      <Anchor name="link" />
+      Link
+    </Heading>
+    <Link href="https://google.com">
+      <Button>Button with Link</Button>
+    </Link>
+    <Code jsx language="typescript">
+      {`<Link href="https://google.com"><Button>Button with Link</Button></Link>`}
+    </Code>
+    <PropertyTable space={false}>
+      <>
+        <Text>
+          All <InlineCode>a</InlineCode> Tag Properties
+        </Text>
+        <Text></Text>
+        <Text>href, download, target, ...</Text>
+      </>
+    </PropertyTable>
+    <Heading as="h2">
+      <Anchor name="text-link" />
+      TextLink
+    </Heading>
+    <Horizontal>
+      <Vertical>
+        <Text>
+          Here is some text with a{' '}
+          <TextLink href="https://google.com">link</TextLink>.
+        </Text>
+        <Paragraph
+          css={css`
+            max-width: 200px;
+          `}
+        >
+          No worries as{' '}
+          <TextLink href="https://google.com">
+            all TextLink variants with underlines
+          </TextLink>{' '}
+          support multiple lines.
+        </Paragraph>
+        <InlineCode>{`underline={Underline.regular}`}</InlineCode>
+      </Vertical>
+      <Vertical>
+        <Text>
+          Here is some text with a{' '}
+          <TextLink underline={Underline.none} href="https://google.com">
+            link
+          </TextLink>
+          .
+        </Text>
+        <Paragraph
+          css={css`
+            max-width: 200px;
+          `}
+        >
+          No worries as{' '}
+          <TextLink underline={Underline.none} href="https://google.com">
+            all TextLink variants with underlines
+          </TextLink>{' '}
+          support multiple lines.
+        </Paragraph>
+        <InlineCode>{`underline={Underline.none}`}</InlineCode>
+      </Vertical>
+      <Vertical>
+        <Text>
+          Here is some text with a{' '}
+          <TextLink underline={Underline.animated} href="https://google.com">
+            link
+          </TextLink>
+          .
+        </Text>
+        <Paragraph
+          css={css`
+            max-width: 200px;
+          `}
+        >
+          No worries as{' '}
+          <TextLink underline={Underline.animated} href="https://google.com">
+            all TextLink variants with underlines
+          </TextLink>{' '}
+          support multiple lines.
+        </Paragraph>
+        <InlineCode>{`underline={Underline.animated}`}</InlineCode>
+      </Vertical>
+      <Vertical>
+        <Text>
+          Here is some text with a{' '}
+          <TextLink underline={Underline.background} href="https://google.com">
+            link
+          </TextLink>
+          .
+        </Text>
+        <Paragraph
+          css={css`
+            max-width: 200px;
+          `}
+        >
+          No worries as{' '}
+          <TextLink underline={Underline.background} href="https://google.com">
+            all TextLink variants with underlines
+          </TextLink>{' '}
+          support multiple lines.
+        </Paragraph>
+        <InlineCode>{`underline={Underline.background}`}</InlineCode>
+      </Vertical>
+    </Horizontal>
+    <Code jsx language="typescript">
+      {`<Text>This <TextLink underline={Underline.background} href="https://google.com">link</TextLink> is clickable.`}
+    </Code>
+    <PropertyTable space={false}>
+      <>
+        <Text>underline</Text>
+        <Text>
+          <InlineCode>Underline.regular</InlineCode>
+        </Text>
+        <Text>
+          <InlineCode>
+            Underline.regular | Underline.none | Underline.animated |
+            Underline.backgorund
+          </InlineCode>
+        </Text>
+      </>
+      <>
+        <Text>
+          All <InlineCode>a</InlineCode> Tag Properties
+        </Text>
+        <Text></Text>
+        <Text>href, download, target, ...</Text>
       </>
     </PropertyTable>
     <Heading as="h2">

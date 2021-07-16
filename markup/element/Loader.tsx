@@ -19,8 +19,17 @@ interface ILoader {
   space?: string | number
 }
 
-export const Loader = ({ small, css, space = 0 }: ILoader) => (
-  <Wrapper css={css} space={space}>
+export const Loader = ({
+  small,
+  css,
+  space = 0,
+  ...props
+}: ILoader &
+  React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  >) => (
+  <Wrapper css={css} space={space} {...props}>
     <Icon.Loader size={small ? Icon.Size.small : Icon.Size.big} />
   </Wrapper>
 )
