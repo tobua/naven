@@ -17,6 +17,12 @@ export const Font: IFont = {
     h2: font(24),
     h1: font(30),
   },
+  weight: {
+    bold: 'font-weight: bold;',
+  },
+  style: {
+    italic: 'font-style: italic;',
+  },
 }
 
 export const configure = (_fonts: IFontInput) => {

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
-import { spaceProp } from '../../style'
+import { spaceProp, Font, Color } from '../../style'
 
 export const Paragraph = styled.p<{
   space?: number | string
@@ -14,6 +14,19 @@ export const Paragraph = styled.p<{
 
 export const Text = styled.span<{ bold?: boolean; css?: SerializedStyles }>`
   display: inline;
-  ${({ bold }) => (bold ? 'font-weight: bold' : null)}
+  ${({ bold }) => (bold ? Font.weight.bold : null)}
   ${({ css }) => css}
+`
+
+export const Bold = styled.b`
+  ${Font.weight.bold}
+`
+
+export const Important = styled.strong`
+  color: ${Color.highlight};
+  ${Font.weight.bold}
+`
+
+export const Italic = styled.i`
+  ${Font.style.italic}
 `

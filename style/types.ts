@@ -37,6 +37,12 @@ export interface IFont {
     h2?: string
     h1?: string
   }
+  weight?: {
+    bold?: string
+  }
+  style?: {
+    italic?: string
+  }
 }
 
 export interface IFontInput extends Omit<IFont, 'size'> {

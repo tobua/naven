@@ -30,6 +30,9 @@ import {
   Tabs,
   Paragraph,
   Text,
+  Bold,
+  Important,
+  Italic,
   InlineCode,
 } from 'naven'
 import { Code } from 'naven/Code'
@@ -185,6 +188,26 @@ import { css } from '@emotion/react'
         <Text>boolean</Text>
       </>
     </PropertyTable>
+    <Heading as="h2">
+      <Anchor name="text" />
+      Text
+    </Heading>
+    <Text>This is regular inline text.</Text>
+    <Paragraph>
+      This is a paragraph with some <Bold>highligted text</Bold> and some{' '}
+      <Important>very important text</Important> that is distinguishable by a
+      different tag. Text can also be <Italic>italic</Italic>.
+    </Paragraph>
+    <Paragraph>Paragraphs by default have space between them.</Paragraph>
+    <Code jsx language="typescript">
+      {`<Paragraph>
+  Hey <Text>text</Text>
+  <Bold>bold</Bold>
+  <Important>important</Important>
+  <Italic>italic</Italic>.
+</Paragraph>`}
+    </Code>
+    <PropertyTable />
     <Heading as="h2">
       <Anchor name="link" />
       Link
