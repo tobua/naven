@@ -1,12 +1,13 @@
 import assign from 'object-assign-deep'
 import { font } from 'wasser'
-import { IFont } from './types'
+import { mapNumbersToWasserSizes } from './utility'
+import { IFontInput, IFont } from './types'
 
 export const Font: IFont = {
   family: {
     regular: 'font-family: sans-serif;',
     serif: 'font-family: serif;',
-    mono: 'font-family: monospace;',
+    mono: 'font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;',
   },
   size: {
     tiny: font(8),
@@ -18,4 +19,7 @@ export const Font: IFont = {
   },
 }
 
-export const configure = (_fonts: IFont) => assign(Font, _fonts)
+export const configure = (_fonts: IFontInput) => {
+  mapNumbersToWasserSizes(_fonts.size)
+  assign(Font, _fonts)
+}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import { Input } from '..'
+import { Input } from '../index'
 
 test('Input onChange handler works as expected.', () => {
   const onChangeMock = jest.fn()

@@ -1,6 +1,6 @@
 import React from 'react'
 import { create } from 'react-test-renderer'
-import { Global, Content, Header, Navigation, Footer } from '..'
+import { Global, Content, Header, Navigation, Footer } from '../index'
 
 test('Renders basic components.', () => {
   const renderer = create(

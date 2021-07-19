@@ -16,6 +16,7 @@ import {
   Space,
   Font,
   Breakpoint,
+  InlineCode,
   Image,
   useBreakpoint,
   configure,
@@ -77,6 +78,13 @@ const Body = () => {
           This is a paragraph with some custom styles.
         </Paragraph>
         <Image width={200} height={100} />
+        <Paragraph>
+          I bet you haven't heard of <InlineCode>naven</InlineCode> the new UI
+          framework to create websites quickly. The above{' '}
+          <InlineCode>{`<Image width={200} height={100} />`}</InlineCode> will
+          display a placeholder for development when no{' '}
+          <InlineCode>src</InlineCode> attribute is set.
+        </Paragraph>
         <Viewport />
         <Alert
           space={0}

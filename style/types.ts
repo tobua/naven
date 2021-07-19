@@ -39,6 +39,17 @@ export interface IFont {
   }
 }
 
+export interface IFontInput extends Omit<IFont, 'size'> {
+  size?: {
+    tiny?: string | number
+    small?: string | number
+    medium?: string | number
+    large?: string | number
+    h2?: string | number
+    h1?: string | number
+  }
+}
+
 export interface ISpace {
   tiny?: string
   small?: string
@@ -46,10 +57,17 @@ export interface ISpace {
   large?: string
 }
 
+export interface ISpaceInput {
+  tiny?: string | number
+  small?: string | number
+  medium?: string | number
+  large?: string | number
+}
+
 export type Space = 'tiny' | 'small' | 'medium' | 'large'
 
 export interface ILook {
-  corner?: number
+  corner?: string | number
 }
 
 export interface ILayer {

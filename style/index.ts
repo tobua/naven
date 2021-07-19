@@ -1,4 +1,11 @@
-import { IBreakpoint, IColor, ILook, ISpace, ILayer, IFont } from './types'
+import {
+  IBreakpoint,
+  IColor,
+  ILook,
+  ISpaceInput,
+  ILayer,
+  IFontInput,
+} from './types'
 import { configure as configureBreakpoints } from './breakpoint'
 import { configure as configureSpace } from './space'
 import { configure as configureColor } from './color'
@@ -19,11 +26,11 @@ export { Space as SpaceSize } from './types'
 
 export interface IConfiguration {
   colors?: IColor
-  space?: ISpace
+  space?: ISpaceInput
   breakpoints?: IBreakpoint
   look?: ILook
   layer?: ILayer
-  font?: IFont
+  font?: IFontInput
 }
 
 export const configure = (configuration: IConfiguration) => {
@@ -34,7 +41,7 @@ export const configure = (configuration: IConfiguration) => {
     configureBreakpoints(configuration.breakpoints)
   }
   if (configuration.space) {
-    configureSpace(configuration.breakpoints)
+    configureSpace(configuration.space)
   }
   if (configuration.look) {
     configureLook(configuration.look)
