@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.1](https://github.com/tobua/naven/compare/v0.6.0...v0.6.1) (2021-07-19)
+
+
+### Features
+
+* **element:** add more text elements and document text ([4a92d8d](https://github.com/tobua/naven/commit/4a92d8d6afb0beddfb50cc6696061260a0f3ac8a))
+* **element:** improved checkbox styles and toggle with Enter key ([7347003](https://github.com/tobua/naven/commit/7347003e117d6cf3ea5268c93c40db6cba1903dd))
+* **style:** all style properties responsive by default ([f5cdea8](https://github.com/tobua/naven/commit/f5cdea8ea98569383bb0baddf18d2d367ffb00b9))
+
 ## [0.6.0](https://github.com/tobua/naven/compare/v0.5.0...v0.6.0) (2021-07-16)
 
 

@@ -1,7 +1,7 @@
 {
   "name": "naven",
   "description": "React based CSS-in-JS styling framework.",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "repository": "github:tobua/naven",
   "homepage": "https://naven-documentation.vercel.app",
   "license": "MIT",
