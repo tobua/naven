@@ -16,7 +16,7 @@ const Wrapper = styled.div<{
   ${() => radius()}
   padding: ${Space.small};
 
-  /* First row */
+  /* First row, ignore warning, nth-of-type won't work. */
   > *:nth-child(-n + ${({ columns }) => columns}) {
     font-weight: bold;
   }

@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { uniqueID } from '../../utility/unique-id'
-import { Color, Space, radius, spaceProp } from '../../style'
+import { Color, Space, radius, spaceProp, Shade } from '../../style'
 
 const CheckboxInput = styled.input<{ css?: SerializedStyles }>`
   border: 1px solid ${Color.black};
@@ -31,6 +31,7 @@ const CheckboxInput = styled.input<{ css?: SerializedStyles }>`
 
 const RadioInput = styled.input<{ css?: SerializedStyles }>`
   border: 1px solid ${Color.black};
+  cursor: pointer;
   border-radius: 100%;
   appearance: none;
   margin: 0;
@@ -47,14 +48,7 @@ const RadioInput = styled.input<{ css?: SerializedStyles }>`
   }
 
   &:focus {
-    border-width: 2px;
-    border-color: ${Color.Gray[500]};
     outline: none;
-
-    &:before {
-      height: calc(${Space.medium} - 2px);
-      width: calc(${Space.medium} - 2px);
-    }
   }
 
   ${({ css }) => css}
@@ -68,17 +62,15 @@ const Wrapper = styled.div<{ css?: SerializedStyles; space?: string | number }>`
 
   &:focus {
     outline: none;
-    font-weight: bold;
+    color: ${Color.interact};
 
     input {
-      border-width: 2px;
-      border-color: ${Color.Gray[500]};
+      border-color: ${Color.interact};
       outline: none;
+    }
 
-      &:before {
-        height: calc(${Space.medium} - 2px);
-        width: calc(${Space.medium} - 2px);
-      }
+    input:checked {
+      box-shadow: inset 0 0 0 3px ${Shade(Color.interact, 0.75)};
     }
   }
 `
@@ -87,6 +79,14 @@ const Label = styled.label`
   margin-left: ${Space.small};
   cursor: pointer;
 `
+
+const toggleOnEnter = (event, inputRef) => {
+  if (event.key !== 'Enter') {
+    return
+  }
+
+  inputRef.current.checked = !inputRef.current.checked
+}
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string
@@ -101,12 +101,27 @@ export const Checkbox = ({
   wrapperCss,
   space,
   ...props
-}: Props) => (
-  <Wrapper tabIndex={0} css={wrapperCss} space={space}>
-    <CheckboxInput tabIndex={-1} id={id} type="checkbox" {...props} />
-    <Label htmlFor={id}>{label}</Label>
-  </Wrapper>
-)
+}: Props) => {
+  const inputRef = useRef()
+
+  return (
+    <Wrapper
+      tabIndex={0}
+      css={wrapperCss}
+      space={space}
+      onKeyDown={(event) => toggleOnEnter(event, inputRef)}
+    >
+      <CheckboxInput
+        ref={inputRef}
+        tabIndex={-1}
+        id={id}
+        type="checkbox"
+        {...props}
+      />
+      <Label htmlFor={id}>{label}</Label>
+    </Wrapper>
+  )
+}
 
 export const Radio = ({
   label,
@@ -114,9 +129,24 @@ export const Radio = ({
   wrapperCss,
   space,
   ...props
-}: Props) => (
-  <Wrapper tabIndex={0} css={wrapperCss} space={space}>
-    <RadioInput tabIndex={-1} id={id} type="radio" {...props} />
-    <Label htmlFor={id}>{label}</Label>
-  </Wrapper>
-)
+}: Props) => {
+  const inputRef = useRef()
+
+  return (
+    <Wrapper
+      tabIndex={0}
+      css={wrapperCss}
+      space={space}
+      onKeyDown={(event) => toggleOnEnter(event, inputRef)}
+    >
+      <RadioInput
+        ref={inputRef}
+        tabIndex={-1}
+        id={id}
+        type="radio"
+        {...props}
+      />
+      <Label htmlFor={id}>{label}</Label>
+    </Wrapper>
+  )
+}
