@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.2](https://github.com/tobua/naven/compare/v0.6.1...v0.6.2) (2021-07-22)
+
+
+### Features
+
+* **element:** notifications which only disappear on close ([2db32b8](https://github.com/tobua/naven/commit/2db32b8969fa683cf5ad41d2879e746b79b2e4f7))
+
 ### [0.6.1](https://github.com/tobua/naven/compare/v0.6.0...v0.6.1) (2021-07-19)
 
 
