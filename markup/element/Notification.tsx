@@ -1,11 +1,20 @@
 import React, { useState, useCallback } from 'react'
 import styled from '@emotion/styled'
-import { SerializedStyles } from '@emotion/react'
+import { SerializedStyles, css as cssStyles } from '@emotion/react'
 import { Space, Color, Layer, radius, toPx } from '../../style'
+import { Close } from '../../icon'
 
 type NotificationType = 'info' | 'warning' | 'error'
 
-const ActiveNotifications = []
+interface INotification {
+  id: string
+  message: string
+  duration?: number
+  type: NotificationType
+  closeable?: boolean
+}
+
+const ActiveNotifications: INotification[] = []
 let rerender: () => void
 
 const Wrapper = styled.div<{ space?: string | number; css?: SerializedStyles }>`
@@ -31,10 +40,12 @@ const NotificationContainer = styled.div<{
   ${({ css }) => css}
 `
 
-const NotificationElement = styled.div<{
+const NotificationWrapper = styled.div<{
   type: NotificationType
+  closeable?: boolean
   css?: SerializedStyles
 }>`
+  position: relative;
   display: flex;
   background-color: white;
   border: 1px solid
@@ -50,30 +61,97 @@ const NotificationElement = styled.div<{
       return Color.highlight
     }};
   padding: ${Space.small};
+  ${({ closeable }) =>
+    closeable ? `padding-right: calc(${Space.small} * 3);` : ''}
   min-width: 30%;
   ${() => radius()}
   ${({ css }) => css}
 `
 
-interface INotification {
+const CloseContainer = styled.div`
+  position: absolute;
+  display: flex;
+  right: ${Space.small};
+  cursor: pointer;
+  width: ${Space.small};
+  height: ${Space.small};
+  top: calc(50% - calc(${Space.small} / 2));
+`
+
+interface INotificationElement {
+  id: string
+  type: NotificationType
+  closeable?: boolean
+  children: string
+  css?: SerializedStyles
+}
+
+const NotificationElement = ({
+  id,
+  type,
+  closeable,
+  css,
+  children,
+}: INotificationElement) => (
+  <NotificationWrapper type={type} css={css} closeable={closeable}>
+    {closeable && (
+      <CloseContainer
+        onClick={() => {
+          ActiveNotifications.splice(
+            ActiveNotifications.findIndex(
+              (notification) => notification.id === id
+            ),
+            1
+          )
+          rerender()
+        }}
+      >
+        <Close
+          css={cssStyles`
+              flex: 1;
+            `}
+        />
+      </CloseContainer>
+    )}
+    {children}
+  </NotificationWrapper>
+)
+
+interface AddNotificationProps {
   message: string
   duration?: number
   type: NotificationType
+  closeable?: boolean
 }
 
 export const addNotification = ({
   message,
   duration = 8,
   type = 'info',
-}: INotification) => {
-  ActiveNotifications.push({ message, type })
+  closeable = false,
+}: AddNotificationProps) => {
+  const id = Math.random().toString(36).substring(7)
+
+  ActiveNotifications.push({
+    id,
+    message,
+    type,
+    closeable,
+  })
 
   if (rerender) {
     rerender()
   }
 
+  if (closeable) {
+    return
+  }
+
   setTimeout(() => {
-    ActiveNotifications.shift()
+    ActiveNotifications.splice(
+      ActiveNotifications.findIndex((notification) => notification.id === id),
+      1
+    )
 
     if (rerender) {
       rerender()
@@ -109,7 +187,7 @@ export const Notification = ({
     <Wrapper space={space} css={wrapperCss}>
       <NotificationContainer css={containerCss} gap={gap}>
         {ActiveNotifications.map((notification, index) => (
-          <NotificationElement key={index} css={css} type={notification.type}>
+          <NotificationElement key={index} css={css} {...notification}>
             {notification.message}
           </NotificationElement>
         ))}

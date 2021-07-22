@@ -57,8 +57,9 @@ const PopupToggle = () => {
 
 const NotificationToggle = () => {
   type Value = 'info' | 'warning' | 'error'
-  const [message, setMessage] = useState<string>()
+  const [message, setMessage] = useState<string>('')
   const [type, setType] = useState<Value>('info')
+  const [closeable, setCloseable] = useState<boolean>(false)
 
   return (
     <Horizontal>
@@ -79,10 +80,16 @@ const NotificationToggle = () => {
         ]}
         placeholder="Type"
       />
+      <Checkbox
+        checked={closeable}
+        onChange={() => setCloseable(!closeable)}
+        space={0}
+        label="Closeable?"
+      />
       <Button
         space={0}
         disabled={!type || !message || message === ''}
-        onClick={() => addNotification({ message, type })}
+        onClick={() => addNotification({ message, type, closeable })}
       >
         Send
       </Button>
@@ -613,38 +620,45 @@ import { css } from '@emotion/react'
       <>
         <Text>gap</Text>
         <Text></Text>
-        <Text>string | number</Text>
+        <InlineCode>string | number</InlineCode>
       </>
       <>
         <Text>wrapperCss</Text>
         <Text></Text>
-        <Text>SerializedStyles</Text>
+        <InlineCode>SerializedStyles</InlineCode>
       </>
       <>
         <Text>containerCss</Text>
         <Text></Text>
-        <Text>SerializedStyles</Text>
+        <InlineCode>SerializedStyles</InlineCode>
       </>
     </PropertyTable>
     <Heading as="h3" code>{`addNotification`}</Heading>
     <Code jsx language="typescript">
-      {`addNotification({ message: 'No internet connection.', type: 'error'})`}
+      {`addNotification({ message: 'No internet connection.', type: 'error'})
+addNotification({ message: "Couldn't find entry.", type: 'warning', duration: 3 })
+addNotification({ message: 'Failed to get data, please try again later.', type: 'error', closeable: true })`}
     </Code>
     <PropertyTable css={false} space={false}>
       <>
         <Text>message</Text>
         <Text>required</Text>
-        <Text>string</Text>
+        <InlineCode>string</InlineCode>
       </>
       <>
         <Text>duration</Text>
         <Text>8</Text>
-        <Text>number</Text>
+        <InlineCode>number</InlineCode>
       </>
       <>
         <Text>type</Text>
         <Text>info</Text>
-        <Text>'info' | 'warning' | 'error'</Text>
+        <InlineCode>'info' | 'warning' | 'error'</InlineCode>
+      </>
+      <>
+        <Text>closeable</Text>
+        <InlineCode>false</InlineCode>
+        <InlineCode>boolean</InlineCode>
       </>
     </PropertyTable>
     <Heading as="h2">
