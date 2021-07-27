@@ -127,6 +127,38 @@ render(
 )
 ```
 
+## css-in-js
+
+This package relies on `@emotion` for CSS styles. It's two most important methods are also exported.
+
+```jsx
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
+// => same as
+import { css, styled } from 'naven'
+```
+
+Styles parsed with `css` can be passed to almost every element. While `styled` can be used to extend existing elements with styles or style tags from the ground up.
+
+```jsx
+const removeGapStyles = css`
+  row-gap: 0;
+`
+
+const VerticalWithoutGap = styled(Vertical)`
+  row-gap: 0;
+`
+
+// Both of these are now the same.
+<Vertical css={removeGapStyles}>{...}</Vertical>
+<VerticalWithoutGap>{...}</VerticalWithoutGap>
+
+// Regular way to style any tag.
+const GrayWrapper = styled.div`
+  background: gray;
+`
+```
+
 ## Layout
 
 The CSS grid is attached to the root and there are [Layout](https://tobua.github.io/naven/demo/advanced#layout) components to work with it.
