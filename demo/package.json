@@ -5,7 +5,7 @@
     "icon": "../logo.svg"
   },
   "dependencies": {
-    "papua": "^0.1.25",
+    "papua": "^0.1.27",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

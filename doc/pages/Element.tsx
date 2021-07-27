@@ -971,5 +971,32 @@ Use <InlineCode>const</InlineCode> to define variables.`}
         <InlineCode>boolean</InlineCode>
       </>
     </PropertyTable>
+    <Heading as="h2">
+      <Anchor name="spacer" />
+      Spacer
+    </Heading>
+    <Vertical
+      space={0}
+      css={css`
+        row-gap: 0;
+      `}
+    >
+      <Text>Before</Text>
+      <Spacer />
+      <Text>Between</Text>
+      <Spacer size="large" />
+      <Text>After</Text>
+    </Vertical>
+    <Code jsx language="typescript">
+      {`<Spacer />
+<Spacer size="large" />`}
+    </Code>
+    <PropertyTable space={false}>
+      <>
+        <Text>size</Text>
+        <InlineCode>medium</InlineCode>
+        <InlineCode>'tiny' | 'small' | 'medium' | 'large'</InlineCode>
+      </>
+    </PropertyTable>
   </Content>
 )
