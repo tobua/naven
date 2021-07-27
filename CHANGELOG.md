@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.3](https://github.com/tobua/naven/compare/v0.6.2...v0.6.3) (2021-07-27)
+
+
+### Features
+
+* **element:** add css property to Spacer and document element ([c04d0ad](https://github.com/tobua/naven/commit/c04d0ad14d833ce3cc56d1c39611caf9d0dcd63b))
+* **package:** export emotion css-in-js methods for convenience ([874e265](https://github.com/tobua/naven/commit/874e265e792500cd72569c784b65399579ca1349))
+* **style:** export wasser methods and allow configuration ([c60c2b4](https://github.com/tobua/naven/commit/c60c2b458dcf4574756dcf7479f651fc9520c9bd))
+
+
+### Bug Fixes
+
+* **element:** match dropdown and input height and responsify ([dd87f11](https://github.com/tobua/naven/commit/dd87f111a0ebfba19c6ac330b47a59b7a77fb561))
+
 ### [0.6.2](https://github.com/tobua/naven/compare/v0.6.1...v0.6.2) (2021-07-22)
 
 
