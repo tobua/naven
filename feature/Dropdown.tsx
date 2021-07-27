@@ -1,7 +1,7 @@
 import React from 'react'
 import Select, { Props as SelectProps } from 'react-select'
 // @ts-ignore
-import { Color, Look, spaceStyleProp } from 'naven'
+import { Color, Look, spaceStyleProp, unit } from 'naven'
 
 interface IDropdown {
   containerStyles?: object
@@ -14,20 +14,26 @@ const customStyles = ({
   containerStyles,
   backgroundColor,
 }: IDropdown) => ({
-  container: (provided: any) => ({
+  container: (provided: object) => ({
     ...provided,
     minWidth: 200,
     ...containerStyles,
     ...spaceStyleProp(space),
   }),
-  menu: (provided: any) => ({ ...provided, background: backgroundColor }),
-  option: (provided: any) => ({
+  menu: (provided: object) => ({ ...provided, background: backgroundColor }),
+  option: (provided: object) => ({
     ...provided,
     cursor: 'pointer',
   }),
-  control: (provided: any) => ({
+  control: (provided: object) => ({
     ...provided,
     background: backgroundColor,
+    minHeight: unit(42),
+  }),
+  dropdownIndicator: (provided: object) => ({
+    ...provided,
+    padding: 0,
+    paddingRight: unit(8),
   }),
 })
 

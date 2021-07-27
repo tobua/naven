@@ -20,7 +20,10 @@ import {
   Image,
   useBreakpoint,
   configure,
+  Input,
+  Checkbox,
 } from 'naven'
+import { Dropdown } from 'naven/Dropdown'
 
 const Viewport = () => {
   const { breakpoint } = useBreakpoint()
@@ -86,6 +89,17 @@ const Body = () => {
           <InlineCode>src</InlineCode> attribute is set.
         </Paragraph>
         <Viewport />
+        <Horizontal>
+          <Dropdown
+            options={[
+              { label: 'Mrs.', value: 'female' },
+              { label: 'Mr.', value: 'male' },
+            ]}
+            space={0}
+          />
+          <Input placeholder="Name" space={0} />
+          <Checkbox label="Really?" space={0} />
+        </Horizontal>
         <Alert
           space={0}
           closeable

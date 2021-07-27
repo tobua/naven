@@ -1,7 +1,7 @@
 import React, { DetailedHTMLProps, InputHTMLAttributes } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
-import { Color, Space, radius, spaceProp } from '../../style'
+import { Color, Space, Font, radius, spaceProp } from '../../style'
 
 const Wrapper = styled.input<{
   css?: SerializedStyles
@@ -9,6 +9,7 @@ const Wrapper = styled.input<{
 }>`
   padding: ${Space.small};
   border: 1px solid ${Color.black};
+  ${Font.size.medium}
   ${() => radius()}
   ${spaceProp}
 
