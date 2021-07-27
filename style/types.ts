@@ -1,3 +1,15 @@
+import { font } from 'wasser'
+
+export interface IConfiguration {
+  colors?: IColor
+  space?: ISpaceInput
+  breakpoints?: IBreakpoint
+  look?: ILook
+  layer?: ILayer
+  font?: IFontInput
+  responsive?: IResponsive
+}
+
 export interface IBreakpoint {
   [key: string]: number
 }
@@ -36,6 +48,7 @@ export interface IFont {
     large?: string
     h2?: string
     h1?: string
+    custom: typeof font
   }
   weight?: {
     bold?: string
@@ -81,4 +94,12 @@ export interface ILayer {
   Navigation?: number
   Popup?: number
   Notification?: number
+}
+
+export interface IResponsive {
+  scalingRatio?: number
+  viewportMin?: number
+  viewportMax?: number
+  scalingRatioFont?: number
+  fontSizeToLineHeightRatio?: number
 }

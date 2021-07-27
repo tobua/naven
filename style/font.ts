@@ -16,6 +16,7 @@ export const Font: IFont = {
     large: font(20),
     h2: font(24),
     h1: font(30),
+    custom: font,
   },
   weight: {
     bold: 'font-weight: bold;',

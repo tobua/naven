@@ -97,6 +97,9 @@ configure({
   },
   look: {
     corner: 10
+  },
+  responsive: {
+    scalingRatio: 2,
   }
 })
 ```
@@ -216,6 +219,20 @@ const Responsive = () => {
 }
 ```
 
+Where applicable all units are _responsified_ with [wasser](https://npmjs.com/wasser). The package doesn't need to be installed and it's methods are exported by this package.
+
+```jsx
+import { unit, Font, Text, configure } from 'naven'
+
+const ResponsiviedText = styled(Text)`
+  padding: ${unit(5)};
+  margin-right: ${unit(10, 5)};
+  ${Font.size.custom(30, 20, 2)}
+`
+```
+
+The interface is described in [wasser - Interface](https://github.com/tobua/wasser#interface) and `unit` corresponds to `wasser` while `Font.size.custom` is the same as `font` there. To `configure` the default `wasser` variables use the `responsive` property passed to `configure` for this package as shown under [Style](#style).
+
 ## Font
 
 ```jsx
@@ -224,6 +241,13 @@ import { Font } from 'naven'
 const SmallSerifText = css`
   ${Font.size.small}
   ${Font.family.serif}
+`
+
+const CustomSizedHeading = css`
+  ${Font.style.italic}
+  ${Font.weight.bold}
+  /* Uses responsive sizing from font() method in wasser package. */
+  ${Font.size.custom(40, 20)}
 `
 ```
 
