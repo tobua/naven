@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { DetailedHTMLProps, ImgHTMLAttributes } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { spaceProp } from '../../style'
@@ -26,10 +26,7 @@ export const Image = ({
   space,
   ...props
 }: IImage &
-  React.DetailedHTMLProps<
-    React.ImgHTMLAttributes<HTMLImageElement>,
-    HTMLImageElement
-  >) => {
+  DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>) => {
   if (!src && props.width && props.height) {
     // eslint-disable-next-line no-param-reassign
     src = placeholder(Number(props.width), Number(props.height))

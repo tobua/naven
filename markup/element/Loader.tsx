@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { DetailedHTMLProps, HTMLAttributes } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import * as Icon from '../../icon/Loader'
@@ -25,10 +25,7 @@ export const Loader = ({
   space = 0,
   ...props
 }: ILoader &
-  React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  >) => (
+  DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => (
   <Wrapper css={css} space={space} {...props}>
     <Icon.Loader size={small ? Icon.Size.small : Icon.Size.big} />
   </Wrapper>

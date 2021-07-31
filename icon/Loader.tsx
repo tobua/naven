@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { SVGProps } from 'react'
 import styled from '@emotion/styled'
 
 export const enum Size {
@@ -10,7 +10,7 @@ interface ILoader {
   size: Size
 }
 
-const SVG = styled.svg<ILoader & React.SVGProps<SVGSVGElement>>`
+const SVG = styled.svg<ILoader & SVGProps<SVGSVGElement>>`
   @keyframes rotate {
     from {
       transform: rotate(0deg);

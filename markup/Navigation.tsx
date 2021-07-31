@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, ReactElement } from 'react'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { css as cssStyles, SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
@@ -147,7 +147,7 @@ export const Tab = ({
   children,
 }: {
   css?: SerializedStyles
-  children: React.ReactElement[]
+  children: ReactElement[]
 }) => {
   const [open, setOpen] = useState(false)
 

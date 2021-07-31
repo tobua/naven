@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ReactNode } from 'react'
 import { css as cssStyles, SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Close } from '../../icon'
@@ -50,7 +50,7 @@ interface IAlert {
   closeable?: boolean
   space?: string | number
   css?: SerializedStyles
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export const Alert = ({

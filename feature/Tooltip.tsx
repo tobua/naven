@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ReactNode } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { usePopper } from 'react-popper'
@@ -65,7 +65,7 @@ const arrowStyle = {
 }
 
 interface ContentProps {
-  children: React.ReactNode
+  children: ReactNode
   referenceElement: any
   open: boolean
   setOpen: (state: boolean) => void
@@ -132,10 +132,10 @@ const Content = ({
 }
 
 interface Props {
-  content: React.ReactNode
+  content: ReactNode
   arrow?: boolean
   close?: boolean
-  children: React.ReactNode
+  children: ReactNode
   css?: SerializedStyles
 }
 

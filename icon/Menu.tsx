@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { SVGProps } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 
@@ -8,7 +8,7 @@ const Vector = styled.svg<{ css?: SerializedStyles }>`
 
 export const Menu = ({
   ...props
-}: React.SVGProps<SVGSVGElement> & { css?: SerializedStyles }) => (
+}: SVGProps<SVGSVGElement> & { css?: SerializedStyles }) => (
   <Vector
     {...props}
     xmlns="http://www.w3.org/2000/svg"

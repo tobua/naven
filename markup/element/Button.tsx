@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { Space, Color, Shade, Font, radius, spaceProp } from '../../style'
@@ -56,7 +56,7 @@ export const Button = ({
   interact = false,
   children,
   ...props
-}: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+}: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) => (
   <Wrapper {...{ highlight, interact }} {...props}>
     {children}
   </Wrapper>

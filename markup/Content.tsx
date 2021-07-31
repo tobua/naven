@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 
@@ -8,7 +8,7 @@ export const Main = styled.main<{ sidebar: boolean; css?: SerializedStyles }>`
 `
 
 interface ContentProps {
-  children: React.ReactNode
+  children: ReactNode
   css?: SerializedStyles
   sidebar?: boolean
 }

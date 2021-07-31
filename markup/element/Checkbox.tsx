@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, InputHTMLAttributes } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { uniqueID } from '../../utility/unique-id'
@@ -88,7 +88,7 @@ const toggleOnEnter = (event, inputRef) => {
   inputRef.current.checked = !inputRef.current.checked
 }
 
-type Props = React.InputHTMLAttributes<HTMLInputElement> & {
+type Props = InputHTMLAttributes<HTMLInputElement> & {
   label: string
   css?: SerializedStyles
   wrapperCss?: SerializedStyles

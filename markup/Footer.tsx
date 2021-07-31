@@ -1,4 +1,4 @@
-import React, { DetailedHTMLProps } from 'react'
+import React, { ReactNode, DetailedHTMLProps, HTMLAttributes } from 'react'
 import styled from '@emotion/styled'
 import { css as cssStyles, SerializedStyles } from '@emotion/react'
 import { TextLink } from './element/Link'
@@ -45,8 +45,8 @@ export const Footer = ({
   data?: IFooter
   css?: SerializedStyles
   rowCss?: SerializedStyles
-  children?: React.ReactNode
-} & DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>) => {
+  children?: ReactNode
+} & DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>) => {
   if (children) {
     return (
       <Wrapper css={css} {...props}>

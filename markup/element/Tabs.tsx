@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ReactNode } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { Color, Space, spaceProp } from '../../style'
@@ -35,7 +35,7 @@ const Content = styled.div`
 interface ITabs {
   items: {
     title: string
-    content: React.ReactNode
+    content: ReactNode
   }[]
   initialTab?: number
   css?: SerializedStyles
