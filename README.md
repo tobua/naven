@@ -224,7 +224,7 @@ Where applicable all units are _responsified_ with [wasser](https://npmjs.com/wa
 ```jsx
 import { unit, Font, Text, configure } from 'naven'
 
-const ResponsiviedText = styled(Text)`
+const ResponsifiedText = styled(Text)`
   padding: ${unit(5)};
   margin-right: ${unit(10, 5)};
   ${Font.size.custom(30, 20, 2)}

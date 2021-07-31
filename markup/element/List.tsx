@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, DetailedHTMLProps, LiHTMLAttributes } from 'react'
 import { SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Space, toPx, spaceProp } from '../../style'
@@ -28,10 +28,23 @@ type ListProps = {
   space?: string | number
   elementProps?: {
     css?: SerializedStyles
-  } & React.DetailedHTMLProps<
-    React.LiHTMLAttributes<HTMLLIElement>,
-    HTMLLIElement
-  >
+  } & DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>
+}
+
+const renderListElements = (children: ReactNode[], elementProps: any) => {
+  if (!Array.isArray(children)) {
+    return [
+      <ListLi key="0" {...elementProps}>
+        {children}
+      </ListLi>,
+    ]
+  }
+
+  return children.map((child, index) => (
+    <ListLi key={index} {...elementProps}>
+      {child}
+    </ListLi>
+  ))
 }
 
 export const List = ({
@@ -40,12 +53,14 @@ export const List = ({
   elementProps,
   gap = Space.small,
   ...props
-}: ListProps) => (
-  <ListUl horizontal={horizontal} gap={gap} {...props}>
-    {children.map((child, index) => (
-      <ListLi key={index} {...elementProps}>
-        {child}
-      </ListLi>
-    ))}
-  </ListUl>
-)
+}: ListProps) => {
+  if (!children) {
+    return null
+  }
+
+  return (
+    <ListUl horizontal={horizontal} gap={gap} {...props}>
+      {renderListElements(children, elementProps)}
+    </ListUl>
+  )
+}
