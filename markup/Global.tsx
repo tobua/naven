@@ -6,7 +6,7 @@ import {
 } from '@emotion/react'
 import emotionReset from 'emotion-reset'
 import { head } from 'wasser'
-import { Breakpoint, Space, Font } from '../style'
+import { Breakpoint, Space, Font, Color } from '../style'
 
 interface Props {
   root?: string
@@ -39,6 +39,11 @@ const styles = ({ root, css, rootCss, bodyCss }: Props) => cssStyles`
     }
 
     ${rootCss}
+  }
+
+  ::selection {
+    background: ${Color.highlight};
+    color: ${Color.colorContrast};
   }
 
   ${head()}
