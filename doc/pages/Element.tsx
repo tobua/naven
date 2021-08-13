@@ -34,6 +34,7 @@ import {
   Important,
   Italic,
   InlineCode,
+  Color,
 } from 'naven'
 import { Code } from 'naven/Code'
 import { Tooltip } from 'naven/Tooltip'
@@ -225,7 +226,7 @@ import { css } from '@emotion/react'
     <Code jsx language="typescript">
       {`<Link href="https://google.com"><Button>Button with Link</Button></Link>`}
     </Code>
-    <PropertyTable space={false}>
+    <PropertyTable space={0}>
       <>
         <Text>
           All <InlineCode>a</InlineCode> Tag Properties
@@ -979,23 +980,45 @@ Use <InlineCode>const</InlineCode> to define variables.`}
       space={0}
       css={css`
         row-gap: 0;
+        background: ${Color.Gray[200]};
+        padding: ${Space.medium};
       `}
     >
-      <Text>Before</Text>
-      <Spacer />
-      <Text>Between</Text>
-      <Spacer size="large" />
-      <Text>After</Text>
+      <Spacer
+        css={css`
+          background: ${Color.white};
+        `}
+      />
+      <br />
+      <Spacer
+        size="large"
+        css={css`
+          background: ${Color.white};
+        `}
+      />
+      <br />
+      <Spacer
+        line
+        css={css`
+          background: ${Color.white};
+        `}
+      />
     </Vertical>
     <Code jsx language="typescript">
       {`<Spacer />
-<Spacer size="large" />`}
+<Spacer size="large" />
+<Spacer line />`}
     </Code>
     <PropertyTable space={false}>
       <>
         <Text>size</Text>
         <InlineCode>medium</InlineCode>
         <InlineCode>'tiny' | 'small' | 'medium' | 'large'</InlineCode>
+      </>
+      <>
+        <Text>line</Text>
+        <InlineCode>false</InlineCode>
+        <InlineCode>boolean</InlineCode>
       </>
     </PropertyTable>
   </Content>
