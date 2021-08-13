@@ -7,6 +7,7 @@ export const Color: IColor = {
   interact: '#FF007A',
   white: '#FFF',
   black: '#000',
+  background: '#FFF',
   backgroundContrast: '#000', // Constrast to main background.
   colorContrast: '#FFF', // Color to display stuff inside highlight or interact.
   valid: '#4CAF50',

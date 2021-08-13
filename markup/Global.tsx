@@ -19,7 +19,7 @@ const styles = ({ root, css, rootCss, bodyCss }: Props) => cssStyles`
   ${emotionReset}
 
   body {
-    margin: ${Space.small};
+    margin: ${Space.medium};
     font-family: -apple-system, Helvetica, Arial, sans-serif;
     line-height: 1.2;
 

@@ -26,5 +26,17 @@ export const radius = (divider = 1) => {
   return `border-radius: ${value / divider}${unit};`
 }
 
+export const radiusValue = () => {
+  if (!Look.corner) {
+    return '0'
+  }
+
+  if (typeof Look.corner === 'number') {
+    return wasser(Look.corner)
+  }
+
+  return Look.corner
+}
+
 export const radiusStyleProp = () =>
   Look.corner ? { borderRadius: toPx(Look.corner) } : {}

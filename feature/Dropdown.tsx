@@ -1,7 +1,7 @@
 import React from 'react'
 import Select, { Props as SelectProps } from 'react-select'
 // @ts-ignore
-import { Color, Look, spaceStyleProp, unit } from 'naven'
+import { Color, radiusValue, spaceStyleProp, unit } from 'naven'
 
 interface IDropdown {
   containerStyles?: object
@@ -16,7 +16,7 @@ const customStyles = ({
 }: IDropdown) => ({
   container: (provided: object) => ({
     ...provided,
-    minWidth: 200,
+    minWidth: unit(200),
     ...containerStyles,
     ...spaceStyleProp(space),
   }),
@@ -51,7 +51,7 @@ export const Dropdown = ({
     }}
     // @ts-ignore
     theme={{
-      borderRadius: Look.corner,
+      borderRadius: radiusValue(),
       colors: {
         primary: Color.highlight,
       },
