@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://github.com/tobua/naven/compare/v0.6.3...v0.7.0) (2021-08-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **markup:** markup for Header and Footer requires update
+
+### Features
+
+* **element:** add wrap property to Horizonal layout element ([97da1ad](https://github.com/tobua/naven/commit/97da1ad539a5388f0a36436ab0100756b0b73b3b))
+* **element:** dropdown responsive corners and increased page margin ([0e7fe12](https://github.com/tobua/naven/commit/0e7fe12308a0b5ee7175c13466e5f6fa768d190f))
+* **element:** spacer with optional line and link with optional space ([ae8bcfa](https://github.com/tobua/naven/commit/ae8bcfa7e6efa840bddd7f008f98254f158c1011))
+* **global:** selection colored with highlight color ([882b3f2](https://github.com/tobua/naven/commit/882b3f2dd07a3ad17269201bc21bfd14f139d229))
+
+
+### Bug Fixes
+
+* **element:** make sure list also works with none or one node ([679d9a6](https://github.com/tobua/naven/commit/679d9a69c1ace195b65e1110abe4ffe38700de43))
+
+
+* **markup:** implement Prefab-Pattern for better customization ([3bed3f9](https://github.com/tobua/naven/commit/3bed3f9f43f535f52253726c0490050b32e3eb5f))
+
 ### [0.6.3](https://github.com/tobua/naven/compare/v0.6.2...v0.6.3) (2021-07-27)
 
 
