@@ -12,7 +12,7 @@ interface ICode {
   children: string
   space?: number | string
   jsx?: boolean
-  language?: 'javascript' | 'typescript'
+  language?: 'javascript' | 'typescript' | string
   style?: object
 }
 

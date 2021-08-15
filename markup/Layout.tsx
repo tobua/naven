@@ -8,8 +8,10 @@ interface DirectionProps {
   css?: SerializedStyles
 }
 
-export const Horizontal = styled.div<DirectionProps>`
+export const Horizontal = styled.div<{ wrap?: boolean } & DirectionProps>`
   display: flex;
+  ${({ wrap = false, gap = Space.medium }) =>
+    wrap ? `flex-wrap: wrap; row-gap: ${gap};` : ''}
   overflow: visible;
   column-gap: ${({ gap = Space.medium }) => toPx(gap)};
   ${spaceProp}

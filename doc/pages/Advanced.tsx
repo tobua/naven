@@ -11,9 +11,11 @@ import {
   Color,
   Space,
   InlineCode,
+  Text,
 } from 'naven'
 import { css } from '@emotion/react'
 import { Code } from 'naven/Code'
+import { PropertyTable } from 'markup/PropertyTable'
 
 const highlightLayoutCss = css`
   background-color: ${Color.Gray[300]};
@@ -45,19 +47,49 @@ export const Advanced = () => (
       <Code>{`<Narrow>
   <span>Narrow</span>
 </Narrow>`}</Code>
-      <Spacer />
+      <Heading as="h3" code>{`<SideBar />`}</Heading>
+      <Paragraph>TODO</Paragraph>
       <Heading as="h3" code>{`<Horizontal>`}</Heading>
       <Horizontal>
         <div>First</div>
         <div>Second</div>
         <div>Third</div>
       </Horizontal>
+      <Code>{`const HorizontallyAligned = <Horizontal>
+  <div>First</div>
+  <div>Second</div>
+  <div>Third</div>
+</Horizontal>`}</Code>
+      <PropertyTable>
+        <>
+          <Text>gap</Text>
+          <InlineCode>Space.medium</InlineCode>
+          <InlineCode>string | number</InlineCode>
+        </>
+        <>
+          <Text>wrap</Text>
+          <InlineCode>false</InlineCode>
+          <InlineCode>boolean</InlineCode>
+        </>
+      </PropertyTable>
       <Heading as="h3" code>{`<Vertical>`}</Heading>
       <Vertical>
         <div>First</div>
         <div>Second</div>
         <div>Third</div>
       </Vertical>
+      <Code>{`const VerticallyAligned = <Vertical>
+  <div>First</div>
+  <div>Second</div>
+  <div>Third</div>
+</Vertical>`}</Code>
+      <PropertyTable>
+        <>
+          <Text>gap</Text>
+          <InlineCode>Space.medium</InlineCode>
+          <InlineCode>string | number</InlineCode>
+        </>
+      </PropertyTable>
       <Heading as="h2">
         <Anchor name="spacing" />
         Spacing
