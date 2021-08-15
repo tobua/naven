@@ -18,3 +18,13 @@ export const Content = ({ css, children, sidebar = false }: ContentProps) => (
     {children}
   </Main>
 )
+
+export const Aside = styled.aside`
+  grid-column: 2 / 3;
+`
+
+export const SideBar = () => (
+  <Aside>
+    <nav>Sidebar</nav>
+  </Aside>
+)

@@ -1,13 +1,12 @@
 import { render, unmountComponentAtNode } from 'react-dom'
 import { Router, Page } from 'epic-react-router'
-import { Global, Header, Navigation } from 'naven'
+import { Global, Header, Image } from 'naven'
 import 'utility/configure'
 import { Configuration } from 'pages/Configuration'
 import { Elements } from 'pages/Element'
 import { Advanced } from 'pages/Advanced'
 import { Style } from 'pages/Style'
 import { Overview } from 'pages/Overview'
-import logo from 'logo.svg'
 
 Router.setPages(
   {
@@ -31,22 +30,19 @@ const app = () =>
   render(
     <>
       <Global root="body" />
-      <Header
-        title="naven Demo"
-        logo={logo}
-        data={{
-          links: [
+      <Header>
+        <Header.Title.Link />
+        <Header.Meta
+          links={[
             { name: 'Overview', url: 'overview' },
             { name: 'Demo', url: 'https://tobua.github.io/naven/demo' },
             { name: 'npm', url: 'https://npmjs.com/naven' },
             { name: 'GitHub', url: 'https://github.com/tobua/naven' },
-          ],
-        }}
-      />
-      <Navigation
-        linkActive={(url: string) => url === Router.route}
-        data={{
-          top: [
+          ]}
+        />
+        <Header.Navigation
+          linkActive={(url: string) => url === Router.route}
+          links={[
             {
               title: { name: 'Configuration', url: 'configuration' },
               links: [
@@ -99,9 +95,9 @@ const app = () =>
                 { name: 'Layers', url: 'advanced#layers' },
               ],
             },
-          ],
-        }}
-      />
+          ]}
+        />
+      </Header>
       <Page onStyleChange={rerender} />
     </>,
     document.body

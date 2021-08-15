@@ -24,14 +24,17 @@ type ListProps = {
   wrap?: boolean
   css?: SerializedStyles
   gap?: number | string
-  children: ReactNode[]
+  children: ReactNode | ReactNode[]
   space?: string | number
   elementProps?: {
     css?: SerializedStyles
   } & DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>
 }
 
-const renderListElements = (children: ReactNode[], elementProps: any) => {
+const renderListElements = (
+  children: ReactNode | ReactNode[],
+  elementProps: any
+) => {
   if (!Array.isArray(children)) {
     return [
       <ListLi key="0" {...elementProps}>

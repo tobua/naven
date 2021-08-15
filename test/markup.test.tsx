@@ -1,6 +1,6 @@
 import React from 'react'
 import { create } from 'react-test-renderer'
-import { Global, Content, Header, Navigation, Footer } from '../index'
+import { Global, Content, Header, Footer } from '../index'
 
 test('Renders basic components.', () => {
   const renderer = create(
@@ -48,8 +48,10 @@ test('Renders all top-level components.', () => {
   const markup = create(
     <>
       <Global />
-      <Header title="naven test" />
-      <Navigation />
+      <Header>
+        <Header.Title.Text>naven test</Header.Title.Text>
+        <Header.Navigation />
+      </Header>
       <Content>
         <p>Hello Content</p>
       </Content>

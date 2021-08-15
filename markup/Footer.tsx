@@ -1,19 +1,12 @@
 import React, { ReactNode, DetailedHTMLProps, HTMLAttributes } from 'react'
 import styled from '@emotion/styled'
-import { css as cssStyles, SerializedStyles } from '@emotion/react'
+import { SerializedStyles } from '@emotion/react'
 import { TextLink } from './element/Link'
 import { List } from './element/List'
-import { Space, Color, Breakpoint } from '../style'
-import { footer, IFooter } from '../config'
+import { Space, Breakpoint } from '../style'
+import { Link, OptionalLink } from '../types'
 
-const Wrapper = styled.footer<{ css?: SerializedStyles }>`
-  grid-column: 3 / 4;
-  display: flex;
-  flex-wrap: wrap;
-  ${({ css }) => css}
-`
-
-const Row = styled.div<{ css?: SerializedStyles }>`
+const ColumnWrapper = styled.div<{ css?: SerializedStyles }>`
   flex-basis: 25%;
 
   ${Breakpoint.Tablet} {
@@ -27,50 +20,56 @@ const Row = styled.div<{ css?: SerializedStyles }>`
   ${({ css }) => css}
 `
 
-const firstLevelLinkStyles = cssStyles`
-  display: block;
-  border-bottom: 1px solid ${Color.Gray[300]};
-  margin-bottom: ${Space.small};
-  padding-bottom: ${Space.small}; 
-  margin-right: ${Space.medium};
-`
-
-export const Footer = ({
-  data = footer,
-  css,
-  rowCss,
-  children,
-  ...props
-}: {
-  data?: IFooter
+export interface FooterLinkRow {
+  title: Link | OptionalLink
+  links?: Link[]
+  children?: JSX.Element
   css?: SerializedStyles
-  rowCss?: SerializedStyles
-  children?: ReactNode
-} & DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>) => {
-  if (children) {
-    return (
-      <Wrapper css={css} {...props}>
-        {children}
-      </Wrapper>
-    )
+  listCss?: SerializedStyles
+}
+
+const Column = ({ links, title, css, listCss, children }: FooterLinkRow) => {
+  if (!title && !links) {
+    return children
   }
 
   return (
-    <Wrapper css={css} {...props}>
-      {data.rows.map((row, index) => (
-        <Row key={index} css={rowCss}>
-          <TextLink bold href={row.title.url} css={firstLevelLinkStyles}>
-            {row.title.name}
+    <ColumnWrapper css={css}>
+      <TextLink bold space={Space.medium} href={title.url} css={title.css}>
+        {title.name}
+      </TextLink>
+      <List css={listCss}>
+        {links.map((item, rowLinkIndex) => (
+          <TextLink key={rowLinkIndex} href={item.url} css={item.css}>
+            {item.name}
           </TextLink>
-          <List css={cssStyles`margin-left: ${Space.medium};`}>
-            {row.links.map((item, rowLinkIndex) => (
-              <TextLink key={rowLinkIndex} href={item.url}>
-                {item.name}
-              </TextLink>
-            ))}
-          </List>
-        </Row>
-      ))}
-    </Wrapper>
+        ))}
+      </List>
+      {children}
+    </ColumnWrapper>
   )
 }
+
+const Wrapper = styled.footer<{ css?: SerializedStyles; wide: boolean }>`
+  grid-column: ${({ wide }) => (wide ? '2 / 5' : '3 / 4')};
+  display: flex;
+  flex-wrap: wrap;
+  ${({ css }) => css}
+`
+
+export const Footer = ({
+  css,
+  wide = false,
+  children,
+  ...props
+}: {
+  css?: SerializedStyles
+  wide?: boolean
+  children?: ReactNode | ReactNode[]
+} & DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>) => (
+  <Wrapper css={css} wide={wide} {...props}>
+    {children}
+  </Wrapper>
+)
+
+Footer.Column = Column

@@ -7,7 +7,7 @@ export const PropertyTable = ({
   children,
 }: {
   children?: any
-  space?: boolean
+  space?: boolean | number
   css?: boolean
 }) => {
   const contents = [
@@ -25,11 +25,13 @@ export const PropertyTable = ({
     contents.push(children)
   }
 
-  if (space) {
+  if (space || typeof space === 'number') {
     contents.push(
       <Fragment key="space">
         <Text>space</Text>
-        <InlineCode>Space.medium</InlineCode>
+        <InlineCode>
+          {typeof space === 'number' ? `${space} px` : 'Space.medium'}
+        </InlineCode>
         <InlineCode>string | number</InlineCode>
       </Fragment>
     )

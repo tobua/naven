@@ -28,21 +28,15 @@ The following is an example of how to render a page generated with naven to disp
 ```jsx
 import React from 'react'
 import { render } from 'react-dom'
-import {
-  Global,
-  Header,
-  Navigation,
-  Content,
-  Footer,
-  Heading,
-  Paragraph,
-} from 'naven'
+import { Global, Header, Content, Footer, Heading, Paragraph } from 'naven'
 
 render(
   <>
     <Global root="body" />
-    <Header title="My App" />
-    <Navigation />
+    <Header title="My App">
+      <Header.Title.Link />
+      <Header.Navigation />
+    </Header>
     <Content>
       <Heading>naven Demo</Heading>
       <Paragraph>Welcome home!</Paragraph>
@@ -55,22 +49,33 @@ render(
 
 ## Configuration
 
-The base components are populated with some example date which you can see in the [demo](https://tobua.github.io/naven/demo). This data should be configured on the respective components for example the Header. Refer to the documentation how to configure the other components [Configuration](https://tobua.github.io/naven/doc/configuration).
+The base components are populated with some example date which you can see in . This data should be configured on the respective components for example the Header.
+
+Complex components can be customized and combined in many ways to achieve desired layouts. Check out the [demo](https://tobua.github.io/naven/demo) for a basic example without much customization. Some components require input data in order to render anything useful, i.e. the links for the navigation. Refer to the documentation how to configure the base components [Configuration](https://tobua.github.io/naven/doc/configuration).
 
 ```jsx
+import { Header, Image } from 'naven'
 import logo from 'assets/logo.svg'
 
 const MyHeader = (
-  <Header
-    logo={logo}
-    data={{
-      links: [
-        { name: 'Home', url: '/' },
-        { name: 'About', url: 'about' },
-        { name: 'Shop', url: 'shop' },
-      ],
-    }}
-  />
+  <Header wide={false}>
+    <Header.Title.Link>
+      <Image src={logo} />
+    </Header.Title.Link>
+    <Header.Navigation
+      links={[
+        { title: { name: 'Home', url: '/' } },
+        {
+          title: { name: 'About', url: 'about' },
+          links: [
+            { name: 'Disclaimer', url: '/disclaimer' },
+            { name: 'Privacy', url: '/policy' },
+          ],
+        },
+        { title: { name: 'Shop' } },
+      ]}
+    />
+  </Header>
 )
 ```
 
@@ -172,8 +177,10 @@ import { Wide, Narrow } from 'naven'
 render(
   <>
     <Global root="body" />
-    <Header title="naven Demo" />
-    <Navigation />
+    <Header>
+      <Header.Title.Text>naven Demo</Header.Title.Text>
+      <Header.Navigation />
+    </Header>
     <Wide>Wide (Screen Width)</Wide>
     <Content>Regular Width (max 1500px)</Content>
     <Narrow>Narrow Width (max 1000px)</Narrow>

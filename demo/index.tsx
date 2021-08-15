@@ -4,7 +4,6 @@ import { css } from '@emotion/react'
 import {
   Global,
   Header,
-  Navigation,
   Content,
   Footer,
   Heading,
@@ -22,8 +21,65 @@ import {
   configure,
   Input,
   Checkbox,
+  unit,
+  TextLink,
 } from 'naven'
 import { Dropdown } from 'naven/Dropdown'
+
+const navigationLinks = [
+  {
+    title: {
+      name: 'JSX',
+    },
+    links: [
+      {
+        name: 'React',
+        url: 'https://reactjs.org',
+      },
+    ],
+  },
+  {
+    title: {
+      name: 'CSS-in-JS',
+    },
+    links: [
+      {
+        name: 'Emotion',
+        url: 'https://emotion.sh',
+      },
+    ],
+  },
+  {
+    title: {
+      name: 'TypeScript',
+    },
+    links: [
+      {
+        name: 'TypeScript',
+        url: 'https://www.typescriptlang.org',
+      },
+      {
+        name: 'Documentation',
+        url: 'https://www.typescriptlang.org/docs/home.html',
+      },
+    ],
+  },
+  {
+    title: {
+      name: 'Components',
+    },
+    links: [
+      {
+        name: 'Layout',
+        url: '/layout',
+      },
+      {
+        name: 'Elements',
+        url: '/elements',
+      },
+    ],
+  },
+]
 
 const Viewport = () => {
   const { breakpoint } = useBreakpoint()
@@ -55,8 +111,26 @@ const Body = () => {
   return (
     <>
       <Global bodyCss={bodyStyles} root="body" />
-      <Header title="naven Demo" />
-      <Navigation />
+      <Header>
+        <Header.Title.Text>naven Demo</Header.Title.Text>
+        <Header.Meta
+          links={[
+            {
+              name: 'HTML',
+              url: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
+            },
+            {
+              name: 'CSS',
+              url: 'https://sass-lang.com/',
+            },
+            {
+              name: 'JavaScript',
+              url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
+            },
+          ]}
+        />
+        <Header.Navigation links={navigationLinks} />
+      </Header>
       <Content>
         <Heading>naven Demo {theme}</Heading>
         <Horizontal
@@ -89,7 +163,7 @@ const Body = () => {
           <InlineCode>src</InlineCode> attribute is set.
         </Paragraph>
         <Viewport />
-        <Horizontal>
+        <Horizontal wrap>
           <Dropdown
             options={[
               { label: 'Mrs.', value: 'female' },
@@ -112,7 +186,58 @@ const Body = () => {
           I'm an alert that can be closed and will disappear on phone viewport.
         </Alert>
       </Content>
-      <Footer />
+      <Footer>
+        <Footer.Column
+          title={{ name: 'JSX' }}
+          links={[
+            {
+              name: 'React',
+              url: 'https://reactjs.org',
+            },
+          ]}
+        />
+        <Footer.Column
+          title={{
+            name: 'CSS-in-JS',
+          }}
+          links={[
+            {
+              name: 'Emotion',
+              url: 'https://emotion.sh',
+            },
+          ]}
+        />
+        <Footer.Column
+          title={{
+            name: 'TypeScript',
+          }}
+          links={[
+            {
+              name: 'TypeScript',
+              url: 'https://www.typescriptlang.org',
+            },
+            {
+              name: 'Documentation',
+              url: 'https://www.typescriptlang.org/docs/home.html',
+            },
+          ]}
+        />
+        <Footer.Column
+          title={{
+            name: 'Components',
+          }}
+          links={[
+            {
+              name: 'Layout',
+              url: '/layout',
+            },
+            {
+              name: 'Elements',
+              url: '/elements',
+            },
+          ]}
+        />
+      </Footer>
     </>
   )
 }

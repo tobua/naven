@@ -1,47 +1,57 @@
-import React, { useState, useEffect, useRef, ReactElement } from 'react'
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  ReactElement,
+  ReactNode,
+} from 'react'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { css as cssStyles, SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
-import { TextLink } from './element/Link'
-import { List } from './element/List'
-import { navigation, INavigation } from '../config'
-import { Space, Color, Breakpoint, Layer } from '../style'
-import { Menu } from '../icon/Menu'
-import { Close } from '../icon/Close'
+import { TextLink } from '../element/Link'
+import { List } from '../element/List'
+import { Space, Color, Breakpoint, Layer } from '../../style'
+import { Menu } from '../../icon/Menu'
+import { Close } from '../../icon/Close'
+import { Spacer } from '../element/Spacer'
+import { Link, OptionalLink } from '../../types'
 
 export const Wrapper = styled.nav<{
   showNavigation: boolean
   css?: SerializedStyles
 }>`
-  grid-column: 2 / 5;
-  position: relative;
+  grid-column: 1 / 5;
+  grid-row: 2;
   z-index: ${Layer.Navigation};
 
   ${Breakpoint.Phone} {
-    display: ${({ showNavigation }) =>
-      showNavigation
-        ? 'flex'
-        : 'contents'}; /* Avoids grid space, while absolute children still visible. */
+    /* Avoids grid space, while absolute children still visible. */
+    display: contents;
     position: inherit;
     flex-direction: column;
     overflow: auto;
+
     ${({ showNavigation }) =>
       showNavigation
-        ? `height: calc(100vh - ${Space.medium} - 2 * ${Space.small});`
+        ? `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: ${Space.medium};
+        display: flex;
+        background: ${Color.background};
+        height: calc(100vh - ${Space.medium} - 2 * ${Space.small});`
         : ''}
   }
 
   ${({ css }) => css}
 `
 
-export const Aside = styled.aside`
-  grid-column: 2 / 3;
-`
-
 const listStyles = (visible: boolean) => cssStyles`
   ${Breakpoint.Phone} {
     display: ${visible ? 'flex' : 'none'};
-    flex: 1;
     flex-direction: column;
   }
 `
@@ -91,18 +101,23 @@ const ToggleIconWrapper = styled.div<{ css?: SerializedStyles }>`
   ${({ css }) => css}
 `
 
+type NavigationLinks = {
+  title: Link | OptionalLink
+  links?: Link[]
+}[]
+
 const ToggleIcon = ({
   css,
-  data,
+  links,
   showNavigation,
   setShowNavigation,
 }: {
   css?: SerializedStyles
-  data?: INavigation
+  links?: NavigationLinks
   showNavigation: boolean
   setShowNavigation: (value: boolean) => void
 }) => {
-  if (!data || !Array.isArray(data.top) || data.top.length < 1) {
+  if (!links || !Array.isArray(links) || links.length < 1) {
     return null
   }
 
@@ -120,9 +135,17 @@ const ToggleIcon = ({
   return (
     <ToggleIconWrapper css={css}>
       {showNavigation ? (
-        <Close onClick={() => setShowNavigation(false)} css={iconStyles} />
+        <Close
+          color={Color.backgroundContrast}
+          onClick={() => setShowNavigation(false)}
+          css={iconStyles}
+        />
       ) : (
-        <Menu onClick={() => setShowNavigation(true)} css={iconStyles} />
+        <Menu
+          color={Color.backgroundContrast}
+          onClick={() => setShowNavigation(true)}
+          css={iconStyles}
+        />
       )}
     </ToggleIconWrapper>
   )
@@ -170,24 +193,24 @@ export const Tab = ({
   )
 }
 
-export const SideBar = () => (
-  <Aside>
-    <nav>Sidebar</nav>
-  </Aside>
-)
-
-interface Props {
+export interface Props {
   linkActive?: (url: string) => boolean
-  data?: INavigation
+  links?: NavigationLinks
+  middle?: ReactNode
+  meta?: ReactNode
   css?: SerializedStyles
+  listCss?: SerializedStyles
   tabCss?: SerializedStyles
   toggleCss?: SerializedStyles
 }
 
 export const Navigation = ({
-  data = navigation,
+  links = [],
   linkActive = () => false,
+  middle,
+  meta,
   css,
+  listCss,
   tabCss,
   toggleCss,
 }: Props) => {
@@ -206,7 +229,7 @@ export const Navigation = ({
     <Wrapper ref={scrollContainerRef} showNavigation={showNavigation} css={css}>
       <ToggleIcon
         css={toggleCss}
-        data={data}
+        links={links}
         showNavigation={showNavigation}
         setShowNavigation={setShowNavigation}
       />
@@ -216,12 +239,15 @@ export const Navigation = ({
         elementProps={{ css: listElementStyles }}
         horizontal
       >
-        {data.top.map((link) => (
+        {links.map((link) => (
           <Tab key={link.title.name} css={tabCss}>
-            <TextLink href={link.title.url} bold={linkActive(link.title.url)}>
+            <TextLink
+              href={link.title.url}
+              bold={showNavigation || linkActive(link.title.url)}
+            >
               {link.title.name}
             </TextLink>
-            <>
+            <List space={0} css={listCss}>
               {link.links &&
                 link.links.length > 0 &&
                 link.links.map((secondLink) => (
@@ -229,10 +255,19 @@ export const Navigation = ({
                     {secondLink.name}
                   </TextLink>
                 ))}
-            </>
+            </List>
           </Tab>
         ))}
       </List>
+      {(showNavigation && (
+        <>
+          {meta || middle ? <Spacer line /> : null}
+          {meta}
+          {middle && meta ? <Spacer /> : null}
+          {middle}
+        </>
+      )) ||
+        null}
     </Wrapper>
   )
 }

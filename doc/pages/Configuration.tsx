@@ -55,62 +55,103 @@ export const Configuration = () => (
       {`<Header />`}
     </Heading>
     <Paragraph>
-      The header includes the logo and some links that are by default placed to
-      the right.
+      The header consists of four elements each optional: Title (Text or Link
+      with a Logo), Middle, Meta (Right) and the Navigation. On mobile the
+      navigation and some elements are hidden behind a toggle on the right.
     </Paragraph>
+    <Code>
+      {`const MyHeader = (
+  <Header>
+    <Header.Title.Text>My Page</Header.Title.Text>
+    <Header.Middle>
+      <TextLink>Click me</TextLink>
+    </Header.Middle>
+    <Header.Meta links={[
+      { name: 'Overview', url: 'overview' },
+      { name: 'GitHub', url: 'https://github.com/tobua/naven' },
+    ]} />
+    <Header.Navigation hint="see below for more" />
+  </Header>
+)`}
+    </Code>
     <Code>
       {`import logo from 'assets/logo.svg'
 
-const MyHeader = <Header
-  title="naven Demo"
-  logo={logo}
-  data={{
-    links: [
-      { name: 'Overview', url: 'overview' },
-      { name: 'GitHub', url: 'https://github.com/tobua/naven' },
-    ],
-  }}
-/>
-
-const HeaderText = <Header>
-  <Text>My App</Text>
-</Header>`}
+const HeaderWithImage = (
+  <Header wide={false}>
+    <Header.Title.Link>
+      <Image src={logo} css={css\`height: unit(40);\`} />
+    </Header.Title.Link>
+    <Header.Meta hideMobile>
+      <Button>Sign Up Now!</Button>
+    </Header.Meta>
+  </Header>
+)`}
     </Code>
     <PropertyTable space={false}>
       <>
-        <Text>data</Text>
-        <Text>optional</Text>
-        <Text>IHeader</Text>
+        <Text>wide</Text>
+        <InlineCode>false</InlineCode>
+        <InlineCode>boolean</InlineCode>
       </>
       <>
-        <Text>title</Text>
-        <Text>naven</Text>
-        <Text>string</Text>
-      </>
-      <>
-        <Text>logo</Text>
-        <Text>optional</Text>
-        <Text>string (image url)</Text>
-      </>
-      <>
-        <Text>link</Text>
-        <Text>/</Text>
-        <Text>string</Text>
-      </>
-      <>
-        <Text>titleCss</Text>
+        <Text>children</Text>
         <Text></Text>
-        <Text>SerializedStyles</Text>
-      </>
-      <>
-        <Text>metaCss</Text>
-        <Text></Text>
-        <Text>SerializedStyles</Text>
+        <InlineCode>Title | Middle | Meta | Navigation</InlineCode>
       </>
     </PropertyTable>
-    <Heading as="h2" code>
+    <Heading as="h3" code>
+      {`<Header.Title.Text />`}
+    </Heading>
+    <PropertyTable space={false}>
+      <>
+        <InlineCode>children</InlineCode>
+        <Text>naven</Text>
+        <InlineCode>string</InlineCode>
+      </>
+    </PropertyTable>
+    <Heading as="h3" code>
+      {`<Header.Title.Link />`}
+    </Heading>
+    <PropertyTable space={false}>
+      <>
+        <InlineCode>link</InlineCode>
+        <Text>/</Text>
+        <InlineCode>string</InlineCode>
+      </>
+      <>
+        <InlineCode>children</InlineCode>
+        <Text>Naven Logo</Text>
+        <InlineCode>ReactNode</InlineCode>
+      </>
+    </PropertyTable>
+    <Heading as="h3" code>
+      {`<Header.Middle />`}
+    </Heading>
+    <PropertyTable space={false} />
+    <Heading as="h3" code>
+      {`<Header.Meta />`}
+    </Heading>
+    <PropertyTable space={false}>
+      <>
+        <InlineCode>links</InlineCode>
+        <InlineCode>[]</InlineCode>
+        <InlineCode>Link[]</InlineCode>
+      </>
+      <>
+        <InlineCode>hideMobile</InlineCode>
+        <InlineCode>false</InlineCode>
+        <InlineCode>boolean</InlineCode>
+      </>
+      <>
+        <InlineCode>children</InlineCode>
+        <Text></Text>
+        <InlineCode>ReactNode</InlineCode>
+      </>
+    </PropertyTable>
+    <Heading as="h3" code>
       <Anchor name="navigation" />
-      {`<Navigation />`}
+      {`<Header.Navigation />`}
     </Heading>
     <Paragraph>
       Navigation with the top-level links directly visible and another optional
@@ -118,32 +159,42 @@ const HeaderText = <Header>
       visible after clicking on an icon in the top right corner.
     </Paragraph>
     <Code>
-      {`const MyNavigation = <Navigation data={{
-    top: [
-      {
-        title: { name: 'Top-Level First', url: 'first' },
-        links: [
-          { name: 'Bottom-Level First', url: 'first#first' },
-          { name: 'Bottom-Level Second', url: 'first#second' },
-        ],
-      },
-      {
-        title: { name: 'Top-Level First', url: 'second' },
-      },
-    ],
-  }}
-/>`}
+      {`const HeaderWithNavigation = (
+  <Header>
+    <Header.Navigation links={[
+        {
+          title: { name: 'Top-Level First', url: 'first' },
+          links: [
+            { name: 'Bottom-Level First', url: 'first#first' },
+            { name: 'Bottom-Level Second', url: 'first#second' },
+          ],
+        },
+        {
+          title: { name: 'Top-Level First', url: 'second' },
+        },
+      ]}
+    />
+  </Header>
+)`}
     </Code>
     <PropertyTable space={false}>
       <>
-        <Text>data</Text>
-        <Text>optional</Text>
-        <Text>INavigation</Text>
+        <Text>links</Text>
+        <Text></Text>
+        <InlineCode>{`{
+  title: Link | OptionalLink
+  links?: Link[]
+}[]`}</InlineCode>
       </>
       <>
         <Text>linkActive</Text>
         <Text></Text>
         <InlineCode>{`(link: string) => boolean`}</InlineCode>
+      </>
+      <>
+        <Text>listCss</Text>
+        <Text></Text>
+        <Text>SerializedStyles</Text>
       </>
       <>
         <Text>tabCss</Text>
@@ -183,25 +234,30 @@ const HeaderText = <Header>
       {`<Footer />`}
     </Heading>
     <Paragraph>
-      With this you can place more links or some common content for every page
-      at the bottom.
+      With this you can place links in columns or some custom content for every
+      page at the bottom.
     </Paragraph>
     <Code>
-      {`const FooterLinks = (
-  <Footer
-    data={{
-      rows: [
+      {`const FooterWithLinks = (
+  <Footer>
+    <Footer.Column
+      title={{ name: 'First-level', url: '/first' }}
+      links={[
         {
-          title: { name: 'First-Level', url: 'link' },
-          links: [
-            { name: 'Second-Level', url: 'link' },
-            { name: 'Second-Level', url: 'link' },
-          ],
+          name: 'Second-Level',
+          url: '/second',
         },
-      ],
-    }}
-  >
-    <Paragraph>Copyright Notice</Paragraph>
+        {
+          name: 'Second-Level Jr.',
+          url: '/second-jr',
+        }
+      ]}
+    />
+    <Footer.Column
+      title={{ name: 'First-Level with Content', url: '/first-content' }}
+    >
+      <Paragraph>Copyright Notice</Paragraph>
+    </Footer.Column>
   </Footer>
 )
 
@@ -211,14 +267,24 @@ const CustomFooter = <Footer>
     </Code>
     <PropertyTable space={false}>
       <>
-        <Text>data</Text>
-        <Text></Text>
-        <Text>IFooter</Text>
+        <Text>wide</Text>
+        <InlineCode>false</InlineCode>
+        <InlineCode>boolean</InlineCode>
+      </>
+    </PropertyTable>
+    <Heading as="h3" code>
+      {`<Footer.Column />`}
+    </Heading>
+    <PropertyTable space={false}>
+      <>
+        <Text>title</Text>
+        <Text>Empty</Text>
+        <InlineCode>OptionalLink</InlineCode>
       </>
       <>
-        <Text>rowCss</Text>
-        <Text></Text>
-        <Text>SerializedStyles</Text>
+        <Text>links</Text>
+        <Text>Empty</Text>
+        <InlineCode>Link[]</InlineCode>
       </>
     </PropertyTable>
     <Spacer />
