@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.1](https://github.com/tobua/naven/compare/v0.7.0...v0.7.1) (2021-08-25)
+
+
+### Bug Fixes
+
+* **header:** fix header grid sizing and hideMobile property for meta ([b943634](https://github.com/tobua/naven/commit/b9436341e9164e5046e10ed90a5e83d9e8cc13b6))
+
 ## [0.7.0](https://github.com/tobua/naven/compare/v0.6.3...v0.7.0) (2021-08-15)
 
 
