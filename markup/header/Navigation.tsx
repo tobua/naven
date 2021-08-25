@@ -261,7 +261,12 @@ export const Navigation = ({
       </List>
       {(showNavigation && (
         <>
-          {meta || middle ? <Spacer line /> : null}
+          {meta || middle ? (
+            <>
+              <Spacer line />
+              <Spacer />
+            </>
+          ) : null}
           {meta}
           {middle && meta ? <Spacer /> : null}
           {middle}

@@ -12,17 +12,17 @@ import { Link as LinkType } from '../../types'
 const Wrapper = styled.header<{ css?: SerializedStyles; wide: boolean }>`
   grid-column: ${({ wide }) => (wide ? '2 / 5' : '3 / 4')};
   display: grid;
-  grid-template-columns: 1fr auto 1fr auto 1fr;
+  grid-template-columns: auto 1fr auto 1fr auto;
   grid-template-rows: auto auto;
   grid-row-gap: ${Space.medium};
   align-items: center;
   position: relative;
 
   ${Breakpoint.Phone} {
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: auto;
     gap: ${Space.medium};
-    align-items: flex-start;
+    /* TODO only if navigation links available */
+    padding-right: ${Space.large};
   }
 
   ${({ css }) => css}
@@ -48,7 +48,11 @@ const MetaWrapper = styled.nav<{
   justify-self: end;
 
   ${Breakpoint.Phone} {
-    display: ${({ navigation }) => (!navigation ? 'none' : 'flex')};
+    display: ${({ navigation, hideMobile }) =>
+      !navigation && hideMobile ? 'none' : 'flex'};
+    grid-row: 2;
+    justify-self: start;
+    grid-column: 1/5;
   }
 
   ${({ css }) => css}
