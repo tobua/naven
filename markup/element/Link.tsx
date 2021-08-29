@@ -78,7 +78,6 @@ export const TextLink = styled.a<{
   bold?: boolean
   underline?: Underline
 }>`
-  display: inline-flex;
   cursor: pointer;
   text-decoration: none;
   ${({ bold }) => (bold ? 'font-weight: bold;' : '')}

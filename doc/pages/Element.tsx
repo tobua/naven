@@ -33,6 +33,9 @@ import {
   Bold,
   Important,
   Italic,
+  Quote,
+  Citation,
+  ShortQuotation,
   InlineCode,
   Color,
 } from 'naven'
@@ -224,6 +227,28 @@ import { css } from '@emotion/react'
           a different tag. Text can also be <Italic>italic</Italic>.
         </Paragraph>
         <Paragraph>Paragraphs by default have space between them.</Paragraph>
+        <Quote cite="https://www.youtube.com/watch?v=spwU2P5U_1U">
+          Web developers, web developers, web developers.
+        </Quote>
+        <Paragraph>
+          Einstein said{' '}
+          <ShortQuotation>
+            Vanilla JavaScript will only get you so far, try a good UI library.
+          </ShortQuotation>{' '}
+          and people were stunned.
+        </Paragraph>
+        <Paragraph>
+          Taken from the first chapter of the{' '}
+          <Citation>
+            <TextLink
+              underline={Underline.regular}
+              href="https://en.wikipedia.org/wiki/Iliad"
+            >
+              Iliad
+            </TextLink>
+          </Citation>{' '}
+          by Homer.
+        </Paragraph>
       </ElementPreview.Preview>
       <PropertyTable />
     </ElementPreview>

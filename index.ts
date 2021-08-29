@@ -21,7 +21,16 @@ export { Alert } from './markup/element/Alert'
 export { Image } from './markup/element/Image'
 export { Popup } from './markup/element/Popup'
 export { Heading } from './markup/element/Heading'
-export { Paragraph, Text, Bold, Important, Italic } from './markup/element/Text'
+export {
+  Paragraph,
+  Text,
+  Bold,
+  Important,
+  Italic,
+  Quote,
+  Citation,
+  ShortQuotation,
+} from './markup/element/Text'
 export { List } from './markup/element/List'
 export { Anchor } from './markup/element/Anchor'
 export { Lazy } from './markup/element/Lazy'

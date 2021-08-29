@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
-import { spaceProp, Font, Color } from '../../style'
+import { spaceProp, Font, Color, Space } from '../../style'
 
 export const Paragraph = styled.p<{
   space?: number | string
@@ -18,15 +18,56 @@ export const Text = styled.span<{ bold?: boolean; css?: SerializedStyles }>`
   ${({ css }) => css}
 `
 
-export const Bold = styled.b`
+export const Bold = styled.b<{ css?: SerializedStyles }>`
   ${Font.weight.bold}
+  ${({ css }) => css}
 `
 
-export const Important = styled.strong`
+export const Important = styled.strong<{ css?: SerializedStyles }>`
   color: ${Color.highlight};
   ${Font.weight.bold}
+  ${({ css }) => css}
 `
 
-export const Italic = styled.i`
+export const Italic = styled.i<{ css?: SerializedStyles }>`
   ${Font.style.italic}
+  ${({ css }) => css}
+`
+
+export const Quote = styled.blockquote<{
+  space?: number | string
+  css?: SerializedStyles
+}>`
+  position: relative;
+  margin-left: ${Space.medium};
+
+  &:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: calc(${Space.medium} * -1);
+    background: ${Color.highlight};
+    width: ${Space.tiny};
+    height: 100%;
+  }
+
+  ${spaceProp}
+  ${({ css }) => css}
+`
+
+export const ShortQuotation = styled.q<{ css?: SerializedStyles }>`
+  &:before {
+    content: '"';
+  }
+
+  &:after {
+    content: '"';
+  }
+
+  ${({ css }) => css}
+`
+
+export const Citation = styled.cite<{ css?: SerializedStyles }>`
+  ${Font.style.italic}
+  ${({ css }) => css}
 `
