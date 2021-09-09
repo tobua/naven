@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.3](https://github.com/tobua/naven/compare/v0.7.2...v0.7.3) (2021-09-09)
+
+
+### Bug Fixes
+
+* **element:** allow adding empty elements to header children ([d9ea3f4](https://github.com/tobua/naven/commit/d9ea3f4bc515074222aa0cfc5a6e139e203ef7a8))
+
 ### [0.7.2](https://github.com/tobua/naven/compare/v0.7.1...v0.7.2) (2021-08-29)
 
 
