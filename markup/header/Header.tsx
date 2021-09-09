@@ -101,13 +101,13 @@ const mergeChildren = (children?: any) => {
   const newChildren = Children.map(
     Array.isArray(children) ? children : [children],
     (child) => child
-  )
+  ).filter((child) => child.type)
   // TODO type check fails when extended, perform deep check.
-  const navigationIndex = children.findIndex(
+  const navigationIndex = newChildren.findIndex(
     (child) => child.type === Navigation
   )
-  const metaChild = children.find((child) => child.type === Meta)
-  const middle = children.filter((child) => child.type === Middle)
+  const metaChild = newChildren.find((child) => child.type === Meta)
+  const middle = newChildren.filter((child) => child.type === Middle)
 
   if (navigationIndex !== -1 && (middle.length || metaChild)) {
     const navigationProps = {
