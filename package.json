@@ -37,7 +37,7 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@popperjs/core": "^2.10.1",
-    "@types/react": "^17.0.20",
+    "@types/react": "^17.0.21",
     "body-scroll-lock": "^3.1.5",
     "emotion-reset": "^3.0.1",
     "hex-rgb": "^5.0.0",
@@ -46,7 +46,7 @@
     "react-popper": "^2.2.5",
     "react-select": "^4.3.1",
     "react-syntax-highlighter": "^15.4.4",
-    "wasser": "^2.0.1"
+    "wasser": "^2.1.0"
   },
   "peerDependencies": {
     "react": "^17.0.2"
@@ -74,13 +74,13 @@
   ],
   "devDependencies": {
     "@emotion/core": "^11.0.0",
-    "@testing-library/react": "^12.0.0",
+    "@testing-library/react": "^12.1.0",
     "@types/jest": "^27.0.1",
-    "@types/node": "^16.9.0",
+    "@types/node": "^16.9.1",
     "@types/react-dom": "^17.0.9",
     "@types/react-select": "^4.0.17",
     "@types/react-syntax-highlighter": "^13.5.2",
-    "padua": "^0.3.10",
+    "padua": "^0.3.12",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-test-renderer": "^17.0.2"

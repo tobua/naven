@@ -18,7 +18,7 @@ npm i naven
 or to generate a new project with a naven template using [now](https://github.com/tobua/now):
 
 ```
-npm init now naven ./my-app
+npm init -y now naven ./my-app
 ```
 
 ## Getting Started
