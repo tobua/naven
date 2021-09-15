@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.4](https://github.com/tobua/naven/compare/v0.7.3...v0.7.4) (2021-09-15)
+
+
+### Features
+
+* **template:** update template to include recent changes ([e1617ea](https://github.com/tobua/naven/commit/e1617ea28894491c32c000dd13b13bbc1e4dd6b6))
+
 ### [0.7.3](https://github.com/tobua/naven/compare/v0.7.2...v0.7.3) (2021-09-09)
 
 
