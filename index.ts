@@ -30,6 +30,9 @@ export {
   Quote,
   Citation,
   ShortQuotation,
+  Small,
+  Abbreviation,
+  Definition,
 } from './markup/element/Text'
 export { List } from './markup/element/List'
 export { Anchor } from './markup/element/Anchor'

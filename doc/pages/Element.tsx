@@ -38,6 +38,9 @@ import {
   ShortQuotation,
   InlineCode,
   Color,
+  Small,
+  Abbreviation,
+  Definition,
 } from 'naven'
 import { Code } from 'naven/Code'
 import { Tooltip } from 'naven/Tooltip'
@@ -216,7 +219,10 @@ import { css } from '@emotion/react'
   Hey <Text>text</Text>
   <Bold>bold</Bold>
   <Important>important</Important>
-  <Italic>italic</Italic>.
+  <Italic>italic</Italic>
+  <Small>small</Small>
+  <Abbreviation title="Frontend Development">FED</Abbreviation>
+  <Definition>F.E.D.</Definition>.
 </Paragraph>`}
     >
       <ElementPreview.Preview>
@@ -248,6 +254,12 @@ import { css } from '@emotion/react'
             </TextLink>
           </Citation>{' '}
           by Homer.
+        </Paragraph>
+        <Paragraph>
+          Let's write some <Small>small</Small> text and ask whether{' '}
+          <Abbreviation title="Frontend Development">FED</Abbreviation> or{' '}
+          <Definition>F.E.D.</Definition> is a valid abbreviation for Frontend
+          Development.
         </Paragraph>
       </ElementPreview.Preview>
       <PropertyTable />
@@ -777,28 +789,80 @@ addNotification({ message: 'Failed to get data, please try again later.', type: 
     </ElementPreview>
     <ElementPreview
       title="List"
-      code={`<List horizontal>
+      code={`const UnstyledList = <List>
   <Text>First</Text>
   <Text>Second</Text>
+</List>
+const HorizontalUnorderedList = <List listStyle horizontal>
+  <Text>First</Text>
+  <Text>Second</Text>
+</List>
+const VerticalOrderedList = <List listStyle type={List.Type.ordered}>
+  <Text>Ordered</Text>
+  <Text>Second</Text>
+</List>
+const DescriptionList = <List type={List.Type.description}>
+  <List.Description term="Frontend">
+    HTML, CSS and JavaScript
+  </List.Description>
+  <List.Description term={<Text>Backend</Text>}>
+    <Text>Node, PHP etc.</Text>
+  </List.Description>
 </List>`}
     >
       <ElementPreview.Preview>
         <List>
+          <Text>Unstyled</Text>
+          <Text>Vertical</Text>
+          <Text>Third</Text>
+        </List>
+        <List horizontal>
+          <Text>Unstyled</Text>
+          <Text>Horizontal</Text>
+          <Text>Third</Text>
+        </List>
+        <List listStyle>
           <Text>First</Text>
           <Text>Second</Text>
           <Text>Third</Text>
         </List>
-        <List horizontal>
+        <List listStyle horizontal>
           <Text>First</Text>
           <Text>Second</Text>
           <Text>Third</Text>
+        </List>
+        <List listStyle type={List.Type.ordered}>
+          <Text>Ordered</Text>
+          <Text>Second</Text>
+        </List>
+        <List listStyle type={List.Type.ordered} horizontal>
+          <Text>Ordered</Text>
+          <Text>Second</Text>
+        </List>
+        <List type={List.Type.description}>
+          <List.Description term="Frontend">
+            HTML, CSS and JavaScript
+          </List.Description>
+          <List.Description term={<Text>Backend</Text>}>
+            <Text>Node, PHP etc.</Text>
+          </List.Description>
         </List>
       </ElementPreview.Preview>
       <PropertyTable>
         <>
+          <Text>type</Text>
+          <InlineCode>List.Type.unordered</InlineCode>
+          <InlineCode>List.Type | 'ul' | 'ol' | 'dl'</InlineCode>
+        </>
+        <>
+          <Text>listStyle</Text>
+          <InlineCode>false</InlineCode>
+          <InlineCode>boolean</InlineCode>
+        </>
+        <>
           <Text>horizontal</Text>
-          <Text>false</Text>
-          <Text>boolean</Text>
+          <InlineCode>false</InlineCode>
+          <InlineCode>boolean</InlineCode>
         </>
         <>
           <Text>elementProps</Text>

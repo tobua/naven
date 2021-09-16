@@ -21,8 +21,6 @@ import {
   configure,
   Input,
   Checkbox,
-  unit,
-  TextLink,
 } from 'naven'
 import { Dropdown } from 'naven/Dropdown'
 

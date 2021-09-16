@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { spaceProp, Font, Color, Space } from '../../style'
@@ -68,6 +69,34 @@ export const ShortQuotation = styled.q<{ css?: SerializedStyles }>`
 `
 
 export const Citation = styled.cite<{ css?: SerializedStyles }>`
+  ${Font.style.italic}
+  ${({ css }) => css}
+`
+
+export const Small = styled.small<{ css?: SerializedStyles }>`
+  font-size: smaller;
+  ${({ css }) => css}
+`
+
+const AbbreviationTag = styled.abbr<{ css?: SerializedStyles }>`
+  ${({ css }) => css}
+`
+
+export const Abbreviation = ({
+  children,
+  title,
+  css,
+}: {
+  children: string
+  title: string
+  css?: SerializedStyles
+}) => (
+  <AbbreviationTag css={css} title={title}>
+    {children}
+  </AbbreviationTag>
+)
+
+export const Definition = styled.dfn<{ css?: SerializedStyles }>`
   ${Font.style.italic}
   ${({ css }) => css}
 `
