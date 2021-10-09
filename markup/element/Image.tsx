@@ -25,8 +25,7 @@ export const Image = ({
   css,
   space,
   ...props
-}: IImage &
-  DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>) => {
+}: IImage & DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>) => {
   if (!src && props.width && props.height) {
     // eslint-disable-next-line no-param-reassign
     src = placeholder(Number(props.width), Number(props.height))

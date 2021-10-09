@@ -3,10 +3,7 @@ import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { Space, Color, Shade, Font, radius, spaceProp } from '../../style'
 
-const getButtonColor = (
-  { highlight = false, interact = false },
-  opacity: number
-) => {
+const getButtonColor = ({ highlight = false, interact = false }, opacity: number) => {
   if (highlight) {
     return Shade(Color.highlight, opacity)
   }

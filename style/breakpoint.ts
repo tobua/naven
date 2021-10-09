@@ -13,22 +13,19 @@ export const configure = (_breakpoints: IBreakpoint) => {
   Object.assign(Breakpoints, _breakpoints, { clone: false })
 }
 
-export const Breakpoint = new Proxy<{ Phone: string; Tablet: string }>(
-  {} as any,
-  {
-    get: (_, property) => {
-      if (property === 'Phone') {
-        return `@media ${maxWidthQuery(Breakpoints.phone)}`
-      }
+export const Breakpoint = new Proxy<{ Phone: string; Tablet: string }>({} as any, {
+  get: (_, property) => {
+    if (property === 'Phone') {
+      return `@media ${maxWidthQuery(Breakpoints.phone)}`
+    }
 
-      if (property === 'Tablet') {
-        return `@media ${maxWidthQuery(Breakpoints.tablet)}`
-      }
+    if (property === 'Tablet') {
+      return `@media ${maxWidthQuery(Breakpoints.tablet)}`
+    }
 
-      return '@media screen'
-    },
-  }
-)
+    return '@media screen'
+  },
+})
 
 type BreakpointWithPixel = {
   name: keyof IBreakpoint | null
@@ -44,11 +41,7 @@ const getLargestBreakpoint = () =>
     return result
   }, 0)
 
-const getMatcher = (
-  currentPixels,
-  entries: [string, number][],
-  index: number
-) => {
+const getMatcher = (currentPixels, entries: [string, number][], index: number) => {
   if (!index) {
     return maxWidthQuery(currentPixels)
   }
@@ -58,9 +51,7 @@ const getMatcher = (
   return `${minWidthQuery(previousPixels)} and ${maxWidthQuery(currentPixels)}`
 }
 
-const attachBreakpointListeners = (
-  setBreakpoint: (point: BreakpointWithPixel) => void
-) => {
+const attachBreakpointListeners = (setBreakpoint: (point: BreakpointWithPixel) => void) => {
   const largestBreakpoint = getLargestBreakpoint()
   const entries = Object.entries(Breakpoints)
   const matchers = entries.map(([name, pixels], index) => ({

@@ -34,13 +34,7 @@ interface IAccordion {
   space?: string | number
 }
 
-export const Accordion = ({
-  headers,
-  children,
-  css,
-  space,
-  initialOpen = 0,
-}: IAccordion) => {
+export const Accordion = ({ headers, children, css, space, initialOpen = 0 }: IAccordion) => {
   const [openIndex, setOpen] = useState<number>(initialOpen)
   return (
     <Wrapper css={css} space={space}>

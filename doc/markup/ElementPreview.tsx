@@ -1,15 +1,6 @@
 import { useState, ReactNode, ReactElement, Children } from 'react'
 import styled from '@emotion/styled'
-import {
-  Button,
-  Heading,
-  Anchor,
-  Horizontal,
-  Font,
-  Color,
-  Space,
-  Breakpoint,
-} from 'naven'
+import { Button, Heading, Anchor, Horizontal, Font, Color, Space, Breakpoint } from 'naven'
 import { Code } from 'naven/Code'
 
 const Header = styled.header`
@@ -40,12 +31,7 @@ interface Props {
   children: ReactNode
 }
 
-export const ElementPreview = ({
-  title,
-  anchor = title.toLowerCase(),
-  code,
-  children,
-}: Props) => {
+export const ElementPreview = ({ title, anchor = title.toLowerCase(), code, children }: Props) => {
   const [tab, setTab] = useState<'preview' | 'code' | 'properties'>('preview')
 
   const renderedChildren = Children.map(children, (child: ReactElement) => {
@@ -73,10 +59,7 @@ export const ElementPreview = ({
           <TabButton bold={tab === 'code'} onClick={() => setTab('code')}>
             Code
           </TabButton>
-          <TabButton
-            bold={tab === 'properties'}
-            onClick={() => setTab('properties')}
-          >
+          <TabButton bold={tab === 'properties'} onClick={() => setTab('properties')}>
             Properties
           </TabButton>
         </Horizontal>

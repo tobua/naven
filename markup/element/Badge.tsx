@@ -15,12 +15,8 @@ const Dot = styled.div<{ hasContent: boolean; css?: SerializedStyles }>`
   height: ${({ hasContent }) => (hasContent ? Space.medium : Space.small)};
   border-radius: ${Space.small};
   background: ${Color.highlight};
-  right: calc(
-    ${({ hasContent }) => (hasContent ? Space.small : Space.tiny)} * -1
-  );
-  top: calc(
-    ${({ hasContent }) => (hasContent ? Space.small : Space.tiny)} * -1
-  );
+  right: calc(${({ hasContent }) => (hasContent ? Space.small : Space.tiny)} * -1);
+  top: calc(${({ hasContent }) => (hasContent ? Space.small : Space.tiny)} * -1);
   color: ${Color.colorContrast};
   display: flex;
   justify-content: center;

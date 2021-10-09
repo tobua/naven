@@ -32,8 +32,7 @@ const Wrapper = styled.div<{
   ${spaceProp}
   ${({ css }) => css}
   border: 1px solid
-    ${({ type }) =>
-    valueByType(type, [Color.Gray['500'], Color.warning, Color.error])};
+    ${({ type }) => valueByType(type, [Color.Gray['500'], Color.warning, Color.error])};
 `
 
 const CloseContainer = styled.div`
@@ -53,13 +52,7 @@ interface IAlert {
   children: ReactNode
 }
 
-export const Alert = ({
-  type = 'info',
-  closeable = false,
-  space,
-  css,
-  children,
-}: IAlert) => {
+export const Alert = ({ type = 'info', closeable = false, space, css, children }: IAlert) => {
   const [closed, close] = useState(false)
 
   if (closeable && closed) {

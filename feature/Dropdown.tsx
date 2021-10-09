@@ -9,11 +9,7 @@ interface IDropdown {
   backgroundColor?: string
 }
 
-const customStyles = ({
-  space,
-  containerStyles,
-  backgroundColor,
-}: IDropdown) => ({
+const customStyles = ({ space, containerStyles, backgroundColor }: IDropdown) => ({
   container: (provided: object) => ({
     ...provided,
     minWidth: unit(200),
@@ -49,9 +45,9 @@ export const Dropdown = ({
       ...customStyles({ space, containerStyles, backgroundColor }),
       ...props.styles,
     }}
-    // @ts-ignore
     theme={{
       borderRadius: radiusValue(),
+      // @ts-ignore TODO issue likely with plugin types.
       colors: {
         primary: Color.highlight,
       },

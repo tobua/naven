@@ -25,10 +25,7 @@ const Wrapper = styled.textarea<{
 export const TextArea = ({
   onValue,
   ...props
-}: DetailedHTMLProps<
-  TextareaHTMLAttributes<HTMLTextAreaElement>,
-  HTMLTextAreaElement
-> & {
+}: DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement> & {
   onValue?: (value: string) => void
   css?: SerializedStyles
   space?: string | number

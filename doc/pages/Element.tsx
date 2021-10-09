@@ -111,18 +111,8 @@ const Checkboxes = () => {
 
   return (
     <Vertical gap={Space.small}>
-      <Checkbox
-        space={0}
-        label="First"
-        checked={first}
-        onChange={() => setFirst(!first)}
-      />
-      <Checkbox
-        space={0}
-        label="Second"
-        checked={second}
-        onChange={() => setSecond(!second)}
-      />
+      <Checkbox space={0} label="First" checked={first} onChange={() => setFirst(!first)} />
+      <Checkbox space={0} label="Second" checked={second} onChange={() => setSecond(!second)} />
     </Vertical>
   )
 }
@@ -229,8 +219,8 @@ import { css } from '@emotion/react'
         <Text>This is regular inline text.</Text>
         <Paragraph>
           This is a paragraph with some <Bold>highligted text</Bold> and some{' '}
-          <Important>very important text</Important> that is distinguishable by
-          a different tag. Text can also be <Italic>italic</Italic>.
+          <Important>very important text</Important> that is distinguishable by a different tag.
+          Text can also be <Italic>italic</Italic>.
         </Paragraph>
         <Paragraph>Paragraphs by default have space between them.</Paragraph>
         <Quote cite="https://www.youtube.com/watch?v=spwU2P5U_1U">
@@ -246,10 +236,7 @@ import { css } from '@emotion/react'
         <Paragraph>
           Taken from the first chapter of the{' '}
           <Citation>
-            <TextLink
-              underline={Underline.regular}
-              href="https://en.wikipedia.org/wiki/Iliad"
-            >
+            <TextLink underline={Underline.regular} href="https://en.wikipedia.org/wiki/Iliad">
               Iliad
             </TextLink>
           </Citation>{' '}
@@ -258,8 +245,7 @@ import { css } from '@emotion/react'
         <Paragraph>
           Let's write some <Small>small</Small> text and ask whether{' '}
           <Abbreviation title="Frontend Development">FED</Abbreviation> or{' '}
-          <Definition>F.E.D.</Definition> is a valid abbreviation for Frontend
-          Development.
+          <Definition>F.E.D.</Definition> is a valid abbreviation for Frontend Development.
         </Paragraph>
       </ElementPreview.Preview>
       <PropertyTable />
@@ -292,8 +278,7 @@ import { css } from '@emotion/react'
         <Horizontal>
           <Vertical>
             <Text>
-              Here is some text with a{' '}
-              <TextLink href="https://google.com">link</TextLink>.
+              Here is some text with a <TextLink href="https://google.com">link</TextLink>.
             </Text>
             <Paragraph
               css={css`
@@ -301,9 +286,7 @@ import { css } from '@emotion/react'
               `}
             >
               No worries as{' '}
-              <TextLink href="https://google.com">
-                all TextLink variants with underlines
-              </TextLink>{' '}
+              <TextLink href="https://google.com">all TextLink variants with underlines</TextLink>{' '}
               support multiple lines.
             </Paragraph>
             <InlineCode>{`underline={Underline.regular}`}</InlineCode>
@@ -332,10 +315,7 @@ import { css } from '@emotion/react'
           <Vertical>
             <Text>
               Here is some text with a{' '}
-              <TextLink
-                underline={Underline.animated}
-                href="https://google.com"
-              >
+              <TextLink underline={Underline.animated} href="https://google.com">
                 link
               </TextLink>
               .
@@ -346,10 +326,7 @@ import { css } from '@emotion/react'
               `}
             >
               No worries as{' '}
-              <TextLink
-                underline={Underline.animated}
-                href="https://google.com"
-              >
+              <TextLink underline={Underline.animated} href="https://google.com">
                 all TextLink variants with underlines
               </TextLink>{' '}
               support multiple lines.
@@ -359,10 +336,7 @@ import { css } from '@emotion/react'
           <Vertical>
             <Text>
               Here is some text with a{' '}
-              <TextLink
-                underline={Underline.background}
-                href="https://google.com"
-              >
+              <TextLink underline={Underline.background} href="https://google.com">
                 link
               </TextLink>
               .
@@ -373,10 +347,7 @@ import { css } from '@emotion/react'
               `}
             >
               No worries as{' '}
-              <TextLink
-                underline={Underline.background}
-                href="https://google.com"
-              >
+              <TextLink underline={Underline.background} href="https://google.com">
                 all TextLink variants with underlines
               </TextLink>{' '}
               support multiple lines.
@@ -390,8 +361,7 @@ import { css } from '@emotion/react'
           <Text>underline</Text>
           <InlineCode>Underline.none</InlineCode>
           <InlineCode>
-            Underline.regular | Underline.none | Underline.animated |
-            Underline.background
+            Underline.regular | Underline.none | Underline.animated | Underline.background
           </InlineCode>
         </>
         <>
@@ -439,10 +409,7 @@ import { css } from '@emotion/react'
         </>
       </PropertyTable>
     </ElementPreview>
-    <ElementPreview
-      title="Alert"
-      code={`<Alert type="warning" closeable>Watch out!</Alert>`}
-    >
+    <ElementPreview title="Alert" code={`<Alert type="warning" closeable>Watch out!</Alert>`}>
       <ElementPreview.Preview>
         <Alert>Hey: This is an info</Alert>
         <Alert type="warning" closeable>
@@ -646,9 +613,7 @@ import { css } from '@emotion/react'
         <>
           <Text>options</Text>
           <Text>required</Text>
-          <TextLink href="https://react-select.com/props">
-            See react-select
-          </TextLink>
+          <TextLink href="https://react-select.com/props">See react-select</TextLink>
         </>
         <>
           <Text>containerStyles</Text>
@@ -840,9 +805,7 @@ const DescriptionList = <List type={List.Type.description}>
           <Text>Second</Text>
         </List>
         <List type={List.Type.description}>
-          <List.Description term="Frontend">
-            HTML, CSS and JavaScript
-          </List.Description>
+          <List.Description term="Frontend">HTML, CSS and JavaScript</List.Description>
           <List.Description term={<Text>Backend</Text>}>
             <Text>Node, PHP etc.</Text>
           </List.Description>
@@ -910,9 +873,7 @@ const DescriptionList = <List type={List.Type.description}>
         <>
           <Text>...props</Text>
           <Text></Text>
-          <TextLink href="https://reactdatepicker.com">
-            See react-datepicker
-          </TextLink>
+          <TextLink href="https://reactdatepicker.com">See react-datepicker</TextLink>
         </>
       </PropertyTable>
     </ElementPreview>
@@ -968,16 +929,16 @@ Use <InlineCode>const</InlineCode> to define variables.`}
     >
       <ElementPreview.Preview>
         <Paragraph>
-          The proof of the following equation <InlineCode>{'2+2=5'}</InlineCode>{' '}
-          is left to the reader.
+          The proof of the following equation <InlineCode>{'2+2=5'}</InlineCode> is left to the
+          reader.
         </Paragraph>
         <Paragraph
           css={css`
             max-width: 350px;
           `}
         >
-          Multiple <InlineCode>inline code blocks</InlineCode> shouldn't touch
-          each other even when <InlineCode>line-breaks</InlineCode> are present.
+          Multiple <InlineCode>inline code blocks</InlineCode> shouldn't touch each other even when{' '}
+          <InlineCode>line-breaks</InlineCode> are present.
         </Paragraph>
       </ElementPreview.Preview>
       <PropertyTable space={false} />

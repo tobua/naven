@@ -1,10 +1,7 @@
 import React from 'react'
 // @ts-ignore
 import { spaceStyleProp, radiusStyleProp } from 'naven'
-import { SyntaxHighlighterProps } from 'react-syntax-highlighter'
-import DefaultHighlighter, {
-  Prism,
-} from 'react-syntax-highlighter/dist/esm/index'
+import DefaultHighlighter, { SyntaxHighlighterProps, Prism } from 'react-syntax-highlighter'
 import githubStyle from 'react-syntax-highlighter/dist/esm/styles/hljs/github'
 import prismStyle from 'react-syntax-highlighter/dist/esm/styles/prism/prism'
 

@@ -38,5 +38,4 @@ export const radiusValue = () => {
   return Look.corner
 }
 
-export const radiusStyleProp = () =>
-  Look.corner ? { borderRadius: toPx(Look.corner) } : {}
+export const radiusStyleProp = () => (Look.corner ? { borderRadius: toPx(Look.corner) } : {})

@@ -48,8 +48,7 @@ const MetaWrapper = styled.nav<{
   justify-self: end;
 
   ${Breakpoint.Phone} {
-    display: ${({ navigation, hideMobile }) =>
-      !navigation && hideMobile ? 'none' : 'flex'};
+    display: ${({ navigation, hideMobile }) => (!navigation && hideMobile ? 'none' : 'flex')};
     grid-row: 2;
     justify-self: start;
     grid-column: 1/5;
@@ -103,9 +102,7 @@ const mergeChildren = (children?: any) => {
     (child) => child
   ).filter((child) => child.type)
   // TODO type check fails when extended, perform deep check.
-  const navigationIndex = newChildren.findIndex(
-    (child) => child.type === Navigation
-  )
+  const navigationIndex = newChildren.findIndex((child) => child.type === Navigation)
   const metaChild = newChildren.find((child) => child.type === Meta)
   const middle = newChildren.filter((child) => child.type === Middle)
 
@@ -128,10 +125,7 @@ const mergeChildren = (children?: any) => {
       })
     }
 
-    newChildren[navigationIndex] = cloneElement(
-      children[navigationIndex],
-      navigationProps
-    )
+    newChildren[navigationIndex] = cloneElement(children[navigationIndex], navigationProps)
   }
 
   return newChildren
@@ -169,13 +163,7 @@ const TitleLink = styled(Link)`
 `
 
 Header.Title = {
-  Text: ({
-    css,
-    children = 'naven',
-  }: {
-    children?: string
-    css?: SerializedStyles
-  }) => (
+  Text: ({ css, children = 'naven' }: { children?: string; css?: SerializedStyles }) => (
     <TitleText bold css={css}>
       {children}
     </TitleText>

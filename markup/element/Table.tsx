@@ -26,9 +26,7 @@ const Wrapper = styled.div<{
 `
 
 const getColumnCount = (children: any[]) =>
-  Math.max(
-    ...children.filter(Boolean).map((child) => child?.props?.children?.length)
-  )
+  Math.max(...children.filter(Boolean).map((child) => child?.props?.children?.length))
 
 interface Props {
   css?: SerializedStyles

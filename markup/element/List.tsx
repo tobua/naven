@@ -11,11 +11,7 @@ enum ListType {
 
 type ListTypeInputs = ListType | 'ol' | 'ul' | 'dl'
 
-const getPadding = (
-  type: ListTypeInputs,
-  horizontal?: boolean,
-  listStyle?: boolean
-) => {
+const getPadding = (type: ListTypeInputs, horizontal?: boolean, listStyle?: boolean) => {
   if (horizontal || type === ListType.description || !listStyle) {
     return '0'
   }
@@ -23,14 +19,7 @@ const getPadding = (
   return unit(20)
 }
 
-const getListStyle = ({
-  listStyle,
-  type,
-}: {
-  listStyle?: boolean
-  type: ListTypeInputs
-}) => {
-  console.log(listStyle, type)
+const getListStyle = ({ listStyle, type }: { listStyle?: boolean; type: ListTypeInputs }) => {
   if (!listStyle || type === ListType.description) {
     return ''
   }
@@ -38,17 +27,14 @@ const getListStyle = ({
   return `list-style: ${type === ListType.ordered ? 'decimal' : 'disc'};`
 }
 
-const ListTag = (type: ListTypeInputs) => styled(type)<
-  ListProps & { type: ListTypeInputs }
->`
+const ListTag = (type: ListTypeInputs) => styled(type)<ListProps & { type: ListTypeInputs }>`
   display: flex;
   flex-direction: ${({ horizontal }) => (horizontal ? 'row' : 'column')};
   flex-wrap: ${({ wrap }) => (wrap ? 'wrap' : 'inherit')};
   row-gap: ${({ gap }) => toPx(gap)};
   column-gap: ${({ gap }) => toPx(gap)};
   overflow: ${({ wrap }) => (wrap ? 'visible' : 'auto')};
-  padding-inline-start: ${({ horizontal, listStyle }) =>
-    getPadding(type, horizontal, listStyle)};
+  padding-inline-start: ${({ horizontal, listStyle }) => getPadding(type, horizontal, listStyle)};
 
   ${getListStyle}
   ${spaceProp}
@@ -60,8 +46,7 @@ const ListElement = styled.li<{
   listStyle?: boolean
   css?: SerializedStyles
 }>`
-  ${({ horizontal, listStyle }) =>
-    horizontal && listStyle ? `margin-left: ${unit(20)};` : ''}
+  ${({ horizontal, listStyle }) => (horizontal && listStyle ? `margin-left: ${unit(20)};` : '')}
   ${({ css }) => css}
 `
 
@@ -82,24 +67,14 @@ const renderListElements = (
 ) => {
   if (!Array.isArray(children)) {
     return [
-      <ListElement
-        key="0"
-        listStyle={listStyle}
-        horizontal={horizontal}
-        {...elementProps}
-      >
+      <ListElement key="0" listStyle={listStyle} horizontal={horizontal} {...elementProps}>
         {children}
       </ListElement>,
     ]
   }
 
   return children.map((child, index) => (
-    <ListElement
-      key={index}
-      listStyle={listStyle}
-      horizontal={horizontal}
-      {...elementProps}
-    >
+    <ListElement key={index} listStyle={listStyle} horizontal={horizontal} {...elementProps}>
       {child}
     </ListElement>
   ))
@@ -139,13 +114,7 @@ export const List = ({
       : renderListElements(children, elementProps, horizontal, listStyle)
 
   return (
-    <Wrapper
-      horizontal={horizontal}
-      listStyle={listStyle}
-      gap={gap}
-      type={type}
-      {...props}
-    >
+    <Wrapper horizontal={horizontal} listStyle={listStyle} gap={gap} type={type} {...props}>
       {listElements}
     </Wrapper>
   )

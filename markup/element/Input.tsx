@@ -24,10 +24,7 @@ const Wrapper = styled.input<{
 export const Input = ({
   onValue,
   ...props
-}: DetailedHTMLProps<
-  InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
-> & {
+}: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
   onValue?: (value: string) => void
   css?: SerializedStyles
   space?: string | number

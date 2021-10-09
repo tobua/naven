@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  Global as GlobalStyles,
-  css as cssStyles,
-  SerializedStyles,
-} from '@emotion/react'
+import { Global as GlobalStyles, css as cssStyles, SerializedStyles } from '@emotion/react'
 import emotionReset from 'emotion-reset'
 import { head } from 'wasser'
 import { Breakpoint, Space, Font, Color } from '../style'

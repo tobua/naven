@@ -109,8 +109,8 @@ css\`
         Layers
       </Heading>
       <Paragraph>
-        Use layers to assign the <InlineCode>z-index</InlineCode> in a
-        structured way. The default values used by the plugin can be configured.
+        Use layers to assign the <InlineCode>z-index</InlineCode> in a structured way. The default
+        values used by the plugin can be configured.
       </Paragraph>
       <Code>{`import { configure, Layer } from 'naven'
 

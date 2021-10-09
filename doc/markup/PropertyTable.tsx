@@ -29,9 +29,7 @@ export const PropertyTable = ({
     contents.push(
       <Fragment key="space">
         <Text>space</Text>
-        <InlineCode>
-          {typeof space === 'number' ? `${space} px` : 'Space.medium'}
-        </InlineCode>
+        <InlineCode>{typeof space === 'number' ? `${space} px` : 'Space.medium'}</InlineCode>
         <InlineCode>string | number</InlineCode>
       </Fragment>
     )

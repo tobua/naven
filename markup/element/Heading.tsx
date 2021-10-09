@@ -20,8 +20,6 @@ export const Heading = styled.h1<{
   ${getFontSize}
   ${spaceProp}
   ${({ code }) =>
-    code
-      ? 'font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;'
-      : ''}
+    code ? 'font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;' : ''}
   ${({ css }) => css}
 `

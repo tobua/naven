@@ -1,7 +1,6 @@
 import { configure } from 'naven'
 
-export const getStoredStyles = () =>
-  JSON.parse(window.localStorage.getItem('styles') ?? '{}')
+export const getStoredStyles = () => JSON.parse(window.localStorage.getItem('styles') ?? '{}')
 
 export const configureUserStyles = () => configure(getStoredStyles())
 

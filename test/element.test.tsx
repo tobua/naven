@@ -36,9 +36,7 @@ test('Input onValue handler works as expected.', () => {
 test('Input onValue and onChange handlers combined work as expected.', () => {
   const onValueMock = jest.fn()
   const onChangeMock = jest.fn()
-  const { container } = render(
-    <Input onValue={onValueMock} onChange={onChangeMock} />
-  )
+  const { container } = render(<Input onValue={onValueMock} onChange={onChangeMock} />)
 
   const input = container.querySelector('input')
 

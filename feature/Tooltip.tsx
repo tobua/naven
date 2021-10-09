@@ -73,14 +73,7 @@ interface ContentProps {
   close?: boolean
 }
 
-const Content = ({
-  children,
-  referenceElement,
-  open,
-  setOpen,
-  arrow,
-  close,
-}: ContentProps) => {
+const Content = ({ children, referenceElement, open, setOpen, arrow, close }: ContentProps) => {
   const [popperElement, setPopperElement] = useState(null)
   const [arrowElement, setArrowElement] = useState(null)
 
@@ -139,13 +132,7 @@ interface Props {
   css?: SerializedStyles
 }
 
-export const Tooltip = ({
-  content,
-  arrow = true,
-  close = false,
-  children,
-  css,
-}: Props) => {
+export const Tooltip = ({ content, arrow = true, close = false, children, css }: Props) => {
   const [referenceElement, setReferenceElement] = useState(null)
   // Only initialize plugin (absolutely position hidden tooltip element)
   // when it's actually needed.

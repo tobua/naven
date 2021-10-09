@@ -24,8 +24,7 @@ export const Loader = ({
   css,
   space = 0,
   ...props
-}: ILoader &
-  DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => (
+}: ILoader & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => (
   <Wrapper css={css} space={space} {...props}>
     <Icon.Loader size={small ? Icon.Size.small : Icon.Size.big} />
   </Wrapper>

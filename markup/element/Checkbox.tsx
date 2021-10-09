@@ -95,13 +95,7 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   space?: string | number
 }
 
-export const Checkbox = ({
-  label,
-  id = uniqueID(),
-  wrapperCss,
-  space,
-  ...props
-}: Props) => {
+export const Checkbox = ({ label, id = uniqueID(), wrapperCss, space, ...props }: Props) => {
   const inputRef = useRef()
 
   return (
@@ -111,25 +105,13 @@ export const Checkbox = ({
       space={space}
       onKeyDown={(event) => toggleOnEnter(event, inputRef)}
     >
-      <CheckboxInput
-        ref={inputRef}
-        tabIndex={-1}
-        id={id}
-        type="checkbox"
-        {...props}
-      />
+      <CheckboxInput ref={inputRef} tabIndex={-1} id={id} type="checkbox" {...props} />
       <Label htmlFor={id}>{label}</Label>
     </Wrapper>
   )
 }
 
-export const Radio = ({
-  label,
-  id = uniqueID(),
-  wrapperCss,
-  space,
-  ...props
-}: Props) => {
+export const Radio = ({ label, id = uniqueID(), wrapperCss, space, ...props }: Props) => {
   const inputRef = useRef()
 
   return (
@@ -139,13 +121,7 @@ export const Radio = ({
       space={space}
       onKeyDown={(event) => toggleOnEnter(event, inputRef)}
     >
-      <RadioInput
-        ref={inputRef}
-        tabIndex={-1}
-        id={id}
-        type="radio"
-        {...props}
-      />
+      <RadioInput ref={inputRef} tabIndex={-1} id={id} type="radio" {...props} />
       <Label htmlFor={id}>{label}</Label>
     </Wrapper>
   )

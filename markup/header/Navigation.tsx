@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  ReactElement,
-  ReactNode,
-} from 'react'
+import React, { useState, useEffect, useRef, ReactElement, ReactNode } from 'react'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { css as cssStyles, SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
@@ -165,13 +159,7 @@ const TabElement = styled.div<{ css?: SerializedStyles }>`
   ${({ css }) => css}
 `
 
-export const Tab = ({
-  css,
-  children,
-}: {
-  css?: SerializedStyles
-  children: ReactElement[]
-}) => {
+export const Tab = ({ css, children }: { css?: SerializedStyles; children: ReactElement[] }) => {
   const [open, setOpen] = useState(false)
 
   return (
@@ -241,10 +229,7 @@ export const Navigation = ({
       >
         {links.map((link) => (
           <Tab key={link.title.name} css={tabCss}>
-            <TextLink
-              href={link.title.url}
-              bold={showNavigation || linkActive(link.title.url)}
-            >
+            <TextLink href={link.title.url} bold={showNavigation || linkActive(link.title.url)}>
               {link.title.name}
             </TextLink>
             <List space={0} css={listCss}>

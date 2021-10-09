@@ -5,11 +5,11 @@
   "dependencies": {
     "deep-object-diff": "^1.1.0",
     "deepmerge": "^4.2.2",
-    "epic-react-router": "^2.1.7",
-    "konfi": "^0.1.10",
+    "epic-react-router": "^2.1.8",
+    "konfi": "^0.1.11",
     "mobx": "^6.3.3",
     "mobx-react": "^7.2.0",
-    "papua": "^0.1.31",
+    "papua": "^0.1.32",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

@@ -15,8 +15,8 @@ import { PropertyTable } from 'markup/PropertyTable'
 export const Configuration = () => (
   <Content>
     <Paragraph>
-      Components like <InlineCode>{`<Header />`}</InlineCode> are prefilled with
-      some default link data.
+      Components like <InlineCode>{`<Header />`}</InlineCode> are prefilled with some default link
+      data.
     </Paragraph>
     <Heading as="h2" code>
       <Anchor name="global" />
@@ -24,10 +24,9 @@ export const Configuration = () => (
     </Heading>
     <Code>{`<Global root="body" />`}</Code>
     <Paragraph>
-      Specify the root where you render the React application. By default an
-      element <InlineCode>{`#root`}</InlineCode> is assumed. This component will
-      not output anything but is required for the rest of the components to work
-      properly. It's also inserting the&nbsp;
+      Specify the root where you render the React application. By default an element{' '}
+      <InlineCode>{`#root`}</InlineCode> is assumed. This component will not output anything but is
+      required for the rest of the components to work properly. It's also inserting the&nbsp;
       <Link href="https://github.com/Sayegh7/emotion-reset">
         <InlineCode>emotion-reset</InlineCode>
       </Link>
@@ -55,9 +54,9 @@ export const Configuration = () => (
       {`<Header />`}
     </Heading>
     <Paragraph>
-      The header consists of four elements each optional: Title (Text or Link
-      with a Logo), Middle, Meta (Right) and the Navigation. On mobile the
-      navigation and some elements are hidden behind a toggle on the right.
+      The header consists of four elements each optional: Title (Text or Link with a Logo), Middle,
+      Meta (Right) and the Navigation. On mobile the navigation and some elements are hidden behind
+      a toggle on the right.
     </Paragraph>
     <Code>
       {`const MyHeader = (
@@ -154,9 +153,9 @@ const HeaderWithImage = (
       {`<Header.Navigation />`}
     </Heading>
     <Paragraph>
-      Navigation with the top-level links directly visible and another optional
-      level per link that is visible on hover. On mobile the navigation is only
-      visible after clicking on an icon in the top right corner.
+      Navigation with the top-level links directly visible and another optional level per link that
+      is visible on hover. On mobile the navigation is only visible after clicking on an icon in the
+      top right corner.
     </Paragraph>
     <Code>
       {`const HeaderWithNavigation = (
@@ -212,10 +211,10 @@ const HeaderWithImage = (
       {`<Content />`}
     </Heading>
     <Paragraph>
-      This is where you place the actual contents of the page. This container
-      takes up to 1500px. There is also a <InlineCode>{`<Narrow>`}</InlineCode>{' '}
-      and <InlineCode>{`<Narrow>`}</InlineCode> a wide one available which are
-      described in the <TextLink href="advanced#layout">Layout</TextLink> page.
+      This is where you place the actual contents of the page. This container takes up to 1500px.
+      There is also a <InlineCode>{`<Narrow>`}</InlineCode> and{' '}
+      <InlineCode>{`<Narrow>`}</InlineCode> a wide one available which are described in the{' '}
+      <TextLink href="advanced#layout">Layout</TextLink> page.
     </Paragraph>
     <Code>
       {`const MyContent = <Content>
@@ -234,8 +233,7 @@ const HeaderWithImage = (
       {`<Footer />`}
     </Heading>
     <Paragraph>
-      With this you can place links in columns or some custom content for every
-      page at the bottom.
+      With this you can place links in columns or some custom content for every page at the bottom.
     </Paragraph>
     <Code>
       {`const FooterWithLinks = (

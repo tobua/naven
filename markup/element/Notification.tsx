@@ -61,8 +61,7 @@ const NotificationWrapper = styled.div<{
       return Color.highlight
     }};
   padding: ${Space.small};
-  ${({ closeable }) =>
-    closeable ? `padding-right: calc(${Space.small} * 3);` : ''}
+  ${({ closeable }) => (closeable ? `padding-right: calc(${Space.small} * 3);` : '')}
   min-width: 30%;
   ${() => radius()}
   ${({ css }) => css}
@@ -86,21 +85,13 @@ interface INotificationElement {
   css?: SerializedStyles
 }
 
-const NotificationElement = ({
-  id,
-  type,
-  closeable,
-  css,
-  children,
-}: INotificationElement) => (
+const NotificationElement = ({ id, type, closeable, css, children }: INotificationElement) => (
   <NotificationWrapper type={type} css={css} closeable={closeable}>
     {closeable && (
       <CloseContainer
         onClick={() => {
           ActiveNotifications.splice(
-            ActiveNotifications.findIndex(
-              (notification) => notification.id === id
-            ),
+            ActiveNotifications.findIndex((notification) => notification.id === id),
             1
           )
           rerender()
