@@ -2,17 +2,14 @@ name: publish
 
 on:
   push:
-    branches: [ master ]
+    branches: [main]
 
 jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
-      - uses: actions/setup-node@v2.1.2
-        with:
-          node-version: '14'
-          check-latest: true
+      - uses: actions/checkout@v2
+      - run: node -v
       - name: Build Demo 🛠️
         run: |
           npm install
@@ -20,12 +17,12 @@ jobs:
           npm install
           npx papua build
       - name: Deploy Demo 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: publish
-          FOLDER: demo/dist
-          TARGET_FOLDER: demo
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: publish
+          folder: demo/dist
+          target-folder: demo
       - name: Build Docs 🛠️
         run: |
           npm install
@@ -33,9 +30,9 @@ jobs:
           npm install
           npx papua build
       - name: Deploy Docs 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: publish
-          FOLDER: doc/dist
-          TARGET_FOLDER: doc
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: publish
+          folder: doc/dist
+          target-folder: doc

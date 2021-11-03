@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/tobua/naven/raw/master/logo.svg" alt="naven">
+  <img src="https://github.com/tobua/naven/raw/main/logo.svg" alt="naven">
 </p>
 
 # naven
@@ -197,9 +197,7 @@ By default applicable elements will get a 20px `margin-bottom`. This space can b
 ```jsx
 import { Paragraph } from 'naven'
 
-const SpacedParagraph = (
-  <Paragraph space={0 | Space.large | 5 | '3vh' | undefined}>Hello</Paragraph>
-)
+const SpacedParagraph = <Paragraph space={0 | Space.large | 5 | '3vh' | undefined}>Hello</Paragraph>
 ```
 
 ## Responsive

@@ -1,7 +1,7 @@
 {
   "name": "naven",
   "description": "React based CSS-in-JS styling framework.",
-  "version": "0.7.4",
+  "version": "0.0.0-development",
   "repository": "github:tobua/naven",
   "homepage": "https://naven-documentation.vercel.app",
   "license": "MIT",
@@ -34,23 +34,24 @@
     "entry": "feature/*"
   },
   "dependencies": {
-    "@emotion/react": "^11.4.1",
+    "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@popperjs/core": "^2.10.2",
-    "@types/react": "^17.0.27",
+    "@types/react": "^17.0.34",
     "body-scroll-lock": "^3.1.5",
     "emotion-reset": "^3.0.1",
     "hex-rgb": "^5.0.0",
     "object-assign-deep": "^0.4.0",
-    "react-datepicker": "^4.2.1",
+    "react-datepicker": "^4.3.0",
     "react-popper": "^2.2.5",
-    "react-select": "^5.1.0",
+    "react-select": "^5.2.0",
     "react-syntax-highlighter": "^15.4.4",
     "wasser": "^2.1.0"
   },
   "peerDependencies": {
     "react": "^17.0.2"
   },
+  "sideEffects": false,
   "main": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
@@ -59,7 +60,6 @@
     "./Dropdown": "./dist/feature/Dropdown.js",
     "./Tooltip": "./dist/feature/Tooltip.js"
   },
-  "sideEffects": false,
   "source": "index.ts",
   "types": "dist/index.d.ts",
   "files": [
@@ -76,10 +76,10 @@
     "@emotion/core": "^11.0.0",
     "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.0.2",
-    "@types/node": "^16.10.3",
-    "@types/react-dom": "^17.0.9",
+    "@types/node": "^16.11.6",
+    "@types/react-dom": "^17.0.11",
     "@types/react-syntax-highlighter": "^13.5.2",
-    "padua": "^0.3.14",
+    "padua": "^0.4.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-test-renderer": "^17.0.2"
@@ -107,9 +107,7 @@
         }
       ]
     },
-    "transformIgnorePatterns": [
-      "node_modules/cint"
-    ]
+    "transformIgnorePatterns": []
   },
   "engines": {
     "node": ">= 14"
