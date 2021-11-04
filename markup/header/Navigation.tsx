@@ -61,6 +61,7 @@ const listElementStyles = cssStyles`
 
 const Content = styled.div<{ isOpen: boolean }>`
   height: ${({ isOpen }) => (isOpen ? 'auto' : 0)};
+  background: ${Color.background.var};
   overflow: hidden;
   position: absolute;
   top: 100%;
