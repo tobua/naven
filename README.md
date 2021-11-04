@@ -6,6 +6,7 @@
 
 [![naven Demo](https://img.shields.io/static/v1?label=naven&message=Demo&color=brightgreen)](https://tobua.github.io/naven/demo)
 [![naven Docs](https://img.shields.io/static/v1?label=naven&message=Documentation&color=blue)](https://naven-documentation.vercel.app)
+[![npm](https://img.shields.io/npm/v/naven)](https://npmjs.com/naven)
 
 React based CSS-in-JS styling framework.
 

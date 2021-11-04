@@ -12,7 +12,7 @@ const Wrapper = styled.div<{
   display: grid;
   grid-gap: ${Space.small};
   grid-template-columns: repeat(${({ columns }) => columns}, 1fr);
-  background: ${Color.Gray[300]};
+  background: ${Color.Gray[300].var};
   ${() => radius()}
   padding: ${Space.small};
 

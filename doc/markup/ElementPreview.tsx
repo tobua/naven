@@ -12,11 +12,12 @@ const Header = styled.header`
 
 const TabButton = styled(Button)<{ bold: boolean }>`
   ${({ bold }) => (bold ? Font.weight.bold : '')}
-  background: ${({ bold }) => (bold ? Color.highlight : Color.Gray[300])};
+  background: ${({ bold }) => (bold ? Color.highlight.var : Color.Gray[300].var)};
+  opacity: 0.8;
 
   &:active,
   &:focus {
-    background: ${({ bold }) => (bold ? Color.highlight : Color.Gray[300])};
+    opacity: 1;
   }
 
   ${Breakpoint.Phone} {

@@ -1,6 +1,6 @@
 import { render, unmountComponentAtNode } from 'react-dom'
 import { Router, Page } from 'epic-react-router'
-import { Global, Header, Image } from 'naven'
+import { Global, Header } from 'naven'
 import 'utility/configure'
 import { Configuration } from 'pages/Configuration'
 import { Elements } from 'pages/Element'

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { render } from 'react-dom'
-import { css } from '@emotion/react'
 import {
   Global,
   Header,
@@ -21,6 +20,9 @@ import {
   configure,
   Input,
   Checkbox,
+  Theme,
+  css,
+  styled,
 } from 'naven'
 import { Dropdown } from 'naven/Dropdown'
 
@@ -88,27 +90,19 @@ const Viewport = () => {
 const Body = () => {
   const [theme, setTheme] = useState('light')
   const toggleTheme = () => {
+    const nextTheme = theme === 'light' ? 'dark' : 'light'
     configure({
       colors: {
-        backgroundContrast: theme === 'light' ? '#FFF' : '#000',
+        backgroundContrast: nextTheme === 'light' ? Color.black.value : Color.white.value,
+        background: nextTheme === 'light' ? Color.white.value : Color.black.value,
       },
     })
-
-    setTheme(theme === 'light' ? 'dark' : 'light')
-  }
-
-  let bodyStyles
-
-  if (theme === 'dark') {
-    bodyStyles = css`
-      background: ${Color.black};
-      color: ${Color.white};
-    `
+    setTheme(nextTheme)
   }
 
   return (
     <>
-      <Global bodyCss={bodyStyles} root="body" />
+      <Global root="body" />
       <Header>
         <Header.Title.Text>naven Demo</Header.Title.Text>
         <Header.Meta
@@ -140,25 +134,33 @@ const Body = () => {
             I'm a button
           </Button>
           <Button space={0} interact onClick={toggleTheme}>
-            Toggle dark theme
+            Toggle {theme === 'light' ? 'dark' : 'light'} theme
           </Button>
         </Horizontal>
         <Paragraph
           css={css`
-            background: ${Color.Gray[300]};
+            background: ${Color.Gray[300].var};
             padding: ${Space.small};
             ${Font.family.serif}
           `}
         >
           This is a paragraph with some custom styles.
         </Paragraph>
+        <Theme
+          variables={[[Color.highlight, Color.warning.value]]}
+          css={css`
+            border: 1px solid ${Color.black.var};
+            padding: ${Space.small};
+          `}
+        >
+          <Button highlight>I'm a highlight button inside a customized theme</Button>
+        </Theme>
         <Image width={200} height={100} />
         <Paragraph>
-          I bet you haven't heard of <InlineCode>naven</InlineCode> the new UI
-          framework to create websites quickly. The above{' '}
-          <InlineCode>{`<Image width={200} height={100} />`}</InlineCode> will
-          display a placeholder for development when no{' '}
-          <InlineCode>src</InlineCode> attribute is set.
+          I bet you haven't heard of <InlineCode>naven</InlineCode> the new UI framework to create
+          websites quickly. The above{' '}
+          <InlineCode>{`<Image width={200} height={100} />`}</InlineCode> will display a placeholder
+          for development when no <InlineCode>src</InlineCode> attribute is set.
         </Paragraph>
         <Viewport />
         <Horizontal wrap>

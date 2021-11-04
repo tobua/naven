@@ -25,7 +25,7 @@ export const Bold = styled.b<{ css?: SerializedStyles }>`
 `
 
 export const Important = styled.strong<{ css?: SerializedStyles }>`
-  color: ${Color.highlight};
+  color: ${Color.highlight.var};
   ${Font.weight.bold}
   ${({ css }) => css}
 `
@@ -47,7 +47,7 @@ export const Quote = styled.blockquote<{
     display: block;
     position: absolute;
     left: calc(${Space.medium} * -1);
-    background: ${Color.highlight};
+    background: ${Color.highlight.var};
     width: ${Space.tiny};
     height: 100%;
   }

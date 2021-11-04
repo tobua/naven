@@ -18,7 +18,7 @@ import { Code } from 'naven/Code'
 import { PropertyTable } from 'markup/PropertyTable'
 
 const highlightLayoutCss = css`
-  background-color: ${Color.Gray[300]};
+  background-color: ${Color.Gray[300].var};
   padding: ${Space.small};
 `
 

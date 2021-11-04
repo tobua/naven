@@ -18,30 +18,30 @@ export enum Underline {
 
 const getTextLinkColor = ({ underline = Underline.none }) => {
   if (underline === Underline.regular) {
-    return Color.interact
+    return Color.interact.var
   }
 
-  return Color.backgroundContrast
+  return Color.backgroundContrast.var
 }
 
 const getTextLinkHoverColor = ({ underline = Underline.none }) => {
   if (underline === Underline.animated) {
-    return Color.backgroundContrast
+    return Color.backgroundContrast.var
   }
 
   if (underline === Underline.background) {
-    return Color.colorContrast
+    return Color.colorContrast.var
   }
 
-  return Color.interact
+  return Color.interact.var
 }
 
 const getTextLinkUnderline = ({ underline = Underline.none }) => {
   if (underline === Underline.background) {
     return `background-image: linear-gradient(
       120deg,
-      ${Color.highlight} 0%,
-      ${Color.interact} 100%
+      ${Color.highlight.var} 0%,
+      ${Color.interact.var} 100%
     );
     background-repeat: no-repeat;
     background-size: 100% 3px;

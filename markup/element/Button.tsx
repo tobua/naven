@@ -1,17 +1,17 @@
 import React, { ButtonHTMLAttributes } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
-import { Space, Color, Shade, Font, radius, spaceProp } from '../../style'
+import { Space, Color, Font, radius, spaceProp } from '../../style'
 
-const getButtonColor = ({ highlight = false, interact = false }, opacity: number) => {
+const getButtonColor = ({ highlight = false, interact = false }) => {
   if (highlight) {
-    return Shade(Color.highlight, opacity)
+    return Color.highlight.var
   }
   if (interact) {
-    return Shade(Color.interact, opacity)
+    return Color.interact.var
   }
 
-  return Shade(Color.Gray[700], opacity)
+  return Color.Gray[700].var
 }
 
 const Wrapper = styled.button<{
@@ -21,12 +21,13 @@ const Wrapper = styled.button<{
   space?: string | number
 }>`
   padding: ${Space.small};
-  background-color: ${(props) => getButtonColor(props, 0.8)};
+  background-color: ${(props) => getButtonColor(props)};
+  opacity: 0.8;
   border: none;
   outline: none;
   cursor: ${({ disabled }) => (disabled ? 'auto' : 'pointer')};
   ${() => radius()}
-  color: ${Color.white};
+  color: ${Color.white.var};
   text-decoration: ${({ disabled }) => (disabled ? 'line-through' : '')};
   ${Font.size.medium}
   ${spaceProp}
@@ -34,7 +35,7 @@ const Wrapper = styled.button<{
   &:hover,
   &:focus {
     outline: none;
-    background-color: ${(props) => getButtonColor(props, 1)};
+    opacity: 1;
   }
 
   ${({ css }) => css}

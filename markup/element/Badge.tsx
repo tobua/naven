@@ -14,10 +14,10 @@ const Dot = styled.div<{ hasContent: boolean; css?: SerializedStyles }>`
   min-width: ${({ hasContent }) => (hasContent ? 'auto' : Space.small)};
   height: ${({ hasContent }) => (hasContent ? Space.medium : Space.small)};
   border-radius: ${Space.small};
-  background: ${Color.highlight};
+  background: ${Color.highlight.var};
   right: calc(${({ hasContent }) => (hasContent ? Space.small : Space.tiny)} * -1);
   top: calc(${({ hasContent }) => (hasContent ? Space.small : Space.tiny)} * -1);
-  color: ${Color.colorContrast};
+  color: ${Color.colorContrast.var};
   display: flex;
   justify-content: center;
   align-items: center;

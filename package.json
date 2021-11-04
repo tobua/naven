@@ -14,6 +14,7 @@
   "padua": {
     "tsconfig": {
       "compilerOptions": {
+        "target": "es6",
         "types": [
           "@types/jest"
         ],
@@ -40,12 +41,12 @@
     "@types/react": "^17.0.34",
     "body-scroll-lock": "^3.1.5",
     "emotion-reset": "^3.0.1",
-    "hex-rgb": "^5.0.0",
     "object-assign-deep": "^0.4.0",
     "react-datepicker": "^4.3.0",
     "react-popper": "^2.2.5",
     "react-select": "^5.2.0",
     "react-syntax-highlighter": "^15.4.4",
+    "throttle-debounce": "^3.0.1",
     "wasser": "^2.1.0"
   },
   "peerDependencies": {
@@ -74,11 +75,13 @@
   ],
   "devDependencies": {
     "@emotion/core": "^11.0.0",
+    "@emotion/jest": "^11.5.0",
     "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.6",
     "@types/react-dom": "^17.0.11",
     "@types/react-syntax-highlighter": "^13.5.2",
+    "@types/throttle-debounce": "^2.1.0",
     "padua": "^0.4.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

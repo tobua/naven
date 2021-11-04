@@ -7,7 +7,7 @@ import { configure as configureLayer } from './layer'
 import { configure as configureFont } from './font'
 import { configure as configureResponsive } from './responsive'
 
-export { Color, Shade } from './color'
+export { Color } from './color'
 export { Breakpoints, Breakpoint, useBreakpoint } from './breakpoint'
 export { Space, spaceProp, spaceStyleProp } from './space'
 export { Layer } from './layer'
@@ -17,7 +17,7 @@ export { toPx } from './utility'
 export { unit } from './responsive'
 
 // Types that can be used to type inputs requiring styles.
-export { Space as SpaceSize } from './types'
+export { Space as SpaceSize, CSSVariable, isCssVariable } from './types'
 
 export const configure = (configuration: IConfiguration) => {
   if (configuration.colors) {

@@ -23,7 +23,7 @@ const Tab = styled.div<{ active?: boolean }>`
 
   :hover,
   :focus {
-    color: ${Color.interact};
+    color: ${Color.interact.var};
     outline: none;
   }
 `

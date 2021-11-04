@@ -35,7 +35,7 @@ export const Wrapper = styled.nav<{
         bottom: 0;
         margin: ${Space.medium};
         display: flex;
-        background: ${Color.background};
+        background: ${Color.background.var};
         height: calc(100vh - ${Space.medium} - 2 * ${Space.small});`
         : ''}
   }
@@ -61,7 +61,6 @@ const listElementStyles = cssStyles`
 
 const Content = styled.div<{ isOpen: boolean }>`
   height: ${({ isOpen }) => (isOpen ? 'auto' : 0)};
-  background: #fff;
   overflow: hidden;
   position: absolute;
   top: 100%;
@@ -130,13 +129,13 @@ const ToggleIcon = ({
     <ToggleIconWrapper css={css}>
       {showNavigation ? (
         <Close
-          color={Color.backgroundContrast}
+          color={Color.backgroundContrast.var}
           onClick={() => setShowNavigation(false)}
           css={iconStyles}
         />
       ) : (
         <Menu
-          color={Color.backgroundContrast}
+          color={Color.backgroundContrast.var}
           onClick={() => setShowNavigation(true)}
           css={iconStyles}
         />
@@ -153,7 +152,7 @@ const TabElement = styled.div<{ css?: SerializedStyles }>`
     outline: none;
 
     & > a {
-      color: ${Color.interact};
+      color: ${Color.interact.var};
     }
   }
   ${({ css }) => css}

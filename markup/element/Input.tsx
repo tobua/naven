@@ -8,13 +8,13 @@ const Wrapper = styled.input<{
   space?: string | number
 }>`
   padding: ${Space.small};
-  border: 1px solid ${Color.black};
+  border: 1px solid ${Color.black.var};
   ${Font.size.medium}
   ${() => radius()}
   ${spaceProp}
 
   &:focus {
-    box-shadow: inset 0 0 0 1px ${Color.black};
+    box-shadow: inset 0 0 0 1px ${Color.black.var};
     outline: none;
   }
 

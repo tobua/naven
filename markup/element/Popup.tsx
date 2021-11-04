@@ -12,7 +12,7 @@ const Wrapper = styled.div<{ css?: SerializedStyles }>`
   right: 0;
   bottom: 0;
   display: flex;
-  background: ${Color.white};
+  background: ${Color.background.var};
   z-index: ${Layer.Popup};
   ${({ css }) => css}
 `

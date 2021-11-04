@@ -1,7 +1,7 @@
 import { configure, Color, Space, Font, Breakpoints, Look } from '../index'
 
 test('Highlight color can be configured.', () => {
-  expect(Color.highlight).toEqual('#0047FF')
+  expect(Color.highlight.value).toEqual('#0047FF')
 
   configure({
     colors: {
@@ -9,12 +9,12 @@ test('Highlight color can be configured.', () => {
     },
   })
 
-  expect(Color.highlight).toEqual('#FF00FF')
+  expect(Color.highlight.value).toEqual('#FF00FF')
 })
 
 test('Other values remain untouched.', () => {
-  expect(Color.interact).toEqual('#FF007A')
-  expect(Color.Gray[300]).toEqual('#E0E0E0')
+  expect(Color.interact.value).toEqual('#FF007A')
+  expect(Color.Gray[300].value).toEqual('#E0E0E0')
   expect(Space.medium).toContain('20px')
   expect(Breakpoints.phone).toEqual(500)
 
@@ -24,8 +24,8 @@ test('Other values remain untouched.', () => {
     },
   })
 
-  expect(Color.interact).toEqual('#FF007A')
-  expect(Color.Gray[300]).toEqual('#E0E0E0')
+  expect(Color.interact.value).toEqual('#FF007A')
+  expect(Color.Gray[300].value).toEqual('#E0E0E0')
   expect(Space.medium).toContain('20px')
   expect(Breakpoints.phone).toEqual(500)
 })

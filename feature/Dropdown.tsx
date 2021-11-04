@@ -36,7 +36,7 @@ const customStyles = ({ space, containerStyles, backgroundColor }: IDropdown) =>
 export const Dropdown = ({
   space,
   containerStyles,
-  backgroundColor = Color.white,
+  backgroundColor = Color.white.var,
   ...props
 }: IDropdown & SelectProps) => (
   <Select
@@ -49,7 +49,7 @@ export const Dropdown = ({
       borderRadius: radiusValue(),
       // @ts-ignore TODO issue likely with plugin types.
       colors: {
-        primary: Color.highlight,
+        primary: Color.highlight.var,
       },
       ...props.theme,
     }}

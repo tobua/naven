@@ -1,5 +1,14 @@
 import { font } from 'wasser'
 
+export interface CSSVariable {
+  value: string
+  var: string
+  name: string
+}
+
+export const isCssVariable = (value: any) =>
+  value && typeof value === 'object' && value.type === '__css-variable'
+
 export interface IConfiguration {
   colors?: IColor
   space?: ISpaceInput
@@ -33,7 +42,6 @@ export interface IColor {
     500?: string
     700?: string
   }
-  Shade?: (color: string, opacity: number) => string
 }
 
 export interface IFont {

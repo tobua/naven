@@ -26,7 +26,7 @@ const ColorPreview = styled.div<{ color: string; contrast?: string }>`
   justify-content: center;
   align-items: center;
   padding: ${Space.small};
-  color: ${({ contrast = Color.colorContrast }) => contrast};
+  color: ${({ contrast = Color.colorContrast.var }) => contrast};
 
   :hover {
     transform: scale(1.25);
@@ -38,15 +38,15 @@ export const Style = ({ onStyleChange }: { onStyleChange: () => void }) => (
   <Content>
     <Heading as="h2">Colors</Heading>
     <Horizontal gap={0}>
-      <ColorPreview color={Color.highlight}>highlight</ColorPreview>
-      <ColorPreview color={Color.interact}>interact</ColorPreview>
-      <ColorPreview color={Color.black}>black</ColorPreview>
-      <ColorPreview color={Color.white} contrast={Color.black}>
+      <ColorPreview color={Color.highlight.var}>highlight</ColorPreview>
+      <ColorPreview color={Color.interact.var}>interact</ColorPreview>
+      <ColorPreview color={Color.black.var}>black</ColorPreview>
+      <ColorPreview color={Color.white.var} contrast={Color.black.var}>
         white
       </ColorPreview>
-      <ColorPreview color={Color.warning}>warning</ColorPreview>
-      <ColorPreview color={Color.error}>error</ColorPreview>
-      <ColorPreview color={Color.colorContrast} contrast={Color.black}>
+      <ColorPreview color={Color.warning.var}>warning</ColorPreview>
+      <ColorPreview color={Color.error.var}>error</ColorPreview>
+      <ColorPreview color={Color.colorContrast.var} contrast={Color.black.var}>
         contrast
       </ColorPreview>
     </Horizontal>
@@ -55,6 +55,7 @@ export const Style = ({ onStyleChange }: { onStyleChange: () => void }) => (
       disabled={!Object.keys(getStoredStyles()).length}
       onClick={() => {
         window.localStorage.removeItem('styles')
+        // @ts-ignore
         configure(defaultStyles)
         onStyleChange()
       }}

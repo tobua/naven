@@ -1,6 +1,6 @@
 import { SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
-import { Space, SpaceSize } from '../../style'
+import { Space, Color, SpaceSize } from '../../style'
 
 export const Spacer = styled.hr<{
   size?: SpaceSize
@@ -19,7 +19,7 @@ export const Spacer = styled.hr<{
     content: '';
     display: block;
     height: 1px;
-    background: black;
+    background: ${Color.backgroundContrast.var};
     width: 100%;
     position: absolute;
     top: calc(50% - 1px);

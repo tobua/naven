@@ -2,10 +2,10 @@ import React, { useRef, InputHTMLAttributes } from 'react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
 import { uniqueID } from '../../utility/unique-id'
-import { Color, Space, radius, spaceProp, Shade } from '../../style'
+import { Color, Space, radius, spaceProp } from '../../style'
 
 const CheckboxInput = styled.input<{ css?: SerializedStyles }>`
-  border: 1px solid ${Color.black};
+  border: 1px solid ${Color.black.var};
   cursor: pointer;
   ${() => radius(2)}
   appearance: none;
@@ -19,7 +19,7 @@ const CheckboxInput = styled.input<{ css?: SerializedStyles }>`
   }
 
   &:checked {
-    background: ${Color.black};
+    background: ${Color.black.var};
   }
 
   &:focus {
@@ -30,7 +30,7 @@ const CheckboxInput = styled.input<{ css?: SerializedStyles }>`
 `
 
 const RadioInput = styled.input<{ css?: SerializedStyles }>`
-  border: 1px solid ${Color.black};
+  border: 1px solid ${Color.black.var};
   cursor: pointer;
   border-radius: 100%;
   appearance: none;
@@ -44,7 +44,7 @@ const RadioInput = styled.input<{ css?: SerializedStyles }>`
   }
 
   &:checked {
-    background: ${Color.black};
+    background: ${Color.black.var};
   }
 
   &:focus {
@@ -62,15 +62,15 @@ const Wrapper = styled.div<{ css?: SerializedStyles; space?: string | number }>`
 
   &:focus {
     outline: none;
-    color: ${Color.interact};
+    color: ${Color.interact.var};
 
     input {
-      border-color: ${Color.interact};
+      border-color: ${Color.interact.var};
       outline: none;
     }
 
     input:checked {
-      box-shadow: inset 0 0 0 3px ${Shade(Color.interact, 0.75)};
+      box-shadow: inset 0 0 0 3px ${Color.interact.var};
     }
   }
 `

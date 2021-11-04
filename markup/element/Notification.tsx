@@ -51,14 +51,14 @@ const NotificationWrapper = styled.div<{
   border: 1px solid
     ${({ type }) => {
       if (type === 'error') {
-        return Color.error
+        return Color.error.var
       }
 
       if (type === 'warning') {
-        return Color.warning
+        return Color.warning.var
       }
 
-      return Color.highlight
+      return Color.highlight.var
     }};
   padding: ${Space.small};
   ${({ closeable }) => (closeable ? `padding-right: calc(${Space.small} * 3);` : '')}

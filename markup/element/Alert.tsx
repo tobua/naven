@@ -32,7 +32,7 @@ const Wrapper = styled.div<{
   ${spaceProp}
   ${({ css }) => css}
   border: 1px solid
-    ${({ type }) => valueByType(type, [Color.Gray['500'], Color.warning, Color.error])};
+    ${({ type }) => valueByType(type, [Color.Gray['500'].var, Color.warning.var, Color.error.var])};
 `
 
 const CloseContainer = styled.div`

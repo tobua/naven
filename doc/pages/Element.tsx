@@ -155,7 +155,7 @@ export const Elements = () => (
       disabled
       space={0}
       css={css`
-        background: ${Color.black};
+        background: ${Color.black.var};
       `}
     >
       Can't touch this
@@ -165,7 +165,7 @@ export const Elements = () => (
 import { css } from '@emotion/react'
 
 <Button space={Space.large}>Press me!</Button>
-<Button disabled space={0} css={css\`background: \${Color.black};\`}>Can't touch this</Button>`}
+<Button disabled space={0} css={css\`background: \${Color.black.var};\`}>Can't touch this</Button>`}
     </Code>
     <ElementPreview
       title="Button"
@@ -622,7 +622,7 @@ import { css } from '@emotion/react'
         </>
         <>
           <Text>backgroundColor</Text>
-          <Text>Color.white</Text>
+          <Text>Color.white.var</Text>
           <Text>string</Text>
         </>
         <>
@@ -1054,27 +1054,27 @@ Use <InlineCode>const</InlineCode> to define variables.`}
           space={0}
           css={css`
             row-gap: 0;
-            background: ${Color.Gray[200]};
+            background: ${Color.Gray[200].var};
             padding: ${Space.medium};
           `}
         >
           <Spacer
             css={css`
-              background: ${Color.white};
+              background: ${Color.white.var};
             `}
           />
           <br />
           <Spacer
             size="large"
             css={css`
-              background: ${Color.white};
+              background: ${Color.white.var};
             `}
           />
           <br />
           <Spacer
             line
             css={css`
-              background: ${Color.white};
+              background: ${Color.white.var};
             `}
           />
         </Vertical>
