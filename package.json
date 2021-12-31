@@ -14,6 +14,7 @@
   "padua": {
     "tsconfig": {
       "compilerOptions": {
+        "skipLibCheck": true,
         "target": "es6",
         "types": [
           "@types/jest"
@@ -35,23 +36,24 @@
     "entry": "feature/*"
   },
   "dependencies": {
-    "@emotion/react": "^11.5.0",
-    "@emotion/styled": "^11.3.0",
-    "@popperjs/core": "^2.10.2",
-    "@types/react": "^17.0.34",
+    "@popperjs/core": "^2.11.0",
+    "@stitches/react": "^1.2.6",
+    "@types/react": "^17.0.38",
     "body-scroll-lock": "^3.1.5",
-    "emotion-reset": "^3.0.1",
+    "laier": "^1.0.3",
+    "memoize-one": "^6.0.0",
     "object-assign-deep": "^0.4.0",
-    "react-datepicker": "^4.3.0",
+    "react-datepicker": "^4.5.0",
     "react-popper": "^2.2.5",
-    "react-select": "^5.2.0",
-    "react-syntax-highlighter": "^15.4.4",
+    "react-select": "^5.2.1",
+    "react-syntax-highlighter": "^15.4.5",
     "throttle-debounce": "^3.0.1",
-    "wasser": "^2.1.0"
+    "wasser": "^2.2.0"
   },
   "peerDependencies": {
     "react": "^17.0.2"
   },
+  "type": "module",
   "sideEffects": false,
   "main": "dist/index.js",
   "exports": {
@@ -71,28 +73,27 @@
     "ui-framework",
     "react",
     "css-in-js",
-    "emotion"
+    "stitches"
   ],
   "devDependencies": {
-    "@emotion/core": "^11.0.0",
-    "@emotion/jest": "^11.5.0",
     "@testing-library/react": "^12.1.2",
-    "@types/jest": "^27.0.2",
-    "@types/node": "^16.11.6",
+    "@types/jest": "^27.0.3",
+    "@types/node": "^17.0.5",
+    "@types/object-assign-deep": "^0.4.0",
     "@types/react-dom": "^17.0.11",
     "@types/react-syntax-highlighter": "^13.5.2",
     "@types/throttle-debounce": "^2.1.0",
-    "padua": "^0.4.1",
+    "padua": "^0.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-test-renderer": "^17.0.2"
   },
   "prettier": "padua/configuration/.prettierrc.json",
   "eslintConfig": {
-    "extends": "./node_modules/padua/configuration/eslint.cjs"
-  },
-  "stylelint": {
-    "extends": "padua/configuration/stylelint.cjs"
+    "extends": "./node_modules/padua/configuration/eslint.cjs",
+    "rules": {
+      "react/function-component-definition": 0
+    }
   },
   "jest": {
     "globals": {

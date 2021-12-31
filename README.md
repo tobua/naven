@@ -52,7 +52,7 @@ render(
 
 The base components are populated with some example date which you can see in . This data should be configured on the respective components for example the Header.
 
-Complex components can be customized and combined in many ways to achieve desired layouts. Check out the [demo](https://tobua.github.io/naven/demo) for a basic example without much customization. Some components require input data in order to render anything useful, i.e. the links for the navigation. Refer to the documentation how to configure the base components [Configuration](https://tobua.github.io/naven/doc/configuration).
+Complex components can be customized and combined in many ways to achieve desired layouts. Check out the [demo](https://tobua.github.io/naven/demo) for a basic example without much customization. Some components require input data in order to render anything useful, i.e. the links for the navigation. Refer to the documentation how to configure the base components [Configuration](https://naven-documentation.vercel.app/configuration).
 
 ```jsx
 import { Header, Image } from 'naven'
@@ -259,4 +259,4 @@ const CustomSizedHeading = css`
 
 ## Development
 
-To view your changes live run `npm start` in the `/demo` or `/doc` folder. This will open a preview in the browser and automatically build and watch the plugin for changes.
+To view your changes live run `npm start` in the `/demo` or `/documentation` folder. This will open a preview in the browser and automatically build and watch the plugin for changes.

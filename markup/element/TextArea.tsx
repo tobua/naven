@@ -1,39 +1,41 @@
-import React, { DetailedHTMLProps, TextareaHTMLAttributes } from 'react'
-import styled from '@emotion/styled'
-import { SerializedStyles } from '@emotion/react'
-import { Color, Space, Font, radius, spaceProp } from '../../style'
+import React, { TextareaHTMLAttributes, ReactNode } from 'react'
+import { naven } from '../../style'
+import type { ComponentProps, ComponentStylesDefinition } from '../../types'
+import { createComponent } from '../../utility/component'
 
-const Wrapper = styled.textarea<{
-  css?: SerializedStyles
-  space?: string | number
-}>`
-  padding: ${Space.small};
-  border: 1px solid ${Color.black.var};
-  resize: none;
-  ${() => radius()}
-  ${spaceProp}
-  ${Font.family.regular}
-  
-  &:focus {
-    box-shadow: inset 0 0 0 1px ${Color.black.var};
-    outline: none;
-  }
+export interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  children: ReactNode
+  count?: number | string
+  type?: 'content'
+}
 
-  ${({ css }) => css}
-`
+type Sheets = 'Main'
 
-export const TextArea = ({
-  onValue,
-  ...props
-}: DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement> & {
-  onValue?: (value: string) => void
-  css?: SerializedStyles
-  space?: string | number
-}) => {
+const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+  Main: {
+    tag: 'textarea',
+    main: true,
+    css: {
+      padding: naven.theme.space.small,
+      border: `1px solid ${naven.theme.color.backgroundContrast}`,
+      resize: 'none',
+      borderRadius: naven.theme.look.radius,
+      fontFamily: naven.theme.font.familyRegular,
+      '&:focus': {
+        boxShadow: `inset 0 0 0 1px ${naven.theme.color.backgroundContrast}`,
+        outline: 'none',
+      },
+    },
+  },
+})
+
+const TextArea = ({ Sheet, props }: ComponentProps<Sheets>) => {
+  const { children, onValue, ...otherProps } = props
+
   if (onValue) {
     const initialOnChange = props.onChange
     // eslint-disable-next-line no-param-reassign
-    props.onChange = (event) => {
+    otherProps.onChange = (event) => {
       onValue(event.target.value)
       if (initialOnChange) {
         initialOnChange(event)
@@ -41,5 +43,7 @@ export const TextArea = ({
     }
   }
 
-  return <Wrapper {...props} />
+  return <Sheet.Main.Component css={Sheet.Main.css} {...otherProps} />
 }
+
+export default createComponent<Props, Sheets>(styles, TextArea)

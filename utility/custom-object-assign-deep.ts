@@ -1,7 +1,8 @@
 // npmjs.com/object-assign-deep modified to update CSSVariables used in this project.
 
 const isCssVariable = (value: { type?: any }) =>
-  Object.prototype.hasOwnProperty.call(value, 'type') && value.type === '__css-variable'
+  Object.prototype.hasOwnProperty.call(value, 'token') &&
+  Object.prototype.hasOwnProperty.call(value, 'value')
 
 function getTypeOf(input) {
   if (input === null) {
@@ -60,7 +61,9 @@ function quickCloneObject(input) {
       continue
     }
 
-    output[key] = cloneValue(input[key])
+    if (input[key]) {
+      output[key] = cloneValue(input[key])
+    }
   }
 
   return output
@@ -79,10 +82,12 @@ const executeDeepMerge = (target: object, _objects: object[]) => {
   const output = target || {}
 
   // Enumerate the objects and their keys.
+  // eslint-disable-next-line no-plusplus
   for (let oindex = 0; oindex < objects.length; oindex++) {
     const object = objects[oindex] as any
     const keys = Object.keys(object)
 
+    // eslint-disable-next-line no-plusplus
     for (let kindex = 0; kindex < keys.length; kindex++) {
       const key = keys[kindex]
       const value = object[key]

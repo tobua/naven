@@ -9,29 +9,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build Demo 🛠️
+      - name: 🛠️ Build Demo
         run: |
           npm install
           cd demo
           npm install
           npx papua build
-      - name: Deploy Demo 🚀
+      - name: 🚀 Publish Demo
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           branch: publish
           folder: demo/dist
           target-folder: demo
-      - name: Build Docs 🛠️
+      - name: 🛠️ Build Documentation
         run: |
           npm install
-          cd doc
+          cd documentation
           npm install
           npx papua build
-      - name: Deploy Docs 🚀
+      - name: 🚀 Publish Documentation
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           branch: publish
-          folder: doc/dist
-          target-folder: doc
+          folder: documentation/dist
+          target-folder: documentation

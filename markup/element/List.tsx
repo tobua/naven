@@ -1,137 +1,128 @@
-import React, { ReactNode, DetailedHTMLProps, LiHTMLAttributes } from 'react'
-import { SerializedStyles } from '@emotion/react'
-import styled from '@emotion/styled'
-import { Space, toPx, spaceProp, unit } from '../../style'
+import React, { HTMLAttributes, LiHTMLAttributes, ReactNode, Fragment } from 'react'
+import type { ComponentProps, ComponentStylesDefinition } from '../../types'
+import { createComponent } from '../../utility/component'
+import { unit } from '../../style'
 
-enum ListType {
-  ordered = 'ol',
-  unordered = 'ul',
-  description = 'dl',
-}
-
-type ListTypeInputs = ListType | 'ol' | 'ul' | 'dl'
-
-const getPadding = (type: ListTypeInputs, horizontal?: boolean, listStyle?: boolean) => {
-  if (horizontal || type === ListType.description || !listStyle) {
-    return '0'
-  }
-
-  return unit(20)
-}
-
-const getListStyle = ({ listStyle, type }: { listStyle?: boolean; type: ListTypeInputs }) => {
-  if (!listStyle || type === ListType.description) {
-    return ''
-  }
-
-  return `list-style: ${type === ListType.ordered ? 'decimal' : 'disc'};`
-}
-
-const ListTag = (type: ListTypeInputs) => styled(type)<ListProps & { type: ListTypeInputs }>`
-  display: flex;
-  flex-direction: ${({ horizontal }) => (horizontal ? 'row' : 'column')};
-  flex-wrap: ${({ wrap }) => (wrap ? 'wrap' : 'inherit')};
-  row-gap: ${({ gap }) => toPx(gap)};
-  column-gap: ${({ gap }) => toPx(gap)};
-  overflow: ${({ wrap }) => (wrap ? 'visible' : 'auto')};
-  padding-inline-start: ${({ horizontal, listStyle }) => getPadding(type, horizontal, listStyle)};
-
-  ${getListStyle}
-  ${spaceProp}
-  ${({ css }) => css}
-`
-
-const ListElement = styled.li<{
-  horizontal?: boolean
-  listStyle?: boolean
-  css?: SerializedStyles
-}>`
-  ${({ horizontal, listStyle }) => (horizontal && listStyle ? `margin-left: ${unit(20)};` : '')}
-  ${({ css }) => css}
-`
-
-const ListDt = styled.dt<{ css?: SerializedStyles }>`
-  ${({ css }) => css}
-`
-
-const ListDd = styled.dd<{ css?: SerializedStyles }>`
-  margin-left: ${unit(20)};
-  ${({ css }) => css}
-`
-
-const renderListElements = (
-  children: ReactNode | ReactNode[],
-  elementProps: any,
-  horizontal?: boolean,
-  listStyle?: boolean
-) => {
-  if (!Array.isArray(children)) {
-    return [
-      <ListElement key="0" listStyle={listStyle} horizontal={horizontal} {...elementProps}>
-        {children}
-      </ListElement>,
-    ]
-  }
-
-  return children.map((child, index) => (
-    <ListElement key={index} listStyle={listStyle} horizontal={horizontal} {...elementProps}>
-      {child}
-    </ListElement>
-  ))
-}
-
-interface ListProps {
-  horizontal?: boolean
-  wrap?: boolean
-  css?: SerializedStyles
-  gap?: number | string
+export interface Props extends HTMLAttributes<HTMLUListElement> {
   children: ReactNode | ReactNode[]
-  space?: string | number
-  type?: ListTypeInputs
-  listStyle?: boolean
-  elementProps?: {
-    css?: SerializedStyles
-  } & DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>
+  horizontal?: true
+  wrap?: true
+  gap?: number | string
+  type?: 'ordered' | 'description' | 'disc'
+  elementProps?: LiHTMLAttributes<HTMLLIElement>
 }
 
-export const List = ({
-  horizontal,
-  children,
-  elementProps,
-  gap = Space.small,
-  type = ListType.unordered,
-  listStyle = false,
-  ...props
-}: ListProps) => {
-  if (!children) {
-    return null
-  }
+type Sheets = 'List' | 'Item'
 
-  const Wrapper = ListTag(type)
-  const listElements =
-    type === ListType.description
-      ? children
-      : renderListElements(children, elementProps, horizontal, listStyle)
+const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+  List: {
+    tag: 'ul',
+    main: true,
+    css: {
+      display: 'flex',
+      flexDirection: 'column',
+      paddingInlineStart: 0,
+      listStyle: 'none',
+      variants: {
+        type: {
+          ordered: {
+            listStyle: 'decimal',
+          },
+          description: {
+            listStyle: 'auto',
+          },
+          disc: {
+            listStyle: 'disc',
+          },
+        },
+      },
+    },
+  },
+  Item: {
+    tag: 'li',
+    css: {},
+  },
+})
+
+const renderItem = ({ Sheet, props }: ComponentProps, children: ReactNode, key = 0) => {
+  if (props.type === 'description') {
+    return (
+      <Fragment key={key}>
+        <dt>{`term`}</dt>
+        <dd style={{ marginLeft: 20 }}>{children}</dd>
+      </Fragment>
+    )
+  }
 
   return (
-    <Wrapper horizontal={horizontal} listStyle={listStyle} gap={gap} type={type} {...props}>
-      {listElements}
-    </Wrapper>
+    <Sheet.Item.Component css={Sheet.Item.css} key={key}>
+      {children}
+    </Sheet.Item.Component>
   )
 }
 
-// For dl tag, description lists.
-List.Description = ({
-  term,
-  children,
-}: {
-  term: string | ReactNode
-  children: string | ReactNode
-}) => (
-  <>
-    <ListDt>{term}</ListDt>
-    <ListDd>{children}</ListDd>
-  </>
+const renderItems = ({ Sheet, props }: ComponentProps) => {
+  if (!Array.isArray(props.children)) {
+    return [renderItem({ Sheet, props }, props.children)]
+  }
+
+  return props.children.map((child, index) => renderItem({ Sheet, props }, child, index))
+}
+
+const List = ({ Sheet, props }: ComponentProps<Sheets>) => {
+  const { children, horizontal, type, wrap, gap, ...otherProps } = props
+
+  return (
+    <Sheet.List.Component css={Sheet.List.css} {...otherProps}>
+      {renderItems({ Sheet, props })}
+    </Sheet.List.Component>
+  )
+}
+
+export default createComponent<Props, Sheets>(
+  styles,
+  List,
+  (allStyles, props) => {
+    if (props.type === 'ordered') {
+      allStyles.List.tag = 'ol'
+    }
+
+    if (props.type === 'description') {
+      allStyles.List.tag = 'dl'
+    }
+
+    if (props.horizontal) {
+      allStyles.List.css.flexDirection = 'row'
+      allStyles.List.css.gap = unit(20)
+    }
+
+    if (props.wrap) {
+      allStyles.List.css.flexWrap = 'wrap'
+      allStyles.List.css.overflow = 'visible'
+    }
+
+    if (props.gap) {
+      allStyles.List.css.rowGap = props.gap
+      allStyles.List.css.columnGap = props.gap
+    }
+
+    if (!props.horizontal && props.type !== 'description') {
+      allStyles.List.css.paddingInlineStart = unit(20)
+    }
+  },
+  (props) => [props.type]
 )
 
-List.Type = ListType
+// For dl tag, description lists.
+// List.Description = ({
+//   term,
+//   children,
+// }: {
+//   term: string | ReactNode
+//   children: string | ReactNode
+// }) => (
+//   <>
+//     <ListDt>{term}</ListDt>
+//     <ListDd>{children}</ListDd>
+//   </>
+// )

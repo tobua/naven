@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { IBreakpoint } from './types'
 
-export const Breakpoints: IBreakpoint = {
+export const Breakpoint: IBreakpoint = {
   phone: 500,
   tablet: 1000,
 }
@@ -9,23 +9,23 @@ export const Breakpoints: IBreakpoint = {
 const maxWidthQuery = (pixels: number) => `(max-width: ${pixels}px)`
 const minWidthQuery = (pixels: number) => `(min-width: ${pixels + 1}px)`
 
-export const configure = (_breakpoints: IBreakpoint) => {
-  Object.assign(Breakpoints, _breakpoints, { clone: false })
-}
+// export const configure = (_breakpoints: IBreakpoint) => {
+//   Object.assign(Breakpoints, _breakpoints, { clone: false })
+// }
 
-export const Breakpoint = new Proxy<{ Phone: string; Tablet: string }>({} as any, {
-  get: (_, property) => {
-    if (property === 'Phone') {
-      return `@media ${maxWidthQuery(Breakpoints.phone)}`
-    }
+// export const Breakpoint = new Proxy<{ Phone: string; Tablet: string }>({} as any, {
+//   get: (_, property) => {
+//     if (property === 'Phone') {
+//       return `@media ${maxWidthQuery(Breakpoints.phone)}`
+//     }
 
-    if (property === 'Tablet') {
-      return `@media ${maxWidthQuery(Breakpoints.tablet)}`
-    }
+//     if (property === 'Tablet') {
+//       return `@media ${maxWidthQuery(Breakpoints.tablet)}`
+//     }
 
-    return '@media screen'
-  },
-})
+//     return '@media screen'
+//   },
+// })
 
 type BreakpointWithPixel = {
   name: keyof IBreakpoint | null
@@ -33,7 +33,7 @@ type BreakpointWithPixel = {
 }
 
 const getLargestBreakpoint = () =>
-  Object.entries(Breakpoints).reduce((result, current) => {
+  Object.entries(Breakpoint).reduce((result, current) => {
     if (current[1] > result) {
       return current[1]
     }
@@ -53,7 +53,7 @@ const getMatcher = (currentPixels, entries: [string, number][], index: number) =
 
 const attachBreakpointListeners = (setBreakpoint: (point: BreakpointWithPixel) => void) => {
   const largestBreakpoint = getLargestBreakpoint()
-  const entries = Object.entries(Breakpoints)
+  const entries = Object.entries(Breakpoint)
   const matchers = entries.map(([name, pixels], index) => ({
     match: matchMedia(getMatcher(pixels, entries, index)),
     name,

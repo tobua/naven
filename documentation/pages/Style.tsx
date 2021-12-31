@@ -1,4 +1,3 @@
-import styled from '@emotion/styled'
 import { Konfi } from 'konfi'
 import merge from 'deepmerge'
 import { diff } from 'deep-object-diff'
@@ -7,46 +6,38 @@ import {
   Button,
   Content,
   Horizontal,
-  Color,
-  Space,
-  Look,
-  Breakpoints,
-  configure,
 } from 'naven'
-import { getStoredStyles } from 'utility/configure'
+import { getStoredStyles, styled, theme } from 'configuration'
 
 const defaultStyles = merge(
   {},
   { colors: Color, space: Space, breakpoints: Breakpoints, look: Look }
 )
 
-const ColorPreview = styled.div<{ color: string; contrast?: string }>`
-  background: ${({ color }) => color};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: ${Space.small};
-  color: ${({ contrast = Color.colorContrast.var }) => contrast};
-
-  :hover {
-    transform: scale(1.25);
-    transition: transform 300ms;
+const ColorPreview = styled('div', {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: theme.space.small,
+  '&:hover': {
+    transform: 'scale(1.25)',
+    transition: 'transform 300ms'
   }
-`
+})
 
 export const Style = ({ onStyleChange }: { onStyleChange: () => void }) => (
   <Content>
     <Heading as="h2">Colors</Heading>
     <Horizontal gap={0}>
-      <ColorPreview color={Color.highlight.var}>highlight</ColorPreview>
-      <ColorPreview color={Color.interact.var}>interact</ColorPreview>
-      <ColorPreview color={Color.black.var}>black</ColorPreview>
-      <ColorPreview color={Color.white.var} contrast={Color.black.var}>
+      <ColorPreview css={{ background: theme.color.highlight, color: theme.color.colorContrast}}>highlight</ColorPreview>
+      <ColorPreview css={{ background: theme.color.interact, color: theme.color.colorContrast}} color={Color..var}>interact</ColorPreview>
+      <ColorPreview css={{ background: theme.color.black, color: theme.color.colorContrast}} color={Color..var}>black</ColorPreview>
+      <ColorPreview css={{ background: theme.color.white, color: theme.color.black}}>
         white
       </ColorPreview>
-      <ColorPreview color={Color.warning.var}>warning</ColorPreview>
-      <ColorPreview color={Color.error.var}>error</ColorPreview>
-      <ColorPreview color={Color.colorContrast.var} contrast={Color.black.var}>
+      <ColorPreview css={{ background: theme.color.warning, color: theme.color.colorContrast}}>warning</ColorPreview>
+      <ColorPreview css={{ background: theme.color.error, color: theme.color.colorContrast}}>error</ColorPreview>
+      <ColorPreview css={{ background: theme.color.colorContrast, color: theme.color.black}}>
         contrast
       </ColorPreview>
     </Horizontal>

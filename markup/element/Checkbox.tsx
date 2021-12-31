@@ -1,128 +1,113 @@
-import React, { useRef, InputHTMLAttributes } from 'react'
-import styled from '@emotion/styled'
-import { SerializedStyles } from '@emotion/react'
+import React, { useCallback, useRef, InputHTMLAttributes } from 'react'
+import { naven } from '../../style'
+import type { ComponentProps, ComponentStylesDefinition } from '../../types'
+import { createComponent } from '../../utility/component'
 import { uniqueID } from '../../utility/unique-id'
-import { Color, Space, radius, spaceProp } from '../../style'
+import { blinkAnimation } from './Base'
 
-const CheckboxInput = styled.input<{ css?: SerializedStyles }>`
-  border: 1px solid ${Color.black.var};
-  cursor: pointer;
-  ${() => radius(2)}
-  appearance: none;
-  margin: 0;
-
-  &:before {
-    content: '';
-    display: flex;
-    width: ${Space.medium};
-    height: ${Space.medium};
-  }
-
-  &:checked {
-    background: ${Color.black.var};
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  ${({ css }) => css}
-`
-
-const RadioInput = styled.input<{ css?: SerializedStyles }>`
-  border: 1px solid ${Color.black.var};
-  cursor: pointer;
-  border-radius: 100%;
-  appearance: none;
-  margin: 0;
-
-  &:before {
-    content: '';
-    display: flex;
-    width: ${Space.medium};
-    height: ${Space.medium};
-  }
-
-  &:checked {
-    background: ${Color.black.var};
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  ${({ css }) => css}
-`
-
-const Wrapper = styled.div<{ css?: SerializedStyles; space?: string | number }>`
-  display: flex;
-  align-items: center;
-  ${({ css }) => css}
-  ${spaceProp}
-
-  &:focus {
-    outline: none;
-    color: ${Color.interact.var};
-
-    input {
-      border-color: ${Color.interact.var};
-      outline: none;
-    }
-
-    input:checked {
-      box-shadow: inset 0 0 0 3px ${Color.interact.var};
-    }
-  }
-`
-
-const Label = styled.label`
-  margin-left: ${Space.small};
-  cursor: pointer;
-`
-
-const toggleOnEnter = (event, inputRef) => {
-  if (event.key !== 'Enter') {
-    return
-  }
-
-  inputRef.current.checked = !inputRef.current.checked
-}
-
-type Props = InputHTMLAttributes<HTMLInputElement> & {
+export interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  as?: 'a'
+  href?: string
+  disabled?: true
+  color?: 'regular' | 'highlight' | 'interact'
+  type?: 'radio' | 'checkbox'
   label: string
-  css?: SerializedStyles
-  wrapperCss?: SerializedStyles
-  space?: string | number
 }
 
-export const Checkbox = ({ label, id = uniqueID(), wrapperCss, space, ...props }: Props) => {
-  const inputRef = useRef()
+type Sheets = 'Wrapper' | 'Input' | 'Label'
+
+const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+  Wrapper: {
+    tag: 'div',
+    css: {
+      display: 'flex',
+      alignItems: 'center',
+      '&:focus': {
+        outline: 'none',
+        color: naven.theme.color.interact,
+        input: {
+          borderColor: naven.theme.color.interact,
+          outline: 'none',
+        },
+        'input:checked': {
+          boxShadow: `inset 0 0 0 3px ${naven.theme.color.interact}`,
+        },
+      },
+    },
+  },
+  Label: {
+    tag: 'label',
+    css: {
+      marginLeft: naven.theme.space.small,
+      cursor: 'pointer',
+    },
+  },
+  Input: {
+    tag: 'input',
+    main: true,
+    css: {
+      border: 'none',
+      background: naven.theme.color.gray500,
+      animation: `${blinkAnimation()} 1s linear infinite alternate`,
+      cursor: 'pointer',
+      // ${() => radius(2)}
+      appearance: 'none',
+      margin: 0,
+      '&:before': {
+        content: '',
+        display: 'flex',
+        width: naven.theme.space.medium,
+        height: naven.theme.space.medium,
+      },
+      '&:checked': {
+        background: naven.theme.color.backgroundContrast,
+      },
+      '&:focus': {
+        outline: 'none',
+      },
+      // variants: {
+      //   type: {
+      //     radio: {
+      //       borderRadius: '100%',
+      //     },
+      //   },
+      // },
+    },
+  },
+})
+
+const Checkbox = ({ Sheet, props }: ComponentProps<Sheets>) => {
+  const { type = 'checkbox', label, id = uniqueID(), ...otherProps } = props
+  const inputRef = useRef<HTMLInputElement>()
+
+  const toggleOnEnter = useCallback((event) => {
+    if (event.key !== 'Enter') {
+      return
+    }
+
+    inputRef.current.checked = !inputRef.current.checked
+  }, [])
 
   return (
-    <Wrapper
+    <Sheet.Wrapper.Component
+      css={Sheet.Wrapper.css}
       tabIndex={0}
-      css={wrapperCss}
-      space={space}
-      onKeyDown={(event) => toggleOnEnter(event, inputRef)}
+      onKeyDown={(event) => toggleOnEnter(event)}
     >
-      <CheckboxInput ref={inputRef} tabIndex={-1} id={id} type="checkbox" {...props} />
-      <Label htmlFor={id}>{label}</Label>
-    </Wrapper>
+      <Sheet.Input.Component
+        css={Sheet.Input.css}
+        ref={inputRef}
+        tabIndex={-1}
+        id={id}
+        type={type}
+        {...otherProps}
+      />
+      {/* @ts-ignore */}
+      <Sheet.Label.Component css={Sheet.Label.css} htmlFor={id}>
+        {label}
+      </Sheet.Label.Component>
+    </Sheet.Wrapper.Component>
   )
 }
 
-export const Radio = ({ label, id = uniqueID(), wrapperCss, space, ...props }: Props) => {
-  const inputRef = useRef()
-
-  return (
-    <Wrapper
-      tabIndex={0}
-      css={wrapperCss}
-      space={space}
-      onKeyDown={(event) => toggleOnEnter(event, inputRef)}
-    >
-      <RadioInput ref={inputRef} tabIndex={-1} id={id} type="radio" {...props} />
-      <Label htmlFor={id}>{label}</Label>
-    </Wrapper>
-  )
-}
+export default createComponent<Props, Sheets>(styles, Checkbox)

@@ -46,6 +46,7 @@ import { Code } from 'naven/Code'
 import { Tooltip } from 'naven/Tooltip'
 import { DatePicker } from 'naven/Date'
 import { Dropdown } from 'naven/Dropdown'
+import { theme } from '../configuration'
 import { PropertyTable } from 'markup/PropertyTable'
 import { ElementPreview } from 'markup/ElementPreview'
 import navenLogo from 'logo.svg'
@@ -73,13 +74,11 @@ const NotificationToggle = () => {
     <Horizontal>
       <Notification />
       <Input
-        space={0}
         value={message}
         onChange={(event) => setMessage(event.target.value)}
         placeholder="Message"
       />
       <Dropdown
-        space={0}
         onChange={(option) => setType((option as any).value)}
         options={[
           { value: 'info', label: 'Information' },
@@ -88,14 +87,8 @@ const NotificationToggle = () => {
         ]}
         placeholder="Type"
       />
-      <Checkbox
-        checked={closeable}
-        onChange={() => setCloseable(!closeable)}
-        space={0}
-        label="Closeable?"
-      />
+      <Checkbox checked={closeable} onChange={() => setCloseable(!closeable)} label="Closeable?" />
       <Button
-        space={0}
         disabled={!type || !message || message === ''}
         onClick={() => addNotification({ message, type, closeable })}
       >
@@ -111,8 +104,8 @@ const Checkboxes = () => {
 
   return (
     <Vertical gap={Space.small}>
-      <Checkbox space={0} label="First" checked={first} onChange={() => setFirst(!first)} />
-      <Checkbox space={0} label="Second" checked={second} onChange={() => setSecond(!second)} />
+      <Checkbox label="First" checked={first} onChange={() => setFirst(!first)} />
+      <Checkbox label="Second" checked={second} onChange={() => setSecond(!second)} />
     </Vertical>
   )
 }
@@ -123,14 +116,12 @@ const Radios = () => {
   return (
     <Vertical gap={Space.small}>
       <Radio
-        space={0}
         label="First"
         name="group"
         checked={selected === 'first'}
         onChange={() => setSelected('first')}
       />
       <Radio
-        space={0}
         label="Second"
         name="group"
         checked={selected === 'second'}
@@ -144,7 +135,6 @@ export const Elements = () => (
   <Content>
     <Heading as="h2">General</Heading>
     <Button
-      space={Space.large}
       css={css`
         margin-right: ${Space.small};
       `}
@@ -153,7 +143,6 @@ export const Elements = () => (
     </Button>
     <Button
       disabled
-      space={0}
       css={css`
         background: ${Color.black.var};
       `}
@@ -173,7 +162,7 @@ import { css } from '@emotion/react'
     >
       <ElementPreview.Preview>
         <Button
-          highlight
+          color="highlight"
           css={css`
             margin-right: ${Space.small};
           `}
@@ -181,10 +170,10 @@ import { css } from '@emotion/react'
           Highlight
         </Button>
         <Button
-          interact
-          css={css`
-            margin-right: ${Space.small};
-          `}
+          color="interact"
+          // css={css`
+          //   margin-right: ${Space.small};
+          // `}
         >
           Interaction
         </Button>
@@ -592,14 +581,12 @@ import { css } from '@emotion/react'
       <ElementPreview.Preview>
         <Horizontal>
           <Dropdown
-            space={0}
             options={[
               { value: 'first', label: 'First choice' },
               { value: 'second', label: 'Second choice' },
             ]}
           />
           <Dropdown
-            space={0}
             backgroundColor="lightgray"
             defaultValue={{ value: 'second', label: 'Second choice' }}
             options={[
@@ -1051,7 +1038,6 @@ Use <InlineCode>const</InlineCode> to define variables.`}
     >
       <ElementPreview.Preview>
         <Vertical
-          space={0}
           css={css`
             row-gap: 0;
             background: ${Color.Gray[200].var};

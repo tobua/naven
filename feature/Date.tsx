@@ -1,22 +1,24 @@
-import React, { useState, Component } from 'react'
-import { Global, css as cssSheet, SerializedStyles } from '@emotion/react'
-import styled from '@emotion/styled'
-// @ts-ignore
-import { Input, spaceProp } from 'naven'
+import React, { HTMLAttributes, useState, Component } from 'react'
 import ReactDatePicker from 'react-datepicker'
+// @ts-ignore
+import { Input } from 'naven'
+import type { ComponentProps, ComponentStylesDefinition } from '../types'
+import { createComponent } from '../utility/component'
 
-const Wrapper = styled.div<{ css?: SerializedStyles; space?: string | number }>`
-  ${spaceProp}
-  ${({ css }) => css}
-`
-
-interface IDate {
-  css?: SerializedStyles
+// @ts-ignore
+export interface Props extends HTMLAttributes<HTMLElement> {
   initialDate?: Date | null
   onChange?: (date: Date) => void
-  styleOverrides?: string
-  space?: string | number
 }
+
+type Sheets = 'Main'
+
+const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+  Main: {
+    tag: 'div',
+    main: true,
+  },
+})
 
 // Will throw an error related to refs the plugin tries to
 // attach if written as functional component.
@@ -30,20 +32,13 @@ class DateInput extends Component<{ value: any; onClick: any }> {
 }
 
 // Date is already reserved in JS, therefore we use DatePicker.
-export const DatePicker = ({
-  css,
-  initialDate = new Date(),
-  onChange,
-  styleOverrides = '',
-  space,
-  ...props
-}: IDate) => {
+const DatePicker = ({ Sheet, props }: ComponentProps<Sheets>) => {
+  const { initialDate = new Date(), onChange, ...otherProps } = props
   // Hook inside result will fail.
   const [startDate, setStartDate] = useState(initialDate)
 
   return (
-    <Wrapper space={space} css={css}>
-      <Global styles={cssSheet(styleOverrides)} />
+    <Sheet.Main.Component css={Sheet.Main.css}>
       <ReactDatePicker
         style={{ marginBottom: 20 }}
         selected={startDate}
@@ -55,8 +50,10 @@ export const DatePicker = ({
         }}
         // @ts-ignore
         customInput={<DateInput />}
-        {...props}
+        {...otherProps}
       />
-    </Wrapper>
+    </Sheet.Main.Component>
   )
 }
+
+export default createComponent<Props, Sheets>(styles, DatePicker)

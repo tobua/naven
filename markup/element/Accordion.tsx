@@ -1,44 +1,52 @@
-import React, { useState, ReactNode } from 'react'
-import styled from '@emotion/styled'
-import { SerializedStyles } from '@emotion/react'
-import { Heading } from './Heading'
-import { Space, spaceProp } from '../../style'
+import React, { useState, HTMLAttributes, ReactNode } from 'react'
+import { naven } from '../../style'
+import type { ComponentProps, ComponentStylesDefinition } from '../../types'
+import { createComponent } from '../../utility/component'
+import Heading from '../text/Heading'
 
-const Wrapper = styled.div<{ css?: SerializedStyles; space?: string | number }>`
-  display: flex;
-  flex-direction: column;
-  ${spaceProp}
-  ${({ css }) => css}
-`
-
-const Head = styled.div`
-  display: flex;
-  cursor: pointer;
-`
-
-const Content = styled.div<{ open: boolean }>`
-  display: ${({ open }) => (open ? 'flex' : 'none')};
-`
-
-const Group = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: ${Space.small};
-`
-
-interface IAccordion {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
+  children: ReactNode
   headers?: (string | ReactNode)[]
   initialOpen?: number
-  children: any[]
-  css?: SerializedStyles
-  space?: string | number
 }
 
-export const Accordion = ({ headers, children, css, space, initialOpen = 0 }: IAccordion) => {
-  const [openIndex, setOpen] = useState<number>(initialOpen)
+type Sheets = 'Wrapper' | 'Head' | 'Content' | 'Group'
+
+const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+  Wrapper: {
+    tag: 'div',
+    main: true,
+    css: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+  },
+  Head: {
+    tag: 'div',
+    css: {
+      display: 'flex',
+      cursor: 'pointer',
+    },
+  },
+  Content: {
+    tag: 'div',
+  },
+  Group: {
+    tag: 'div',
+    css: {
+      display: 'flex',
+      flexDirection: 'column',
+      marginBottom: naven.theme.space.small,
+    },
+  },
+})
+
+const Accordion = ({ Sheet, props }: ComponentProps<Sheets>) => {
+  const { children, headers, initialOpen, ...otherProps } = props
+  const [openIndex, setOpen] = useState<number>(initialOpen ?? 0)
   return (
-    <Wrapper css={css} space={space}>
-      {children.map((child, index) => {
+    <Sheet.Wrapper.Component css={Sheet.Wrapper.css} {...otherProps}>
+      {children.map((child: ReactNode, index: number) => {
         let header = headers[index]
 
         if (typeof header === 'string') {
@@ -50,12 +58,20 @@ export const Accordion = ({ headers, children, css, space, initialOpen = 0 }: IA
         }
 
         return (
-          <Group key={index}>
-            <Head onClick={() => setOpen(index)}>{header}</Head>
-            <Content open={index === openIndex}>{child}</Content>
-          </Group>
+          <Sheet.Group.Component css={Sheet.Group.css} key={index}>
+            <Sheet.Head.Component css={Sheet.Head.css} onClick={() => setOpen(index)}>
+              {header}
+            </Sheet.Head.Component>
+            <Sheet.Content.Component
+              css={{ ...Sheet.Content.css, display: index === openIndex ? 'flex' : 'none' }}
+            >
+              {child}
+            </Sheet.Content.Component>
+          </Sheet.Group.Component>
         )
       })}
-    </Wrapper>
+    </Sheet.Wrapper.Component>
   )
 }
+
+export default createComponent<Props, Sheets>(styles, Accordion)

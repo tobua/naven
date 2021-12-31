@@ -27,7 +27,6 @@ render(
     <Footer />
   </>,
   document.body
-)
-`}</Code>
+)`}</Code>
   </Content>
 )

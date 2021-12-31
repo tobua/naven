@@ -1,41 +1,53 @@
-import React from 'react'
-import styled from '@emotion/styled'
-import { SerializedStyles } from '@emotion/react'
-import { Space, Color, spaceProp, radius } from '../../style'
+import React, { HTMLAttributes, ReactElement } from 'react'
+import { naven } from '../../style'
+import type { ComponentProps, ComponentStylesDefinition } from '../../types'
+import { createComponent } from '../../utility/component'
 
-const Wrapper = styled.div<{
-  columns: number
-  gap?: number | string
-  space?: number | string
-  css?: SerializedStyles
-}>`
-  display: grid;
-  grid-gap: ${Space.small};
-  grid-template-columns: repeat(${({ columns }) => columns}, 1fr);
-  background: ${Color.Gray[300].var};
-  ${() => radius()}
-  padding: ${Space.small};
-
-  /* First row, ignore warning, nth-of-type won't work. */
-  > *:nth-child(-n + ${({ columns }) => columns}) {
-    font-weight: bold;
-  }
-
-  ${spaceProp}
-  ${({ css }) => css}
-`
-
-const getColumnCount = (children: any[]) =>
-  Math.max(...children.filter(Boolean).map((child) => child?.props?.children?.length))
-
-interface Props {
-  css?: SerializedStyles
-  space?: string | number
-  children: any[]
+export interface Props extends HTMLAttributes<HTMLDivElement> {
+  children: ReactElement[]
 }
 
-export const Table = ({ children, css, space }: Props) => (
-  <Wrapper css={css} space={space} columns={getColumnCount(children)}>
-    {children}
-  </Wrapper>
+type Sheets = 'Main'
+
+const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+  Main: {
+    tag: 'div',
+    main: true,
+    css: {
+      display: 'grid',
+      gridGap: naven.theme.space.small,
+      background: naven.theme.color.gray300,
+      borderRadius: naven.theme.look.radius,
+      padding: naven.theme.space.small,
+    },
+  },
+})
+
+const getColumnCount = (children: ReactElement[]) =>
+  Math.max(...children.filter(Boolean).map((child) => child?.props?.children?.length))
+
+const Table = ({ Sheet, props }: ComponentProps<Sheets>) => {
+  const { children, ...otherProps } = props
+
+  return (
+    <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
+      {children}
+    </Sheet.Main.Component>
+  )
+}
+
+export default createComponent<Props, Sheets>(
+  styles,
+  Table,
+  (allStyles, props) => {
+    const columns = getColumnCount(props.children)
+
+    // First row, ignore warning, nth-of-type won't work.
+    allStyles.Main.css[`> *:nth-child(-n + ${columns}`] = {
+      fontWeight: 'bold',
+    }
+
+    allStyles.Main.css.gridTemplateColumns = `repeat(${columns}, 1fr)`
+  },
+  (props) => [props.children]
 )

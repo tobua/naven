@@ -1,97 +1,35 @@
-import { SerializedStyles } from '@emotion/react'
-import styled from '@emotion/styled'
-import { Color, spaceProp } from '../../style'
+import React, { AnchorHTMLAttributes, ReactNode } from 'react'
+import { naven } from '../../style'
+import type { ComponentProps, ComponentStylesDefinition } from '../../types'
+import { createComponent } from '../../utility/component'
 
-export const Link = styled.a<{ css?: SerializedStyles }>`
-  text-decoration: none;
-  color: ${() => Color.backgroundContrast};
-  cursor: pointer;
-  ${({ css }) => css}
-`
-
-export enum Underline {
-  none,
-  regular,
-  animated,
-  background,
+export interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  children: ReactNode
 }
 
-const getTextLinkColor = ({ underline = Underline.none }) => {
-  if (underline === Underline.regular) {
-    return Color.interact.var
-  }
+type Sheets = 'Main'
 
-  return Color.backgroundContrast.var
+const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+  Main: {
+    tag: 'a',
+    main: true,
+    css: {
+      // Reset properties style properties added to any link.
+      textDecoration: 'none',
+      color: naven.theme.color.backgroundContrast,
+      cursor: 'pointer',
+      underline: 'none',
+    },
+  },
+})
+
+const Link = ({ Sheet, props }: ComponentProps<Sheets>) => {
+  const { children, ...otherProps } = props
+  return (
+    <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
+      {children}
+    </Sheet.Main.Component>
+  )
 }
 
-const getTextLinkHoverColor = ({ underline = Underline.none }) => {
-  if (underline === Underline.animated) {
-    return Color.backgroundContrast.var
-  }
-
-  if (underline === Underline.background) {
-    return Color.colorContrast.var
-  }
-
-  return Color.interact.var
-}
-
-const getTextLinkUnderline = ({ underline = Underline.none }) => {
-  if (underline === Underline.background) {
-    return `background-image: linear-gradient(
-      120deg,
-      ${Color.highlight.var} 0%,
-      ${Color.interact.var} 100%
-    );
-    background-repeat: no-repeat;
-    background-size: 100% 3px;
-    background-position: 0 100%;
-    transition: background-size 0.3s ease-in, color 0.3s ease;`
-  }
-
-  if (underline === Underline.animated) {
-    return `background-image: linear-gradient(transparent calc(100% - 2px), black 10px);
-    background-repeat: no-repeat;
-    background-size: 0% 100%;
-    transition: background-size 1s;
-    font-weight: bold;`
-  }
-
-  return ''
-}
-
-const getTextLinkUnderlineHover = ({ underline = Underline.none }) => {
-  if (underline === Underline.regular) {
-    return 'text-decoration: underline;'
-  }
-
-  if (underline === Underline.animated) {
-    return 'background-size: 100% 100%;'
-  }
-
-  return ''
-}
-
-export const TextLink = styled.a<{
-  css?: SerializedStyles
-  space?: number | string
-  bold?: boolean
-  underline?: Underline
-}>`
-  cursor: pointer;
-  text-decoration: none;
-  ${({ bold }) => (bold ? 'font-weight: bold;' : '')}
-  color: ${getTextLinkColor};
-  ${getTextLinkUnderline}
-  ${({ space = 0 }) => spaceProp({ space })}
-
-  &:hover,
-  &:focus {
-    outline: none;
-    background-size: 100% 88%;
-    color: ${getTextLinkHoverColor};
-    ${getTextLinkUnderlineHover}
-  }
-
-  ${({ css }) => css}
-`
+export default createComponent<Props, Sheets>(styles, Link)

@@ -1,20 +1,18 @@
 import React from 'react'
 // @ts-ignore
-import { spaceStyleProp, radiusStyleProp } from 'naven'
+import { naven } from 'naven'
 import DefaultHighlighter, { SyntaxHighlighterProps, Prism } from 'react-syntax-highlighter'
-import githubStyle from 'react-syntax-highlighter/dist/esm/styles/hljs/github'
-import prismStyle from 'react-syntax-highlighter/dist/esm/styles/prism/prism'
+import githubStyle from 'react-syntax-highlighter/dist/esm/styles/hljs/github.js'
+import prismStyle from 'react-syntax-highlighter/dist/esm/styles/prism/prism.js'
 
 interface ICode {
   children: string
-  space?: number | string
   jsx?: boolean
   language?: 'javascript' | 'typescript' | string
   style?: object
 }
 
 export const Code = ({
-  space,
   children,
   jsx = false,
   language = 'typescript',
@@ -30,9 +28,9 @@ export const Code = ({
       language={language}
       style={style ?? importedStyle}
       customStyle={{
-        ...spaceStyleProp(space),
-        ...radiusStyleProp(),
-        fontFamily: 'monospace, monospace',
+        borderRadius: naven.theme.look.radius,
+        fontFamily: naven.theme.font.familyMono,
+        lineHeight: 1.4,
         ...(typeof customStyle === 'object' ? customStyle : {}),
       }}
       {...props}

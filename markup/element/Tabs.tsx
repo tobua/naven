@@ -1,68 +1,86 @@
-import React, { useState, ReactNode } from 'react'
-import styled from '@emotion/styled'
-import { SerializedStyles } from '@emotion/react'
-import { Color, Space, spaceProp } from '../../style'
+import React, { useState, HTMLAttributes, ReactNode } from 'react'
+import { naven } from '../../style'
+import type { ComponentProps, ComponentStylesDefinition } from '../../types'
+import { createComponent } from '../../utility/component'
 
-const Wrapper = styled.div<{ css?: SerializedStyles; space?: string | number }>`
-  display: flex;
-  flex-direction: column;
-  ${spaceProp}
-  ${({ css }) => css}
-`
-
-const TabWrapper = styled.div`
-  display: flex;
-  margin-bottom: ${Space.medium};
-`
-
-const Tab = styled.div<{ active?: boolean }>`
-  display: flex;
-  cursor: pointer;
-  margin-right: ${Space.medium};
-  font-weight: ${({ active }) => (active ? 'bold' : 'normal')};
-
-  :hover,
-  :focus {
-    color: ${Color.interact.var};
-    outline: none;
-  }
-`
-
-const Content = styled.div`
-  display: flex;
-`
-
-interface ITabs {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   items: {
     title: string
     content: ReactNode
   }[]
   initialTab?: number
-  css?: SerializedStyles
-  space?: string | number
 }
 
-export const Tabs = ({ items, initialTab = 0, css, space }: ITabs) => {
-  const [tab, setTab] = useState(initialTab)
+type Sheets = 'Wrapper' | 'TabWrapper' | 'Tab' | 'Content'
 
+const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+  Wrapper: {
+    tag: 'div',
+    main: true,
+    css: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+  },
+  TabWrapper: {
+    tag: 'div',
+    css: {
+      display: 'flex',
+      marginBottom: naven.theme.space.medium,
+    },
+  },
+  Tab: {
+    tag: 'div',
+    css: {
+      display: 'flex',
+      cursor: 'pointer',
+      marginRight: naven.theme.space.medium,
+      '&:hover, &:focus': {
+        color: naven.theme.color.interact,
+        outline: 'none',
+      },
+      variants: {
+        state: {
+          active: {
+            fontWeight: 'bold',
+          },
+        },
+      },
+    },
+  },
+  Content: {
+    tag: 'div',
+    css: {
+      display: 'flex',
+    },
+  },
+})
+
+const Tabs = ({ Sheet, props }: ComponentProps<Sheets>) => {
+  const { children, items, initialTab = 0, ...otherProps } = props
+  const [tab, setTab] = useState(initialTab)
   const { content } = items[tab]
 
   return (
-    <Wrapper css={css} space={space}>
-      <TabWrapper>
-        {items.map((_tab, index) => (
-          <Tab
+    <Sheet.Wrapper.Component css={Sheet.Wrapper.css} {...otherProps}>
+      <Sheet.TabWrapper.Component css={Sheet.TabWrapper.css}>
+        {items.map((_tab, index: number) => (
+          <Sheet.Tab.Component
+            css={Sheet.TabWrapper.css}
             key={index}
             tabIndex={0}
-            active={index === tab}
+            // @ts-ignore
+            state={index === tab ? 'active' : undefined}
             onKeyUp={(event) => event.key === 'Enter' && setTab(index)}
             onClick={() => setTab(index)}
           >
             {_tab.title}
-          </Tab>
+          </Sheet.Tab.Component>
         ))}
-      </TabWrapper>
-      <Content>{content}</Content>
-    </Wrapper>
+      </Sheet.TabWrapper.Component>
+      <Sheet.Content.Component css={Sheet.Content.css}>{content}</Sheet.Content.Component>
+    </Sheet.Wrapper.Component>
   )
 }
+
+export default createComponent<Props, Sheets>(styles, Tabs)

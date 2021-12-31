@@ -1,12 +1,28 @@
-import React, { useState, ReactNode } from 'react'
-import styled from '@emotion/styled'
-import { SerializedStyles } from '@emotion/react'
+import React, { useState, HTMLAttributes, ReactNode } from 'react'
 import { usePopper } from 'react-popper'
+// @ts-ignore
+import { naven } from 'naven'
+import type { ComponentProps, ComponentStylesDefinition } from '../types'
+import { createComponent } from '../utility/component'
 
-const Wrapper = styled.div<{ css?: SerializedStyles }>`
-  display: inline-flex;
-  ${({ css }) => css}
-`
+export interface Props extends HTMLAttributes<HTMLDivElement> {
+  content: ReactNode
+  arrow?: boolean
+  close?: boolean
+  children: ReactNode
+}
+
+type Sheets = 'Wrapper'
+
+const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+  Wrapper: {
+    tag: 'div',
+    main: true,
+    css: {
+      display: 'inline-flex',
+    },
+  },
+})
 
 const wrapper = {
   marginLeft: 10,
@@ -124,15 +140,8 @@ const Content = ({ children, referenceElement, open, setOpen, arrow, close }: Co
   )
 }
 
-interface Props {
-  content: ReactNode
-  arrow?: boolean
-  close?: boolean
-  children: ReactNode
-  css?: SerializedStyles
-}
-
-export const Tooltip = ({ content, arrow = true, close = false, children, css }: Props) => {
+const Tooltip = ({ Sheet, props }: ComponentProps<Sheets>) => {
+  const { children, content, arrow = true, close = false, ...otherProps } = props
   const [referenceElement, setReferenceElement] = useState(null)
   // Only initialize plugin (absolutely position hidden tooltip element)
   // when it's actually needed.
@@ -147,7 +156,8 @@ export const Tooltip = ({ content, arrow = true, close = false, children, css }:
 
   return (
     <>
-      <Wrapper
+      <Sheet.Wrapper.Component
+        css={Sheet.Wrapper.css}
         ref={setReferenceElement}
         role="button"
         tabIndex={0}
@@ -159,10 +169,10 @@ export const Tooltip = ({ content, arrow = true, close = false, children, css }:
           }
         }}
         onClick={() => setOpen(!open)}
-        css={css}
+        {...otherProps}
       >
         {children}
-      </Wrapper>
+      </Sheet.Wrapper.Component>
       {initialized && (
         <Content
           referenceElement={referenceElement}
@@ -177,3 +187,5 @@ export const Tooltip = ({ content, arrow = true, close = false, children, css }:
     </>
   )
 }
+
+export default createComponent<Props, Sheets>(styles, Tooltip)

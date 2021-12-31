@@ -1,20 +1,18 @@
 import React from 'react'
 import Select, { Props as SelectProps } from 'react-select'
 // @ts-ignore
-import { Color, radiusValue, spaceStyleProp, unit } from 'naven'
+import { naven, unit, cssVariable } from 'naven'
 
-interface IDropdown {
+interface Props {
   containerStyles?: object
-  space?: string | number
   backgroundColor?: string
 }
 
-const customStyles = ({ space, containerStyles, backgroundColor }: IDropdown) => ({
+const customStyles = ({ containerStyles, backgroundColor }: Props) => ({
   container: (provided: object) => ({
     ...provided,
     minWidth: unit(200),
     ...containerStyles,
-    ...spaceStyleProp(space),
   }),
   menu: (provided: object) => ({ ...provided, background: backgroundColor }),
   option: (provided: object) => ({
@@ -23,6 +21,7 @@ const customStyles = ({ space, containerStyles, backgroundColor }: IDropdown) =>
   }),
   control: (provided: object) => ({
     ...provided,
+    borderWidth: 0,
     background: backgroundColor,
     minHeight: unit(42),
   }),
@@ -34,22 +33,21 @@ const customStyles = ({ space, containerStyles, backgroundColor }: IDropdown) =>
 })
 
 export const Dropdown = ({
-  space,
   containerStyles,
-  backgroundColor = Color.white.var,
+  backgroundColor = cssVariable(naven.theme.color.white),
   ...props
-}: IDropdown & SelectProps) => (
+}: Props & SelectProps) => (
   <Select
     {...props}
     styles={{
-      ...customStyles({ space, containerStyles, backgroundColor }),
+      ...customStyles({ containerStyles, backgroundColor }),
       ...props.styles,
     }}
     theme={{
-      borderRadius: radiusValue(),
+      borderRadius: naven.theme.look.radius.value,
       // @ts-ignore TODO issue likely with plugin types.
       colors: {
-        primary: Color.highlight.var,
+        primary: cssVariable(naven.theme.color.highlight),
       },
       ...props.theme,
     }}

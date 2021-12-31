@@ -1,61 +1,75 @@
-import React, { ButtonHTMLAttributes } from 'react'
-import styled from '@emotion/styled'
-import { SerializedStyles } from '@emotion/react'
-import { Space, Color, Font, radius, spaceProp } from '../../style'
+import React, { ButtonHTMLAttributes, ReactNode } from 'react'
+import { naven } from '../../style'
+import type { ComponentProps, ComponentStylesDefinition } from '../../types'
+import { createComponent } from '../../utility/component'
 
-const getButtonColor = ({ highlight = false, interact = false }) => {
-  if (highlight) {
-    return Color.highlight.var
-  }
-  if (interact) {
-    return Color.interact.var
-  }
-
-  return Color.Gray[700].var
+export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode
+  as?: 'a'
+  href?: string
+  disabled?: true
+  color?: 'regular' | 'highlight' | 'interact'
 }
 
-const Wrapper = styled.button<{
-  highlight?: boolean
-  interact?: boolean
-  css?: SerializedStyles
-  space?: string | number
-}>`
-  padding: ${Space.small};
-  background-color: ${(props) => getButtonColor(props)};
-  opacity: 0.8;
-  border: none;
-  outline: none;
-  cursor: ${({ disabled }) => (disabled ? 'auto' : 'pointer')};
-  ${() => radius()}
-  color: ${Color.white.var};
-  text-decoration: ${({ disabled }) => (disabled ? 'line-through' : '')};
-  ${Font.size.medium}
-  ${spaceProp}
+type Sheets = 'Button'
 
-  &:hover,
-  &:focus {
-    outline: none;
-    opacity: 1;
-  }
+const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+  Button: {
+    tag: 'button',
+    main: true,
+    css: {
+      padding: naven.theme.space.small,
+      border: 'none',
+      outline: 'none',
+      cursor: 'pointer',
+      backgroundColor: naven.theme.color.background,
+      color: naven.theme.color.interact,
+      radius: '$corner',
+      fontFamily: naven.theme.font.familyRegular,
+      fontSize: naven.theme.font.sizeMedium,
+      fontWeight: naven.theme.font.weightBold,
+      // When used as anchor tag.
+      textDecoration: 'none',
+      '&:hover,&:focus': {
+        opacity: 0.8,
+      },
+      variants: {
+        color: {
+          regular: {
+            backgroundColor: naven.theme.color.gray700,
+            color: naven.theme.color.background,
+          },
+          highlight: {
+            backgroundColor: naven.theme.color.highlight,
+            color: naven.theme.color.background,
+          },
+          interact: {
+            backgroundColor: naven.theme.color.interact,
+            color: naven.theme.color.background,
+          },
+        },
+      },
+    },
+  },
+})
 
-  ${({ css }) => css}
-`
-
-interface ButtonProps {
-  highlight?: boolean
-  interact?: boolean
-  css?: SerializedStyles
-  space?: string | number
-  children: any
+const Button = ({ Sheet, props }: ComponentProps<Sheets>) => {
+  const { children, ...otherProps } = props
+  return (
+    <Sheet.Button.Component css={Sheet.Button.css} {...otherProps}>
+      {children}
+    </Sheet.Button.Component>
+  )
 }
 
-export const Button = ({
-  highlight = false,
-  interact = false,
-  children,
-  ...props
-}: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) => (
-  <Wrapper {...{ highlight, interact }} {...props}>
-    {children}
-  </Wrapper>
+export default createComponent<Props, Sheets>(
+  styles,
+  Button,
+  (allStyles, props) => {
+    if (props.disabled) {
+      allStyles.Button.css.cursor = 'auto'
+      allStyles.Button.css.textDecoration = 'line-through'
+    }
+  },
+  (props) => [props.disabled]
 )
