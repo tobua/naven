@@ -1,29 +1,28 @@
 import { useState, ReactNode, ReactElement, Children } from 'react'
-import styled from '@emotion/styled'
-import { Button, Heading, Anchor, Horizontal, Font, Color, Space, Breakpoint } from 'naven'
-import { Code } from 'naven/Code'
+import { Button, Heading, Anchor, Horizontal } from 'naven'
+import Code from 'naven/Code'
+import { theme, styled } from '../configuration'
 
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-`
+const Header = styled('header', {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  flexDirection: 'row',
+})
 
-const TabButton = styled(Button)<{ bold: boolean }>`
-  ${({ bold }) => (bold ? Font.weight.bold : '')}
-  background: ${({ bold }) => (bold ? Color.highlight.var : Color.Gray[300].var)};
-  opacity: 0.8;
-
-  &:active,
-  &:focus {
-    opacity: 1;
-  }
-
-  ${Breakpoint.Phone} {
-    padding: ${Space.tiny};
-  }
-`
+const TabButton = styled(Button, {
+  '@phone': {
+    padding: theme.space.tiny,
+  },
+  variants: {
+    bold: {
+      true: {
+        color: theme.color.backgroundContrast,
+        cursor: 'auto',
+      },
+    },
+  },
+})
 
 interface Props {
   title: string
@@ -53,7 +52,7 @@ export const ElementPreview = ({ title, anchor = title.toLowerCase(), code, chil
           <Anchor name={anchor} />
           {title}
         </Heading>
-        <Horizontal space={0}>
+        <Horizontal>
           <TabButton bold={tab === 'preview'} onClick={() => setTab('preview')}>
             Preview
           </TabButton>

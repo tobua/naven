@@ -15,7 +15,7 @@ import {
   Checkbox,
   useBreakpoint,
 } from 'naven'
-import { Dropdown } from 'naven/Dropdown'
+import Dropdown from 'naven/Dropdown'
 import { theme, createTheme } from './configuration'
 
 const navigationLinks = [

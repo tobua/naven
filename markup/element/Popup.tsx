@@ -58,7 +58,7 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
 })
 
 const Popup = ({ Sheet, props }: ComponentProps<Sheets>) => {
-  const { children, show, close, ...otherProps } = props
+  const { children, show, close, onClose, ...otherProps } = props
   const scrollContainerRef = useRef()
 
   useEffect(() => {
@@ -76,14 +76,13 @@ const Popup = ({ Sheet, props }: ComponentProps<Sheets>) => {
   return (
     <Sheet.Wrapper.Component css={Sheet.Wrapper.css} {...otherProps}>
       <Sheet.Content.Component css={Sheet.Content.css}>
-        <Sheet.CloseContainer.Component css={Sheet.CloseContainer.css}>
+        <Sheet.CloseContainer.Component css={Sheet.CloseContainer.css} onClick={onClose}>
           {close || <Close />}
         </Sheet.CloseContainer.Component>
         <Sheet.ScrollContainer.Component css={Sheet.ScrollContainer.css} ref={scrollContainerRef}>
           {children}
         </Sheet.ScrollContainer.Component>
       </Sheet.Content.Component>
-      {children}
     </Sheet.Wrapper.Component>
   )
 }

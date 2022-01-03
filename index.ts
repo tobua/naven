@@ -3,6 +3,7 @@ import Loader from './markup/icon/Loader'
 import Logo from './markup/icon/Logo'
 
 export * from './style/index'
+export { createComponent } from './utility/component'
 // Element
 export { default as Accordion } from './markup/element/Accordion'
 export { default as Alert } from './markup/element/Alert'

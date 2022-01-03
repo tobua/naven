@@ -1,9 +1,8 @@
 import React, { useState, HTMLAttributes, ReactNode } from 'react'
 import { usePopper } from 'react-popper'
 // @ts-ignore
-import { naven } from 'naven'
+import { naven, createComponent } from 'naven'
 import type { ComponentProps, ComponentStylesDefinition } from '../types'
-import { createComponent } from '../utility/component'
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   content: ReactNode

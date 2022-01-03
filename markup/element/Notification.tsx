@@ -1,5 +1,5 @@
 import React, { useState, useCallback, HTMLAttributes } from 'react'
-import { naven, Layer } from '../../style'
+import { naven, Layer, cssVariable } from '../../style'
 import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 import Close from '../icon/Close'
@@ -87,6 +87,10 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-end',
+      gap: naven.theme.space.small,
+      background: naven.theme.color.background,
+      margin: naven.theme.space.small,
+      padding: naven.theme.space.small,
     },
   },
   CloseContainer: {
@@ -106,11 +110,9 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
     css: {
       position: 'relative',
       display: 'flex',
-      backgroundColor: 'white',
+      background: naven.theme.color.background,
       borderWidth: 1,
       borderColor: naven.theme.color.highlight,
-      padding: naven.theme.space.small,
-      // ${({ closeable }) => (closeable ? `padding-right: calc(${Space.small} * 3);` : '')}
       minWidth: '30%',
       borderRadius: naven.theme.look.radius,
       variants: {
@@ -124,11 +126,17 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
         },
       },
     },
+    props: (css, props) => {
+      // @ts-ignore TODO this only receives the top props.
+      if (props.closeable) {
+        css.paddingRight = `calc(${cssVariable(naven.theme.space.small)} * 3)`
+      }
+    },
   },
 })
 
 const Element = ({ Sheet, closeable, message, id, ...props }: INotification & { Sheet: any }) => (
-  <Sheet.Element.Component css={Sheet.Element.css} {...props}>
+  <Sheet.Element.Component css={Sheet.Element.css} closeable={closeable} {...props}>
     {closeable && (
       <Sheet.CloseContainer.Component
         onClick={() => {

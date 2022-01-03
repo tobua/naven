@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useMemo } from 'react'
+import React, { HTMLAttributes, BlockquoteHTMLAttributes, useMemo } from 'react'
 import type { CSS } from '@stitches/react'
 import { Token } from '@stitches/react/types/theme'
 import memoize from 'memoize-one'
@@ -98,7 +98,7 @@ export const Quote = ({
   css,
   space,
   ...props
-}: HTMLAttributes<HTMLElement> & {
+}: BlockquoteHTMLAttributes<HTMLElement> & {
   css?: CSS
   space?: string | number | Token<string, string, 'space', ''>
 }) => {

@@ -1,5 +1,5 @@
 import { Heading, Paragraph, Content } from 'naven'
-import { Code } from 'naven/Code'
+import Code from 'naven/Code'
 
 export const Overview = () => (
   <Content>

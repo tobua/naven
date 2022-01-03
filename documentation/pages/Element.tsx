@@ -4,14 +4,12 @@ import {
   Content,
   Vertical,
   Horizontal,
-  Space,
   Accordion,
   Alert,
   Anchor,
   Badge,
   Button,
   Checkbox,
-  Radio,
   Heading,
   Image,
   Input,
@@ -19,7 +17,6 @@ import {
   Lazy,
   Link,
   TextLink,
-  Underline,
   List,
   Loader,
   Notification,
@@ -37,15 +34,14 @@ import {
   Citation,
   ShortQuotation,
   InlineCode,
-  Color,
   Small,
   Abbreviation,
   Definition,
 } from 'naven'
-import { Code } from 'naven/Code'
-import { Tooltip } from 'naven/Tooltip'
-import { DatePicker } from 'naven/Date'
-import { Dropdown } from 'naven/Dropdown'
+import Code from 'naven/Code'
+import Tooltip from 'naven/Tooltip'
+import DatePicker from 'naven/Date'
+import Dropdown from 'naven/Dropdown'
 import { theme } from '../configuration'
 import { PropertyTable } from 'markup/PropertyTable'
 import { ElementPreview } from 'markup/ElementPreview'
@@ -103,7 +99,7 @@ const Checkboxes = () => {
   const [second, setSecond] = useState(true)
 
   return (
-    <Vertical gap={Space.small}>
+    <Vertical gap={theme.space.small}>
       <Checkbox label="First" checked={first} onChange={() => setFirst(!first)} />
       <Checkbox label="Second" checked={second} onChange={() => setSecond(!second)} />
     </Vertical>
@@ -114,14 +110,16 @@ const Radios = () => {
   const [selected, setSelected] = useState('first')
 
   return (
-    <Vertical gap={Space.small}>
-      <Radio
+    <Vertical gap={theme.space.small}>
+      <Checkbox
+        type="radio"
         label="First"
         name="group"
         checked={selected === 'first'}
         onChange={() => setSelected('first')}
       />
-      <Radio
+      <Checkbox
+        type="radio"
         label="Second"
         name="group"
         checked={selected === 'second'}
@@ -134,21 +132,21 @@ const Radios = () => {
 export const Elements = () => (
   <Content>
     <Heading as="h2">General</Heading>
-    <Button
-      css={css`
-        margin-right: ${Space.small};
-      `}
-    >
-      Press me!
-    </Button>
-    <Button
-      disabled
-      css={css`
-        background: ${Color.black.var};
-      `}
-    >
-      Can't touch this
-    </Button>
+    <Horizontal>
+      <Button>Press me!</Button>
+      <Button
+        disabled
+        styles={{
+          Main: {
+            css: {
+              background: theme.color.highlight,
+            },
+          },
+        }}
+      >
+        Can't touch this
+      </Button>
+    </Horizontal>
     <Code jsx language="typescript">
       {`import { Button, Color, Space } from 'naven'
 import { css } from '@emotion/react'
@@ -161,23 +159,11 @@ import { css } from '@emotion/react'
       code={`<Button onClick={() => alert('Hello')}>Press me!</Button>`}
     >
       <ElementPreview.Preview>
-        <Button
-          color="highlight"
-          css={css`
-            margin-right: ${Space.small};
-          `}
-        >
-          Highlight
-        </Button>
-        <Button
-          color="interact"
-          // css={css`
-          //   margin-right: ${Space.small};
-          // `}
-        >
-          Interaction
-        </Button>
-        <Button disabled>Disabled</Button>
+        <Horizontal>
+          <Button color="highlight">Highlight</Button>
+          <Button color="interact">Interaction</Button>
+          <Button disabled>Disabled</Button>
+        </Horizontal>
       </ElementPreview.Preview>
       <PropertyTable>
         <>
@@ -225,7 +211,7 @@ import { css } from '@emotion/react'
         <Paragraph>
           Taken from the first chapter of the{' '}
           <Citation>
-            <TextLink underline={Underline.regular} href="https://en.wikipedia.org/wiki/Iliad">
+            <TextLink highlight="underline" href="https://en.wikipedia.org/wiki/Iliad">
               Iliad
             </TextLink>
           </Citation>{' '}
@@ -253,7 +239,7 @@ import { css } from '@emotion/react'
           <Text>
             All <InlineCode>a</InlineCode> Tag Properties
           </Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>href, download, target, ...</Text>
         </>
       </PropertyTable>
@@ -269,11 +255,7 @@ import { css } from '@emotion/react'
             <Text>
               Here is some text with a <TextLink href="https://google.com">link</TextLink>.
             </Text>
-            <Paragraph
-              css={css`
-                max-width: 200px;
-              `}
-            >
+            <Paragraph css={{ maxWidth: 200 }}>
               No worries as{' '}
               <TextLink href="https://google.com">all TextLink variants with underlines</TextLink>{' '}
               support multiple lines.
@@ -283,65 +265,53 @@ import { css } from '@emotion/react'
           <Vertical>
             <Text>
               Here is some text with a{' '}
-              <TextLink underline={Underline.none} href="https://google.com">
+              <TextLink highlight="none" href="https://google.com">
                 link
               </TextLink>
               .
             </Text>
-            <Paragraph
-              css={css`
-                max-width: 200px;
-              `}
-            >
+            <Paragraph css={{ maxWidth: 200 }}>
               No worries as{' '}
-              <TextLink underline={Underline.none} href="https://google.com">
+              <TextLink highlight="none" href="https://google.com">
                 all TextLink variants with underlines
               </TextLink>{' '}
               support multiple lines.
             </Paragraph>
-            <InlineCode>{`underline={Underline.none}`}</InlineCode>
+            <InlineCode>{`highlight="none"`}</InlineCode>
           </Vertical>
           <Vertical>
             <Text>
               Here is some text with a{' '}
-              <TextLink underline={Underline.animated} href="https://google.com">
+              <TextLink highlight="animatedUnderline" href="https://google.com">
                 link
               </TextLink>
               .
             </Text>
-            <Paragraph
-              css={css`
-                max-width: 200px;
-              `}
-            >
+            <Paragraph css={{ maxWidth: 200 }}>
               No worries as{' '}
-              <TextLink underline={Underline.animated} href="https://google.com">
+              <TextLink highlight="animatedUnderline" href="https://google.com">
                 all TextLink variants with underlines
               </TextLink>{' '}
               support multiple lines.
             </Paragraph>
-            <InlineCode>{`underline={Underline.animated}`}</InlineCode>
+            <InlineCode>{`highlight="animatedUnderline"`}</InlineCode>
           </Vertical>
           <Vertical>
             <Text>
               Here is some text with a{' '}
-              <TextLink underline={Underline.background} href="https://google.com">
+              <TextLink highlight="gradient" href="https://google.com">
                 link
               </TextLink>
               .
             </Text>
-            <Paragraph
-              css={css`
-                max-width: 200px;
-              `}
-            >
+            <Paragraph css={{ maxWidth: 200 }}>
               No worries as{' '}
-              <TextLink underline={Underline.background} href="https://google.com">
+              <TextLink highlight="gradient" href="https://google.com">
                 all TextLink variants with underlines
               </TextLink>{' '}
               support multiple lines.
             </Paragraph>
-            <InlineCode>{`underline={Underline.background}`}</InlineCode>
+            <InlineCode>{`highlight="gradient"`}</InlineCode>
           </Vertical>
         </Horizontal>
       </ElementPreview.Preview>
@@ -357,7 +327,7 @@ import { css } from '@emotion/react'
           <Text>
             All <InlineCode>a</InlineCode> Tag Properties
           </Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>href, download, target, ...</Text>
         </>
       </PropertyTable>
@@ -367,13 +337,10 @@ import { css } from '@emotion/react'
       code={`<Input placeholder="Input here" value="value" onChange={(event) => alert(event.target.value)} />`}
     >
       <ElementPreview.Preview>
-        <Input
-          placeholder="Input here"
-          css={css`
-            margin-right: ${Space.small};
-          `}
-        />
-        <Input placeholder="Input here" value="value" onChange={() => {}} />
+        <Horizontal>
+          <Input placeholder="Input here" />
+          <Input placeholder="Input here" value="value" onChange={() => {}} />
+        </Horizontal>
       </ElementPreview.Preview>
       <PropertyTable>
         <>
@@ -441,22 +408,22 @@ import { css } from '@emotion/react'
         </Fragment>
         <Fragment key="contentCss">
           <Text>contentCss</Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>SerializedStyles</Text>
         </Fragment>
         <Fragment key="scrollContainerCss">
           <Text>scrollContainerCss</Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>SerializedStyles</Text>
         </Fragment>
         <Fragment key="closeContainerCss">
           <Text>closeContainerCss</Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>SerializedStyles</Text>
         </Fragment>
         <Fragment key="closeCss">
           <Text>closeCss</Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>SerializedStyles</Text>
         </Fragment>
         <Fragment key="close">
@@ -476,12 +443,12 @@ import { css } from '@emotion/react'
       <PropertyTable>
         <>
           <Text>label</Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>string</Text>
         </>
         <>
           <Text>wrapperCss</Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>SerializedStyles</Text>
         </>
       </PropertyTable>
@@ -496,25 +463,25 @@ import { css } from '@emotion/react'
       <PropertyTable>
         <>
           <Text>label</Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>string</Text>
         </>
         <>
           <Text>wrapperCss</Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>SerializedStyles</Text>
         </>
       </PropertyTable>
     </ElementPreview>
     <ElementPreview
       title="Accordion"
-      code={`<Accordion headers={['Hello', <Text bold>World</Text>]}>
+      code={`<Accordion headers={['Hello', <Text style="bold">World</Text>]}>
   <Text>Hello</Text>
   <Text>World</Text>
 </Accordion>`}
     >
       <ElementPreview.Preview>
-        <Accordion headers={['First', <Text bold>Second</Text>, 'Third']}>
+        <Accordion headers={['First', <Text style="bold">Second</Text>, 'Third']}>
           <Text>First Content</Text>
           <Text>Second Content</Text>
           <Text>Third Content</Text>
@@ -541,9 +508,13 @@ import { css } from '@emotion/react'
     >
       <ElementPreview.Preview>
         <Horizontal
-          css={css`
-            overflow: visible;
-          `}
+          styles={{
+            Main: {
+              css: {
+                overflow: 'visible',
+              },
+            },
+          }}
         >
           <Badge>
             <Text>Hey Badge</Text>
@@ -559,12 +530,12 @@ import { css } from '@emotion/react'
       <PropertyTable>
         <>
           <Text>count</Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>number | string</Text>
         </>
         <>
           <Text>cssDot</Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>SerializedStyles</Text>
         </>
       </PropertyTable>
@@ -604,7 +575,7 @@ import { css } from '@emotion/react'
         </>
         <>
           <Text>containerStyles</Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>object</Text>
         </>
         <>
@@ -614,7 +585,7 @@ import { css } from '@emotion/react'
         </>
         <>
           <Text>...props</Text>
-          <Text></Text>
+          <Text> </Text>
           <TextLink href="https://react-select.com/props">
             All other props passed to react-select
           </TextLink>
@@ -632,25 +603,25 @@ addNotification({ message: 'Failed to get data, please try again later.', type: 
       <ElementPreview.Preview>
         <NotificationToggle />
       </ElementPreview.Preview>
-      <Heading as="h3" code>{`<Notification />`}</Heading>
+      <Heading as="h3" style="code">{`<Notification />`}</Heading>
       <PropertyTable>
         <>
           <Text>gap</Text>
-          <Text></Text>
+          <Text> </Text>
           <InlineCode>string | number</InlineCode>
         </>
         <>
           <Text>wrapperCss</Text>
-          <Text></Text>
+          <Text> </Text>
           <InlineCode>SerializedStyles</InlineCode>
         </>
         <>
           <Text>containerCss</Text>
-          <Text></Text>
+          <Text> </Text>
           <InlineCode>SerializedStyles</InlineCode>
         </>
       </PropertyTable>
-      <Heading as="h3" code>{`addNotification`}</Heading>
+      <Heading as="h3" style="code">{`addNotification`}</Heading>
       <PropertyTable css={false} space={false}>
         <>
           <Text>message</Text>
@@ -773,29 +744,29 @@ const DescriptionList = <List type={List.Type.description}>
           <Text>Horizontal</Text>
           <Text>Third</Text>
         </List>
-        <List listStyle>
+        <List>
           <Text>First</Text>
           <Text>Second</Text>
           <Text>Third</Text>
         </List>
-        <List listStyle horizontal>
+        <List horizontal>
           <Text>First</Text>
           <Text>Second</Text>
           <Text>Third</Text>
         </List>
-        <List listStyle type={List.Type.ordered}>
+        <List type="ordered">
           <Text>Ordered</Text>
           <Text>Second</Text>
         </List>
-        <List listStyle type={List.Type.ordered} horizontal>
+        <List type="ordered" horizontal>
           <Text>Ordered</Text>
           <Text>Second</Text>
         </List>
-        <List type={List.Type.description}>
-          <List.Description term="Frontend">HTML, CSS and JavaScript</List.Description>
+        <List type="description">
+          {/* <List.Description term="Frontend">HTML, CSS and JavaScript</List.Description>
           <List.Description term={<Text>Backend</Text>}>
             <Text>Node, PHP etc.</Text>
-          </List.Description>
+          </List.Description> */}
         </List>
       </ElementPreview.Preview>
       <PropertyTable>
@@ -816,7 +787,7 @@ const DescriptionList = <List type={List.Type.description}>
         </>
         <>
           <Text>elementProps</Text>
-          <Text></Text>
+          <Text> </Text>
           <InlineCode>{`{ css: SerializedStyles } & LiElement`}</InlineCode>
         </>
         <>
@@ -849,17 +820,17 @@ const DescriptionList = <List type={List.Type.description}>
         </>
         <>
           <Text>onChange</Text>
-          <Text></Text>
+          <Text> </Text>
           <InlineCode>{`(date: Date) => void`}</InlineCode>
         </>
         <>
           <Text>styleOverrides</Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>SerializedStyles</Text>
         </>
         <>
           <Text>...props</Text>
-          <Text></Text>
+          <Text> </Text>
           <TextLink href="https://reactdatepicker.com">See react-datepicker</TextLink>
         </>
       </PropertyTable>
@@ -895,12 +866,12 @@ export const Hello = () => <p>W<strong>o</strong>rld</p>`}
         </>
         <>
           <Text>style</Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>object</Text>
         </>
         <>
           <Text>...props</Text>
-          <Text></Text>
+          <Text> </Text>
           <TextLink href="https://github.com/react-syntax-highlighter/react-syntax-highlighter">
             See react-syntax-highlighter
           </TextLink>
@@ -919,11 +890,7 @@ Use <InlineCode>const</InlineCode> to define variables.`}
           The proof of the following equation <InlineCode>{'2+2=5'}</InlineCode> is left to the
           reader.
         </Paragraph>
-        <Paragraph
-          css={css`
-            max-width: 350px;
-          `}
-        >
+        <Paragraph css={{ maxWidth: 350 }}>
           Multiple <InlineCode>inline code blocks</InlineCode> shouldn't touch each other even when{' '}
           <InlineCode>line-breaks</InlineCode> are present.
         </Paragraph>
@@ -990,7 +957,7 @@ Use <InlineCode>const</InlineCode> to define variables.`}
 <Image height={100} width={200} /> // Shows placeholder if src missing (useful for development)`}
     >
       <ElementPreview.Preview>
-        <Horizontal space={0}>
+        <Horizontal>
           <Image src={navenLogo} alt="naven Logo" height={100} />
           <Image alt="Show placeholder" width={200} height={100} />
         </Horizontal>
@@ -998,7 +965,7 @@ Use <InlineCode>const</InlineCode> to define variables.`}
       <PropertyTable>
         <>
           <Text>src</Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>string</Text>
         </>
         <>
@@ -1008,7 +975,7 @@ Use <InlineCode>const</InlineCode> to define variables.`}
         </>
         <>
           <Text>...props</Text>
-          <Text></Text>
+          <Text> </Text>
           <Text>
             all props from React <InlineCode>img</InlineCode> element
           </Text>
@@ -1017,7 +984,7 @@ Use <InlineCode>const</InlineCode> to define variables.`}
     </ElementPreview>
     <ElementPreview title="Loader" code={`<Loader /> <Loader small />`}>
       <ElementPreview.Preview>
-        <Horizontal space={0}>
+        <Horizontal>
           <Loader />
           <Loader small />
         </Horizontal>
@@ -1038,30 +1005,46 @@ Use <InlineCode>const</InlineCode> to define variables.`}
     >
       <ElementPreview.Preview>
         <Vertical
-          css={css`
-            row-gap: 0;
-            background: ${Color.Gray[200].var};
-            padding: ${Space.medium};
-          `}
+          styles={{
+            Main: {
+              css: {
+                rowGap: 0,
+                background: theme.color.gray200,
+                padding: theme.space.medium,
+              },
+            },
+          }}
         >
           <Spacer
-            css={css`
-              background: ${Color.white.var};
-            `}
+            styles={{
+              Main: {
+                css: {
+                  background: theme.color.white,
+                },
+              },
+            }}
           />
           <br />
           <Spacer
             size="large"
-            css={css`
-              background: ${Color.white.var};
-            `}
+            styles={{
+              Main: {
+                css: {
+                  background: theme.color.white,
+                },
+              },
+            }}
           />
           <br />
           <Spacer
-            line
-            css={css`
-              background: ${Color.white.var};
-            `}
+            type="line"
+            styles={{
+              Main: {
+                css: {
+                  background: theme.color.white,
+                },
+              },
+            }}
           />
         </Vertical>
       </ElementPreview.Preview>
@@ -1072,9 +1055,9 @@ Use <InlineCode>const</InlineCode> to define variables.`}
           <InlineCode>'tiny' | 'small' | 'medium' | 'large'</InlineCode>
         </>
         <>
-          <Text>line</Text>
-          <InlineCode>false</InlineCode>
-          <InlineCode>boolean</InlineCode>
+          <Text>type</Text>
+          <InlineCode>none</InlineCode>
+          <InlineCode>'line'</InlineCode>
         </>
       </PropertyTable>
     </ElementPreview>

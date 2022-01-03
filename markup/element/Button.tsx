@@ -7,14 +7,14 @@ export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
   as?: 'a'
   href?: string
-  disabled?: true
+  disabled?: boolean
   color?: 'regular' | 'highlight' | 'interact'
 }
 
-type Sheets = 'Button'
+type Sheets = 'Main'
 
 const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
-  Button: {
+  Main: {
     tag: 'button',
     main: true,
     css: {
@@ -56,9 +56,9 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
 const Button = ({ Sheet, props }: ComponentProps<Sheets>) => {
   const { children, ...otherProps } = props
   return (
-    <Sheet.Button.Component css={Sheet.Button.css} {...otherProps}>
+    <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       {children}
-    </Sheet.Button.Component>
+    </Sheet.Main.Component>
   )
 }
 
@@ -67,8 +67,8 @@ export default createComponent<Props, Sheets>(
   Button,
   (allStyles, props) => {
     if (props.disabled) {
-      allStyles.Button.css.cursor = 'auto'
-      allStyles.Button.css.textDecoration = 'line-through'
+      allStyles.Main.css.cursor = 'auto'
+      allStyles.Main.css.textDecoration = 'line-through'
     }
   },
   (props) => [props.disabled]

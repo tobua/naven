@@ -4,7 +4,6 @@ import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 
 export interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  children: ReactNode
   count?: number | string
   type?: 'content'
 }
@@ -30,7 +29,7 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
 })
 
 const TextArea = ({ Sheet, props }: ComponentProps<Sheets>) => {
-  const { children, onValue, ...otherProps } = props
+  const { onValue, ...otherProps } = props
 
   if (onValue) {
     const initialOnChange = props.onChange

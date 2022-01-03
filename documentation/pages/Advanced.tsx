@@ -11,7 +11,7 @@ import {
   InlineCode,
   Text,
 } from 'naven'
-import { Code } from 'naven/Code'
+import Code from 'naven/Code'
 import { PropertyTable } from 'markup/PropertyTable'
 import { theme } from '../configuration'
 

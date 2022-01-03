@@ -1,9 +1,8 @@
 import React, { HTMLAttributes, useState, Component } from 'react'
 import ReactDatePicker from 'react-datepicker'
 // @ts-ignore
-import { Input } from 'naven'
+import { Input, createComponent } from 'naven'
 import type { ComponentProps, ComponentStylesDefinition } from '../types'
-import { createComponent } from '../utility/component'
 
 // @ts-ignore
 export interface Props extends HTMLAttributes<HTMLElement> {
@@ -39,7 +38,8 @@ const DatePicker = ({ Sheet, props }: ComponentProps<Sheets>) => {
 
   return (
     <Sheet.Main.Component css={Sheet.Main.css}>
-      <ReactDatePicker
+      {/* @ts-ignore importing default will not work */}
+      <ReactDatePicker.default
         style={{ marginBottom: 20 }}
         selected={startDate}
         onChange={(date: Date) => {

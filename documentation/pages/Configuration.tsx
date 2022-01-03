@@ -9,7 +9,7 @@ import {
   Spacer,
   InlineCode,
 } from 'naven'
-import { Code } from 'naven/Code'
+import Code from 'naven/Code'
 import { PropertyTable } from 'markup/PropertyTable'
 
 export const Configuration = () => (
@@ -18,7 +18,7 @@ export const Configuration = () => (
       Components like <InlineCode>{`<Header />`}</InlineCode> are prefilled with some default link
       data.
     </Paragraph>
-    <Heading as="h2" code>
+    <Heading as="h2" style="code">
       <Anchor name="global" />
       {`<Global />`}
     </Heading>
@@ -40,16 +40,16 @@ export const Configuration = () => (
       </>
       <>
         <Text>rootCss</Text>
-        <Text></Text>
+        <Text> </Text>
         <Text>SerializedStyles</Text>
       </>
       <>
         <Text>bodyCss</Text>
-        <Text></Text>
+        <Text> </Text>
         <Text>SerializedStyles</Text>
       </>
     </PropertyTable>
-    <Heading as="h2" code>
+    <Heading as="h2" style="code">
       <Anchor name="header" />
       {`<Header />`}
     </Heading>
@@ -95,11 +95,11 @@ const HeaderWithImage = (
       </>
       <>
         <Text>children</Text>
-        <Text></Text>
+        <Text> </Text>
         <InlineCode>Title | Middle | Meta | Navigation</InlineCode>
       </>
     </PropertyTable>
-    <Heading as="h3" code>
+    <Heading as="h3" style="code">
       {`<Header.Title.Text />`}
     </Heading>
     <PropertyTable space={false}>
@@ -109,7 +109,7 @@ const HeaderWithImage = (
         <InlineCode>string</InlineCode>
       </>
     </PropertyTable>
-    <Heading as="h3" code>
+    <Heading as="h3" style="code">
       {`<Header.Title.Link />`}
     </Heading>
     <PropertyTable space={false}>
@@ -124,11 +124,11 @@ const HeaderWithImage = (
         <InlineCode>ReactNode</InlineCode>
       </>
     </PropertyTable>
-    <Heading as="h3" code>
+    <Heading as="h3" style="code">
       {`<Header.Middle />`}
     </Heading>
     <PropertyTable space={false} />
-    <Heading as="h3" code>
+    <Heading as="h3" style="code">
       {`<Header.Meta />`}
     </Heading>
     <PropertyTable space={false}>
@@ -144,11 +144,11 @@ const HeaderWithImage = (
       </>
       <>
         <InlineCode>children</InlineCode>
-        <Text></Text>
+        <Text> </Text>
         <InlineCode>ReactNode</InlineCode>
       </>
     </PropertyTable>
-    <Heading as="h3" code>
+    <Heading as="h3" style="code">
       <Anchor name="navigation" />
       {`<Header.Navigation />`}
     </Heading>
@@ -179,7 +179,7 @@ const HeaderWithImage = (
     <PropertyTable space={false}>
       <>
         <Text>links</Text>
-        <Text></Text>
+        <Text> </Text>
         <InlineCode>{`{
   title: Link | OptionalLink
   links?: Link[]
@@ -187,26 +187,26 @@ const HeaderWithImage = (
       </>
       <>
         <Text>linkActive</Text>
-        <Text></Text>
+        <Text> </Text>
         <InlineCode>{`(link: string) => boolean`}</InlineCode>
       </>
       <>
         <Text>listCss</Text>
-        <Text></Text>
+        <Text> </Text>
         <Text>SerializedStyles</Text>
       </>
       <>
         <Text>tabCss</Text>
-        <Text></Text>
+        <Text> </Text>
         <Text>SerializedStyles</Text>
       </>
       <>
         <Text>toggleCss</Text>
-        <Text></Text>
+        <Text> </Text>
         <Text>SerializedStyles</Text>
       </>
     </PropertyTable>
-    <Heading as="h2" code>
+    <Heading as="h2" style="code">
       <Anchor name="content" />
       {`<Content />`}
     </Heading>
@@ -228,7 +228,7 @@ const HeaderWithImage = (
         <Text>boolean</Text>
       </>
     </PropertyTable>
-    <Heading as="h2" code>
+    <Heading as="h2" style="code">
       <Anchor name="footer" />
       {`<Footer />`}
     </Heading>
@@ -270,7 +270,7 @@ const CustomFooter = <Footer>
         <InlineCode>boolean</InlineCode>
       </>
     </PropertyTable>
-    <Heading as="h3" code>
+    <Heading as="h3" style="code">
       {`<Footer.Column />`}
     </Heading>
     <PropertyTable space={false}>

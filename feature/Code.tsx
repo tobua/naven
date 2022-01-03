@@ -12,14 +12,14 @@ interface ICode {
   style?: object
 }
 
-export const Code = ({
+export default function Code({
   children,
   jsx = false,
   language = 'typescript',
   style,
   customStyle,
   ...props
-}: ICode & SyntaxHighlighterProps) => {
+}: ICode & SyntaxHighlighterProps) {
   const SyntaxHighlighter = jsx ? Prism : DefaultHighlighter
   const importedStyle = jsx ? prismStyle : githubStyle
 

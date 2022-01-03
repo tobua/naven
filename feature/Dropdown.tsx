@@ -32,24 +32,26 @@ const customStyles = ({ containerStyles, backgroundColor }: Props) => ({
   }),
 })
 
-export const Dropdown = ({
+export default function Dropdown({
   containerStyles,
   backgroundColor = cssVariable(naven.theme.color.white),
   ...props
-}: Props & SelectProps) => (
-  <Select
-    {...props}
-    styles={{
-      ...customStyles({ containerStyles, backgroundColor }),
-      ...props.styles,
-    }}
-    theme={{
-      borderRadius: naven.theme.look.radius.value,
-      // @ts-ignore TODO issue likely with plugin types.
-      colors: {
-        primary: cssVariable(naven.theme.color.highlight),
-      },
-      ...props.theme,
-    }}
-  />
-)
+}: Props & SelectProps) {
+  return (
+    <Select
+      {...props}
+      styles={{
+        ...customStyles({ containerStyles, backgroundColor }),
+        ...props.styles,
+      }}
+      theme={{
+        borderRadius: naven.theme.look.radius.value,
+        // @ts-ignore TODO issue likely with plugin types.
+        colors: {
+          primary: cssVariable(naven.theme.color.highlight),
+        },
+        ...props.theme,
+      }}
+    />
+  )
+}
