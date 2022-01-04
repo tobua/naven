@@ -53,6 +53,7 @@ const Loader = ({ Sheet, props }: ComponentProps<Sheets>) => {
     <Sheet.Main.Component
       viewBox="0 0 100 100"
       css={{ animation: `${rotate} 2s linear infinite`, ...Sheet.Main.css }}
+      size={size}
       {...otherProps}
     >
       <path fill="#000" fillRule="evenodd" d={path(size)} clipRule="evenodd" />

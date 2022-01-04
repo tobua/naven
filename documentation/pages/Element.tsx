@@ -744,13 +744,13 @@ const DescriptionList = <List type={List.Type.description}>
           <Text>Horizontal</Text>
           <Text>Third</Text>
         </List>
-        <List>
-          <Text>First</Text>
+        <List type="disc">
+          <Text>Disc</Text>
           <Text>Second</Text>
           <Text>Third</Text>
         </List>
-        <List horizontal>
-          <Text>First</Text>
+        <List horizontal type="disc">
+          <Text>Disc</Text>
           <Text>Second</Text>
           <Text>Third</Text>
         </List>
@@ -763,10 +763,14 @@ const DescriptionList = <List type={List.Type.description}>
           <Text>Second</Text>
         </List>
         <List type="description">
-          {/* <List.Description term="Frontend">HTML, CSS and JavaScript</List.Description>
-          <List.Description term={<Text>Backend</Text>}>
-            <Text>Node, PHP etc.</Text>
-          </List.Description> */}
+          {({ Description }) => (
+            <>
+              <Description term="Frontend">HTML, CSS and JavaScript</Description>
+              <Description term={<Text>Backend</Text>}>
+                <Text>Node, PHP etc.</Text>
+              </Description>
+            </>
+          )}
         </List>
       </ElementPreview.Preview>
       <PropertyTable>
@@ -1008,7 +1012,6 @@ Use <InlineCode>const</InlineCode> to define variables.`}
           styles={{
             Main: {
               css: {
-                rowGap: 0,
                 background: theme.color.gray200,
                 padding: theme.space.medium,
               },
@@ -1024,7 +1027,6 @@ Use <InlineCode>const</InlineCode> to define variables.`}
               },
             }}
           />
-          <br />
           <Spacer
             size="large"
             styles={{
@@ -1035,9 +1037,8 @@ Use <InlineCode>const</InlineCode> to define variables.`}
               },
             }}
           />
-          <br />
           <Spacer
-            type="line"
+            line
             styles={{
               Main: {
                 css: {

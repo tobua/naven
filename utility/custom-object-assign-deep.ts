@@ -61,7 +61,7 @@ function quickCloneObject(input) {
       continue
     }
 
-    if (input[key]) {
+    if (typeof input[key] !== 'undefined') {
       output[key] = cloneValue(input[key])
     }
   }

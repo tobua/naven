@@ -4,7 +4,7 @@ import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  type?: 'line'
+  line?: true
   size?: string | number
 }
 
@@ -18,12 +18,13 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
       height: naven.theme.space.medium,
       border: 'none',
       margin: 0,
+      width: '100%',
       position: 'relative',
       variants: {
-        type: {
-          line: {
-            '&:after': {
-              content: '',
+        line: {
+          true: {
+            '&::after': {
+              content: ' ',
               display: 'block',
               height: 1,
               background: naven.theme.color.backgroundContrast,

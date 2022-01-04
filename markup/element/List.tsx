@@ -1,7 +1,7 @@
 import React, { HTMLAttributes, LiHTMLAttributes, ReactNode, Fragment } from 'react'
 import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
-import { unit } from '../../style'
+import { naven, unit } from '../../style'
 
 export interface Props extends HTMLAttributes<HTMLUListElement> {
   children: ReactNode | ReactNode[]
@@ -23,6 +23,7 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
       flexDirection: 'column',
       paddingInlineStart: 0,
       listStyle: 'none',
+      gap: naven.theme.space.small,
       variants: {
         type: {
           ordered: {
@@ -44,14 +45,23 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const renderItem = ({ Sheet, props }: ComponentProps, children: ReactNode, key = 0) => {
+// For dl tag, description lists.
+const Description = ({
+  term,
+  children,
+}: {
+  term: string | ReactNode
+  children: string | ReactNode
+}) => (
+  <>
+    <dt>{term}</dt>
+    <dd style={{ marginLeft: 20 }}>{children}</dd>
+  </>
+)
+
+const renderItem = ({ Sheet, props }: ComponentProps<Sheets>, children: ReactNode, key = 0) => {
   if (props.type === 'description') {
-    return (
-      <Fragment key={key}>
-        <dt>{`term`}</dt>
-        <dd style={{ marginLeft: 20 }}>{children}</dd>
-      </Fragment>
-    )
+    return <Fragment key={key}>{children}</Fragment>
   }
 
   return (
@@ -61,7 +71,7 @@ const renderItem = ({ Sheet, props }: ComponentProps, children: ReactNode, key =
   )
 }
 
-const renderItems = ({ Sheet, props }: ComponentProps) => {
+const renderItems = ({ Sheet, props }: ComponentProps<Sheets>) => {
   if (!Array.isArray(props.children)) {
     return [renderItem({ Sheet, props }, props.children)]
   }
@@ -70,7 +80,8 @@ const renderItems = ({ Sheet, props }: ComponentProps) => {
 }
 
 const List = ({ Sheet, props }: ComponentProps<Sheets>) => {
-  const { children, horizontal, type, wrap, gap, ...otherProps } = props
+  const { children, horizontal, wrap, gap, ...otherProps } = props
+  props.children = typeof children === 'function' ? children({ Description }) : children
 
   return (
     <Sheet.List.Component css={Sheet.List.css} {...otherProps}>
@@ -93,7 +104,6 @@ export default createComponent<Props, Sheets>(
 
     if (props.horizontal) {
       allStyles.List.css.flexDirection = 'row'
-      allStyles.List.css.gap = unit(20)
     }
 
     if (props.wrap) {
@@ -102,27 +112,16 @@ export default createComponent<Props, Sheets>(
     }
 
     if (props.gap) {
-      allStyles.List.css.rowGap = props.gap
-      allStyles.List.css.columnGap = props.gap
+      allStyles.List.css.gap = props.gap
     }
 
-    if (!props.horizontal && props.type !== 'description') {
-      allStyles.List.css.paddingInlineStart = unit(20)
+    if (props.type === 'ordered' || props.type === 'disc') {
+      if (props.horizontal) {
+        allStyles.Item.css.marginLeft = unit(20)
+      } else {
+        allStyles.List.css.paddingInlineStart = unit(20)
+      }
     }
   },
   (props) => [props.type]
 )
-
-// For dl tag, description lists.
-// List.Description = ({
-//   term,
-//   children,
-// }: {
-//   term: string | ReactNode
-//   children: string | ReactNode
-// }) => (
-//   <>
-//     <ListDt>{term}</ListDt>
-//     <ListDd>{children}</ListDd>
-//   </>
-// )

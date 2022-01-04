@@ -42,9 +42,9 @@ export default createComponent<Props, Sheets>(
   (allStyles, props) => {
     const columns = getColumnCount(props.children)
 
-    // First row, ignore warning, nth-of-type won't work.
-    allStyles.Main.css[`> *:nth-child(-n + ${columns}`] = {
-      fontWeight: 'bold',
+    // First row, nth-of-type won't work.
+    allStyles.Main.css[`& > *:nth-child(-n + ${columns})`] = {
+      fontWeight: naven.theme.font.weightBold,
     }
 
     allStyles.Main.css.gridTemplateColumns = `repeat(${columns}, 1fr)`
