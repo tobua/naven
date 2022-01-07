@@ -2,6 +2,7 @@ import React, { useState, useCallback, HTMLAttributes } from 'react'
 import { naven, Layer, cssVariable } from '../../style'
 import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
+import { mergeStyles } from '../../utility/merge-styles'
 import Close from '../icon/Close'
 
 type NotificationType = 'info' | 'warning' | 'error'
@@ -111,10 +112,12 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
       position: 'relative',
       display: 'flex',
       background: naven.theme.color.background,
-      borderWidth: 1,
+      borderLeftWidth: 3,
+      borderLeftStyle: 'solid',
       borderColor: naven.theme.color.highlight,
       minWidth: '30%',
       borderRadius: naven.theme.look.radius,
+      paddingLeft: naven.theme.space.tiny,
       variants: {
         type: {
           error: {
@@ -126,17 +129,16 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
         },
       },
     },
-    props: (css, props) => {
-      // @ts-ignore TODO this only receives the top props.
-      if (props.closeable) {
-        css.paddingRight = `calc(${cssVariable(naven.theme.space.small)} * 3)`
-      }
-    },
   },
 })
 
 const Element = ({ Sheet, closeable, message, id, ...props }: INotification & { Sheet: any }) => (
-  <Sheet.Element.Component css={Sheet.Element.css} closeable={closeable} {...props}>
+  <Sheet.Element.Component
+    css={mergeStyles(Sheet.Element.css, {
+      paddingRight: closeable ? `calc(${cssVariable(naven.theme.space.small)} * 3)` : 0,
+    })}
+    {...props}
+  >
     {closeable && (
       <Sheet.CloseContainer.Component
         onClick={() => {

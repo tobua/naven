@@ -14,7 +14,20 @@ const customStyles = ({ containerStyles, backgroundColor }: Props) => ({
     minWidth: unit(200),
     ...containerStyles,
   }),
-  menu: (provided: object) => ({ ...provided, background: backgroundColor }),
+  valueContainer: (provided: object) => ({
+    ...provided,
+    padding: 0,
+  }),
+  placeholder: (provided: object) => ({
+    ...provided,
+    margin: 0,
+  }),
+  input: (provided: object) => ({
+    ...provided,
+    margin: 0,
+    padding: 0,
+  }),
+  menu: (provided: object) => ({ ...provided, background: backgroundColor, boxShadow: 'none' }),
   option: (provided: object) => ({
     ...provided,
     cursor: 'pointer',
@@ -22,6 +35,7 @@ const customStyles = ({ containerStyles, backgroundColor }: Props) => ({
   control: (provided: object) => ({
     ...provided,
     borderWidth: 0,
+    boxShadow: 'none',
     background: backgroundColor,
     minHeight: unit(42),
   }),

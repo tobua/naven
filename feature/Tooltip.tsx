@@ -92,7 +92,7 @@ const Content = ({ children, referenceElement, open, setOpen, arrow, close }: Co
   const [popperElement, setPopperElement] = useState(null)
   const [arrowElement, setArrowElement] = useState(null)
 
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+  const { styles: popperStyles, attributes } = usePopper(referenceElement, popperElement, {
     modifiers: [{ name: 'arrow', options: { element: arrowElement } }],
     placement: 'right',
   })
@@ -101,7 +101,7 @@ const Content = ({ children, referenceElement, open, setOpen, arrow, close }: Co
     <div
       ref={setPopperElement}
       style={{
-        ...styles.popper,
+        ...popperStyles.popper,
         ...{
           opacity: open ? 1 : 0,
           pointerEvents: open ? 'inherit' : 'none',
@@ -113,7 +113,7 @@ const Content = ({ children, referenceElement, open, setOpen, arrow, close }: Co
     >
       <div style={wrapper}>{children}</div>
       {arrow && (
-        <div ref={setArrowElement} style={styles.arrow}>
+        <div ref={setArrowElement} style={popperStyles.arrow}>
           <div style={arrowStyle} />
         </div>
       )}

@@ -2,7 +2,9 @@ import React from 'react'
 // @ts-ignore
 import { naven } from 'naven'
 import DefaultHighlighter, { SyntaxHighlighterProps, Prism } from 'react-syntax-highlighter'
+// eslint-disable-next-line import/extensions
 import githubStyle from 'react-syntax-highlighter/dist/esm/styles/hljs/github.js'
+// eslint-disable-next-line import/extensions
 import prismStyle from 'react-syntax-highlighter/dist/esm/styles/prism/prism.js'
 
 interface ICode {
