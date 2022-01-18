@@ -1,0 +1,20 @@
+name: push-next
+
+on:
+  push:
+    branches: [next]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - name: 🚧 Build
+        run: npm run build
+      - name: 🔢 Custom Version
+        run: npm version 0.0.0-next-${{ github.sha }} --git-tag-version false
+      - name: 🚀 Publish next tag
+        run: npm publish --tag next
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
