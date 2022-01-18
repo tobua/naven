@@ -15,6 +15,7 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
     main: true,
     css: {
       display: 'grid',
+      justifyItems: 'start',
       gridGap: naven.theme.space.small,
       background: naven.theme.color.gray300,
       borderRadius: naven.theme.look.radius,

@@ -1,5 +1,6 @@
 import {
   Content,
+  Sidebar,
   Heading,
   Anchor,
   Spacer,
@@ -27,6 +28,17 @@ export const Advanced = () => (
         <Anchor name="layout" />
         Layout
       </Heading>
+      <Heading as="h3" style="code">{`<Content />`}</Heading>
+    </Content>
+    <Content styles={{ Main: { css: highlightLayoutCss } }}>
+      <span>Content</span>
+    </Content>
+    <Content>
+      <Code>{`<Content>
+  <span>Content</span>
+</Content>`}</Code>
+    </Content>
+    <Content>
       <Heading as="h3" style="code">{`<Wide />`}</Heading>
     </Content>
     <Wide styles={{ Main: { css: highlightLayoutCss } }}>
@@ -45,8 +57,21 @@ export const Advanced = () => (
       <Code>{`<Narrow>
   <span>Narrow</span>
 </Narrow>`}</Code>
-      <Heading as="h3" style="code">{`<SideBar />`}</Heading>
-      <Paragraph>TODO</Paragraph>
+      <Heading as="h3" style="code">{`<Sidebar />`}</Heading>
+    </Content>
+    <Sidebar styles={{ Main: { css: highlightLayoutCss } }}>
+      <span>Sidebar</span>
+    </Sidebar>
+    <Content position="sidebar" styles={{ Main: { css: highlightLayoutCss } }}>
+      <span>Content</span>
+    </Content>
+    <Content>
+      <Code>{`<Sidebar>
+  <span>Sidebar</span>
+</Sidebar>
+<Content position="sidebar">
+  <span>Narrow</span>
+</Content>`}</Code>
       <Heading as="h3" style="code">{`<Horizontal>`}</Heading>
       <Horizontal>
         <div>First</div>

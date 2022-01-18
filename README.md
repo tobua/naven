@@ -29,20 +29,27 @@ The following is an example of how to render a page generated with naven to disp
 ```jsx
 import React from 'react'
 import { render } from 'react-dom'
-import { Global, Header, Content, Footer, Heading, Paragraph } from 'naven'
+import { Header, Content, Footer, Heading, Paragraph, Button } from 'naven'
 
 render(
   <>
-    <Global root="body" />
-    <Header title="My App">
-      <Header.Title.Link />
-      <Header.Navigation />
+    <Header>
+      {({ TitleLink, Meta }) => (
+        <>
+          <TitleLink />
+          <Meta>
+            <Button>Login</Button>
+          </Meta>
+        </>
+      )}
     </Header>
     <Content>
       <Heading>naven Demo</Heading>
       <Paragraph>Welcome home!</Paragraph>
     </Content>
-    <Footer />
+    <Footer>
+      <Paragraph>Made with naven</Paragraph>
+    </Footer>
   </>,
   document.body
 )
@@ -50,9 +57,7 @@ render(
 
 ## Configuration
 
-The base components are populated with some example date which you can see in . This data should be configured on the respective components for example the Header.
-
-Complex components can be customized and combined in many ways to achieve desired layouts. Check out the [demo](https://tobua.github.io/naven/demo) for a basic example without much customization. Some components require input data in order to render anything useful, i.e. the links for the navigation. Refer to the documentation how to configure the base components [Configuration](https://naven-documentation.vercel.app/configuration).
+Complex components can be customized and combined in many ways to achieve desired layouts. Check out the [demo](https://tobua.github.io/naven/demo) for a basic example without much customization. Some components require input data in order to render anything useful, i.e. the links for the navigation. Refer to the documentation how to configure the base components [Configuration](https://naven-documentation.vercel.app/general).
 
 ```jsx
 import { Header, Image } from 'naven'
@@ -60,22 +65,26 @@ import logo from 'assets/logo.svg'
 
 const MyHeader = (
   <Header wide={false}>
-    <Header.Title.Link>
-      <Image src={logo} />
-    </Header.Title.Link>
-    <Header.Navigation
-      links={[
-        { title: { name: 'Home', url: '/' } },
-        {
-          title: { name: 'About', url: 'about' },
-          links: [
-            { name: 'Disclaimer', url: '/disclaimer' },
-            { name: 'Privacy', url: '/policy' },
-          ],
-        },
-        { title: { name: 'Shop' } },
-      ]}
-    />
+    {({ TitleLink }) => (
+      <>
+        <TitleLink>
+          <Image src={logo} />
+        </TitleLink>
+        <Navigation
+          links={[
+            { title: { name: 'Home', url: '/' } },
+            {
+              title: { name: 'About', url: 'about' },
+              links: [
+                { name: 'Disclaimer', url: '/disclaimer' },
+                { name: 'Privacy', url: '/policy' },
+              ],
+            },
+            { title: { name: 'Shop' } },
+          ]}
+        />
+      </>
+    )}
   </Header>
 )
 ```
@@ -138,50 +147,45 @@ render(
 
 ## css-in-js
 
-This package relies on `@emotion` for CSS styles. It's two most important methods are also exported.
+This package relies on `@stitches/react` for CSS styles.
 
 ```jsx
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
-// => same as
 import { css, styled } from 'naven'
+// => or import yours when configurations were made
+import { css, styled } from './configuration'
 ```
 
-Styles parsed with `css` can be passed to almost every element. While `styled` can be used to extend existing elements with styles or style tags from the ground up.
+Almost every component accepts a `css` property to style the main tag. Using the `styled` API from `@stitches/react` it's also possible to extend built-in components.
 
 ```jsx
-const removeGapStyles = css`
-  row-gap: 0;
-`
+const removeGapStyles = {
+  rowGap: 0
+}
 
-const VerticalWithoutGap = styled(Vertical)`
-  row-gap: 0;
-`
+const VerticalWithoutGap = styled(Vertical, {
+  rowGap: 0
+})
 
 // Both of these are now the same.
 <Vertical css={removeGapStyles}>{...}</Vertical>
 <VerticalWithoutGap>{...}</VerticalWithoutGap>
 
 // Regular way to style any tag.
-const GrayWrapper = styled.div`
-  background: gray;
-`
+const GrayWrapper = styled('div', {
+  background: 'gray'
+})
 ```
 
 ## Layout
 
-The CSS grid is attached to the root and there are [Layout](https://tobua.github.io/naven/demo/advanced#layout) components to work with it.
+The CSS grid is attached to the root and there are [Layout](https://naven-documentation.vercel.app/advanced#layout) components to work with it.
 
 ```jsx
 import { Wide, Narrow } from 'naven'
 
 render(
   <>
-    <Global root="body" />
-    <Header>
-      <Header.Title.Text>naven Demo</Header.Title.Text>
-      <Header.Navigation />
-    </Header>
+    <Header title="naven Layout" />
     <Wide>Wide (Screen Width)</Wide>
     <Content>Regular Width (max 1500px)</Content>
     <Narrow>Narrow Width (max 1000px)</Narrow>
@@ -193,26 +197,36 @@ render(
 
 ## Spacing
 
-By default applicable elements will get a 20px `margin-bottom`. This space can be changed on the element with the `space` property.
+Spacing is handled by layout components like `Content`, `Narrow`, `Wide`, `Vertical` and `Horizontal`. These support a `space` property which will add a flex `gap` style which defaults to `space.medium` (20px).
 
 ```jsx
-import { Paragraph } from 'naven'
+import { Vertical } from 'naven'
 
-const SpacedParagraph = <Paragraph space={0 | Space.large | 5 | '3vh' | undefined}>Hello</Paragraph>
+const SpacedVertical = (
+  <Vertical space={0 | Space.large | 5 | '3vh' | undefined}>
+    <Paragraph>Hello</Paragraph>
+    <Paragraph>Again</Paragraph>
+  </Vertical>
+)
 ```
 
 ## Responsive
 
-This plugin assumes a Desktop-First approach where you override styles for `Breakpoint.Tablet` or `Breakpoint.Mobile`. You can `configure({ breakpoints: {...}})` the breakpoints while also adding new ones.
+This plugin assumes a Desktop-First approach where you override styles for `@tablet` or `@phone`.
+
+// TODO configure breakpoints
+You can `configure({ breakpoints: {...}})` the breakpoints while also adding new ones.
 
 ```jsx
-import { Breakpoint, Breakpoints, useBreakpoint } from 'naven'
+import { useBreakpoint } from 'naven'
 
-const hideMobileCss = css`
-  ${Breakpoint.Phone} {
-    display: none;
-  } /* => @media (max-width: 500px) { display: none; } */
-`
+const hideMobileCss = {
+  '@phone': {
+    display: 'none',
+  } /* => @media (max-width: 500px) { display: none; } */,
+}
+
+const ButtonHiddenMobile = styled(Button, hideMobileCss)
 
 const Responsive = () => {
   const { breakpoint } = useBreakpoint()
@@ -230,9 +244,9 @@ Where applicable all units are _responsified_ with [wasser](https://npmjs.com/wa
 ```jsx
 import { unit, Font, Text, configure } from 'naven'
 
-const ResponsifiedText = styled(Text)`
-  padding: ${unit(5)};
-  margin-right: ${unit(10, 5)};
+const ResponsifiedText = styled(Text, {
+  padding: unit(5),
+  marginRight: unit(10, 5),
   ${Font.size.custom(30, 20, 2)}
 `
 ```

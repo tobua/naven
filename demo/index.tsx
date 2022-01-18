@@ -138,7 +138,7 @@ const Body = () => {
       </Header>
       <Content>
         <Heading>naven Demo {userTheme}</Heading>
-        <Horizontal>
+        <Horizontal wrap>
           <Button>Text Button</Button>
           <Button color="highlight">I'm a button</Button>
           <Button color="interact" onClick={toggleTheme}>

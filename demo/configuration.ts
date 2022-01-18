@@ -3,7 +3,8 @@ import { mergeConfiguration, createStitches, registerStitches } from 'naven'
 const configuration = mergeConfiguration({
   theme: {
     color: {
-      some: '#FF007A',
+      highlight: '#00ab64',
+      interact: '#ab0047',
     },
   },
 })

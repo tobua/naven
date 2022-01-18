@@ -1,10 +1,11 @@
 import React, { HTMLAttributes, ReactNode } from 'react'
 import { naven } from '../..'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
+import type { ComponentProps, ComponentStylesDefinition, CSSValue } from '../../types'
 import { createComponent } from '../../utility/component'
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
+  space?: CSSValue
 }
 
 type Sheets = 'Main'
@@ -13,6 +14,7 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   Main: {
     tag: 'section',
     main: true,
+    space: true,
     css: {
       gridColumn: 3,
       display: 'flex',

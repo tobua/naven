@@ -1,54 +1,9 @@
-import {
-  Content,
-  Text,
-  Link,
-  TextLink,
-  Paragraph,
-  Anchor,
-  Heading,
-  Spacer,
-  InlineCode,
-} from 'naven'
+import { Content, Text, TextLink, Paragraph, Anchor, Heading, Spacer, InlineCode } from 'naven'
 import Code from 'naven/Code'
 import { PropertyTable } from 'markup/PropertyTable'
 
-export const Configuration = () => (
+export const General = () => (
   <Content>
-    <Paragraph>
-      Components like <InlineCode>{`<Header />`}</InlineCode> are prefilled with some default link
-      data.
-    </Paragraph>
-    <Heading as="h2" style="code">
-      <Anchor name="global" />
-      {`<Global />`}
-    </Heading>
-    <Code>{`<Global root="body" />`}</Code>
-    <Paragraph>
-      Specify the root where you render the React application. By default an element{' '}
-      <InlineCode>{`#root`}</InlineCode> is assumed. This component will not output anything but is
-      required for the rest of the components to work properly. It's also inserting the&nbsp;
-      <Link href="https://github.com/Sayegh7/emotion-reset">
-        <InlineCode>emotion-reset</InlineCode>
-      </Link>
-      .
-    </Paragraph>
-    <PropertyTable space={false}>
-      <>
-        <Text>root</Text>
-        <Text>#root</Text>
-        <Text>CSS Selector</Text>
-      </>
-      <>
-        <Text>rootCss</Text>
-        <Text> </Text>
-        <Text>SerializedStyles</Text>
-      </>
-      <>
-        <Text>bodyCss</Text>
-        <Text> </Text>
-        <Text>SerializedStyles</Text>
-      </>
-    </PropertyTable>
     <Heading as="h2" style="code">
       <Anchor name="header" />
       {`<Header />`}
@@ -61,33 +16,38 @@ export const Configuration = () => (
     <Code>
       {`const MyHeader = (
   <Header>
-    <Header.Title.Text>My Page</Header.Title.Text>
-    <Header.Middle>
-      <TextLink>Click me</TextLink>
-    </Header.Middle>
-    <Header.Meta links={[
-      { name: 'Overview', url: 'overview' },
-      { name: 'GitHub', url: 'https://github.com/tobua/naven' },
-    ]} />
-    <Header.Navigation hint="see below for more" />
+    {({ TitleText, Middle, Meta, Navigation }) => (
+      <TitleText>My Page</TitleText>
+      <Middle>
+        <TextLink>Click me</TextLink>
+      </Middle>
+      <Meta links={[
+        { name: 'Overview', url: 'overview' },
+        { name: 'GitHub', url: 'https://github.com/tobua/naven' },
+      ]} />
+      <Navigation hint="see below for more" />
+    )}
   </Header>
 )`}
     </Code>
     <Code>
-      {`import logo from 'assets/logo.svg'
+      {`import { Image, unit } from 'naven'
+import logo from 'assets/logo.svg'
 
 const HeaderWithImage = (
-  <Header wide={false}>
-    <Header.Title.Link>
-      <Image src={logo} css={css\`height: unit(40);\`} />
-    </Header.Title.Link>
-    <Header.Meta hideMobile>
-      <Button>Sign Up Now!</Button>
-    </Header.Meta>
+  <Header wide>
+    {({ TitleLink, Meta }) => (
+      <TitleLink>
+        <Image src={logo} css={{height: unit(40)}} />
+      </TitleLink>
+      <Meta hideMobile>
+        <Button>Sign Up Now!</Button>
+      </Meta>
+    )}
   </Header>
 )`}
     </Code>
-    <PropertyTable space={false}>
+    <PropertyTable>
       <>
         <Text>wide</Text>
         <InlineCode>false</InlineCode>
@@ -100,9 +60,9 @@ const HeaderWithImage = (
       </>
     </PropertyTable>
     <Heading as="h3" style="code">
-      {`<Header.Title.Text />`}
+      {`<TitleText />`}
     </Heading>
-    <PropertyTable space={false}>
+    <PropertyTable>
       <>
         <InlineCode>children</InlineCode>
         <Text>naven</Text>
@@ -110,9 +70,9 @@ const HeaderWithImage = (
       </>
     </PropertyTable>
     <Heading as="h3" style="code">
-      {`<Header.Title.Link />`}
+      {`<TitleLink />`}
     </Heading>
-    <PropertyTable space={false}>
+    <PropertyTable>
       <>
         <InlineCode>link</InlineCode>
         <Text>/</Text>
@@ -125,13 +85,19 @@ const HeaderWithImage = (
       </>
     </PropertyTable>
     <Heading as="h3" style="code">
-      {`<Header.Middle />`}
+      {`<Middle />`}
     </Heading>
-    <PropertyTable space={false} />
+    <PropertyTable>
+      <>
+        <InlineCode>children</InlineCode>
+        <Text>Empty</Text>
+        <InlineCode>ReactNode</InlineCode>
+      </>
+    </PropertyTable>
     <Heading as="h3" style="code">
-      {`<Header.Meta />`}
+      {`<Meta />`}
     </Heading>
-    <PropertyTable space={false}>
+    <PropertyTable>
       <>
         <InlineCode>links</InlineCode>
         <InlineCode>[]</InlineCode>
@@ -150,7 +116,7 @@ const HeaderWithImage = (
     </PropertyTable>
     <Heading as="h3" style="code">
       <Anchor name="navigation" />
-      {`<Header.Navigation />`}
+      {`<Navigation />`}
     </Heading>
     <Paragraph>
       Navigation with the top-level links directly visible and another optional level per link that
@@ -160,23 +126,25 @@ const HeaderWithImage = (
     <Code>
       {`const HeaderWithNavigation = (
   <Header>
-    <Header.Navigation links={[
-        {
-          title: { name: 'Top-Level First', url: 'first' },
-          links: [
-            { name: 'Bottom-Level First', url: 'first#first' },
-            { name: 'Bottom-Level Second', url: 'first#second' },
-          ],
-        },
-        {
-          title: { name: 'Top-Level First', url: 'second' },
-        },
-      ]}
-    />
+    {({ Navigation }) => (
+      <Navigation links={[
+          {
+            title: { name: 'Top-Level First', url: 'first' },
+            links: [
+              { name: 'Bottom-Level First', url: 'first#first' },
+              { name: 'Bottom-Level Second', url: 'first#second' },
+            ],
+          },
+          {
+            title: { name: 'Top-Level First', url: 'second' },
+          },
+        ]}
+      />
+    )}
   </Header>
 )`}
     </Code>
-    <PropertyTable space={false}>
+    <PropertyTable>
       <>
         <Text>links</Text>
         <Text> </Text>
@@ -221,7 +189,7 @@ const HeaderWithImage = (
   <Text>Hello World</Text>
 </Content>`}
     </Code>
-    <PropertyTable space={false}>
+    <PropertyTable>
       <>
         <Text>sidebar</Text>
         <Text>false</Text>
@@ -238,24 +206,26 @@ const HeaderWithImage = (
     <Code>
       {`const FooterWithLinks = (
   <Footer>
-    <Footer.Column
-      title={{ name: 'First-level', url: '/first' }}
-      links={[
-        {
-          name: 'Second-Level',
-          url: '/second',
-        },
-        {
-          name: 'Second-Level Jr.',
-          url: '/second-jr',
-        }
-      ]}
-    />
-    <Footer.Column
-      title={{ name: 'First-Level with Content', url: '/first-content' }}
-    >
-      <Paragraph>Copyright Notice</Paragraph>
-    </Footer.Column>
+    {({ Column }) => (
+      <Column
+        title={{ name: 'First-level', url: '/first' }}
+        links={[
+          {
+            name: 'Second-Level',
+            url: '/second',
+          },
+          {
+            name: 'Second-Level Jr.',
+            url: '/second-jr',
+          }
+        ]}
+      />
+      <Column
+        title={{ name: 'First-Level with Content', url: '/first-content' }}
+      >
+        <Paragraph>Copyright Notice</Paragraph>
+      </Column>
+    )}
   </Footer>
 )
 
@@ -263,7 +233,7 @@ const CustomFooter = <Footer>
   <Paragraph>Copyright Notice</Paragraph>
 </Footer>`}
     </Code>
-    <PropertyTable space={false}>
+    <PropertyTable>
       <>
         <Text>wide</Text>
         <InlineCode>false</InlineCode>
@@ -271,9 +241,9 @@ const CustomFooter = <Footer>
       </>
     </PropertyTable>
     <Heading as="h3" style="code">
-      {`<Footer.Column />`}
+      {`<Column />`}
     </Heading>
-    <PropertyTable space={false}>
+    <PropertyTable>
       <>
         <Text>title</Text>
         <Text>Empty</Text>

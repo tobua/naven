@@ -1,34 +1,26 @@
-import { useEffect } from 'react'
+import { useState } from 'react'
 import { Konfi } from 'konfi'
 import merge from 'deepmerge'
 import { diff } from 'deep-object-diff'
-import { Heading, Button, Content, Horizontal, defaultConfiguration } from 'naven'
-import { getStoredStyles, styled, theme, createTheme } from 'configuration'
+import { Heading, Button, Content, Horizontal, defaultConfiguration, globalTheme } from 'naven'
+import { getStoredStyles, styled, theme } from 'configuration'
 
-const defaultStyles = merge({}, defaultConfiguration.theme)
+const defaultStyles = defaultConfiguration.theme
 
 const ColorPreview = styled('div', {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   padding: theme.space.small,
+  borderRadius: theme.look.radius,
   '&:hover': {
     transform: 'scale(1.25)',
     transition: 'transform 300ms',
   },
 })
 
-const applyTheme = (configuration: any) => {
-  const themeClass = createTheme(configuration)
-
-  console.log(themeClass, themeClass.toString())
-
-  document.body.classList.add(themeClass)
-  // document.body.classList.remove(darkThemeClass)
-}
-
 export const Style = () => {
-  useEffect(() => applyTheme(getStoredStyles()), [])
+  const [hasChanges, setHasChanges] = useState(!!Object.keys(getStoredStyles()).length)
 
   return (
     <Content>
@@ -63,10 +55,11 @@ export const Style = () => {
       </Horizontal>
       <Heading as="h2">Configuration</Heading>
       <Button
-        disabled={!Object.keys(getStoredStyles()).length}
+        disabled={!hasChanges}
         onClick={() => {
           window.localStorage.removeItem('styles')
-          applyTheme(defaultStyles)
+          globalTheme({})
+          setHasChanges(false)
         }}
       >
         Reset
@@ -76,11 +69,12 @@ export const Style = () => {
         onChange={(configuration: any) => {
           // Only store the diff, to save space ;)
           const difference = diff(defaultStyles, configuration)
+          const changes = merge(getStoredStyles(), difference)
           // Store configuration in localstorage to be reflected on other pages as well.
-          console.log('store', difference)
-          window.localStorage.setItem('styles', JSON.stringify(difference))
+          window.localStorage.setItem('styles', JSON.stringify(changes))
           // Rerender when config was changed to reflect changes.
-          applyTheme(configuration)
+          globalTheme(changes as object)
+          setHasChanges(!!Object.keys(changes).length)
         }}
       />
     </Content>

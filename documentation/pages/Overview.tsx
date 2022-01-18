@@ -16,11 +16,12 @@ export const Overview = () => (
     <Code>{`import { render } from 'react-dom'
 import { Global, Header, Navigation, Content, Footer, Heading } from 'naven'
 
+// TODO configuration
+
 render(
   <>
-    <Global root="body" />
     <Header title="naven Demo" />
-    <Navigation />
+    <Navigation links={[{ title: { name: 'Links' }, links: [{ name: 'First' }]}]} />
     <Content>
       <Heading>naven Demo</Heading>
     </Content>

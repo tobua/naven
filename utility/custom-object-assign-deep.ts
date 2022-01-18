@@ -73,6 +73,10 @@ function quickCloneObject(input) {
  * Enumerates the given array and returns a new array, with each of its values cloned (i.e. references broken).
  */
 function quickCloneArray(input) {
+  if (isCssVariable(input)) {
+    return input
+  }
+
   return input.map(cloneValue)
 }
 
@@ -94,17 +98,7 @@ const executeDeepMerge = (target: object, _objects: object[]) => {
       const type = getTypeOf(value)
       const existingValueType = getTypeOf(output[key])
 
-      if (
-        output[key] &&
-        Object.prototype.hasOwnProperty.call(output[key], 'type') &&
-        output[key].type === '__css-variable'
-      ) {
-        output[key].value = value
-      } else if (
-        type === 'object' &&
-        Object.prototype.hasOwnProperty.call(value, 'type') &&
-        value.type === '__css-variable'
-      ) {
+      if (type === 'object' && isCssVariable(value)) {
         output[key] = value
       } else if (type === 'object') {
         if (existingValueType !== 'undefined') {

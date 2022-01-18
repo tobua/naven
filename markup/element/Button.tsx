@@ -18,16 +18,16 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
     tag: 'button',
     main: true,
     css: {
-      padding: naven.theme.space.small,
       border: 'none',
       outline: 'none',
       cursor: 'pointer',
-      backgroundColor: naven.theme.color.background,
       color: naven.theme.color.interact,
       radius: '$corner',
+      padding: 0,
       fontFamily: naven.theme.font.familyRegular,
       fontSize: naven.theme.font.sizeMedium,
       fontWeight: naven.theme.font.weightBold,
+      background: 'transparent',
       // When used as anchor tag.
       textDecoration: 'none',
       '&:hover,&:focus': {
@@ -38,14 +38,17 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
           regular: {
             backgroundColor: naven.theme.color.gray700,
             color: naven.theme.color.background,
+            padding: naven.theme.space.small,
           },
           highlight: {
             backgroundColor: naven.theme.color.highlight,
             color: naven.theme.color.background,
+            padding: naven.theme.space.small,
           },
           interact: {
             backgroundColor: naven.theme.color.interact,
             color: naven.theme.color.background,
+            padding: naven.theme.space.small,
           },
         },
       },
@@ -55,6 +58,7 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
 
 const Button = ({ Sheet, props }: ComponentProps<Sheets>) => {
   const { children, ...otherProps } = props
+
   return (
     <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       {children}

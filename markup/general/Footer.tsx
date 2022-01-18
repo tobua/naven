@@ -4,13 +4,14 @@ import type { ComponentProps, Link, OptionalLink, ComponentStylesDefinition } fr
 import { createComponent } from '../../utility/component'
 import TextLink from '../text/Link'
 import List from '../element/List'
+import { linkStyles } from '../element/Base'
 
 export interface Props extends HTMLAttributes<HTMLElement> {
   children: ReactNode
   type?: 'wide'
 }
 
-type Sheets = 'Main' | 'Column'
+type Sheets = 'Main' | 'Column' | 'TextLink'
 
 const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   Main: {
@@ -20,6 +21,7 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
       display: 'flex',
       gridColumn: '3 / 4',
       flexWrap: 'wrap',
+      rowGap: naven.theme.space.medium,
       variants: {
         type: {
           wide: {
@@ -41,6 +43,11 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
       },
     },
   },
+  TextLink: {
+    tag: 'a',
+    extends: [linkStyles()],
+    css: { display: 'flex', marginBottom: naven.theme.space.small },
+  },
 })
 
 export interface ColumnProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
@@ -60,9 +67,9 @@ const Footer = ({ Sheet, props }: ComponentProps<Sheets>) => {
 
     return (
       <Sheet.Column.Component css={Sheet.Column.css}>
-        <TextLink bold space={naven.theme.space.medium} href={title.url}>
+        <Sheet.TextLink.Component bold href={title.url} css={Sheet.TextLink.css}>
           {title.name}
-        </TextLink>
+        </Sheet.TextLink.Component>
         <List>
           {links.map((item, rowLinkIndex) => (
             <TextLink key={rowLinkIndex} href={item.url} styles={{ Main: { css: item.css } }}>
@@ -75,8 +82,6 @@ const Footer = ({ Sheet, props }: ComponentProps<Sheets>) => {
     )
   }
 
-  // console.log(typeof children, children)
-
   const processedChildren = typeof children === 'function' ? children({ Column }) : children
 
   return (
@@ -87,65 +92,3 @@ const Footer = ({ Sheet, props }: ComponentProps<Sheets>) => {
 }
 
 export default createComponent<Props, Sheets>(styles, Footer)
-
-// import React, { ReactNode, DetailedHTMLProps, HTMLAttributes } from 'react'
-// import styled from '@emotion/styled'
-// import { SerializedStyles } from '@emotion/react'
-// import { TextLink } from './element/Link'
-// import { List } from './element/List'
-// import { Space, Breakpoint } from '../style'
-// import { Link, OptionalLink } from '../types'
-
-// export interface FooterLinkRow {
-//   title: Link | OptionalLink
-//   links?: Link[]
-//   children?: JSX.Element
-//   css?: SerializedStyles
-//   listCss?: SerializedStyles
-// }
-
-// const Column = ({ links, title, css, listCss, children }: FooterLinkRow) => {
-//   if (!title && !links) {
-//     return children
-//   }
-
-//   return (
-//     <ColumnWrapper css={css}>
-//       <TextLink bold space={Space.medium} href={title.url} css={title.css}>
-//         {title.name}
-//       </TextLink>
-//       <List css={listCss}>
-//         {links.map((item, rowLinkIndex) => (
-//           <TextLink key={rowLinkIndex} href={item.url} css={item.css}>
-//             {item.name}
-//           </TextLink>
-//         ))}
-//       </List>
-//       {children}
-//     </ColumnWrapper>
-//   )
-// }
-
-// const Wrapper = styled.footer<{ css?: SerializedStyles; wide: boolean }>`
-//   grid-column: ${({ wide }) => (wide ? '2 / 5' : '3 / 4')};
-//   display: flex;
-//   flex-wrap: wrap;
-//   ${({ css }) => css}
-// `
-
-// export const Footer = ({
-//   css,
-//   wide = false,
-//   children,
-//   ...props
-// }: {
-//   css?: SerializedStyles
-//   wide?: boolean
-//   children?: ReactNode | ReactNode[]
-// } & DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>) => (
-//   <Wrapper css={css} wide={wide} {...props}>
-//     {children}
-//   </Wrapper>
-// )
-
-// Footer.Column = Column

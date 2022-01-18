@@ -9,11 +9,13 @@ import type {
   ComponentStylesUser,
   ComponentStylesDefinition,
   ComponentProps,
+  CSSValue,
 } from '../types'
 
 export interface DefaultProps {
   children?: ReactNode
   as?: ElementType<any>
+  space?: CSSValue
 }
 
 export const createComponent = <Props, Sheets extends string>(
@@ -24,8 +26,18 @@ export const createComponent = <Props, Sheets extends string>(
 ) => {
   const stylesMemoized = memoize(initialStyles)
 
-  function Result(props: Props & { styles?: ComponentStylesUser<Props, Sheets> } & DefaultProps) {
-    const defaultWatchProps = [props.styles]
+  function Result(
+    props: Props & { styles?: ComponentStylesUser<Props, Sheets>; css?: CSS } & DefaultProps
+  ) {
+    const defaultWatchProps: any[] = [props.styles]
+
+    // @ts-ignore
+    const spaceCustomized = stylesMemoized().Main && stylesMemoized().Main.space
+
+    if (spaceCustomized) {
+      defaultWatchProps.push(props.space)
+    }
+
     const sheet = useMemo(
       () => {
         const merged = mergeStyles(stylesMemoized(), props.styles) as ComponentStylesUser<
@@ -36,6 +48,7 @@ export const createComponent = <Props, Sheets extends string>(
         const components = {}
 
         Object.keys(merged).forEach((key) => {
+          const isMain = key === 'Main' || merged[key].main
           let css: CSS = {}
 
           if (Array.isArray(merged[key].extends) && merged[key].extends.length) {
@@ -48,9 +61,14 @@ export const createComponent = <Props, Sheets extends string>(
             merged[key].props(css, props)
           }
 
+          // TODO probably better with after styles.
+          if (isMain && props.css) {
+            merged[key].css = mergeStyles(merged[key].css ?? {}, props.css)
+          }
+
           components[key] = {
             Component: naven.styled(
-              merged[key].main && props.as ? props.as : merged[key].tag,
+              isMain && props.as ? props.as : merged[key].tag,
               merged[key].css ?? {}
             ),
             css,
@@ -61,13 +79,18 @@ export const createComponent = <Props, Sheets extends string>(
           afterStyles(components, props)
         }
 
+        if (spaceCustomized) {
+          // @ts-ignore
+          components.Main.css.gap = props.space
+        }
+
         return components as ComponentProps<Sheets>['Sheet']
       },
       watchProps ? defaultWatchProps.concat(watchProps(props)) : defaultWatchProps
     )
 
     // Extract props to be passed over (props is sealed for modification).
-    const { styles, ...safeProps } = props
+    const { styles, css, space, ...safeProps } = props
 
     return render<Sheets>(sheet, safeProps, Markup)
   }

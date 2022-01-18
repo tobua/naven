@@ -1,5 +1,4 @@
 import { useState, Fragment } from 'react'
-import { css } from '@emotion/react'
 import {
   Content,
   Vertical,
@@ -99,7 +98,7 @@ const Checkboxes = () => {
   const [second, setSecond] = useState(true)
 
   return (
-    <Vertical gap={theme.space.small}>
+    <Vertical space={theme.space.small}>
       <Checkbox label="First" checked={first} onChange={() => setFirst(!first)} />
       <Checkbox label="Second" checked={second} onChange={() => setSecond(!second)} />
     </Vertical>
@@ -110,7 +109,7 @@ const Radios = () => {
   const [selected, setSelected] = useState('first')
 
   return (
-    <Vertical gap={theme.space.small}>
+    <Vertical space={theme.space.small}>
       <Checkbox
         type="radio"
         label="First"
@@ -133,13 +132,15 @@ export const Elements = () => (
   <Content>
     <Heading as="h2">General</Heading>
     <Horizontal>
-      <Button>Press me!</Button>
+      <Button onClick={() => alert('Well Hello!')}>Press me!</Button>
       <Button
         disabled
         styles={{
           Main: {
             css: {
-              background: theme.color.highlight,
+              background: theme.color.backgroundContrast,
+              color: theme.color.colorContrast,
+              padding: theme.space.small,
             },
           },
         }}
@@ -148,11 +149,14 @@ export const Elements = () => (
       </Button>
     </Horizontal>
     <Code jsx language="typescript">
-      {`import { Button, Color, Space } from 'naven'
-import { css } from '@emotion/react'
+      {`import { Button } from 'naven'
 
-<Button space={Space.large}>Press me!</Button>
-<Button disabled space={0} css={css\`background: \${Color.black.var};\`}>Can't touch this</Button>`}
+const ClickableButton = <Button onClick={() => alert('Well Hello!')}>Press me!</Button>
+const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
+  background: theme.color.backgroundContrast,
+  color: theme.color.colorContrast,
+  padding: theme.space.small
+} }}>Can't touch this</Button>`}
     </Code>
     <ElementPreview
       title="Button"
@@ -160,6 +164,8 @@ import { css } from '@emotion/react'
     >
       <ElementPreview.Preview>
         <Horizontal>
+          <Button>Default</Button>
+          <Button color="regular">Regular</Button>
           <Button color="highlight">Highlight</Button>
           <Button color="interact">Interaction</Button>
           <Button disabled>Disabled</Button>
@@ -247,7 +253,7 @@ import { css } from '@emotion/react'
     <ElementPreview
       title="Text Link"
       anchor="text-link"
-      code={`<Text>This <TextLink underline={Underline.background} href="https://google.com">link</TextLink> is clickable.`}
+      code={`<Text>This <TextLink highlight="gradient" href="https://google.com">link</TextLink> is clickable.`}
     >
       <ElementPreview.Preview>
         <Horizontal>
@@ -260,41 +266,40 @@ import { css } from '@emotion/react'
               <TextLink href="https://google.com">all TextLink variants with underlines</TextLink>{' '}
               support multiple lines.
             </Paragraph>
-            <InlineCode>{`underline={Underline.regular}`}</InlineCode>
           </Vertical>
           <Vertical>
             <Text>
               Here is some text with a{' '}
-              <TextLink highlight="none" href="https://google.com">
+              <TextLink highlight="underline" href="https://google.com">
                 link
               </TextLink>
               .
             </Text>
             <Paragraph css={{ maxWidth: 200 }}>
               No worries as{' '}
-              <TextLink highlight="none" href="https://google.com">
+              <TextLink highlight="underline" href="https://google.com">
                 all TextLink variants with underlines
               </TextLink>{' '}
               support multiple lines.
             </Paragraph>
-            <InlineCode>{`highlight="none"`}</InlineCode>
+            <InlineCode>{`highlight="underline"`}</InlineCode>
           </Vertical>
           <Vertical>
             <Text>
               Here is some text with a{' '}
-              <TextLink highlight="animatedUnderline" href="https://google.com">
+              <TextLink highlight="animated" href="https://google.com">
                 link
               </TextLink>
               .
             </Text>
             <Paragraph css={{ maxWidth: 200 }}>
               No worries as{' '}
-              <TextLink highlight="animatedUnderline" href="https://google.com">
+              <TextLink highlight="animated" href="https://google.com">
                 all TextLink variants with underlines
               </TextLink>{' '}
               support multiple lines.
             </Paragraph>
-            <InlineCode>{`highlight="animatedUnderline"`}</InlineCode>
+            <InlineCode>{`highlight="animated"`}</InlineCode>
           </Vertical>
           <Vertical>
             <Text>
@@ -318,10 +323,8 @@ import { css } from '@emotion/react'
       <PropertyTable space={false}>
         <>
           <Text>underline</Text>
-          <InlineCode>Underline.none</InlineCode>
-          <InlineCode>
-            Underline.regular | Underline.none | Underline.animated | Underline.background
-          </InlineCode>
+          <InlineCode>empty</InlineCode>
+          <InlineCode>'underline' | 'animated' | 'gradient'</InlineCode>
         </>
         <>
           <Text>
@@ -383,6 +386,32 @@ import { css } from '@emotion/react'
           <Text>closeable</Text>
           <Text>false</Text>
           <Text>boolean</Text>
+        </>
+      </PropertyTable>
+    </ElementPreview>
+    <ElementPreview
+      title="Anchor"
+      code={`<Anchor name="my-anchor">
+  <Text>Anchor point</Text>
+</Anchor>
+
+<TextLink href="#my-anchor">Go to anchor</TextLink>`}
+    >
+      <ElementPreview.Preview>
+        <TextLink href="#first">To First Anchor</TextLink>
+        <TextLink href="#second">To Second Anchor</TextLink>
+        <Anchor name="first">
+          <Text>First Anchor</Text>
+        </Anchor>
+        <Anchor name="second">
+          <Text>Second Anchor</Text>
+        </Anchor>
+      </ElementPreview.Preview>
+      <PropertyTable>
+        <>
+          <Text>name</Text>
+          <Text>required</Text>
+          <InlineCode>string</InlineCode>
         </>
       </PropertyTable>
     </ElementPreview>

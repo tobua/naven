@@ -5,8 +5,8 @@ import { createComponent } from '../../utility/component'
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
-  wrap?: true
-  gap?: CSSValue
+  wrap?: boolean
+  space?: CSSValue
 }
 
 type Sheets = 'Main'
@@ -15,10 +15,16 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   Main: {
     tag: 'div',
     main: true,
+    space: true,
     css: {
       display: 'flex',
       overflow: 'visible',
       gap: naven.theme.space.medium,
+    },
+    props: (css, props) => {
+      if (props.wrap) {
+        css.flexWrap = 'wrap'
+      }
     },
   },
 })
@@ -32,17 +38,4 @@ const Horizontal = ({ Sheet, props }: ComponentProps<Sheets>) => {
   )
 }
 
-export default createComponent<Props, Sheets>(
-  styles,
-  Horizontal,
-  (allStyles, props) => {
-    if (props.wrap) {
-      allStyles.Main.css.flexWrap = 'wrap'
-    }
-
-    if (props.gap) {
-      allStyles.Main.css.gap = props.gap
-    }
-  },
-  (props) => [props.wrap, props.gap]
-)
+export default createComponent<Props, Sheets>(styles, Horizontal, null, (props) => [props.wrap])

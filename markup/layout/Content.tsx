@@ -1,19 +1,21 @@
 import React, { HTMLAttributes, ReactNode } from 'react'
 import { naven } from '../..'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
+import type { ComponentProps, ComponentStylesDefinition, CSSValue } from '../../types'
 import { createComponent } from '../../utility/component'
 
 export interface Props extends Omit<HTMLAttributes<HTMLHeadingElement>, 'style'> {
   children: ReactNode
   position?: 'sidebar'
+  space?: CSSValue
 }
 
-type Sheets = 'Content'
+type Sheets = 'Main'
 
 const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
-  Content: {
+  Main: {
     tag: 'main',
     main: true,
+    space: true,
     css: {
       gridColumn: '2 / 5',
       display: 'flex',
@@ -33,9 +35,9 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
 const Content = ({ Sheet, props }: ComponentProps<Sheets>) => {
   const { children, ...otherProps } = props
   return (
-    <Sheet.Content.Component css={Sheet.Content.css} {...otherProps}>
+    <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       {children}
-    </Sheet.Content.Component>
+    </Sheet.Main.Component>
   )
 }
 

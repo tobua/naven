@@ -28,6 +28,7 @@ export { default as TextArea } from './markup/element/TextArea'
 export { default as Footer } from './markup/general/Footer'
 export { default as Header } from './markup/general/Header'
 export { default as Navigation } from './markup/general/Navigation'
+export { default as Theme } from './markup/general/Theme'
 // Icon
 export const Icon = {
   Close,

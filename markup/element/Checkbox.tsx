@@ -3,7 +3,6 @@ import { naven } from '../../style'
 import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 import { uniqueID } from '../../utility/unique-id'
-import { blinkAnimation } from './Base'
 
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   as?: 'a'
@@ -46,9 +45,9 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
     tag: 'input',
     main: true,
     css: {
+      position: 'relative',
       border: 'none',
       background: naven.theme.color.gray500,
-      animation: `${blinkAnimation()} 1s linear infinite alternate`,
       cursor: 'pointer',
       // ${() => radius(2)}
       appearance: 'none',
@@ -61,6 +60,19 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
       },
       '&:checked': {
         background: naven.theme.color.backgroundContrast,
+      },
+      '&:checked:after': {
+        content: '',
+        position: 'absolute',
+        top: 0,
+        left: '6px',
+        display: 'table',
+        width: '6px',
+        height: '12px',
+        border: '2px solid #FFF',
+        borderTopWidth: 0,
+        borderLeftWidth: 0,
+        transform: 'rotate(45deg)',
       },
       '&:focus': {
         outline: 'none',

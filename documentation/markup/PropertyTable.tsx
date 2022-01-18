@@ -1,8 +1,8 @@
 import { Fragment } from 'react'
 import { Text, Table, InlineCode } from 'naven'
+import { theme } from '../configuration'
 
 export const PropertyTable = ({
-  space = true,
   css = true,
   children,
 }: {
@@ -25,25 +25,15 @@ export const PropertyTable = ({
     contents.push(children)
   }
 
-  if (space || typeof space === 'number') {
-    contents.push(
-      <Fragment key="space">
-        <Text>space</Text>
-        <InlineCode>{typeof space === 'number' ? `${space} px` : 'Space.medium'}</InlineCode>
-        <InlineCode>string | number</InlineCode>
-      </Fragment>
-    )
-  }
-
   if (css) {
     contents.push(
       <Fragment key="css">
         <Text>css</Text>
         <Text>Empty</Text>
-        <InlineCode>SerializedStyles</InlineCode>
+        <InlineCode>CSS</InlineCode>
       </Fragment>
     )
   }
 
-  return <Table>{contents}</Table>
+  return <Table css={{ background: theme.color.gray200 }}>{contents}</Table>
 }

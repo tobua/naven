@@ -37,7 +37,7 @@ const customStyles = ({ containerStyles, backgroundColor }: Props) => ({
     borderWidth: 0,
     boxShadow: 'none',
     background: backgroundColor,
-    minHeight: unit(42),
+    minHeight: 'auto',
   }),
   dropdownIndicator: (provided: object) => ({
     ...provided,

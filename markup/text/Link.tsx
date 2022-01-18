@@ -5,7 +5,7 @@ import { createComponent } from '../../utility/component'
 
 export interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
   children: ReactNode
-  highlight?: 'none' | 'underline' | 'animatedUnderline' | 'gradient'
+  highlight?: 'underline' | 'animated' | 'gradient'
   bold?: true
 }
 
@@ -20,7 +20,7 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
       textDecoration: 'none',
       fontFamily: naven.theme.font.familyRegular,
       fontSize: naven.theme.font.sizeMedium,
-      color: naven.theme.color.backgroundContrast,
+      color: naven.theme.color.interact,
       '&:hover,&:focus': {
         outline: 'none',
         backgroundSize: '100% 88%',
@@ -28,17 +28,14 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
       },
       variants: {
         highlight: {
-          none: {
+          underline: {
+            textDecoration: 'underline',
             color: naven.theme.color.backgroundContrast,
             '&:hover,&:focus': {
               color: naven.theme.color.interact,
-              textDecoration: 'none',
             },
           },
-          underline: {
-            textDecoration: 'underline',
-          },
-          animatedUnderline: {
+          animated: {
             color: naven.theme.color.backgroundContrast,
             backgroundImage: `linear-gradient(transparent calc(100% - 2px), ${naven.theme.color.backgroundContrast} 10px)`,
             backgroundRepeat: 'no-repeat',

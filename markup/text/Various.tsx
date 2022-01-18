@@ -110,11 +110,11 @@ export const Quote = ({
 }
 
 const shortQuotationStyles = memoize(() => ({
-  '&:before': {
-    content: '"',
+  '&::before': {
+    content: '“',
   },
-  '&:after': {
-    content: '"',
+  '&::after': {
+    content: '”',
   },
 }))
 
