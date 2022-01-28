@@ -1,7 +1,15 @@
-import React, { useState, HTMLAttributes, useEffect, useRef, ReactNode } from 'react'
+import React, {
+  useState,
+  HTMLAttributes,
+  useEffect,
+  useRef,
+  ReactNode,
+  useCallback,
+  DetailedHTMLProps,
+} from 'react'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { naven, Layer } from '../../style'
-import type { ComponentProps, Link, OptionalLink, ComponentStylesDefinition } from '../../types'
+import type { Link, OptionalLink } from '../../types'
 import { createComponent } from '../../utility/component'
 import List from '../element/List'
 import TextLink from '../text/Link'
@@ -10,18 +18,20 @@ import Menu from '../icon/Menu'
 import Close from '../icon/Close'
 import { mergeStyles } from '../../utility/merge-styles'
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode
-  linkActive?: (url: string) => boolean
-  links?: NavigationLinks
-  middle?: ReactNode
-  meta?: ReactNode
+export interface Props {
+  Component: {
+    children: ReactNode
+    linkActive?: (url: string) => boolean
+    links?: NavigationLinks
+    middle?: ReactNode
+    meta?: ReactNode
+  } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  Main: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  TabElement: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 }
 
-type Sheets = 'Wrapper' | 'Content' | 'ContentContainer' | 'ToggleIconWrapper' | 'TabElement'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
-  Wrapper: {
+const styles = () => ({
+  Main: {
     tag: 'nav',
     main: true,
     css: {
@@ -109,86 +119,27 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const ToggleIcon = ({
-  Sheet,
-  props,
-  showNavigation,
-  setShowNavigation,
-}: ComponentProps<Sheets> & {
-  showNavigation: boolean
-  setShowNavigation: (value: boolean) => void
-}) => {
-  const { links } = props
-  if (!links || !Array.isArray(links) || links.length < 1) {
-    return null
-  }
+// const listElementStyles = () => ({
+//   padding: 0,
+//   marginRight: naven.theme.space.small,
+//   '@phone': {
+//     marginBottom: naven.theme.space.medium,
+//   },
+// })
 
-  const iconStyles = {
-    cursor: 'pointer',
-    width: naven.theme.space.medium,
-    height: naven.theme.space.medium,
-    display: 'none',
-    '@phone': {
-      display: 'flex',
-    },
-  }
-
-  return (
-    <Sheet.ToggleIconWrapper.Component css={Sheet.ToggleIconWrapper.css}>
-      {showNavigation ? (
-        <Close onClick={() => setShowNavigation(false)} css={iconStyles} />
-      ) : (
-        <Menu onClick={() => setShowNavigation(true)} css={iconStyles} />
-      )}
-    </Sheet.ToggleIconWrapper.Component>
-  )
-}
-
-const listElementStyles = () => ({
-  padding: 0,
-  marginRight: naven.theme.space.small,
-  '@phone': {
-    marginBottom: naven.theme.space.medium,
-  },
-})
-
-const listStyles = (visible: boolean) => ({
-  '@phone': {
-    display: visible ? 'flex' : 'none',
-    flexDirection: 'column',
-  },
-})
-
-export const Tab = ({ Sheet, children }: ComponentProps<Sheets> & { children: ReactNode }) => {
-  const [open, setOpen] = useState(false)
-
-  return (
-    <Sheet.TabElement.Component
-      css={Sheet.TabElement.css}
-      tabIndex={0}
-      onMouseEnter={() => setOpen(true)}
-      onFocus={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-      onBlur={() => setOpen(false)}
-    >
-      {children[0]}
-      {children[1].props.children && ( // @ts-ignore
-        <Sheet.Content.Component css={Sheet.Content.css} type={open ? 'open' : undefined}>
-          <Sheet.ContentContainer.Component css={Sheet.ContentContainer.css}>
-            {children[1]}
-          </Sheet.ContentContainer.Component>
-        </Sheet.Content.Component>
-      )}
-    </Sheet.TabElement.Component>
-  )
-}
+// const listStyles = (visible: boolean) => ({
+//   '@phone': {
+//     display: visible ? 'flex' : 'none',
+//     flexDirection: 'column',
+//   },
+// })
 
 type NavigationLinks = {
   title: Link | OptionalLink
   links?: Link[]
 }[]
 
-const Navigation = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Navigation({ props, Sheet }) {
   const { children, links = [], linkActive = () => false, meta, middle, ...otherProps } = props
   const scrollContainerRef = useRef()
   const [showNavigation, setShowNavigation] = useState(false)
@@ -201,17 +152,62 @@ const Navigation = ({ Sheet, props }: ComponentProps<Sheets>) => {
     }
   }, [showNavigation])
 
+  const ToggleIcon = useCallback(() => {
+    if (!links || !Array.isArray(links) || links.length < 1) {
+      return null
+    }
+
+    const iconStyles = {
+      cursor: 'pointer',
+      width: naven.theme.space.medium,
+      height: naven.theme.space.medium,
+      display: 'none',
+      '@phone': {
+        display: 'flex',
+      },
+    }
+
+    return (
+      <Sheet.ToggleIconWrapper.Component css={Sheet.ToggleIconWrapper.css}>
+        {showNavigation ? (
+          <Close onClick={() => setShowNavigation(false)} css={iconStyles} />
+        ) : (
+          <Menu onClick={() => setShowNavigation(true)} css={iconStyles} />
+        )}
+      </Sheet.ToggleIconWrapper.Component>
+    )
+  }, [])
+
+  const Tab = useCallback(({ children: tabChildren }: { children: ReactNode }) => {
+    const [open, setOpen] = useState(false)
+
+    return (
+      <Sheet.TabElement.Component
+        css={Sheet.TabElement.css}
+        tabIndex={0}
+        onMouseEnter={() => setOpen(true)}
+        onFocus={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        onBlur={() => setOpen(false)}
+      >
+        {tabChildren[0]}
+        {tabChildren[1].props.children && ( // @ts-ignore
+          <Sheet.Content.Component css={Sheet.Content.css} type={open ? 'open' : undefined}>
+            <Sheet.ContentContainer.Component css={Sheet.ContentContainer.css}>
+              {tabChildren[1]}
+            </Sheet.ContentContainer.Component>
+          </Sheet.Content.Component>
+        )}
+      </Sheet.TabElement.Component>
+    )
+  }, [])
+
   // @ts-ignore
-  const wrapperStyles = mergeStyles(Sheet.Wrapper.css, showNavigation ? Sheet.Wrapper.show : {})
+  const wrapperStyles = mergeStyles(Sheet.Main.css, showNavigation ? Sheet.Main.show : {})
 
   return (
-    <Sheet.Wrapper.Component css={wrapperStyles} {...otherProps} ref={scrollContainerRef}>
-      <ToggleIcon
-        Sheet={Sheet}
-        props={props}
-        showNavigation={showNavigation}
-        setShowNavigation={setShowNavigation}
-      />
+    <Sheet.Main.Component css={wrapperStyles} {...otherProps} ref={scrollContainerRef}>
+      <ToggleIcon />
       <List
         space={0}
         // TODO dynamic styles
@@ -220,7 +216,7 @@ const Navigation = ({ Sheet, props }: ComponentProps<Sheets>) => {
         horizontal
       >
         {links.map((link) => (
-          <Tab key={link.title.name} Sheet={Sheet} props={props}>
+          <Tab key={link.title.name}>
             <TextLink href={link.title.url} bold={showNavigation || linkActive(link.title.url)}>
               {link.title.name}
             </TextLink>
@@ -240,7 +236,7 @@ const Navigation = ({ Sheet, props }: ComponentProps<Sheets>) => {
         <>
           {meta || middle ? (
             <>
-              <Spacer type="line" />
+              <Spacer line />
               <Spacer />
             </>
           ) : null}
@@ -250,8 +246,6 @@ const Navigation = ({ Sheet, props }: ComponentProps<Sheets>) => {
         </>
       )) ||
         null}
-    </Sheet.Wrapper.Component>
+    </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Navigation)
+})

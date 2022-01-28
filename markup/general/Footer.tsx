@@ -1,19 +1,21 @@
-import React, { ReactNode, HTMLAttributes } from 'react'
+import React, { ReactNode, HTMLAttributes, AnchorHTMLAttributes, useCallback } from 'react'
 import { naven } from '../../style'
-import type { ComponentProps, Link, OptionalLink, ComponentStylesDefinition } from '../../types'
+import type { Link, OptionalLink } from '../../types'
 import { createComponent } from '../../utility/component'
-import TextLink from '../text/Link'
 import List from '../element/List'
-import { linkStyles } from '../element/Base'
+import TextLink from '../text/Link'
 
-export interface Props extends HTMLAttributes<HTMLElement> {
-  children: ReactNode
-  type?: 'wide'
+export interface Props {
+  Component: {
+    children: ReactNode
+    type?: 'wide'
+  }
+  TextLink: {
+    bold?: boolean
+  } & AnchorHTMLAttributes<HTMLAnchorElement>
 }
 
-type Sheets = 'Main' | 'Column' | 'TextLink'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+const styles = () => ({
   Main: {
     tag: 'footer',
     main: true,
@@ -44,8 +46,7 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
     },
   },
   TextLink: {
-    tag: 'a',
-    extends: [linkStyles()],
+    extends: TextLink,
     css: { display: 'flex', marginBottom: naven.theme.space.small },
   },
 })
@@ -56,11 +57,10 @@ export interface ColumnProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> 
   links?: Link[]
 }
 
-const Footer = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Footer({ props, Sheet }) {
   const { children, ...otherProps } = props
 
-  // eslint-disable-next-line react/no-unstable-nested-components
-  const Column = ({ links, title, ...columnProps }: ColumnProps) => {
+  const Column = useCallback(({ links, title, ...columnProps }: ColumnProps) => {
     if (!title && !links) {
       return children
     }
@@ -72,7 +72,7 @@ const Footer = ({ Sheet, props }: ComponentProps<Sheets>) => {
         </Sheet.TextLink.Component>
         <List>
           {links.map((item, rowLinkIndex) => (
-            <TextLink key={rowLinkIndex} href={item.url} styles={{ Main: { css: item.css } }}>
+            <TextLink key={rowLinkIndex} href={item.url} css={item.css}>
               {item.name}
             </TextLink>
           ))}
@@ -80,7 +80,7 @@ const Footer = ({ Sheet, props }: ComponentProps<Sheets>) => {
         {columnProps.children}
       </Sheet.Column.Component>
     )
-  }
+  }, [])
 
   const processedChildren = typeof children === 'function' ? children({ Column }) : children
 
@@ -89,6 +89,4 @@ const Footer = ({ Sheet, props }: ComponentProps<Sheets>) => {
       {processedChildren}
     </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Footer)
+})

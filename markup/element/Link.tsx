@@ -1,15 +1,14 @@
 import React, { AnchorHTMLAttributes, ReactNode } from 'react'
 import { naven } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 
-export interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  children: ReactNode
+export interface Props {
+  Component: {
+    children: ReactNode
+  } & AnchorHTMLAttributes<HTMLAnchorElement>
 }
 
-type Sheets = 'Main'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+const styles = () => ({
   Main: {
     tag: 'a',
     main: true,
@@ -23,13 +22,11 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const Link = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Link({ props, Sheet }) {
   const { children, ...otherProps } = props
   return (
     <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       {children}
     </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Link)
+})

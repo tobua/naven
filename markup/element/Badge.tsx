@@ -1,18 +1,19 @@
 import React, { HTMLAttributes, ReactNode } from 'react'
 import { naven } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode
-  count?: number | string
-  type?: 'content'
+  Component: {
+    children: ReactNode
+    count?: number | string
+  }
+  Dot: {
+    type?: 'content'
+  }
 }
 
-type Sheets = 'Wrapper' | 'Dot'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
-  Wrapper: {
+const styles = () => ({
+  Main: {
     tag: 'div',
     main: true,
     css: {
@@ -49,18 +50,15 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const Badge = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Badge({ props, Sheet }) {
   const { children, count, ...otherProps } = props
 
   return (
-    <Sheet.Wrapper.Component css={Sheet.Wrapper.css} {...otherProps}>
-      {/* @ts-ignore */}
+    <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       <Sheet.Dot.Component css={Sheet.Dot.css} type={count ? 'content' : undefined}>
         {count}
       </Sheet.Dot.Component>
       {children}
-    </Sheet.Wrapper.Component>
+    </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Badge)
+})

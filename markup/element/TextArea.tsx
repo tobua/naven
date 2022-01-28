@@ -1,16 +1,16 @@
-import React, { TextareaHTMLAttributes, ReactNode } from 'react'
+import React, { TextareaHTMLAttributes, DetailedHTMLProps } from 'react'
 import { naven } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 
-export interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  count?: number | string
-  type?: 'content'
+export interface Props {
+  Component: {
+    count?: number | string
+    type?: 'content'
+    onValue?: (value: string) => void
+  } & DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
 }
 
-type Sheets = 'Main'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+const styles = () => ({
   Main: {
     tag: 'textarea',
     main: true,
@@ -28,7 +28,7 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const TextArea = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function TextArea({ props, Sheet }) {
   const { onValue, ...otherProps } = props
 
   if (onValue) {
@@ -43,6 +43,4 @@ const TextArea = ({ Sheet, props }: ComponentProps<Sheets>) => {
   }
 
   return <Sheet.Main.Component css={Sheet.Main.css} {...otherProps} />
-}
-
-export default createComponent<Props, Sheets>(styles, TextArea)
+})

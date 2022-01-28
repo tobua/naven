@@ -1,31 +1,24 @@
-import React, {
-  useMemo,
-  useCallback,
-  ReactNode,
-  HTMLAttributes,
-  Children,
-  cloneElement,
-} from 'react'
+import React, { useMemo, useCallback, ReactNode, Children, cloneElement } from 'react'
 import type { CSS } from '@stitches/react'
 import { naven, unit } from '../../style'
-import type { ComponentProps, Link as LinkType, ComponentStylesDefinition } from '../../types'
+import type { Link as LinkType } from '../../types'
 import { createComponent } from '../../utility/component'
-import TextLink from '../text/Link'
 import List from '../element/List'
 import Logo from '../icon/Logo'
 import { mergeStyles } from '../../utility/merge-styles'
 import Navigation from './Navigation'
-import { linkStyles, textStyles } from '../element/Base'
+import TextLink from '../text/Link'
+import Text from '../text/Text'
 
-export interface Props extends HTMLAttributes<HTMLElement> {
-  children: ReactNode
-  wide?: true
+export interface Props {
+  Component: {
+    children: ReactNode
+    wide?: true
+  }
 }
 
-type Sheets = 'Wrapper' | 'Middle' | 'MetaWrapper' | 'TitleLink' | 'TitleText'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
-  Wrapper: {
+const styles = () => ({
+  Main: {
     tag: 'header',
     main: true,
     css: {
@@ -75,17 +68,14 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
     },
   },
   TitleLink: {
-    tag: 'a',
-    extends: [linkStyles()],
+    extends: TextLink,
     css: {
       justifySelf: 'start',
       display: 'flex',
     },
   },
   TitleText: {
-    tag: 'p',
-    // TODO extends shouldn't take precedence over css.
-    extends: [textStyles()],
+    extends: Text,
     css: {
       alignSelf: 'center',
       fontSize: naven.theme.font.sizeLarge,
@@ -136,11 +126,11 @@ const mergeChildren = (children: any, innerComponents: any, Sheet: any) => {
   return newChildren
 }
 
-const Header = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Header({ props, Sheet }) {
   const { children, wide, ...otherProps } = props
 
   const TitleText = useCallback(
-    ({ children: innerChildren = 'naven' }: ComponentProps<Sheets> & { children?: string }) => (
+    ({ children: innerChildren = 'naven' }: { children?: string }) => (
       <Sheet.TitleText.Component css={Sheet.TitleText.css}>
         {innerChildren}
       </Sheet.TitleText.Component>
@@ -170,7 +160,7 @@ const Header = ({ Sheet, props }: ComponentProps<Sheets>) => {
       hideMobile = false,
       navigation = false,
       children: innerChildren,
-    }: ComponentProps<Sheets> & {
+    }: {
       links?: LinkType[]
       hideMobile?: boolean
       navigation?: boolean
@@ -216,10 +206,8 @@ const Header = ({ Sheet, props }: ComponentProps<Sheets>) => {
   const processedChildren = typeof children === 'function' ? children(innerComponents) : children
 
   return (
-    <Sheet.Wrapper.Component css={Sheet.Wrapper.css} {...otherProps}>
+    <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       {mergeChildren(processedChildren, innerComponents, Sheet)}
-    </Sheet.Wrapper.Component>
+    </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Header)
+})

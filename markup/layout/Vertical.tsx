@@ -1,17 +1,17 @@
 import React, { HTMLAttributes, ReactNode } from 'react'
 import { naven } from '../../style'
-import type { ComponentProps, CSSValue, ComponentStylesDefinition } from '../../types'
+import type { CSSValue } from '../../types'
 import { createComponent } from '../../utility/component'
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode
-  wrap?: boolean
-  space?: CSSValue
+export interface Props {
+  Component: {
+    children: ReactNode
+    wrap?: boolean
+    space?: CSSValue
+  } & HTMLAttributes<HTMLDivElement>
 }
 
-type Sheets = 'Main'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+const styles = () => ({
   Main: {
     tag: 'div',
     main: true,
@@ -21,18 +21,15 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
       flexDirection: 'column',
       overflow: 'visible',
       gap: naven.theme.space.medium,
-      alignItems: 'flex-start',
     },
   },
 })
 
-const Vertical = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Vertical({ props, Sheet }) {
   const { children, ...otherProps } = props
   return (
     <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       {children}
     </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Vertical)
+})

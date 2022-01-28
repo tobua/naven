@@ -1,19 +1,18 @@
-import React, { useState, HTMLAttributes, ReactNode } from 'react'
+import React, { useState, HTMLAttributes, ReactNode, DetailedHTMLProps } from 'react'
 import { usePopper } from 'react-popper'
 // @ts-ignore
-import { naven, createComponent } from 'naven'
-import type { ComponentProps, ComponentStylesDefinition } from '../types'
+import { createComponent } from 'naven'
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-  content: ReactNode
-  arrow?: boolean
-  close?: boolean
-  children: ReactNode
+export interface Props {
+  Component: {
+    content: ReactNode
+    arrow?: boolean
+    close?: boolean
+    children: ReactNode
+  } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 }
 
-type Sheets = 'Wrapper'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+const styles = () => ({
   Wrapper: {
     tag: 'div',
     main: true,
@@ -139,7 +138,7 @@ const Content = ({ children, referenceElement, open, setOpen, arrow, close }: Co
   )
 }
 
-const Tooltip = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Tooltip({ props, Sheet }) {
   const { children, content, arrow = true, close = false, ...otherProps } = props
   const [referenceElement, setReferenceElement] = useState(null)
   // Only initialize plugin (absolutely position hidden tooltip element)
@@ -185,6 +184,4 @@ const Tooltip = ({ Sheet, props }: ComponentProps<Sheets>) => {
       )}
     </>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Tooltip)
+})

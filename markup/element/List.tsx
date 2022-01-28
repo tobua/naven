@@ -1,21 +1,23 @@
-import React, { HTMLAttributes, LiHTMLAttributes, ReactNode, Fragment } from 'react'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
+import React, { HTMLAttributes, LiHTMLAttributes, ReactNode, Fragment, useCallback } from 'react'
 import { createComponent } from '../../utility/component'
 import { naven, unit } from '../../style'
 
-export interface Props extends HTMLAttributes<HTMLUListElement> {
-  children: ReactNode | ReactNode[]
-  horizontal?: true
-  wrap?: true
-  gap?: number | string
-  type?: 'ordered' | 'description' | 'disc'
-  elementProps?: LiHTMLAttributes<HTMLLIElement>
+export interface Props {
+  Component: {
+    children: ReactNode | ReactNode[]
+    horizontal?: true
+    wrap?: true
+    gap?: number | string
+    type?: 'ordered' | 'description' | 'disc'
+    elementProps?: LiHTMLAttributes<HTMLLIElement>
+  } & HTMLAttributes<HTMLUListElement>
+  Item: {
+    children: ReactNode
+  }
 }
 
-type Sheets = 'List' | 'Item'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
-  List: {
+const styles = () => ({
+  Main: {
     tag: 'ul',
     main: true,
     css: {
@@ -38,10 +40,41 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
         },
       },
     },
+    props: (innerStyles: ReturnType<typeof styles>, props: Props['Component']) => {
+      // if (props.type === 'ordered') {
+      //   innerStyles.tag = 'ol'
+      // }
+
+      // if (props.type === 'description') {
+      //   innerStyles.tag = 'dl'
+      // }
+
+      if (props.horizontal) {
+        innerStyles.flexDirection = 'row'
+      }
+
+      if (props.wrap) {
+        innerStyles.flexWrap = 'wrap'
+        innerStyles.overflow = 'visible'
+      }
+
+      if (props.gap) {
+        innerStyles.gap = props.gap
+      }
+
+      if ((props.type === 'ordered' || props.type === 'disc') && !props.horizontal) {
+        innerStyles.paddingInlineStart = unit(20)
+      }
+    },
   },
   Item: {
     tag: 'li',
     css: {},
+    props: (innerStyles, props: Props['Component']) => {
+      if ((props.type === 'ordered' || props.type === 'disc') && props.horizontal) {
+        innerStyles.marginLeft = unit(20)
+      }
+    },
   },
 })
 
@@ -59,69 +92,36 @@ const Description = ({
   </>
 )
 
-const renderItem = ({ Sheet, props }: ComponentProps<Sheets>, children: ReactNode, key = 0) => {
-  if (props.type === 'description') {
-    return <Fragment key={key}>{children}</Fragment>
-  }
+export default createComponent(styles)<Props>(
+  function List({ props, Sheet }) {
+    const { children, horizontal, wrap, gap, ...otherProps } = props
+    props.children = typeof children === 'function' ? children({ Description }) : children
 
-  return (
-    <Sheet.Item.Component css={Sheet.Item.css} key={key}>
-      {children}
-    </Sheet.Item.Component>
-  )
-}
-
-const renderItems = ({ Sheet, props }: ComponentProps<Sheets>) => {
-  if (!Array.isArray(props.children)) {
-    return [renderItem({ Sheet, props }, props.children)]
-  }
-
-  return props.children.map((child, index) => renderItem({ Sheet, props }, child, index))
-}
-
-const List = ({ Sheet, props }: ComponentProps<Sheets>) => {
-  const { children, horizontal, wrap, gap, ...otherProps } = props
-  props.children = typeof children === 'function' ? children({ Description }) : children
-
-  return (
-    <Sheet.List.Component css={Sheet.List.css} {...otherProps}>
-      {renderItems({ Sheet, props })}
-    </Sheet.List.Component>
-  )
-}
-
-export default createComponent<Props, Sheets>(
-  styles,
-  List,
-  (allStyles, props) => {
-    if (props.type === 'ordered') {
-      allStyles.List.tag = 'ol'
-    }
-
-    if (props.type === 'description') {
-      allStyles.List.tag = 'dl'
-    }
-
-    if (props.horizontal) {
-      allStyles.List.css.flexDirection = 'row'
-    }
-
-    if (props.wrap) {
-      allStyles.List.css.flexWrap = 'wrap'
-      allStyles.List.css.overflow = 'visible'
-    }
-
-    if (props.gap) {
-      allStyles.List.css.gap = props.gap
-    }
-
-    if (props.type === 'ordered' || props.type === 'disc') {
-      if (props.horizontal) {
-        allStyles.Item.css.marginLeft = unit(20)
-      } else {
-        allStyles.List.css.paddingInlineStart = unit(20)
+    const renderItem = useCallback((innerChildren: ReactNode, key = 0) => {
+      if (props.type === 'description') {
+        return <Fragment key={key}>{innerChildren}</Fragment>
       }
-    }
+
+      return (
+        <Sheet.Item.Component css={Sheet.Item.css} key={key}>
+          {innerChildren}
+        </Sheet.Item.Component>
+      )
+    }, [])
+
+    const renderItems = useCallback(() => {
+      if (!Array.isArray(props.children)) {
+        return [renderItem(props.children)]
+      }
+
+      return props.children.map((child, index) => renderItem(child, index))
+    }, [])
+
+    return (
+      <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
+        {renderItems()}
+      </Sheet.Main.Component>
+    )
   },
-  (props) => [props.type]
+  (props) => [props.type, props.gap, props.wrap, props.horizontal]
 )

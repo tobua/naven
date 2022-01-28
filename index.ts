@@ -3,6 +3,7 @@ import Loader from './markup/icon/Loader'
 import Logo from './markup/icon/Logo'
 
 export * from './style/index'
+export { globalTheme } from './style/global-theme'
 export { createComponent } from './utility/component'
 // Element
 export { default as Accordion } from './markup/element/Accordion'
@@ -22,7 +23,6 @@ export { default as Popup } from './markup/element/Popup'
 export { default as Spacer } from './markup/element/Spacer'
 export { default as Table } from './markup/element/Table'
 export { default as Tabs } from './markup/element/Tabs'
-export { default as Text } from './markup/text/Text'
 export { default as TextArea } from './markup/element/TextArea'
 // General
 export { default as Footer } from './markup/general/Footer'
@@ -45,6 +45,7 @@ export { default as Wide } from './markup/layout/Wide'
 // Text
 export { default as Heading } from './markup/text/Heading'
 export { default as InlineCode } from './markup/text/InlineCode'
+export { default as Text } from './markup/text/Text'
 export { default as TextLink } from './markup/text/Link'
 export {
   Inline,

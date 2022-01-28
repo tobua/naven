@@ -1,6 +1,6 @@
-import { mergeConfiguration, createStitches, registerStitches } from 'naven'
+import { merge, create, register } from 'naven'
 
-const configuration = mergeConfiguration({
+const configuration = merge({
   theme: {
     color: {
       highlight: '#00ab64',
@@ -9,7 +9,4 @@ const configuration = mergeConfiguration({
   },
 })
 
-export const { theme, styled, createTheme } = registerStitches(
-  createStitches(configuration),
-  'body'
-)
+export const { theme, styled, createTheme } = register(create(configuration), 'body')

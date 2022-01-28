@@ -1,3 +1,3 @@
-import { mergeConfiguration, createStitches, registerStitches } from 'naven'
+import { merge, createStitches, register } from 'naven'
 
-export const { theme, styled, createTheme } = registerStitches(createStitches({}), 'body')
+export const { theme, styled, createTheme } = register(createStitches({}), 'body')

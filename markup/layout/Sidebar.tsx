@@ -1,17 +1,17 @@
 import React, { HTMLAttributes, ReactNode } from 'react'
 import { naven } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition, CSSValue } from '../../types'
+import type { CSSValue } from '../../types'
 import { createComponent } from '../../utility/component'
 
-export interface Props extends Omit<HTMLAttributes<HTMLHeadingElement>, 'style'> {
-  children: ReactNode
-  position?: 'sidebar'
-  space?: CSSValue
+export interface Props {
+  Component: {
+    children: ReactNode
+    position?: 'sidebar'
+    space?: CSSValue
+  } & Omit<HTMLAttributes<HTMLHeadingElement>, 'style'>
 }
 
-type Sheets = 'Main'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+const styles = () => ({
   Main: {
     tag: 'nav',
     main: true,
@@ -20,20 +20,17 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
       gridColumn: '2 / 3',
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'flex-start',
       overflow: 'hidden',
       gap: naven.theme.space.medium,
     },
   },
 })
 
-const Sidebar = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Sidebar({ props, Sheet }) {
   const { children, ...otherProps } = props
   return (
     <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       {children}
     </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Sidebar)
+})

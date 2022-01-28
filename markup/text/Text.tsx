@@ -1,17 +1,16 @@
-import React, { HTMLAttributes, ReactNode } from 'react'
+import React, { HTMLAttributes, ReactNode, DetailedHTMLProps } from 'react'
 import { naven } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 
-export interface Props extends Omit<HTMLAttributes<HTMLParagraphElement>, 'style'> {
-  children: ReactNode
-  style?: 'bold'
+export interface Props {
+  Component: {
+    children: ReactNode
+    style?: 'bold'
+  } & DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>
 }
 
-type Sheets = 'Text'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
-  Text: {
+const styles = () => ({
+  Main: {
     tag: 'p',
     main: true,
     css: {
@@ -28,13 +27,11 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const Text = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Text({ props, Sheet }) {
   const { children, ...otherProps } = props
   return (
-    <Sheet.Text.Component css={Sheet.Text.css} {...otherProps}>
+    <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       {children}
-    </Sheet.Text.Component>
+    </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Text)
+})

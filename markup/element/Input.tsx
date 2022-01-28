@@ -1,17 +1,16 @@
 import React, { InputHTMLAttributes } from 'react'
 import { naven, unit } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
-import { blinkAnimation } from './Base'
+import { blinkAnimation } from '../../style/animation'
 
-export interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  onValue?: (value: string) => void
+export interface Props {
+  Component: {
+    onValue?: (value: string) => void
+  } & InputHTMLAttributes<HTMLInputElement>
 }
 
-type Sheets = 'Wrapper' | 'Input'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
-  Wrapper: {
+const styles = () => ({
+  Main: {
     tag: 'div',
     css: {
       display: 'flex',
@@ -43,7 +42,7 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const Input = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Input({ props, Sheet }) {
   const { children, onValue, ...otherProps } = props
 
   if (onValue) {
@@ -58,10 +57,8 @@ const Input = ({ Sheet, props }: ComponentProps<Sheets>) => {
   }
 
   return (
-    <Sheet.Wrapper.Component css={Sheet.Wrapper.css}>
+    <Sheet.Main.Component css={Sheet.Main.css}>
       <Sheet.Input.Component css={Sheet.Input.css} {...otherProps} />
-    </Sheet.Wrapper.Component>
+    </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Input)
+})

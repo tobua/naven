@@ -1,15 +1,14 @@
-import React, { HTMLAttributes } from 'react'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
+import React, { HTMLAttributes, DetailedHTMLProps } from 'react'
 import { createComponent } from '../../utility/component'
 import LoaderIcon from '../icon/Loader'
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-  small?: true
+export interface Props {
+  Component: {
+    small?: true
+  } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 }
 
-type Sheets = 'Main'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+const styles = () => ({
   Main: {
     tag: 'div',
     main: true,
@@ -22,13 +21,11 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const Loader = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Loader({ props, Sheet }) {
   const { children, small, ...otherProps } = props
   return (
     <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       <LoaderIcon size={small ? 'small' : undefined} />
     </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Loader)
+})

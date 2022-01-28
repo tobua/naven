@@ -1,15 +1,17 @@
 import React, { SVGProps, useMemo } from 'react'
 import { naven } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 
-export interface Props extends SVGProps<SVGSVGElement> {
-  size?: 'small'
+export interface Props {
+  Component: {
+    size?: 'small'
+  } & SVGProps<SVGSVGElement>
+  Main: {
+    size?: 'small'
+  } & SVGProps<SVGSVGElement>
 }
 
-type Sheets = 'Main'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+const styles = () => ({
   Main: {
     tag: 'svg',
     main: true,
@@ -33,7 +35,7 @@ const path = (size?: string) =>
     ? 'M90.258 70.129C82.87 84.876 67.618 95 50 95 25.147 95 5 74.853 5 50S25.147 5 50 5c17.617 0 32.87 10.124 40.258 24.871l4.473-2.237C86.522 11.25 69.575 0 50 0 22.386 0 0 22.386 0 50s22.386 50 50 50c19.575 0 36.522-11.249 44.731-27.634l-4.473-2.237z'
     : 'M85.785 67.892C79.218 81.002 65.66 90 50 90c-22.091 0-40-17.909-40-40s17.909-40 40-40c15.66 0 29.218 8.999 35.785 22.108l8.946-4.474C86.522 11.25 69.575 0 50 0 22.386 0 0 22.386 0 50s22.386 50 50 50c19.575 0 36.522-11.249 44.731-27.634l-8.946-4.474z'
 
-const Loader = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Loader({ props, Sheet }) {
   const { children, size, ...otherProps } = props
 
   const rotate = useMemo(
@@ -68,6 +70,4 @@ const Loader = ({ Sheet, props }: ComponentProps<Sheets>) => {
   //       </g>
   //     </Vector>
   //   )
-}
-
-export default createComponent<Props, Sheets>(styles, Loader)
+})

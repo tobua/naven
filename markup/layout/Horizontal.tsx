@@ -1,17 +1,18 @@
-import React, { HTMLAttributes, ReactNode } from 'react'
+import React, { ReactNode } from 'react'
+import type { CSS } from '@stitches/react'
 import { naven } from '../../style'
-import type { ComponentProps, CSSValue, ComponentStylesDefinition } from '../../types'
+import type { CSSValue } from '../../types'
 import { createComponent } from '../../utility/component'
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode
-  wrap?: boolean
-  space?: CSSValue
+export interface Props {
+  Component: {
+    children: ReactNode
+    wrap?: boolean
+    space?: CSSValue
+  }
 }
 
-type Sheets = 'Main'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+const styles = () => ({
   Main: {
     tag: 'div',
     main: true,
@@ -21,7 +22,7 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
       overflow: 'visible',
       gap: naven.theme.space.medium,
     },
-    props: (css, props) => {
+    props: (css: CSS, props: Props['Component']) => {
       if (props.wrap) {
         css.flexWrap = 'wrap'
       }
@@ -29,13 +30,14 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const Horizontal = ({ Sheet, props }: ComponentProps<Sheets>) => {
-  const { children, wrap, ...otherProps } = props
-  return (
-    <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
-      {children}
-    </Sheet.Main.Component>
-  )
-}
-
-export default createComponent<Props, Sheets>(styles, Horizontal, null, (props) => [props.wrap])
+export default createComponent(styles)<Props>(
+  function Horizontal({ props, Sheet }) {
+    const { children, wrap, ...otherProps } = props
+    return (
+      <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
+        {children}
+      </Sheet.Main.Component>
+    )
+  },
+  (props) => [props.wrap]
+)

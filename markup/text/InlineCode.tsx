@@ -1,16 +1,15 @@
 import React, { HTMLAttributes } from 'react'
 import { wasser } from 'wasser'
 import { naven } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 
-export interface Props extends HTMLAttributes<HTMLElement> {
-  children: string
+export interface Props {
+  Component: {
+    children: string
+  } & HTMLAttributes<HTMLElement>
 }
 
-type Sheets = 'Main'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+const styles = () => ({
   Main: {
     tag: 'code',
     main: true,
@@ -24,13 +23,11 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const InlineCode = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function InlineCode({ props, Sheet }) {
   const { children, ...otherProps } = props
   return (
     <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       {children}
     </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, InlineCode)
+})

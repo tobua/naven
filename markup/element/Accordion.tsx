@@ -1,19 +1,19 @@
-import React, { useState, HTMLAttributes, ReactNode } from 'react'
+import React, { useState, HTMLAttributes, ReactNode, DetailedHTMLProps } from 'react'
 import { naven } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 import Heading from '../text/Heading'
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode
-  headers?: (string | ReactNode)[]
-  initialOpen?: number
+  Component: {
+    children: ReactNode[]
+    headers?: (string | ReactNode)[]
+    initialOpen?: number
+  }
+  Head: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 }
 
-type Sheets = 'Wrapper' | 'Head' | 'Content' | 'Group'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
-  Wrapper: {
+const styles = () => ({
+  Main: {
     tag: 'div',
     main: true,
     css: {
@@ -41,20 +41,16 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const Accordion = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Accordion({ props, Sheet }) {
   const { children, headers, initialOpen, ...otherProps } = props
   const [openIndex, setOpen] = useState<number>(initialOpen ?? 0)
   return (
-    <Sheet.Wrapper.Component css={Sheet.Wrapper.css} {...otherProps}>
+    <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       {children.map((child: ReactNode, index: number) => {
         let header = headers[index]
 
         if (typeof header === 'string') {
-          header = (
-            <Heading as="h3" space={0}>
-              {header}
-            </Heading>
-          )
+          header = <Heading as="h3">{header}</Heading>
         }
 
         return (
@@ -70,8 +66,6 @@ const Accordion = ({ Sheet, props }: ComponentProps<Sheets>) => {
           </Sheet.Group.Component>
         )
       })}
-    </Sheet.Wrapper.Component>
+    </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Accordion)
+})

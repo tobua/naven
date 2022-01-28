@@ -1,6 +1,5 @@
 import React, { useState, useCallback, HTMLAttributes } from 'react'
 import { naven, Layer, cssVariable } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 import { mergeStyles } from '../../utility/merge-styles'
 import Close from '../icon/Close'
@@ -60,16 +59,16 @@ export const addNotification = ({
   }, duration * 1000)
 }
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-  small?: true
-  //   gap?: string | number
-  //   space?: string | number
+export interface Props {
+  Component: {
+    small?: true
+    //   gap?: string | number
+    //   space?: string | number
+  } & HTMLAttributes<HTMLDivElement>
 }
 
-type Sheets = 'Wrapper' | 'Container' | 'Element' | 'CloseContainer'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
-  Wrapper: {
+const styles = () => ({
+  Main: {
     tag: 'div',
     main: true,
     css: {
@@ -132,7 +131,13 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const Element = ({ Sheet, closeable, message, id, ...props }: INotification & { Sheet: any }) => (
+const Element = ({
+  Sheet,
+  closeable,
+  message,
+  id,
+  ...props
+}: INotification & { Sheet: any; key?: number }) => (
   <Sheet.Element.Component
     css={mergeStyles(Sheet.Element.css, {
       paddingRight: closeable ? `calc(${cssVariable(naven.theme.space.small)} * 3)` : 0,
@@ -156,7 +161,7 @@ const Element = ({ Sheet, closeable, message, id, ...props }: INotification & { 
   </Sheet.Element.Component>
 )
 
-const Notification = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Notification({ props, Sheet }) {
   const { children, ...otherProps } = props
   const [, setState] = useState(0)
   // Forces the component to update and can be accessed from outside.
@@ -168,15 +173,14 @@ const Notification = ({ Sheet, props }: ComponentProps<Sheets>) => {
   }
 
   return (
-    <Sheet.Wrapper.Component css={Sheet.Wrapper.css} {...otherProps}>
+    <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       <Sheet.Container.Component css={Sheet.Container.css}>
         {ActiveNotifications.map((notification, index) => (
           <Element Sheet={Sheet} key={index} {...notification} />
         ))}
       </Sheet.Container.Component>
-    </Sheet.Wrapper.Component>
+    </Sheet.Main.Component>
   )
-}
+})
 
-export default createComponent<Props, Sheets>(styles, Notification)
 // Container rowGap = gap

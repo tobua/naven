@@ -1,18 +1,16 @@
-import React, { HTMLAttributes, useState, Component } from 'react'
+import React, { HTMLAttributes, useState, Component, DetailedHTMLProps } from 'react'
 import ReactDatePicker from 'react-datepicker'
 // @ts-ignore
 import { Input, createComponent } from 'naven'
-import type { ComponentProps, ComponentStylesDefinition } from '../types'
 
-// @ts-ignore
-export interface Props extends HTMLAttributes<HTMLElement> {
-  initialDate?: Date | null
-  onChange?: (date: Date) => void
+export interface Props {
+  Component: {
+    initialDate?: Date | null
+    onChange?: (date: Date) => void
+  } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 }
 
-type Sheets = 'Main'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+const styles = () => ({
   Main: {
     tag: 'div',
     main: true,
@@ -31,7 +29,7 @@ class DateInput extends Component<{ value: any; onClick: any }> {
 }
 
 // Date is already reserved in JS, therefore we use DatePicker.
-const DatePicker = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function DatePicker({ props, Sheet }) {
   const { initialDate = new Date(), onChange, ...otherProps } = props
   // Hook inside result will fail.
   const [startDate, setStartDate] = useState(initialDate)
@@ -54,6 +52,4 @@ const DatePicker = ({ Sheet, props }: ComponentProps<Sheets>) => {
       />
     </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, DatePicker)
+})

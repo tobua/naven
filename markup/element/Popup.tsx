@@ -1,21 +1,22 @@
-import React, { useRef, useEffect, HTMLAttributes, ReactNode } from 'react'
+import React, { useRef, useEffect, HTMLAttributes, ReactNode, DetailedHTMLProps } from 'react'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { naven, Layer } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 import Close from '../icon/Close'
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode
-  show?: boolean
-  onClose: () => any
-  close?: ReactNode
+export interface Props {
+  Component: {
+    children: ReactNode
+    show?: boolean
+    onClose: () => any
+    close?: ReactNode
+  } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  CloseContainer: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  ScrollContainer: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 }
 
-type Sheets = 'Wrapper' | 'Content' | 'CloseContainer' | 'ScrollContainer'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
-  Wrapper: {
+const styles = () => ({
+  Main: {
     tag: 'div',
     main: true,
     css: {
@@ -57,7 +58,7 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const Popup = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Popup({ props, Sheet }) {
   const { children, show, close, onClose, ...otherProps } = props
   const scrollContainerRef = useRef()
 
@@ -74,7 +75,7 @@ const Popup = ({ Sheet, props }: ComponentProps<Sheets>) => {
   }
 
   return (
-    <Sheet.Wrapper.Component css={Sheet.Wrapper.css} {...otherProps}>
+    <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       <Sheet.Content.Component css={Sheet.Content.css}>
         <Sheet.CloseContainer.Component css={Sheet.CloseContainer.css} onClick={onClose}>
           {close || <Close />}
@@ -83,8 +84,6 @@ const Popup = ({ Sheet, props }: ComponentProps<Sheets>) => {
           {children}
         </Sheet.ScrollContainer.Component>
       </Sheet.Content.Component>
-    </Sheet.Wrapper.Component>
+    </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Popup)
+})

@@ -1,20 +1,20 @@
-import React, { useState, HTMLAttributes, ReactNode } from 'react'
+import React, { useState, HTMLAttributes, ReactNode, DetailedHTMLProps } from 'react'
 import { naven } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-  items: {
-    title: string
-    content: ReactNode
-  }[]
-  initialTab?: number
+export interface Props {
+  Component: {
+    items: {
+      title: string
+      content: ReactNode
+    }[]
+    initialTab?: number
+  } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  Tab: { state?: 'active' } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 }
 
-type Sheets = 'Wrapper' | 'TabWrapper' | 'Tab' | 'Content'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
-  Wrapper: {
+const styles = () => ({
+  Main: {
     tag: 'div',
     main: true,
     css: {
@@ -56,20 +56,19 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const Tabs = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Tabs({ props, Sheet }) {
   const { children, items, initialTab = 0, ...otherProps } = props
   const [tab, setTab] = useState(initialTab)
   const { content } = items[tab]
 
   return (
-    <Sheet.Wrapper.Component css={Sheet.Wrapper.css} {...otherProps}>
+    <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       <Sheet.TabWrapper.Component css={Sheet.TabWrapper.css}>
         {items.map((_tab, index: number) => (
           <Sheet.Tab.Component
             css={Sheet.TabWrapper.css}
             key={index}
             tabIndex={0}
-            // @ts-ignore
             state={index === tab ? 'active' : undefined}
             onKeyUp={(event) => event.key === 'Enter' && setTab(index)}
             onClick={() => setTab(index)}
@@ -79,8 +78,6 @@ const Tabs = ({ Sheet, props }: ComponentProps<Sheets>) => {
         ))}
       </Sheet.TabWrapper.Component>
       <Sheet.Content.Component css={Sheet.Content.css}>{content}</Sheet.Content.Component>
-    </Sheet.Wrapper.Component>
+    </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Tabs)
+})

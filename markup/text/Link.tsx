@@ -1,17 +1,16 @@
-import React, { AnchorHTMLAttributes, ReactNode } from 'react'
+import React, { AnchorHTMLAttributes, ReactNode, DetailedHTMLProps } from 'react'
 import { naven } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 
-export interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  children: ReactNode
-  highlight?: 'underline' | 'animated' | 'gradient'
-  bold?: true
+export interface Props {
+  Component: {
+    children: ReactNode
+    highlight?: 'underline' | 'animated' | 'gradient'
+    bold?: boolean
+  } & DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>
 }
 
-type Sheets = 'Main'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+const styles = () => ({
   Main: {
     tag: 'a',
     main: true,
@@ -65,25 +64,19 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
         },
       },
     },
+    props: (innerStyles, props) => {
+      if (props.bold) {
+        innerStyles.fontWeight = naven.theme.font.weightBold
+      }
+    },
   },
 })
 
-const Link = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function TextLink({ props, Sheet }) {
   const { children, bold, ...otherProps } = props
   return (
     <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       {children}
     </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(
-  styles,
-  Link,
-  (allStyles, props) => {
-    if (props.bold) {
-      allStyles.Main.css.fontWeight = naven.theme.font.weightBold
-    }
-  },
-  (props) => [props.bold]
-)
+})

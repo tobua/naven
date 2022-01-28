@@ -1,16 +1,15 @@
 import React, { HTMLAttributes } from 'react'
 import { naven } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-  line?: true
-  size?: string | number
+export interface Props {
+  Component: {
+    line?: boolean
+    size?: string | number
+  } & HTMLAttributes<HTMLDivElement>
 }
 
-type Sheets = 'Main'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+const styles = () => ({
   Main: {
     tag: 'hr',
     main: true,
@@ -36,22 +35,19 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
         },
       },
     },
+    props: (allStyles, props: Props['Component']) => {
+      if (props.size) {
+        allStyles.height = props.size
+      }
+    },
   },
 })
 
-const Spacer = ({ Sheet, props }: ComponentProps<Sheets>) => {
-  const { children, ...otherProps } = props
+export default createComponent(styles)<Props>(
+  function Spacer({ props, Sheet }) {
+    const { children, ...otherProps } = props
 
-  return <Sheet.Main.Component css={Sheet.Main.css} {...otherProps} />
-}
-
-export default createComponent<Props, Sheets>(
-  styles,
-  Spacer,
-  (allStyles, props) => {
-    if (props.size) {
-      allStyles.Main.css.height = props.size
-    }
+    return <Sheet.Main.Component css={Sheet.Main.css} {...otherProps} />
   },
   (props) => [props.size]
 )

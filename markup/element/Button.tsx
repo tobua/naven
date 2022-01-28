@@ -1,19 +1,19 @@
-import React, { ButtonHTMLAttributes, ReactNode } from 'react'
+import React, { ButtonHTMLAttributes, ReactNode, DetailedHTMLProps } from 'react'
 import { naven } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 
-export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode
-  as?: 'a'
-  href?: string
-  disabled?: boolean
-  color?: 'regular' | 'highlight' | 'interact'
+export interface Props {
+  Component: {
+    children: ReactNode
+    as?: 'a'
+    href?: string
+    disabled?: boolean
+    color?: 'regular' | 'highlight' | 'interact'
+  } & DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+  Main: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 }
 
-type Sheets = 'Main'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+const styles = () => ({
   Main: {
     tag: 'button',
     main: true,
@@ -22,7 +22,6 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
       outline: 'none',
       cursor: 'pointer',
       color: naven.theme.color.interact,
-      radius: '$corner',
       padding: 0,
       fontFamily: naven.theme.font.familyRegular,
       fontSize: naven.theme.font.sizeMedium,
@@ -39,41 +38,41 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
             backgroundColor: naven.theme.color.gray700,
             color: naven.theme.color.background,
             padding: naven.theme.space.small,
+            radius: 1,
           },
           highlight: {
             backgroundColor: naven.theme.color.highlight,
             color: naven.theme.color.background,
             padding: naven.theme.space.small,
+            radius: 1,
           },
           interact: {
             backgroundColor: naven.theme.color.interact,
             color: naven.theme.color.background,
             padding: naven.theme.space.small,
+            radius: 1,
           },
         },
       },
     },
+    props: (innerStyles, props: Props['Component']) => {
+      if (props.disabled) {
+        innerStyles.cursor = 'auto'
+        innerStyles.textDecoration = 'line-through'
+      }
+    },
   },
 })
 
-const Button = ({ Sheet, props }: ComponentProps<Sheets>) => {
-  const { children, ...otherProps } = props
+export default createComponent(styles)<Props>(
+  function Button({ props, Sheet }) {
+    const { children, ...otherProps } = props
 
-  return (
-    <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
-      {children}
-    </Sheet.Main.Component>
-  )
-}
-
-export default createComponent<Props, Sheets>(
-  styles,
-  Button,
-  (allStyles, props) => {
-    if (props.disabled) {
-      allStyles.Main.css.cursor = 'auto'
-      allStyles.Main.css.textDecoration = 'line-through'
-    }
+    return (
+      <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
+        {children}
+      </Sheet.Main.Component>
+    )
   },
   (props) => [props.disabled]
 )

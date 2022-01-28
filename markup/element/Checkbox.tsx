@@ -1,22 +1,31 @@
-import React, { useCallback, useRef, InputHTMLAttributes } from 'react'
+import React, {
+  useCallback,
+  useRef,
+  InputHTMLAttributes,
+  DetailedHTMLProps,
+  LabelHTMLAttributes,
+  HTMLAttributes,
+} from 'react'
 import { naven } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 import { uniqueID } from '../../utility/unique-id'
 
-export interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  as?: 'a'
-  href?: string
-  disabled?: true
-  color?: 'regular' | 'highlight' | 'interact'
-  type?: 'radio' | 'checkbox'
-  label: string
+export interface Props {
+  Component: {
+    as?: 'a'
+    href?: string
+    disabled?: true
+    color?: 'regular' | 'highlight' | 'interact'
+    type?: 'radio' | 'checkbox'
+    label: string
+  } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+  Main: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  Input: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+  Label: DetailedHTMLProps<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>
 }
 
-type Sheets = 'Wrapper' | 'Input' | 'Label'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
-  Wrapper: {
+const styles = () => ({
+  Main: {
     tag: 'div',
     css: {
       display: 'flex',
@@ -88,7 +97,7 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const Checkbox = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Checkbox({ props, Sheet }) {
   const { type = 'checkbox', label, id = uniqueID(), ...otherProps } = props
   const inputRef = useRef<HTMLInputElement>()
 
@@ -101,8 +110,8 @@ const Checkbox = ({ Sheet, props }: ComponentProps<Sheets>) => {
   }, [])
 
   return (
-    <Sheet.Wrapper.Component
-      css={Sheet.Wrapper.css}
+    <Sheet.Main.Component
+      css={Sheet.Main.css}
       tabIndex={0}
       onKeyDown={(event) => toggleOnEnter(event)}
     >
@@ -114,12 +123,9 @@ const Checkbox = ({ Sheet, props }: ComponentProps<Sheets>) => {
         type={type}
         {...otherProps}
       />
-      {/* @ts-ignore */}
       <Sheet.Label.Component css={Sheet.Label.css} htmlFor={id}>
         {label}
       </Sheet.Label.Component>
-    </Sheet.Wrapper.Component>
+    </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Checkbox)
+})

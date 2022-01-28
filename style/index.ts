@@ -1,6 +1,6 @@
 import { wasser, globalVariables } from 'wasser'
 import configureLayer from 'laier'
-import { createStitches as create } from '@stitches/react'
+import { createStitches } from '@stitches/react'
 import type { Token } from '@stitches/react/types/theme'
 import objectAssignDeep from 'object-assign-deep'
 import { resetStyles, rootStyles } from '../utility/global-styles'
@@ -9,10 +9,12 @@ import { Color } from './color'
 import type { Naven } from '../types'
 
 export { useBreakpoint } from './breakpoint'
-export { globalTheme } from './global-theme'
+// TODO make configurable
 export const Layer = configureLayer(['Content', 'Navigation', 'Popup', 'Notification'])
 export const unit = wasser
-export const createStitches = create
+export const create = createStitches
+// eslint-disable-next-line import/no-mutable-exports
+export let naven: Naven
 
 export const cssVariable = (variable: Token<string, string, string, ''>) =>
   `var(--${variable.scale}-${variable.token})`
@@ -42,11 +44,11 @@ const Font = {
   sizeTitle: 30,
 }
 
-const createBreakpoints = () => {
+const createBreakpoints = <T extends {}>(breakpoints: T) => {
   const result = {}
 
-  Object.keys(Breakpoint).forEach((key) => {
-    result[key] = `(max-width: ${Breakpoint[key]}px)`
+  Object.keys(breakpoints).forEach((key) => {
+    result[key] = `(max-width: ${breakpoints[key]}px)`
   })
 
   return result
@@ -59,16 +61,11 @@ export const defaultConfiguration = {
     look: Look,
     font: Font,
   },
-  media: createBreakpoints(),
+  breakpoint: Breakpoint,
   utils: {
-    radius: (value: string | number) => ({ borderRadius: value }),
-    space: (value: string | number) => {
-      if (typeof Space[value] !== 'undefined') {
-        return { marginBottom: Space[value] }
-      }
-
-      return { marginBottom: value }
-    },
+    radius: (value: number) => ({
+      borderRadius: `calc(${naven.theme.look.radius} * ${value})`,
+    }),
   },
 }
 
@@ -98,17 +95,19 @@ export const responsifyConfiguration = <T extends { theme: any }>(configuration:
   return configuration
 }
 
-export const mergeConfiguration = <T extends object>(configuration?: T) => {
+export const merge = <T extends object>(configuration?: T) => {
   const defaultConfigurationCopy = objectAssignDeep({}, defaultConfiguration)
   const merged = objectAssignDeep(defaultConfigurationCopy, configuration ?? {})
+  const responsifiedConfiguration = responsifyConfiguration(merged)
 
-  return responsifyConfiguration(merged)
+  return {
+    ...responsifiedConfiguration,
+    breakpoint: undefined,
+    media: createBreakpoints(merged.breakpoint),
+  }
 }
 
-// eslint-disable-next-line import/no-mutable-exports
-export let naven: Naven
-
-export const registerStitches = <T extends Naven>(stitches: T, rootSelector = ':root') => {
+export const register = <T extends Naven>(stitches: T, rootSelector = ':root') => {
   naven = stitches
 
   const globalStyles = resetStyles(stitches)

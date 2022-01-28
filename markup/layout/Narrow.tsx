@@ -1,16 +1,16 @@
 import React, { HTMLAttributes, ReactNode } from 'react'
-import { naven } from '../..'
-import type { ComponentProps, ComponentStylesDefinition, CSSValue } from '../../types'
+import { naven } from '../../style'
+import type { CSSValue } from '../../types'
 import { createComponent } from '../../utility/component'
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode
-  space?: CSSValue
+export interface Props {
+  Component: {
+    children: ReactNode
+    space?: CSSValue
+  } & HTMLAttributes<HTMLDivElement>
 }
 
-type Sheets = 'Main'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
+const styles = () => ({
   Main: {
     tag: 'section',
     main: true,
@@ -19,20 +19,17 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
       gridColumn: 3,
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'flex-start',
       overflow: 'hidden',
       gap: naven.theme.space.medium,
     },
   },
 })
 
-const Narrow = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Narrow({ props, Sheet }) {
   const { children, ...otherProps } = props
   return (
     <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       {children}
     </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Narrow)
+})

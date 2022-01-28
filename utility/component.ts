@@ -1,101 +1,93 @@
-import { useMemo, ReactNode, ElementType } from 'react'
+import { useMemo, ElementType } from 'react'
 import memoize from 'memoize-one'
 import type { CSS } from '@stitches/react'
 import { naven } from '../style'
 import { mergeStyles } from './merge-styles'
-import { render } from './markup'
-import type {
-  Component,
-  ComponentStylesUser,
-  ComponentStylesDefinition,
-  ComponentProps,
-  CSSValue,
-} from '../types'
+import { initialize } from './initialize'
+import type { CSSValue, Sheet } from '../types'
 
 export interface DefaultProps {
-  children?: ReactNode
   as?: ElementType<any>
   space?: CSSValue
 }
 
-export const createComponent = <Props, Sheets extends string>(
-  initialStyles: ComponentStylesDefinition<Props, Sheets>,
-  Markup: Component<Sheets>,
-  afterStyles?: (styles: any, props: Props) => void,
-  watchProps?: (props: Props) => any[]
-) => {
+export const createComponent = <Styles extends { Main: any }>(initialStyles: () => Styles) => {
   const stylesMemoized = memoize(initialStyles)
 
-  function Result(
-    props: Props & { styles?: ComponentStylesUser<Props, Sheets>; css?: CSS } & DefaultProps
-  ) {
-    const defaultWatchProps: any[] = [props.styles]
+  return <Props extends { Component: any }>(
+    markup: ({
+      props,
+      Sheet,
+    }: {
+      props: Props['Component']
+      Sheet: Sheet<Styles, Props>
+    }) => JSX.Element,
+    watchProps?: (props: Props['Component']) => any[]
+  ) => {
+    initialize()
 
-    // @ts-ignore
-    const spaceCustomized = stylesMemoized().Main && stylesMemoized().Main.space
+    const NavenComponent = (
+      props: Props['Component'] &
+        DefaultProps & { styles?: { [Property in keyof Styles]?: { css?: CSS } }; css?: CSS }
+    ) => {
+      const {
+        as: removeAs,
+        space: removeSpace,
+        styles: removeStyles,
+        css: removeCss,
+        ...safeProps
+      } = props
 
-    if (spaceCustomized) {
-      defaultWatchProps.push(props.space)
-    }
+      const defaultWatchProps: any[] = [removeStyles]
+      const spaceCustomized = stylesMemoized().Main && stylesMemoized().Main.space
 
-    const sheet = useMemo(
-      () => {
-        const merged = mergeStyles(stylesMemoized(), props.styles) as ComponentStylesUser<
-          Props,
-          Sheets
-        >
+      if (spaceCustomized) {
+        defaultWatchProps.push(removeSpace)
+      }
 
-        const components = {}
+      if (watchProps) {
+        defaultWatchProps.push(watchProps)
+      }
 
-        Object.keys(merged).forEach((key) => {
-          const isMain = key === 'Main' || merged[key].main
+      const Sheet = useMemo(() => {
+        const merged = mergeStyles(stylesMemoized(), removeStyles as Styles)
+
+        const components = Object.keys(merged).reduce((previous, current) => {
+          const styles = merged[current]
+          const isMain = current === 'Main' || styles.Main
           let css: CSS = {}
 
-          if (Array.isArray(merged[key].extends) && merged[key].extends.length) {
-            merged[key].extends.forEach((styles: CSS) => {
-              css = mergeStyles(styles, css) as CSS
-            })
+          if (typeof styles.props === 'function') {
+            styles.props(css, props)
           }
 
-          if (typeof merged[key].props === 'function') {
-            merged[key].props(css, props)
+          if (isMain && removeCss) {
+            css = mergeStyles(css, removeCss)
           }
 
-          // TODO probably better with after styles.
-          if (isMain && props.css) {
-            merged[key].css = mergeStyles(merged[key].css ?? {}, props.css)
-          }
-
-          components[key] = {
+          previous[current] = {
             Component: naven.styled(
-              isMain && props.as ? props.as : merged[key].tag,
-              merged[key].css ?? {}
+              styles.extends ?? styles.tag, // isMain && propsAs ? propsAs :
+              styles.css ?? {}
             ),
             css,
           }
-        })
 
-        if (afterStyles) {
-          afterStyles(components, props)
-        }
+          return previous
+        }, {}) as Sheet<Styles, Props>
 
         if (spaceCustomized) {
-          // @ts-ignore
-          components.Main.css.gap = props.space
+          components.Main.css.gap = removeSpace
         }
 
-        return components as ComponentProps<Sheets>['Sheet']
-      },
-      watchProps ? defaultWatchProps.concat(watchProps(props)) : defaultWatchProps
-    )
+        return components
+      }, defaultWatchProps)
 
-    // Extract props to be passed over (props is sealed for modification).
-    const { styles, css, space, ...safeProps } = props
+      return markup({ props: safeProps as Props, Sheet })
+    }
 
-    return render<Sheets>(sheet, safeProps, Markup)
+    NavenComponent.styles = stylesMemoized()
+
+    return NavenComponent
   }
-
-  Result.styles = stylesMemoized
-
-  return Result
 }

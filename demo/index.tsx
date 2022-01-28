@@ -178,7 +178,7 @@ const Body = () => {
         <Alert
           closeable
           styles={{
-            Wrapper: {
+            Main: {
               css: {
                 '@phone': {
                   display: 'none',

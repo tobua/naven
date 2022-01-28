@@ -27,9 +27,10 @@ npm init -y now naven ./my-app
 The following is an example of how to render a page generated with naven to display some minimal content.
 
 ```jsx
-import React from 'react'
 import { render } from 'react-dom'
-import { Header, Content, Footer, Heading, Paragraph, Button } from 'naven'
+import { Header, Button, Content, Heading, Paragraph, Footer, register, create, merge } from 'naven'
+
+const { theme } = register(create(merge()))
 
 render(
   <>
@@ -45,13 +46,74 @@ render(
     </Header>
     <Content>
       <Heading>naven Demo</Heading>
-      <Paragraph>Welcome home!</Paragraph>
+      <Paragraph css={{ color: theme.color.valid }}>Welcome home!</Paragraph>
     </Content>
     <Footer>
       <Paragraph>Made with naven</Paragraph>
     </Footer>
   </>,
-  document.body
+  document.getElementById('root')
+)
+```
+
+### Rendering from `<body>` as Root
+
+```tsx
+const { theme } = register(create(merge()), 'body')
+render(..., document.body)
+```
+
+## Configuration
+
+The default styles shared with the built-in components can be configured. This is best achieved by moving the initialization into a separate configuration file.
+
+```ts
+// configuration.ts
+import { register, create, merge } from 'naven'
+
+export const { theme, styled } = register(
+  create(
+    merge({
+      theme: {
+        color: {
+          highlight: '#00ab64',
+          interact: '#ab0047',
+        },
+      },
+    })
+  )
+)
+```
+
+```tsx
+// MyButton.tsx
+import { Button } from 'naven'
+import { theme, styled } from './configuration'
+
+export const MyButton = styled(Button, {
+  background: theme.color.interact,
+  padding: theme.space.medium,
+  color: theme.color.colorContrast,
+  '@tablet': {
+    background: theme.color.highlight,
+  },
+})
+```
+
+```tsx
+// index.tsx
+import { render } from 'react-dom'
+import { Header, Button, Content, Heading, Paragraph, Footer, register, create, merge } from 'naven'
+import { MyButton } from './MyButton'
+
+render(
+  <>
+    <Header title="naven Configuration" />
+    <Content>
+      <MyButton>My Button</MyButton>
+    </Content>
+  </>,
+  document.getElementById('root')
 )
 ```
 

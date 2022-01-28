@@ -1,30 +1,40 @@
+import type { ReactNode } from 'react'
 import type { StyledComponent } from '@stitches/react/types/styled-component'
 import type { CSS, keyframes, styled, createTheme, globalCss } from '@stitches/react'
 import type { Token } from '@stitches/react/types/theme'
 
-export interface ComponentProps<Sheets extends string> {
-  Sheet: { [key in Sheets]: { Component: StyledComponent<'div', {}, {}, CSS>; css: CSS } }
-  props: any
+// NOTE tag can't be inferred this way props have to be added manually.
+type CustomStyledComponent<
+  Base extends { [key: string | number | symbol]: any },
+  Props
+> = StyledComponent<Base['tag'], Props, {}, CSS>
+
+export type Sheet<Styles, Props extends { [key: string | number | symbol]: any }> = {
+  [Property in keyof Styles]: {
+    Component: CustomStyledComponent<Styles[Property], Props[Property] & { children?: ReactNode }>
+    css: CSS
+  }
 }
 
-export type Component<Sheets extends string> = (props: ComponentProps<Sheets>) => JSX.Element
-
-export type TagStyles<Props> = {
-  tag?: string
-  main?: true
-  space?: true
-  css?: CSS
-  props?: (css: CSS, props: Props) => void
-  extends?: CSS[]
+export type Optional<Type> = {
+  [Property in keyof Type]?: Type[Property]
 }
 
-export type ComponentStylesDefinition<Props, Sheets extends string> = () => {
-  [key in Sheets]: TagStyles<Props>
-}
+// TODO currently unused, still useful for typed styles though.
+// export type TagStyles<Props> = {
+//   type?: any
+//   tag: string
+//   main?: boolean
+//   space?: true
+//   css?: CSS
+//   props?: (css: CSS, props: Props) => void
+//   // TODO adapt
+//   extends?: CSS[]
+// }
 
-export type ComponentStylesUser<Props, Sheets extends string> = {
-  [key in Sheets]?: TagStyles<Props>
-}
+// export type ComponentStylesUser<Props> = {
+//   [key: string]: TagStyles<Props>
+// }
 
 export type CSSValue = string | number | Token<string, string, string, string>
 

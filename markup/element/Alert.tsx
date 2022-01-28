@@ -1,20 +1,20 @@
-import React, { useState, HTMLAttributes, ReactNode } from 'react'
+import React, { useState, HTMLAttributes, ReactNode, DetailedHTMLProps } from 'react'
 import { naven } from '../../style'
-import type { ComponentProps, ComponentStylesDefinition } from '../../types'
 import { createComponent } from '../../utility/component'
 import Text from '../text/Text'
 import Close from '../icon/Close'
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode
-  type?: 'info' | 'warning' | 'error'
-  closeable?: true
+export interface Props {
+  Component: {
+    children: ReactNode
+    type?: 'info' | 'warning' | 'error'
+    closeable?: true
+  } & HTMLAttributes<HTMLDivElement>
+  CloseContainer: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 }
 
-type Sheets = 'Wrapper' | 'CloseContainer'
-
-const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
-  Wrapper: {
+const styles = () => ({
+  Main: {
     tag: 'div',
     main: true,
     css: {
@@ -54,7 +54,7 @@ const styles: ComponentStylesDefinition<Props, Sheets> = () => ({
   },
 })
 
-const Alert = ({ Sheet, props }: ComponentProps<Sheets>) => {
+export default createComponent(styles)<Props>(function Alert({ props, Sheet }) {
   const { children, closeable, ...otherProps } = props
   const [closed, close] = useState(false)
 
@@ -63,15 +63,13 @@ const Alert = ({ Sheet, props }: ComponentProps<Sheets>) => {
   }
 
   return (
-    <Sheet.Wrapper.Component css={Sheet.Wrapper.css} {...otherProps}>
+    <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
       {closeable && (
         <Sheet.CloseContainer.Component css={Sheet.CloseContainer.css} onClick={() => close(true)}>
           <Close css={{ flex: 1 }} />
         </Sheet.CloseContainer.Component>
       )}
       <Text space={0}>{children}</Text>
-    </Sheet.Wrapper.Component>
+    </Sheet.Main.Component>
   )
-}
-
-export default createComponent<Props, Sheets>(styles, Alert)
+})

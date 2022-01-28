@@ -1,12 +1,14 @@
-import type { CSS } from '@stitches/react'
 import { assign } from './custom-object-assign-deep'
 
-export const mergeStyles = (initial: CSS, user?: CSS) => {
+export const mergeStyles = <First extends object, Second extends First>(
+  initial: First,
+  user?: Second
+) => {
   if (!user) {
     return initial
   }
 
   const initialCopy = { ...initial }
 
-  return assign(initialCopy, user)
+  return assign(initialCopy, user) as typeof initial & typeof user
 }
