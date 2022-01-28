@@ -15,6 +15,6 @@ jobs:
       - name: 🔢 Custom Version
         run: npm version 0.0.0-next-${{ github.sha }} --git-tag-version false
       - name: 🚀 Publish next tag
-        run: npm publish --tag next
+        run: npm publish --tag next --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
