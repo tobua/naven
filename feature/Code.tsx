@@ -33,6 +33,7 @@ export default function Code({
         borderRadius: naven.theme.look.radius,
         fontFamily: naven.theme.font.familyMono,
         lineHeight: 1.4,
+        alignSelf: 'normal',
         ...(typeof customStyle === 'object' ? customStyle : {}),
       }}
       {...props}

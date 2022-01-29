@@ -19,6 +19,7 @@ const styles = () => ({
       gridColumn: '1 / 6',
       display: 'flex',
       flexDirection: 'column',
+      alignItems: 'flex-start',
       overflow: 'hidden',
       gap: naven.theme.space.medium,
     },

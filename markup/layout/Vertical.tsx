@@ -19,6 +19,7 @@ const styles = () => ({
     css: {
       display: 'flex',
       flexDirection: 'column',
+      alignItems: 'flex-start',
       overflow: 'visible',
       gap: naven.theme.space.medium,
     },

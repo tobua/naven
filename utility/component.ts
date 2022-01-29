@@ -13,7 +13,6 @@ export interface DefaultProps {
 
 export const createComponent = <Styles extends { Main: any }>(initialStyles: () => Styles) => {
   const stylesMemoized = memoize(initialStyles)
-
   return <Props extends { Component: any }>(
     markup: ({
       props,
@@ -24,12 +23,11 @@ export const createComponent = <Styles extends { Main: any }>(initialStyles: () 
     }) => JSX.Element,
     watchProps?: (props: Props['Component']) => any[]
   ) => {
-    initialize()
-
     const NavenComponent = (
       props: Props['Component'] &
         DefaultProps & { styles?: { [Property in keyof Styles]?: { css?: CSS } }; css?: CSS }
     ) => {
+      initialize()
       const {
         as: removeAs,
         space: removeSpace,
@@ -86,7 +84,7 @@ export const createComponent = <Styles extends { Main: any }>(initialStyles: () 
       return markup({ props: safeProps as Props, Sheet })
     }
 
-    NavenComponent.styles = stylesMemoized()
+    NavenComponent.styles = stylesMemoized
 
     return NavenComponent
   }

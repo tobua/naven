@@ -20,6 +20,7 @@ const styles = () => ({
       gridColumn: '2 / 5',
       display: 'flex',
       flexDirection: 'column',
+      alignItems: 'flex-start',
       gap: naven.theme.space.medium,
       variants: {
         position: {
