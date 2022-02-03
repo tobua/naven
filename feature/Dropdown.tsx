@@ -1,5 +1,5 @@
 import React from 'react'
-import Select, { Props as SelectProps } from 'react-select'
+import Select, { Props as SelectProps, StylesConfig, GroupBase } from 'react-select'
 // @ts-ignore
 import { naven, unit, cssVariable } from 'naven'
 
@@ -8,7 +8,13 @@ interface Props {
   backgroundColor?: string
 }
 
-const customStyles = ({ containerStyles, backgroundColor }: Props) => ({
+const customStyles: ({
+  containerStyles,
+  backgroundColor,
+}: Props) => StylesConfig<unknown, boolean, GroupBase<unknown>> = ({
+  containerStyles,
+  backgroundColor,
+}) => ({
   container: (provided: object) => ({
     ...provided,
     minWidth: unit(200),
@@ -27,10 +33,21 @@ const customStyles = ({ containerStyles, backgroundColor }: Props) => ({
     margin: 0,
     padding: 0,
   }),
-  menu: (provided: object) => ({ ...provided, background: backgroundColor, boxShadow: 'none' }),
+  menu: (provided: object) => ({
+    ...provided,
+    background: backgroundColor,
+    boxShadow: 'none',
+  }),
+  menuList: (provided: object) => ({
+    ...provided,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: cssVariable(naven.theme.space.small),
+  }),
   option: (provided: object) => ({
     ...provided,
     cursor: 'pointer',
+    padding: 0,
   }),
   control: (provided: object) => ({
     ...provided,
@@ -42,7 +59,7 @@ const customStyles = ({ containerStyles, backgroundColor }: Props) => ({
   dropdownIndicator: (provided: object) => ({
     ...provided,
     padding: 0,
-    paddingRight: unit(8),
+    cursor: 'pointer',
   }),
 })
 

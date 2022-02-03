@@ -1,4 +1,14 @@
-import React, { useMemo, useCallback, ReactNode, Children, cloneElement } from 'react'
+import React, {
+  useMemo,
+  useCallback,
+  ReactNode,
+  Children,
+  cloneElement,
+  AnchorHTMLAttributes,
+  DetailedHTMLProps,
+  HTMLAttributes,
+  ReactElement,
+} from 'react'
 import type { CSS } from '@stitches/react'
 import { naven, unit } from '../../style'
 import type { Link as LinkType } from '../../types'
@@ -6,15 +16,41 @@ import { createComponent } from '../../utility/component'
 import List from '../element/List'
 import Logo from '../icon/Logo'
 import { mergeStyles } from '../../utility/merge-styles'
-import Navigation from './Navigation'
+import NavigationComponent from './Navigation'
 import TextLink from '../text/Link'
 import Text from '../text/Text'
 
+type TitleLinkProps = {
+  link?: string
+  children?: ReactNode
+  css?: CSS
+} & DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>
+
+type TitleTextProps = {
+  children?: string
+} & DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>
+
+// TODO add generic title component for anything on the left.
 export interface Props {
   Component: {
-    children: ReactNode
+    children:
+      | ReactNode
+      | (({
+          Middle,
+          Meta,
+          TitleText,
+          TitleLink,
+          Navigation,
+        }: {
+          Middle: any
+          Meta: any
+          TitleText: (props: TitleTextProps) => ReactElement
+          TitleLink: (props: TitleLinkProps) => ReactElement
+          Navigation: any
+        }) => ReactNode)
     wide?: true
   }
+  TitleLink: AnchorHTMLAttributes<HTMLAnchorElement>
 }
 
 const styles = () => ({
@@ -130,8 +166,8 @@ export default createComponent(styles)<Props>(function Header({ props, Sheet }) 
   const { children, wide, ...otherProps } = props
 
   const TitleText = useCallback(
-    ({ children: innerChildren = 'naven' }: { children?: string }) => (
-      <Sheet.TitleText.Component css={Sheet.TitleText.css}>
+    ({ children: innerChildren = 'naven', ...innerProps }: TitleTextProps) => (
+      <Sheet.TitleText.Component css={Sheet.TitleText.css} {...innerProps}>
         {innerChildren}
       </Sheet.TitleText.Component>
     ),
@@ -142,12 +178,14 @@ export default createComponent(styles)<Props>(function Header({ props, Sheet }) 
     ({
       link = '/',
       children: innerChildren = <Logo css={{ height: unit(60) }} />,
-    }: {
-      link?: string
-      children?: ReactNode
-    }) => (
-      // @ts-ignore
-      <Sheet.TitleLink.Component css={Sheet.TitleLink.css} href={link}>
+      css,
+      ...innerProps
+    }: TitleLinkProps) => (
+      <Sheet.TitleLink.Component
+        css={mergeStyles(Sheet.TitleLink.css, css)}
+        href={link}
+        {...innerProps}
+      >
         {innerChildren}
       </Sheet.TitleLink.Component>
     ),
@@ -201,8 +239,13 @@ export default createComponent(styles)<Props>(function Header({ props, Sheet }) 
     []
   )
 
-  const innerComponents = { Middle: Sheet.Middle, Meta, TitleText, TitleLink, Navigation }
-  // TODO also pass navigation component
+  const innerComponents = {
+    Middle: Sheet.Middle,
+    Meta,
+    TitleText,
+    TitleLink,
+    Navigation: NavigationComponent,
+  }
   const processedChildren = typeof children === 'function' ? children(innerComponents) : children
 
   return (

@@ -9,8 +9,7 @@ import { Color } from './color'
 import type { Naven } from '../types'
 
 export { useBreakpoint } from './breakpoint'
-// TODO make configurable
-export const Layer = configureLayer(['Content', 'Navigation', 'Popup', 'Notification'])
+export const layer = configureLayer(['Content', 'Navigation', 'Popup', 'Notification'])
 export const unit = wasser
 export const create = createStitches
 // eslint-disable-next-line import/no-mutable-exports
@@ -107,7 +106,11 @@ export const merge = <T extends object>(configuration?: T) => {
   }
 }
 
-export const register = <T extends Naven>(stitches: T, rootSelector = ':root') => {
+export const register = <T extends Naven>(
+  stitches: T,
+  rootSelector = ':root',
+  options?: { layer?: string[] | ((initial: string[]) => string[]) }
+) => {
   naven = stitches
 
   const globalStyles = resetStyles(stitches)
@@ -121,7 +124,26 @@ export const register = <T extends Naven>(stitches: T, rootSelector = ':root') =
     globalStyles[rootSelector] = rootStyles(stitches)
   }
 
+  let customLayer: { [x: string]: number }
+
+  if (options?.layer) {
+    if (Array.isArray(options.layer)) {
+      customLayer = configureLayer(options.layer)
+    } else if (typeof options.layer === 'function') {
+      customLayer = configureLayer(
+        options.layer(['Content', 'Navigation', 'Popup', 'Notification'])
+      )
+    }
+  }
+
   stitches.globalCss(globalStyles)()
+
+  stitches.layer = customLayer ?? layer
+
+  if (customLayer) {
+    // Also add to default naven export.
+    Object.assign(layer, customLayer)
+  }
 
   return stitches
 }

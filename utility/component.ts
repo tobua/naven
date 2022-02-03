@@ -36,7 +36,7 @@ export const createComponent = <Styles extends { Main: any }>(initialStyles: () 
         ...safeProps
       } = props
 
-      const defaultWatchProps: any[] = [removeStyles]
+      const defaultWatchProps: any[] = [removeStyles, removeCss]
       const spaceCustomized = stylesMemoized().Main && stylesMemoized().Main.space
 
       if (spaceCustomized) {
@@ -74,7 +74,8 @@ export const createComponent = <Styles extends { Main: any }>(initialStyles: () 
           return previous
         }, {}) as Sheet<Styles, Props>
 
-        if (spaceCustomized) {
+        // TODO typeof only necessary if empty gap property added to Narrow without css or anything.
+        if (spaceCustomized && typeof removeSpace !== 'undefined') {
           components.Main.css.gap = removeSpace
         }
 

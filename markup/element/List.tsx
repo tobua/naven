@@ -1,4 +1,5 @@
 import React, { HTMLAttributes, LiHTMLAttributes, ReactNode, Fragment, useCallback } from 'react'
+import type { CSS } from '@stitches/react'
 import { createComponent } from '../../utility/component'
 import { naven, unit } from '../../style'
 
@@ -40,7 +41,7 @@ const styles = () => ({
         },
       },
     },
-    props: (innerStyles: ReturnType<typeof styles>, props: Props['Component']) => {
+    props: (innerStyles: CSS, props: Props['Component']) => {
       // if (props.type === 'ordered') {
       //   innerStyles.tag = 'ol'
       // }

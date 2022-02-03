@@ -1,6 +1,6 @@
 import { assign } from './custom-object-assign-deep'
 
-export const mergeStyles = <First extends object, Second extends First>(
+export const mergeStyles = <First extends object, Second extends object>(
   initial: First,
   user?: Second
 ) => {

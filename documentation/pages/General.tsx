@@ -17,15 +17,17 @@ export const General = () => (
       {`const MyHeader = (
   <Header>
     {({ TitleText, Middle, Meta, Navigation }) => (
-      <TitleText>My Page</TitleText>
-      <Middle>
-        <TextLink>Click me</TextLink>
-      </Middle>
-      <Meta links={[
-        { name: 'Overview', url: 'overview' },
-        { name: 'GitHub', url: 'https://github.com/tobua/naven' },
-      ]} />
-      <Navigation hint="see below for more" />
+      <>
+        <TitleText>My Page</TitleText>
+        <Middle>
+          <TextLink>Click me</TextLink>
+        </Middle>
+        <Meta links={[
+          { name: 'Overview', url: 'overview' },
+          { name: 'GitHub', url: 'https://github.com/tobua/naven' },
+        ]} />
+        <Navigation hint="see below for more" />
+      </>
     )}
   </Header>
 )`}
@@ -37,12 +39,14 @@ import logo from 'assets/logo.svg'
 const HeaderWithImage = (
   <Header wide>
     {({ TitleLink, Meta }) => (
-      <TitleLink>
-        <Image src={logo} css={{height: unit(40)}} />
-      </TitleLink>
-      <Meta hideMobile>
-        <Button>Sign Up Now!</Button>
-      </Meta>
+      <>
+        <TitleLink>
+          <Image src={logo} css={{height: unit(40)}} />
+        </TitleLink>
+        <Meta hideMobile>
+          <Button>Sign Up Now!</Button>
+        </Meta>
+      </>
     )}
   </Header>
 )`}

@@ -1,12 +1,14 @@
-import React, { InputHTMLAttributes } from 'react'
+import React, { InputHTMLAttributes, useState, DetailedHTMLProps } from 'react'
 import { naven, unit } from '../../style'
+import { mergeStyles } from '../../utility/merge-styles'
 import { createComponent } from '../../utility/component'
 import { blinkAnimation } from '../../style/animation'
 
 export interface Props {
   Component: {
-    onValue?: (value: string) => void
-  } & InputHTMLAttributes<HTMLInputElement>
+    onValue?: (value: any) => void
+  } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+  Input: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 }
 
 const styles = () => ({
@@ -16,15 +18,15 @@ const styles = () => ({
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      '&::before': {
-        content: ' ',
-        display: 'block',
-        height: naven.theme.space.medium,
-        width: unit(4),
-        background: naven.theme.color.gray500,
-        marginRight: unit(6),
-        animation: `${blinkAnimation()} 1s linear infinite alternate`,
-      },
+    },
+  },
+  Cursor: {
+    tag: 'span',
+    css: {
+      height: '100%',
+      width: unit(4),
+      background: naven.theme.color.gray500,
+      marginRight: unit(6),
     },
   },
   Input: {
@@ -43,12 +45,13 @@ const styles = () => ({
 })
 
 export default createComponent(styles)<Props>(function Input({ props, Sheet }) {
-  const { children, onValue, ...otherProps } = props
+  const { value, required, children, onValue, ...otherProps } = props
+  const [active, setActive] = useState(false)
 
   if (onValue) {
     const initialOnChange = props.onChange
     // eslint-disable-next-line no-param-reassign
-    props.onChange = (event) => {
+    otherProps.onChange = (event) => {
       onValue(event.target.value)
       if (initialOnChange) {
         initialOnChange(event)
@@ -56,9 +59,24 @@ export default createComponent(styles)<Props>(function Input({ props, Sheet }) {
     }
   }
 
+  const hasAnimation = required && !value && !active
+
   return (
     <Sheet.Main.Component css={Sheet.Main.css}>
-      <Sheet.Input.Component css={Sheet.Input.css} {...otherProps} />
+      <Sheet.Cursor.Component
+        css={mergeStyles(
+          { animation: hasAnimation ? `${blinkAnimation()} 1s linear infinite alternate` : 'none' },
+          Sheet.Cursor.css
+        )}
+      />
+      <Sheet.Input.Component
+        css={Sheet.Input.css}
+        onFocus={() => setActive(true)}
+        onBlur={() => setActive(false)}
+        required={required}
+        value={value}
+        {...otherProps}
+      />
     </Sheet.Main.Component>
   )
 })

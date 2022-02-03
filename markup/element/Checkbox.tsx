@@ -6,7 +6,7 @@ import React, {
   LabelHTMLAttributes,
   HTMLAttributes,
 } from 'react'
-import { naven } from '../../style'
+import { naven, unit } from '../../style'
 import { createComponent } from '../../utility/component'
 import { uniqueID } from '../../utility/unique-id'
 
@@ -58,7 +58,6 @@ const styles = () => ({
       border: 'none',
       background: naven.theme.color.gray500,
       cursor: 'pointer',
-      // ${() => radius(2)}
       appearance: 'none',
       margin: 0,
       '&:before': {
@@ -73,11 +72,11 @@ const styles = () => ({
       '&:checked:after': {
         content: '',
         position: 'absolute',
-        top: 0,
-        left: '6px',
+        top: unit(1),
+        left: unit(7),
         display: 'table',
-        width: '6px',
-        height: '12px',
+        width: unit(5),
+        height: unit(10),
         border: '2px solid #FFF',
         borderTopWidth: 0,
         borderLeftWidth: 0,

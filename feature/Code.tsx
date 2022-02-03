@@ -1,44 +1,67 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import {
+  Sandpack,
+  SandpackProvider,
+  SandpackThemeProvider,
+  SandpackCodeViewer,
+} from '@codesandbox/sandpack-react'
+import type { SandpackProps } from '@codesandbox/sandpack-react'
+import type { CSS } from '@stitches/react'
 // @ts-ignore
 import { naven } from 'naven'
-import DefaultHighlighter, { SyntaxHighlighterProps, Prism } from 'react-syntax-highlighter'
-// eslint-disable-next-line import/extensions
-import githubStyle from 'react-syntax-highlighter/dist/esm/styles/hljs/github.js'
-// eslint-disable-next-line import/extensions
-import prismStyle from 'react-syntax-highlighter/dist/esm/styles/prism/prism.js'
+import '@codesandbox/sandpack-react/dist/index.css'
 
-interface ICode {
-  children: string
-  jsx?: boolean
-  language?: 'javascript' | 'typescript' | string
-  style?: object
-}
+// Alternative without preview: https://codemirror.net/6/docs/guide
+// Inspired by: https://github.com/reactjs/reactjs.org/blob/main/beta/src/components/MDX/CodeBlock/CodeBlock.tsx
+// Docs: https://sandpack.codesandbox.io/docs/api/react/interfaces/SandpackProps
 
-export default function Code({
+export default ({
+  css = {},
   children,
-  jsx = false,
-  language = 'typescript',
-  style,
-  customStyle,
+  template = 'react',
   ...props
-}: ICode & SyntaxHighlighterProps) {
-  const SyntaxHighlighter = jsx ? Prism : DefaultHighlighter
-  const importedStyle = jsx ? prismStyle : githubStyle
+}: SandpackProps & { children?: string; css?: CSS }) => {
+  const Wrapper = useMemo(
+    () =>
+      naven.styled('div', {
+        alignSelf: 'normal',
+        background: naven.theme.color.gray100,
+        borderRadius: naven.theme.look.radius,
+      }),
+    []
+  )
+
+  if (typeof children === 'string') {
+    return (
+      <Wrapper css={css}>
+        <SandpackProvider
+          template={template}
+          customSetup={{
+            files: {
+              '/App.js': {
+                code: children,
+                readOnly: true,
+              },
+            },
+          }}
+        >
+          <SandpackThemeProvider
+            theme={{
+              palette: {
+                defaultBackground: 'inherit',
+              },
+            }}
+          >
+            <SandpackCodeViewer />
+          </SandpackThemeProvider>
+        </SandpackProvider>
+      </Wrapper>
+    )
+  }
 
   return (
-    <SyntaxHighlighter
-      language={language}
-      style={style ?? importedStyle}
-      customStyle={{
-        borderRadius: naven.theme.look.radius,
-        fontFamily: naven.theme.font.familyMono,
-        lineHeight: 1.4,
-        alignSelf: 'normal',
-        ...(typeof customStyle === 'object' ? customStyle : {}),
-      }}
-      {...props}
-    >
-      {children}
-    </SyntaxHighlighter>
+    <Wrapper css={css}>
+      <Sandpack template={template} {...props} />
+    </Wrapper>
   )
 }

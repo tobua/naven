@@ -1,5 +1,5 @@
 import React, { useState, useCallback, HTMLAttributes } from 'react'
-import { naven, Layer, cssVariable } from '../../style'
+import { naven, cssVariable } from '../../style'
 import { createComponent } from '../../utility/component'
 import { mergeStyles } from '../../utility/merge-styles'
 import Close from '../icon/Close'
@@ -77,7 +77,7 @@ const styles = () => ({
       position: 'fixed',
       bottom: 0,
       right: 0,
-      zIndex: Layer.Notification,
+      zIndex: naven.layer.Notification,
       maxWidth: '50%',
     },
   },

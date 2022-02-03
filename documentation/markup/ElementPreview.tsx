@@ -64,11 +64,7 @@ export const ElementPreview = ({ title, anchor = title.toLowerCase(), code, chil
           </TabButton>
         </Horizontal>
       </Header>
-      {tab === 'code' && (
-        <Code jsx language="typescript">
-          {code}
-        </Code>
-      )}
+      {tab === 'code' && <Code template="react-ts">{code}</Code>}
       {renderedChildren}
     </>
   )

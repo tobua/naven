@@ -81,6 +81,9 @@ const Viewport = () => {
 
 const Body = () => {
   const [userTheme, setUserTheme] = useState('light')
+  const [regularInput, setRegularInput] = useState()
+  const [existingInput, setExistingInput] = useState('existing')
+  const [requiredInput, setRequiredInput] = useState()
   const highlightThemeClass = useMemo(
     () =>
       createTheme({
@@ -172,7 +175,14 @@ const Body = () => {
               { label: 'Mr.', value: 'male' },
             ]}
           />
-          <Input placeholder="Name" />
+          <Input placeholder="Regular Input" value={regularInput} onValue={setRegularInput} />
+          <Input placeholder="Existing Input" value={existingInput} onValue={setExistingInput} />
+          <Input
+            placeholder="Required Input"
+            value={requiredInput}
+            onValue={setRequiredInput}
+            required
+          />
           <Checkbox label="Really?" />
         </Horizontal>
         <Alert

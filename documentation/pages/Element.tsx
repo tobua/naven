@@ -148,7 +148,7 @@ export const Elements = () => (
         Can't touch this
       </Button>
     </Horizontal>
-    <Code jsx language="typescript">
+    <Code>
       {`import { Button } from 'naven'
 
 const ClickableButton = <Button onClick={() => alert('Well Hello!')}>Press me!</Button>
@@ -874,16 +874,16 @@ const DescriptionList = <List type={List.Type.description}>
       title="Code"
       code={`import { Code } from 'naven/Code'
 
-<Code jsx language="typescript">{\`const doubleIt = (value: number) => value * 2\`}</Code>`}
+<Code template="react-ts">{\`const doubleIt = (value: number) => value * 2\`}</Code>`}
     >
       <ElementPreview.Preview>
-        <Code language="javascript">
+        <Code>
           {`// Hello JS
 export const hello = () => console.log('world')`}
         </Code>
-        <Code language="typescript">{`// Hello TS
+        <Code template="react-ts">{`// Hello TS
 export const greet = (greeting: string) => console.log(\`hello \${greeting}!\`)`}</Code>
-        <Code jsx language="typescript">
+        <Code>
           {`// Hello JSX / TSX
 export const Hello = () => <p>W<strong>o</strong>rld</p>`}
         </Code>

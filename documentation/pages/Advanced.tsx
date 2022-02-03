@@ -78,15 +78,17 @@ export const Advanced = () => (
         <div>Second</div>
         <div>Third</div>
       </Horizontal>
-      <Code>{`const HorizontallyAligned = <Horizontal>
-  <div>First</div>
-  <div>Second</div>
-  <div>Third</div>
-</Horizontal>`}</Code>
+      <Code>{`const HorizontallyAligned = (
+  <Horizontal>
+    <div>First</div>
+    <div>Second</div>
+    <div>Third</div>
+  </Horizontal>
+)`}</Code>
       <PropertyTable>
         <>
           <Text>gap</Text>
-          <InlineCode>Space.medium</InlineCode>
+          <InlineCode>theme.space.medium</InlineCode>
           <InlineCode>string | number</InlineCode>
         </>
         <>
@@ -101,33 +103,20 @@ export const Advanced = () => (
         <div>Second</div>
         <div>Third</div>
       </Vertical>
-      <Code>{`const VerticallyAligned = <Vertical>
-  <div>First</div>
-  <div>Second</div>
-  <div>Third</div>
-</Vertical>`}</Code>
+      <Code>{`const VerticallyAligned = (
+  <Vertical>
+    <div>First</div>
+    <div>Second</div>
+    <div>Third</div>
+  </Vertical>
+)`}</Code>
       <PropertyTable>
         <>
           <Text>gap</Text>
-          <InlineCode>Space.medium</InlineCode>
+          <InlineCode>theme.space.medium</InlineCode>
           <InlineCode>string | number</InlineCode>
         </>
       </PropertyTable>
-      <Heading as="h2">
-        <Anchor name="spacing" />
-        Spacing
-      </Heading>
-      <Heading as="h2">
-        <Anchor name="utility" />
-        Utility Methods
-      </Heading>
-      <Code>{`import { toPx } from 'naven'
-import { theme } from '../configuration';
-
-css\`
-  padding: \${toPx(5)};
-  margin: \${toPx('5vh')}
-\``}</Code>
       <Heading as="h2">
         <Anchor name="layers" />
         Layers
@@ -136,17 +125,15 @@ css\`
         Use layers to assign the <InlineCode>z-index</InlineCode> in a structured way. The default
         values used by the plugin can be configured.
       </Paragraph>
-      <Code>{`import { configure, Layer } from 'naven'
+      <Code>{`import { configure, layer } from 'naven'
 
-configure({
-  layer: {
-    Popup: 14
-  }
+const { theme, layer } = register(create(merge({})), 'body', {
+  layer: ['Popup', 'Notification']
 })
 
-css\`
-  z-index: \${Layer.Popup};
-\``}</Code>
+const layeredStyles = {
+  zIndex: layer.Popup
+}`}</Code>
     </Content>
   </>
 )

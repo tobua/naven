@@ -18,6 +18,7 @@ const styles = () => ({
     css: {
       display: 'grid',
       justifyItems: 'start',
+      alignSelf: 'normal',
       gridGap: naven.theme.space.small,
       background: naven.theme.color.gray300,
       borderRadius: naven.theme.look.radius,

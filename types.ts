@@ -97,4 +97,5 @@ export type Naven = {
   keyframes: typeof keyframes
   createTheme: typeof createTheme
   globalCss: typeof globalCss
+  layer?: { [key: string]: number }
 }

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, HTMLAttributes, ReactNode, DetailedHTMLProps } from 'react'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
-import { naven, Layer } from '../../style'
+import { naven } from '../../style'
 import { createComponent } from '../../utility/component'
 import Close from '../icon/Close'
 
@@ -27,7 +27,7 @@ const styles = () => ({
       bottom: 0,
       display: 'flex',
       background: naven.theme.color.background,
-      zIndex: Layer.Popup,
+      zIndex: naven.layer.Popup,
     },
   },
   Content: {

@@ -8,7 +8,7 @@ import React, {
   DetailedHTMLProps,
 } from 'react'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
-import { naven, Layer } from '../../style'
+import { naven } from '../../style'
 import type { Link, OptionalLink } from '../../types'
 import { createComponent } from '../../utility/component'
 import List from '../element/List'
@@ -37,7 +37,7 @@ const styles = () => ({
     css: {
       gridColumn: '1 / 5',
       gridRow: 2,
-      zIndex: Layer.Navigation,
+      zIndex: naven.layer.Navigation,
 
       '@phone': {
         /* Avoids grid space, while absolute children still visible. */
@@ -127,13 +127,6 @@ const styles = () => ({
 //   },
 // })
 
-// const listStyles = (visible: boolean) => ({
-//   '@phone': {
-//     display: visible ? 'flex' : 'none',
-//     flexDirection: 'column',
-//   },
-// })
-
 type NavigationLinks = {
   title: Link | OptionalLink
   links?: Link[]
@@ -176,7 +169,7 @@ export default createComponent(styles)<Props>(function Navigation({ props, Sheet
         )}
       </Sheet.ToggleIconWrapper.Component>
     )
-  }, [])
+  }, [showNavigation])
 
   const Tab = useCallback(({ children: tabChildren }: { children: ReactNode }) => {
     const [open, setOpen] = useState(false)
@@ -209,9 +202,12 @@ export default createComponent(styles)<Props>(function Navigation({ props, Sheet
     <Sheet.Main.Component css={wrapperStyles} {...otherProps} ref={scrollContainerRef}>
       <ToggleIcon />
       <List
-        space={0}
-        // TODO dynamic styles
-        // css={listStyles(showNavigation)}
+        css={{
+          '@phone': {
+            display: showNavigation ? 'flex' : 'none',
+            flexDirection: 'column',
+          },
+        }}
         // elementProps={{ css: listElementStyles() }}
         horizontal
       >
@@ -232,7 +228,7 @@ export default createComponent(styles)<Props>(function Navigation({ props, Sheet
           </Tab>
         ))}
       </List>
-      {(showNavigation && (
+      {showNavigation && (
         <>
           {meta || middle ? (
             <>
@@ -244,8 +240,7 @@ export default createComponent(styles)<Props>(function Navigation({ props, Sheet
           {middle && meta ? <Spacer /> : null}
           {middle}
         </>
-      )) ||
-        null}
+      )}
     </Sheet.Main.Component>
   )
 })
