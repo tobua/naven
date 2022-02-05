@@ -9,7 +9,6 @@ import type { SandpackProps } from '@codesandbox/sandpack-react'
 import type { CSS } from '@stitches/react'
 // @ts-ignore
 import { naven } from 'naven'
-import '@codesandbox/sandpack-react/dist/index.css'
 
 // Alternative without preview: https://codemirror.net/6/docs/guide
 // Inspired by: https://github.com/reactjs/reactjs.org/blob/main/beta/src/components/MDX/CodeBlock/CodeBlock.tsx

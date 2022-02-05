@@ -1,12 +1,13 @@
-import { wasser, globalVariables } from 'wasser'
+import { wasser, globalVariables, configure } from 'wasser'
 import configureLayer from 'laier'
-import { createStitches } from '@stitches/react'
+import { createStitches, CSS } from '@stitches/react'
 import type { Token } from '@stitches/react/types/theme'
 import objectAssignDeep from 'object-assign-deep'
 import { resetStyles, rootStyles } from '../utility/global-styles'
 import { Breakpoint } from './breakpoint'
 import { Color } from './color'
 import type { Naven } from '../types'
+import { mergeStyles } from '../utility/merge-styles'
 
 export { useBreakpoint } from './breakpoint'
 export const layer = configureLayer(['Content', 'Navigation', 'Popup', 'Notification'])
@@ -108,20 +109,31 @@ export const merge = <T extends object>(configuration?: T) => {
 
 export const register = <T extends Naven>(
   stitches: T,
-  rootSelector = ':root',
-  options?: { layer?: string[] | ((initial: string[]) => string[]) }
+  options?: {
+    globalStyles?: (stitches: Naven) => { [key: string]: CSS }
+    rootSelector?: string
+    layer?: string[] | ((initial: string[]) => string[])
+    wasser?: Parameters<typeof configure>[0]
+  }
 ) => {
   naven = stitches
 
-  const globalStyles = resetStyles(stitches)
+  let globalStylesUser: any = options?.globalStyles
+
+  if (typeof options?.globalStyles === 'function') {
+    globalStylesUser = options.globalStyles(stitches)
+  }
+
+  const globalStyles = mergeStyles(resetStyles(stitches), globalStylesUser)
   const wasserVariables = globalVariables()
+  const root = options?.rootSelector ?? ':root'
 
   Object.assign(globalStyles, wasserVariables)
 
-  if (globalStyles[rootSelector] !== undefined) {
-    Object.assign(globalStyles[rootSelector], rootStyles(stitches))
+  if (globalStyles[root] !== undefined) {
+    Object.assign(globalStyles[root], rootStyles(stitches))
   } else {
-    globalStyles[rootSelector] = rootStyles(stitches)
+    globalStyles[root] = rootStyles(stitches)
   }
 
   let customLayer: { [x: string]: number }
@@ -143,6 +155,10 @@ export const register = <T extends Naven>(
   if (customLayer) {
     // Also add to default naven export.
     Object.assign(layer, customLayer)
+  }
+
+  if (options?.wasser) {
+    configure(options.wasser)
   }
 
   return stitches

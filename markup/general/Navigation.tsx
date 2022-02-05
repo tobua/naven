@@ -1,5 +1,6 @@
 import React, {
   useState,
+  useMemo,
   HTMLAttributes,
   useEffect,
   useRef,
@@ -46,17 +47,6 @@ const styles = () => ({
         flexDirection: 'column',
         overflow: 'auto',
       },
-    },
-    show: {
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      margin: naven.theme.space.medium,
-      display: 'flex',
-      background: naven.theme.color.background,
-      height: `calc(100vh - ${naven.theme.space.medium} - 2 * ${naven.theme.space.small})`,
     },
   },
   Content: {
@@ -137,6 +127,21 @@ export default createComponent(styles)<Props>(function Navigation({ props, Sheet
   const scrollContainerRef = useRef()
   const [showNavigation, setShowNavigation] = useState(false)
 
+  const showNavigationStyles = useMemo(
+    () => ({
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      margin: naven.theme.space.medium,
+      display: 'flex',
+      background: naven.theme.color.background,
+      height: `calc(100vh - ${naven.theme.space.medium} - 2 * ${naven.theme.space.small})`,
+    }),
+    []
+  )
+
   useEffect(() => {
     if (scrollContainerRef.current && showNavigation) {
       disableBodyScroll(scrollContainerRef.current)
@@ -195,8 +200,7 @@ export default createComponent(styles)<Props>(function Navigation({ props, Sheet
     )
   }, [])
 
-  // @ts-ignore
-  const wrapperStyles = mergeStyles(Sheet.Main.css, showNavigation ? Sheet.Main.show : {})
+  const wrapperStyles = mergeStyles(Sheet.Main.css, showNavigation ? showNavigationStyles : {})
 
   return (
     <Sheet.Main.Component css={wrapperStyles} {...otherProps} ref={scrollContainerRef}>

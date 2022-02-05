@@ -2,6 +2,7 @@ import Close from './markup/icon/Close'
 import Loader from './markup/icon/Loader'
 import Logo from './markup/icon/Logo'
 
+export type { CSS } from '@stitches/react'
 export * from './style/index'
 export { globalTheme } from './style/global-theme'
 export { createComponent } from './utility/component'

@@ -9,4 +9,11 @@ const configuration = merge({
   },
 })
 
-export const { theme, styled, createTheme } = register(create(configuration), 'body')
+export const { theme, styled, createTheme } = register(create(configuration), {
+  rootSelector: 'body',
+  globalStyles: (stitches) => ({
+    body: {
+      margin: stitches.theme.space.large,
+    },
+  }),
+})

@@ -30,6 +30,14 @@ type TitleTextProps = {
   children?: string
 } & DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>
 
+type MetaProps = {
+  links?: LinkType[]
+  hideMobile?: boolean
+  navigation?: boolean
+  children?: ReactNode
+  css?: CSS
+}
+
 // TODO add generic title component for anything on the left.
 export interface Props {
   Component: {
@@ -198,15 +206,11 @@ export default createComponent(styles)<Props>(function Header({ props, Sheet }) 
       hideMobile = false,
       navigation = false,
       children: innerChildren,
-    }: {
-      links?: LinkType[]
-      hideMobile?: boolean
-      navigation?: boolean
-      children?: ReactNode
-    }) => {
+      css,
+    }: MetaProps) => {
       const metaWrapperStyles = useMemo(
         () =>
-          mergeStyles(Sheet.MetaWrapper.css, {
+          mergeStyles(mergeStyles(Sheet.MetaWrapper.css, css), {
             '@phone': { display: !navigation && hideMobile ? 'flex' : 'none' },
           }),
         [hideMobile, navigation]

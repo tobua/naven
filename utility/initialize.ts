@@ -9,6 +9,6 @@ export const initialize = () => {
     )
     // INFO TypeScript compiler super slow without extra variable.
     const stitches = create(merge({}))
-    register(stitches, 'body')
+    register(stitches, { rootSelector: 'body' })
   }
 }
