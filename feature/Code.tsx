@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react'
+// Import from ESM as Next.js defaults to CJS which doesn't support named exports.
 import {
   Sandpack,
   SandpackProvider,
   SandpackThemeProvider,
   SandpackCodeViewer,
-} from '@codesandbox/sandpack-react'
+} from '@codesandbox/sandpack-react/dist/esm/index.js'
 import type { SandpackProps } from '@codesandbox/sandpack-react'
 import type { CSS } from '@stitches/react'
 // @ts-ignore

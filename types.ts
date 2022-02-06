@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import type { StyledComponent } from '@stitches/react/types/styled-component'
 import type { CSS, keyframes, styled, createTheme, globalCss } from '@stitches/react'
 import type { Token } from '@stitches/react/types/theme'
+import type configureLayer from 'laier'
 
 // NOTE tag can't be inferred this way props have to be added manually.
 type CustomStyledComponent<
@@ -77,11 +78,17 @@ export type Naven = {
       weightBold: Token<'weightBold', string, 'font', ''>
       styleItalic: Token<'styleItalic', string, 'font', ''>
       sizeTiny: Token<'sizeTiny', string, 'font', ''>
+      lineHeightTiny: Token<'lineHeightTiny', string, 'font', ''>
       sizeSmall: Token<'sizeSmall', string, 'font', ''>
+      lineHeightSmall: Token<'lineHeightSmall', string, 'font', ''>
       sizeMedium: Token<'sizeMedium', string, 'font', ''>
+      lineHeightMedium: Token<'lineHeightMedium', string, 'font', ''>
       sizeLarge: Token<'sizeLarge', string, 'font', ''>
+      lineHeightLarge: Token<'lineHeightLarge', string, 'font', ''>
       sizeSubtitle: Token<'sizeSubtitle', string, 'font', ''>
+      lineHeightSubtitle: Token<'lineHeightSubtitle', string, 'font', ''>
       sizeTitle: Token<'sizeTitle', string, 'font', ''>
+      lineHeightTitle: Token<'lineHeightTitle', string, 'font', ''>
     }
     space: {
       tiny: Token<'tiny', string, 'space', ''>
@@ -97,5 +104,9 @@ export type Naven = {
   keyframes: typeof keyframes
   createTheme: typeof createTheme
   globalCss: typeof globalCss
-  layer?: { [key: string]: number }
+  config: {
+    media: any
+  }
 }
+
+export type Layer = ReturnType<typeof configureLayer>

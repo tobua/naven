@@ -16,6 +16,7 @@ const styles = () => ({
     css: {
       fontFamily: naven.theme.font.familyRegular,
       fontSize: naven.theme.font.sizeMedium,
+      lineHeight: naven.theme.font.lineHeightMedium,
       variants: {
         style: {
           bold: {

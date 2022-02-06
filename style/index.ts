@@ -1,4 +1,4 @@
-import { wasser, globalVariables, configure } from 'wasser'
+import { wasser, globalVariables, configure, fontObject } from 'wasser'
 import configureLayer from 'laier'
 import { createStitches, CSS } from '@stitches/react'
 import type { Token } from '@stitches/react/types/theme'
@@ -6,15 +6,16 @@ import objectAssignDeep from 'object-assign-deep'
 import { resetStyles, rootStyles } from '../utility/global-styles'
 import { Breakpoint } from './breakpoint'
 import { Color } from './color'
-import type { Naven } from '../types'
+import type { Naven, Layer } from '../types'
 import { mergeStyles } from '../utility/merge-styles'
 
 export { useBreakpoint } from './breakpoint'
 export const layer = configureLayer(['Content', 'Navigation', 'Popup', 'Notification'])
 export const unit = wasser
+export const font = fontObject
 export const create = createStitches
 // eslint-disable-next-line import/no-mutable-exports
-export let naven: Naven
+export let naven: Naven & { layer: Layer }
 
 export const cssVariable = (variable: Token<string, string, string, ''>) =>
   `var(--${variable.scale}-${variable.token})`
@@ -37,11 +38,17 @@ const Font = {
   weightBold: 'bold',
   styleItalic: 'italic',
   sizeTiny: 8,
+  lineHeightTiny: 12,
   sizeSmall: 12,
+  lineHeightSmall: 16,
   sizeMedium: 16,
+  lineHeightMedium: 24,
   sizeLarge: 20,
+  lineHeightLarge: 28,
   sizeSubtitle: 24,
+  lineHeightSubtitle: 30,
   sizeTitle: 30,
+  lineHeightTitle: 38,
 }
 
 const createBreakpoints = <T extends {}>(breakpoints: T) => {
@@ -71,7 +78,20 @@ export const defaultConfiguration = {
 
 const responsiveProperties = {
   space: ['tiny', 'small', 'medium', 'large'],
-  font: ['sizeTiny', 'sizeSmall', 'sizeMedium', 'sizeLarge', 'sizeSubtitle', 'sizeTitle'],
+  font: [
+    'sizeTiny',
+    'sizeSmall',
+    'sizeMedium',
+    'sizeLarge',
+    'sizeSubtitle',
+    'sizeTitle',
+    'lineHeightTiny',
+    'lineHeightSmall',
+    'lineHeightMedium',
+    'lineHeightLarge',
+    'lineHeightSubtitle',
+    'lineHeightTitle',
+  ],
   look: ['radius'],
 }
 
@@ -95,9 +115,9 @@ export const responsifyConfiguration = <T extends { theme: any }>(configuration:
   return configuration
 }
 
-export const merge = <T extends object>(configuration?: T) => {
+export const merge = <T>(configuration: T) => {
   const defaultConfigurationCopy = objectAssignDeep({}, defaultConfiguration)
-  const merged = objectAssignDeep(defaultConfigurationCopy, configuration ?? {})
+  const merged = objectAssignDeep(defaultConfigurationCopy, configuration)
   const responsifiedConfiguration = responsifyConfiguration(merged)
 
   return {
@@ -116,8 +136,6 @@ export const register = <T extends Naven>(
     wasser?: Parameters<typeof configure>[0]
   }
 ) => {
-  naven = stitches
-
   let globalStylesUser: any = options?.globalStyles
 
   if (typeof options?.globalStyles === 'function') {
@@ -149,8 +167,7 @@ export const register = <T extends Naven>(
   }
 
   stitches.globalCss(globalStyles)()
-
-  stitches.layer = customLayer ?? layer
+  ;(stitches as T & { layer: Layer }).layer = customLayer ?? layer
 
   if (customLayer) {
     // Also add to default naven export.
@@ -161,5 +178,7 @@ export const register = <T extends Naven>(
     configure(options.wasser)
   }
 
-  return stitches
+  naven = stitches as T & { layer: Layer }
+
+  return stitches as T & { layer: Layer }
 }

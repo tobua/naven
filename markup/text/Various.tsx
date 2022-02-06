@@ -52,9 +52,9 @@ export const Bold = ({ css, ...props }: HTMLAttributes<HTMLElement> & { css?: CS
 
 const paragraphStyles = memoize(() => ({
   display: 'block',
-  lineHeight: '1.4',
   fontFamily: naven.theme.font.familyRegular,
   fontSize: naven.theme.font.sizeMedium,
+  lineHeight: naven.theme.font.lineHeightMedium,
 }))
 
 export const Paragraph = ({
