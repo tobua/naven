@@ -4,8 +4,7 @@ import { createStitches, CSS } from '@stitches/react'
 import type { Token } from '@stitches/react/types/theme'
 import objectAssignDeep from 'object-assign-deep'
 import { resetStyles, rootStyles } from '../utility/global-styles'
-import { Breakpoint } from './breakpoint'
-import { Color } from './color'
+import { Breakpoint, configure as configureBreakpoints } from './breakpoint'
 import type { Naven, Layer } from '../types'
 import { mergeStyles } from '../utility/merge-styles'
 
@@ -19,6 +18,26 @@ export let naven: Naven & { layer: Layer }
 
 export const cssVariable = (variable: Token<string, string, string, ''>) =>
   `var(--${variable.scale}-${variable.token})`
+
+const Color = {
+  highlight: '#0047FF',
+  interact: '#FF007A',
+  white: '#FFF',
+  black: '#000',
+  background: '#FFF',
+  backgroundContrast: '#000', // Constrast to main background.
+  colorContrast: '#FFF', // Color to display stuff inside highlight or interact.
+  valid: '#4CAF50',
+  warning: '#FF9800',
+  error: '#F44336',
+  // Shaded colors.
+  gray50: '#FAFAFA',
+  gray100: '#F5F5F5',
+  gray200: '#EEEEEE',
+  gray300: '#E0E0E0',
+  gray500: '#9E9E9E',
+  gray700: '#616161',
+}
 
 const Space = {
   tiny: 5,
@@ -116,6 +135,9 @@ export const responsifyConfiguration = <T extends { theme: any }>(configuration:
 }
 
 export const merge = <T>(configuration: T) => {
+  // @ts-ignore
+  configureBreakpoints(configuration.breakpoint)
+
   const defaultConfigurationCopy = objectAssignDeep({}, defaultConfiguration)
   const merged = objectAssignDeep(defaultConfigurationCopy, configuration)
   const responsifiedConfiguration = responsifyConfiguration(merged)

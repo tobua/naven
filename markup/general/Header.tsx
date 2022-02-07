@@ -18,7 +18,7 @@ import Logo from '../icon/Logo'
 import { mergeStyles } from '../../utility/merge-styles'
 import NavigationComponent from './Navigation'
 import TextLink from '../text/Link'
-import Text from '../text/Text'
+import { Text } from '../text/Various'
 
 type TitleLinkProps = {
   link?: string

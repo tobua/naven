@@ -26,6 +26,7 @@ import {
   Tabs,
   Paragraph,
   Text,
+  Inline,
   Bold,
   Important,
   Italic,
@@ -159,51 +160,26 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
 } }}>Can't touch this</Button>`}
     </Code>
     <ElementPreview
-      title="Button"
-      code={`<Button onClick={() => alert('Hello')}>Press me!</Button>`}
-    >
-      <ElementPreview.Preview>
-        <Horizontal>
-          <Button>Default</Button>
-          <Button color="regular">Regular</Button>
-          <Button color="highlight">Highlight</Button>
-          <Button color="interact">Interaction</Button>
-          <Button disabled>Disabled</Button>
-        </Horizontal>
-      </ElementPreview.Preview>
-      <PropertyTable>
-        <>
-          <Text>highlight</Text>
-          <Text>false</Text>
-          <Text>boolean</Text>
-        </>
-        <>
-          <Text>interact</Text>
-          <Text>false</Text>
-          <Text>boolean</Text>
-        </>
-      </PropertyTable>
-    </ElementPreview>
-    <ElementPreview
       title="Text"
-      code={`<Paragraph>
-  Hey <Text>text</Text>
+      code={`<Text>
+  Hey <Inline>inline</Inline>
   <Bold>bold</Bold>
   <Important>important</Important>
   <Italic>italic</Italic>
   <Small>small</Small>
   <Abbreviation title="Frontend Development">FED</Abbreviation>
   <Definition>F.E.D.</Definition>.
-</Paragraph>`}
+</Text>`}
     >
       <ElementPreview.Preview>
-        <Text>This is regular inline text.</Text>
+        <Text>
+          This is regular text <Inline>with inline text in it</Inline>.
+        </Text>
         <Paragraph>
-          This is a paragraph with some <Bold>highligted text</Bold> and some{' '}
-          <Important>very important text</Important> that is distinguishable by a different tag.
-          Text can also be <Italic>italic</Italic>.
+          This is a paragraph with some <Bold>bold text</Bold> and some{' '}
+          <Important>very important text</Important> that is distinguishable by a different tag and
+          the color. Text can also be <Italic>italic</Italic>.
         </Paragraph>
-        <Paragraph>Paragraphs by default have space between them.</Paragraph>
         <Quote cite="https://www.youtube.com/watch?v=spwU2P5U_1U">
           Web developers, web developers, web developers.
         </Quote>
@@ -229,18 +205,63 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
           <Definition>F.E.D.</Definition> is a valid abbreviation for Frontend Development.
         </Paragraph>
       </ElementPreview.Preview>
-      <PropertyTable />
+      <PropertyTable>
+        <>
+          <Text>bold</Text>
+          <Text>false</Text>
+          <Text>boolean</Text>
+        </>
+      </PropertyTable>
+    </ElementPreview>
+    <ElementPreview
+      title="Button"
+      code={`<Button onClick={() => alert('Hello')}>Press me!</Button>`}
+    >
+      <ElementPreview.Preview>
+        <Horizontal>
+          <Button>Default</Button>
+          <Button color="regular">Regular</Button>
+          <Button color="highlight">Highlight</Button>
+          <Button color="interact">Interaction</Button>
+          <Button disabled>Disabled</Button>
+          <Button as="a" href="http://google.com">
+            Link Button
+          </Button>
+        </Horizontal>
+      </ElementPreview.Preview>
+      <PropertyTable>
+        <>
+          <Text>color</Text>
+          <Text>none</Text>
+          <InlineCode>'regular' | 'highlight' | 'interact'</InlineCode>
+        </>
+        <>
+          <Text>disabled</Text>
+          <Text>false</Text>
+          <InlineCode>boolean</InlineCode>
+        </>
+        <>
+          <Text>as</Text>
+          <Text>button</Text>
+          <InlineCode>'button' | 'a'</InlineCode>
+        </>
+        <>
+          <Text>href</Text>
+          <Text></Text>
+          <InlineCode>string</InlineCode>
+        </>
+      </PropertyTable>
     </ElementPreview>
     <ElementPreview
       title="Link"
-      code={`<Link href="https://google.com"><Button>Button with Link</Button></Link>`}
+      code={`<Link href="https://google.com"><Button>Button in Link</Button></Link>`}
     >
       <ElementPreview.Preview>
         <Link href="https://google.com">
-          <Button>Button with Link</Button>
+          <Button>Regular Button wrapped in Link</Button>
         </Link>
       </ElementPreview.Preview>
-      <PropertyTable space={0}>
+      <PropertyTable>
         <>
           <Text>
             All <InlineCode>a</InlineCode> Tag Properties
@@ -253,7 +274,7 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
     <ElementPreview
       title="Text Link"
       anchor="text-link"
-      code={`<Text>This <TextLink highlight="gradient" href="https://google.com">link</TextLink> is clickable.`}
+      code={`<Text>This <TextLink highlight="gradient" href="https://google.com">link</TextLink> is clickable.</Text>`}
     >
       <ElementPreview.Preview>
         <Horizontal>
@@ -322,9 +343,14 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
       </ElementPreview.Preview>
       <PropertyTable space={false}>
         <>
-          <Text>underline</Text>
+          <Text>highlight</Text>
           <InlineCode>empty</InlineCode>
           <InlineCode>'underline' | 'animated' | 'gradient'</InlineCode>
+        </>
+        <>
+          <Text>bold</Text>
+          <InlineCode>false</InlineCode>
+          <InlineCode>boolean</InlineCode>
         </>
         <>
           <Text>
@@ -337,12 +363,20 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
     </ElementPreview>
     <ElementPreview
       title="Input"
-      code={`<Input placeholder="Input here" value="value" onChange={(event) => alert(event.target.value)} />`}
+      code={`<Input
+  placeholder="with placeholder"
+  value="with value"
+  required
+  onValue={(value) => value}
+  onChange={(event) => event.target.value}
+/>`}
     >
       <ElementPreview.Preview>
         <Horizontal>
-          <Input placeholder="Input here" />
-          <Input placeholder="Input here" value="value" onChange={() => {}} />
+          <Input placeholder="with placeholder" />
+          <Input placeholder="with placeholder" value="with value" onChange={() => {}} />
+          <Input placeholder="is required" required />
+          <Input placeholder="is required" value="required but has value" required />
         </Horizontal>
       </ElementPreview.Preview>
       <PropertyTable>
@@ -351,20 +385,52 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
           <Text>optional</Text>
           <InlineCode>{`(value: string) => void`}</InlineCode>
         </>
+        <>
+          <Text>required</Text>
+          <Text></Text>
+          <InlineCode>boolean</InlineCode>
+        </>
+        <>
+          <Text>
+            All <InlineCode>input</InlineCode> Tag Properties
+          </Text>
+          <Text> </Text>
+          <Text>placeholder, value, onChange, ...</Text>
+        </>
       </PropertyTable>
     </ElementPreview>
     <ElementPreview
       title="TextArea"
-      code={`<TextArea placeholder="Textarea with 5 rows." rows={5} />`}
+      code={`<TextArea
+  placeholder="Placeholder"
+  value="Current value"
+  rows={5}
+  required
+  onValue={(value) => value}
+  onChange={(event) => event.target.value}
+/>`}
     >
       <ElementPreview.Preview>
-        <TextArea placeholder="Textarea with 5 rows." rows={5} />
+        <TextArea placeholder="Textarea with 5 rows" rows={5} />
+        <TextArea
+          placeholder="Placeholder"
+          value="Textarea with 2 rows and initial value"
+          rows={2}
+        />
+        <TextArea placeholder="Required textarea" rows={2} required />
       </ElementPreview.Preview>
       <PropertyTable>
         <>
           <Text>onValue</Text>
           <Text>optional</Text>
           <InlineCode>{`(value: string) => void`}</InlineCode>
+        </>
+        <>
+          <Text>
+            All <InlineCode>textarea</InlineCode> Tag Properties
+          </Text>
+          <Text> </Text>
+          <Text>rows, cols, placeholder, ...</Text>
         </>
       </PropertyTable>
     </ElementPreview>
@@ -380,7 +446,7 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
         <>
           <Text>type</Text>
           <Text>info</Text>
-          <Text>'info' | 'warning' | 'error'</Text>
+          <InlineCode>'info' | 'warning' | 'error'</InlineCode>
         </>
         <>
           <Text>closeable</Text>
@@ -424,42 +490,22 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
       <ElementPreview.Preview>
         <PopupToggle />
       </ElementPreview.Preview>
-      <PropertyTable space={false}>
-        <Fragment key="show">
+      <PropertyTable>
+        <>
           <Text>show</Text>
           <Text>true</Text>
           <Text>boolean</Text>
-        </Fragment>
-        <Fragment key="onClose">
+        </>
+        <>
           <Text>onClose</Text>
           <Text>required</Text>
           <Text>{`() => any`}</Text>
-        </Fragment>
-        <Fragment key="contentCss">
-          <Text>contentCss</Text>
-          <Text> </Text>
-          <Text>SerializedStyles</Text>
-        </Fragment>
-        <Fragment key="scrollContainerCss">
-          <Text>scrollContainerCss</Text>
-          <Text> </Text>
-          <Text>SerializedStyles</Text>
-        </Fragment>
-        <Fragment key="closeContainerCss">
-          <Text>closeContainerCss</Text>
-          <Text> </Text>
-          <Text>SerializedStyles</Text>
-        </Fragment>
-        <Fragment key="closeCss">
-          <Text>closeCss</Text>
-          <Text> </Text>
-          <Text>SerializedStyles</Text>
-        </Fragment>
-        <Fragment key="close">
+        </>
+        <>
           <Text>close</Text>
           <InlineCode>{`<Close />`}</InlineCode>
           <Text>ReactNode</Text>
-        </Fragment>
+        </>
       </PropertyTable>
     </ElementPreview>
     <ElementPreview
@@ -473,12 +519,17 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
         <>
           <Text>label</Text>
           <Text> </Text>
-          <Text>string</Text>
+          <InlineCode>string</InlineCode>
         </>
         <>
-          <Text>wrapperCss</Text>
-          <Text> </Text>
-          <Text>SerializedStyles</Text>
+          <Text>type</Text>
+          <Text>checkbox</Text>
+          <InlineCode>'radio' | 'checkbox'</InlineCode>
+        </>
+        <>
+          <Text>id</Text>
+          <Text>randomly generated</Text>
+          <InlineCode>string</InlineCode>
         </>
       </PropertyTable>
     </ElementPreview>
@@ -504,13 +555,13 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
     </ElementPreview>
     <ElementPreview
       title="Accordion"
-      code={`<Accordion headers={['Hello', <Text style="bold">World</Text>]}>
+      code={`<Accordion headers={['Hello', <Text bold>World</Text>]}>
   <Text>Hello</Text>
   <Text>World</Text>
 </Accordion>`}
     >
       <ElementPreview.Preview>
-        <Accordion headers={['First', <Text style="bold">Second</Text>, 'Third']}>
+        <Accordion headers={['First', <Text bold>Second</Text>, 'Third']}>
           <Text>First Content</Text>
           <Text>Second Content</Text>
           <Text>Third Content</Text>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { IBreakpoint } from './types'
+import { IBreakpoint } from '../types'
 
 export const Breakpoint: IBreakpoint = {
   phone: 500,
@@ -9,23 +9,9 @@ export const Breakpoint: IBreakpoint = {
 const maxWidthQuery = (pixels: number) => `(max-width: ${pixels}px)`
 const minWidthQuery = (pixels: number) => `(min-width: ${pixels + 1}px)`
 
-// export const configure = (_breakpoints: IBreakpoint) => {
-//   Object.assign(Breakpoints, _breakpoints, { clone: false })
-// }
-
-// export const Breakpoint = new Proxy<{ Phone: string; Tablet: string }>({} as any, {
-//   get: (_, property) => {
-//     if (property === 'Phone') {
-//       return `@media ${maxWidthQuery(Breakpoints.phone)}`
-//     }
-
-//     if (property === 'Tablet') {
-//       return `@media ${maxWidthQuery(Breakpoints.tablet)}`
-//     }
-
-//     return '@media screen'
-//   },
-// })
+export const configure = (_breakpoints: IBreakpoint) => {
+  Object.assign(Breakpoint, _breakpoints, { clone: false })
+}
 
 type BreakpointWithPixel = {
   name: keyof IBreakpoint | null

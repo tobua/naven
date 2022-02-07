@@ -15,13 +15,13 @@ export const Inline = ({
   css,
   bold,
   ...props
-}: HTMLAttributes<HTMLElement> & { bold?: true; css?: CSS }) => {
+}: HTMLAttributes<HTMLElement> & { bold?: boolean; css?: CSS }) => {
   const styles: any = inlineStyles()
   if (bold) {
     styles.fontWeight = naven.theme.font.weightBold
   }
   // @ts-ignore
-  const Strong = useMemo(() => naven.styled('span', mergeStyles(styles(), css)), [css])
+  const Strong = useMemo(() => naven.styled('span', mergeStyles(styles, css)), [css])
   return <Strong {...props}>{props.children}</Strong>
 }
 
@@ -50,6 +50,29 @@ export const Bold = ({ css, ...props }: HTMLAttributes<HTMLElement> & { css?: CS
   return <Strong {...props}>{props.children}</Strong>
 }
 
+const textStyles = memoize(() => ({
+  fontFamily: naven.theme.font.familyRegular,
+  fontSize: naven.theme.font.sizeMedium,
+  lineHeight: naven.theme.font.lineHeightMedium,
+}))
+
+export const Text = ({
+  css,
+  bold,
+  ...props
+}: HTMLAttributes<HTMLElement> & {
+  css?: CSS
+  bold?: boolean
+}) => {
+  const styles: any = textStyles()
+  if (bold) {
+    styles.fontWeight = naven.theme.font.weightBold
+  }
+  // @ts-ignore
+  const Tag = useMemo(() => naven.styled('p', mergeStyles(styles, css)), [css])
+  return <Tag {...props}>{props.children}</Tag>
+}
+
 const paragraphStyles = memoize(() => ({
   display: 'block',
   fontFamily: naven.theme.font.familyRegular,
@@ -74,9 +97,17 @@ const italicStyles = memoize(() => ({
   fontStyle: naven.theme.font.styleItalic,
 }))
 
-export const Italic = ({ css, ...props }: HTMLAttributes<HTMLElement> & { css?: CSS }) => {
+export const Italic = ({
+  css,
+  bold,
+  ...props
+}: HTMLAttributes<HTMLElement> & { css?: CSS; bold?: boolean }) => {
+  const styles: any = italicStyles()
+  if (bold) {
+    styles.fontWeight = naven.theme.font.weightBold
+  }
   // @ts-ignore
-  const Tag = useMemo(() => naven.styled('i', mergeStyles(italicStyles(), css)), [css])
+  const Tag = useMemo(() => naven.styled('i', mergeStyles(styles, css)), [css])
   return <Tag {...props}>{props.children}</Tag>
 }
 
@@ -96,16 +127,12 @@ const quoteStyles = memoize(() => ({
 
 export const Quote = ({
   css,
-  space,
   ...props
 }: BlockquoteHTMLAttributes<HTMLElement> & {
   css?: CSS
-  space?: string | number | Token<string, string, 'space', ''>
 }) => {
-  const styles: any = quoteStyles()
-  styles.marginBottom = space
   // @ts-ignore
-  const Tag = useMemo(() => naven.styled('blockquote', mergeStyles(styles, css)), [css])
+  const Tag = useMemo(() => naven.styled('blockquote', mergeStyles(quoteStyles(), css)), [css])
   return <Tag {...props}>{props.children}</Tag>
 }
 
@@ -138,9 +165,17 @@ const smallStyles = memoize(() => ({
   fontSize: 'smaller',
 }))
 
-export const Small = ({ css, ...props }: HTMLAttributes<HTMLElement> & { css?: CSS }) => {
+export const Small = ({
+  css,
+  bold,
+  ...props
+}: HTMLAttributes<HTMLElement> & { css?: CSS; bold?: boolean }) => {
+  const styles: any = smallStyles()
+  if (bold) {
+    styles.fontWeight = naven.theme.font.weightBold
+  }
   // @ts-ignore
-  const Tag = useMemo(() => naven.styled('small', mergeStyles(smallStyles(), css)), [css])
+  const Tag = useMemo(() => naven.styled('small', mergeStyles(styles, css)), [css])
   return <Tag {...props}>{props.children}</Tag>
 }
 

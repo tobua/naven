@@ -1,14 +1,14 @@
 import React, { useState, HTMLAttributes, ReactNode, DetailedHTMLProps } from 'react'
 import { naven } from '../../style'
 import { createComponent } from '../../utility/component'
-import Text from '../text/Text'
+import { Text } from '../text/Various'
 import Close from '../icon/Close'
 
 export interface Props {
   Component: {
     children: ReactNode
     type?: 'info' | 'warning' | 'error'
-    closeable?: true
+    closeable?: boolean
   } & HTMLAttributes<HTMLDivElement>
   CloseContainer: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 }
@@ -69,7 +69,7 @@ export default createComponent(styles)<Props>(function Alert({ props, Sheet }) {
           <Close css={{ flex: 1 }} />
         </Sheet.CloseContainer.Component>
       )}
-      <Text space={0}>{children}</Text>
+      <Text>{children}</Text>
     </Sheet.Main.Component>
   )
 })

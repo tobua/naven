@@ -46,9 +46,9 @@ export { default as Wide } from './markup/layout/Wide'
 // Text
 export { default as Heading } from './markup/text/Heading'
 export { default as InlineCode } from './markup/text/InlineCode'
-export { default as Text } from './markup/text/Text'
 export { default as TextLink } from './markup/text/Link'
 export {
+  Text,
   Inline,
   Important,
   Bold,

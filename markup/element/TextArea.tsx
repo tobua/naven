@@ -1,35 +1,52 @@
-import React, { TextareaHTMLAttributes, DetailedHTMLProps } from 'react'
-import { naven } from '../../style'
+import React, { TextareaHTMLAttributes, DetailedHTMLProps, useState } from 'react'
+import { naven, unit } from '../../style'
 import { createComponent } from '../../utility/component'
+import { mergeStyles } from '../../utility/merge-styles'
+import { blinkAnimation } from '../../style/animation'
 
 export interface Props {
   Component: {
-    count?: number | string
-    type?: 'content'
     onValue?: (value: string) => void
   } & DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
+  TextArea: DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
 }
 
 const styles = () => ({
   Main: {
+    tag: 'div',
+    css: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+  },
+  Cursor: {
+    tag: 'span',
+    css: {
+      height: '100%',
+      width: unit(4),
+      marginRight: unit(6),
+      transition: 'background 300ms ease',
+    },
+  },
+  TextArea: {
     tag: 'textarea',
     main: true,
     css: {
+      display: 'flex',
+      alignSelf: 'normal',
       padding: naven.theme.space.small,
-      border: `1px solid ${naven.theme.color.backgroundContrast}`,
       resize: 'none',
-      borderRadius: naven.theme.look.radius,
+      border: 'none',
+      outline: 'none',
       fontFamily: naven.theme.font.familyRegular,
-      '&:focus': {
-        boxShadow: `inset 0 0 0 1px ${naven.theme.color.backgroundContrast}`,
-        outline: 'none',
-      },
     },
   },
 })
 
 export default createComponent(styles)<Props>(function TextArea({ props, Sheet }) {
-  const { onValue, ...otherProps } = props
+  const { value, onValue, required, ...otherProps } = props
+  const [active, setActive] = useState(false)
 
   if (onValue) {
     const initialOnChange = props.onChange
@@ -42,5 +59,27 @@ export default createComponent(styles)<Props>(function TextArea({ props, Sheet }
     }
   }
 
-  return <Sheet.Main.Component css={Sheet.Main.css} {...otherProps} />
+  const hasAnimation = required && !value && !active
+
+  return (
+    <Sheet.Main.Component css={Sheet.Main.css}>
+      <Sheet.Cursor.Component
+        css={mergeStyles(
+          {
+            animation: hasAnimation ? `${blinkAnimation()} 1s linear infinite alternate` : 'none',
+            background: active ? naven.theme.color.backgroundContrast : naven.theme.color.gray500,
+          },
+          Sheet.Cursor.css
+        )}
+      />
+      <Sheet.TextArea.Component
+        css={Sheet.TextArea.css}
+        onFocus={() => setActive(true)}
+        onBlur={() => setActive(false)}
+        required={required}
+        value={value}
+        {...otherProps}
+      />
+    </Sheet.Main.Component>
+  )
 })

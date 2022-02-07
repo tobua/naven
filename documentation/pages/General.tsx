@@ -211,24 +211,26 @@ const HeaderWithImage = (
       {`const FooterWithLinks = (
   <Footer>
     {({ Column }) => (
-      <Column
-        title={{ name: 'First-level', url: '/first' }}
-        links={[
-          {
-            name: 'Second-Level',
-            url: '/second',
-          },
-          {
-            name: 'Second-Level Jr.',
-            url: '/second-jr',
-          }
-        ]}
-      />
-      <Column
-        title={{ name: 'First-Level with Content', url: '/first-content' }}
-      >
-        <Paragraph>Copyright Notice</Paragraph>
-      </Column>
+      <>
+        <Column
+          title={{ name: 'First-level', url: '/first' }}
+          links={[
+            {
+              name: 'Second-Level',
+              url: '/second',
+            },
+            {
+              name: 'Second-Level Jr.',
+              url: '/second-jr',
+            }
+          ]}
+        />
+        <Column
+          title={{ name: 'First-Level with Content', url: '/first-content' }}
+        >
+          <Paragraph>Copyright Notice</Paragraph>
+        </Column>
+      </>
     )}
   </Footer>
 )

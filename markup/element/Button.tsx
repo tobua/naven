@@ -18,6 +18,8 @@ const styles = () => ({
     tag: 'button',
     main: true,
     css: {
+      display: 'flex',
+      alignItems: 'center',
       border: 'none',
       outline: 'none',
       cursor: 'pointer',

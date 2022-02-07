@@ -12,10 +12,7 @@ import { uniqueID } from '../../utility/unique-id'
 
 export interface Props {
   Component: {
-    as?: 'a'
-    href?: string
-    disabled?: true
-    color?: 'regular' | 'highlight' | 'interact'
+    id?: string
     type?: 'radio' | 'checkbox'
     label: string
   } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>

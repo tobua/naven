@@ -110,3 +110,7 @@ export type Naven = {
 }
 
 export type Layer = ReturnType<typeof configureLayer>
+
+export interface IBreakpoint {
+  [key: string]: number
+}

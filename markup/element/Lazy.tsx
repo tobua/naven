@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Loader from './Loader'
-import Text from '../text/Text'
+import { Text } from '../text/Various'
 
 interface Props {
   imports: Promise<any>

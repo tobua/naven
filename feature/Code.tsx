@@ -1,15 +1,26 @@
 import React, { useMemo } from 'react'
-// Import from ESM as Next.js defaults to CJS which doesn't support named exports.
 import {
   Sandpack,
   SandpackProvider,
   SandpackThemeProvider,
   SandpackCodeViewer,
-} from '@codesandbox/sandpack-react/dist/esm/index.js'
+} from '@codesandbox/sandpack-react'
 import type { SandpackProps } from '@codesandbox/sandpack-react'
 import type { CSS } from '@stitches/react'
 // @ts-ignore
 import { naven } from 'naven'
+
+const extensionFromTemplate = (template: string) => {
+  if (template === 'vanilla-ts') {
+    return 'ts'
+  }
+
+  if (template === 'react-ts') {
+    return 'tsx'
+  }
+
+  return 'js'
+}
 
 // Alternative without preview: https://codemirror.net/6/docs/guide
 // Inspired by: https://github.com/reactjs/reactjs.org/blob/main/beta/src/components/MDX/CodeBlock/CodeBlock.tsx
@@ -38,7 +49,7 @@ export default ({
           template={template}
           customSetup={{
             files: {
-              '/App.js': {
+              [`/App.${extensionFromTemplate(template)}`]: {
                 code: children,
                 readOnly: true,
               },

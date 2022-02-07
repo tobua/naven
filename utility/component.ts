@@ -54,6 +54,7 @@ export const createComponent = <Styles extends { Main: any }>(initialStyles: () 
           const styles = merged[current]
           const isMain = current === 'Main' || styles.Main
           let css: CSS = {}
+          const base = styles.extends ?? (isMain ? removeAs : null) ?? styles.tag
 
           if (typeof styles.props === 'function') {
             styles.props(css, props)
@@ -64,10 +65,7 @@ export const createComponent = <Styles extends { Main: any }>(initialStyles: () 
           }
 
           previous[current] = {
-            Component: naven.styled(
-              styles.extends ?? styles.tag, // isMain && propsAs ? propsAs :
-              styles.css ?? {}
-            ),
+            Component: naven.styled(base, styles.css ?? {}),
             css,
           }
 

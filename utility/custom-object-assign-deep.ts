@@ -1,5 +1,4 @@
 // npmjs.com/object-assign-deep modified to update CSSVariables used in this project.
-
 const isCssVariable = (value: { type?: any }) =>
   Object.prototype.hasOwnProperty.call(value, 'token') &&
   Object.prototype.hasOwnProperty.call(value, 'value')

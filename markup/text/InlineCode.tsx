@@ -19,6 +19,7 @@ const styles = () => ({
       padding: `${wasser(2)} ${wasser(4)}`,
       fontFamily: naven.theme.font.familyMono,
       fontSize: wasser(14),
+      whiteSpace: 'nowrap',
     },
   },
 })
