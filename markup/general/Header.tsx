@@ -69,7 +69,7 @@ const styles = () => ({
       gridColumn: '3 / 4',
       display: 'grid',
       gridTemplateColumns: `auto 1fr auto 1fr auto`,
-      gridTemplateRows: `auto auto`,
+      gridTemplateRows: 'auto',
       gridRowGap: naven.theme.space.medium,
       alignItems: 'center',
       position: 'relative',

@@ -6,6 +6,7 @@ import { theme, styled } from '../configuration'
 const Header = styled('header', {
   display: 'flex',
   justifyContent: 'space-between',
+  alignSelf: 'normal',
   alignItems: 'center',
   flexDirection: 'row',
 })
