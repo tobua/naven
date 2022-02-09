@@ -44,10 +44,13 @@ const customStyles: ({
     flexDirection: 'column',
     gap: cssVariable(naven.theme.space.small),
   }),
-  option: (provided: object) => ({
+  option: (provided: object, props) => ({
     ...provided,
     cursor: 'pointer',
     padding: 0,
+    background: backgroundColor,
+    fontWeight: props.isSelected ? cssVariable(naven.theme.font.weightBold) : 'inherit',
+    color: cssVariable(naven.theme.color.backgroundContrast),
   }),
   control: (provided: object) => ({
     ...provided,
@@ -65,7 +68,7 @@ const customStyles: ({
 
 export default function Dropdown({
   containerStyles,
-  backgroundColor = cssVariable(naven.theme.color.white),
+  backgroundColor = cssVariable(naven.theme.color.background),
   ...props
 }: Props & SelectProps) {
   return (
@@ -75,14 +78,15 @@ export default function Dropdown({
         ...customStyles({ containerStyles, backgroundColor }),
         ...props.styles,
       }}
-      theme={{
+      theme={(theme) => ({
+        ...theme,
         borderRadius: naven.theme.look.radius.value,
-        // @ts-ignore TODO issue likely with plugin types.
         colors: {
+          ...theme.colors,
           primary: cssVariable(naven.theme.color.highlight),
         },
         ...props.theme,
-      }}
+      })}
     />
   )
 }

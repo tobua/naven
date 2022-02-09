@@ -37,7 +37,11 @@ const styles = () => ({
     },
     props: (allStyles, props: Props['Component']) => {
       if (props.size) {
-        allStyles.height = props.size
+        if (typeof props.size === 'string' && Object.keys(naven.theme.space).includes(props.size)) {
+          allStyles.height = naven.theme.space[props.size]
+        } else {
+          allStyles.height = props.size
+        }
       }
     },
   },

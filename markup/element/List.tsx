@@ -3,18 +3,33 @@ import type { CSS } from '@stitches/react'
 import { createComponent } from '../../utility/component'
 import { naven, unit } from '../../style'
 
+type ListType = 'ordered' | 'description' | 'disc'
+
 export interface Props {
   Component: {
     children: ReactNode | ReactNode[]
-    horizontal?: true
-    wrap?: true
+    horizontal?: boolean
+    wrap?: boolean
     gap?: number | string
-    type?: 'ordered' | 'description' | 'disc'
+    type?: ListType
     elementProps?: LiHTMLAttributes<HTMLLIElement>
   } & HTMLAttributes<HTMLUListElement>
+  Main: { type?: ListType }
   Item: {
     children: ReactNode
   }
+}
+
+const getTag = (type?: ListType) => {
+  if (type === 'ordered') {
+    return 'ol'
+  }
+
+  if (type === 'description') {
+    return 'dl'
+  }
+
+  return 'ul'
 }
 
 const styles = () => ({
@@ -42,14 +57,6 @@ const styles = () => ({
       },
     },
     props: (innerStyles: CSS, props: Props['Component']) => {
-      // if (props.type === 'ordered') {
-      //   innerStyles.tag = 'ol'
-      // }
-
-      // if (props.type === 'description') {
-      //   innerStyles.tag = 'dl'
-      // }
-
       if (props.horizontal) {
         innerStyles.flexDirection = 'row'
       }
@@ -95,7 +102,7 @@ const Description = ({
 
 export default createComponent(styles)<Props>(
   function List({ props, Sheet }) {
-    const { children, horizontal, wrap, gap, ...otherProps } = props
+    const { children, horizontal, wrap, gap, elementProps, type, ...otherProps } = props
     props.children = typeof children === 'function' ? children({ Description }) : children
 
     const renderItem = useCallback((innerChildren: ReactNode, key = 0) => {
@@ -104,7 +111,7 @@ export default createComponent(styles)<Props>(
       }
 
       return (
-        <Sheet.Item.Component css={Sheet.Item.css} key={key}>
+        <Sheet.Item.Component css={Sheet.Item.css} key={key} {...elementProps}>
           {innerChildren}
         </Sheet.Item.Component>
       )
@@ -119,7 +126,7 @@ export default createComponent(styles)<Props>(
     }, [])
 
     return (
-      <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
+      <Sheet.Main.Component as={getTag(type)} css={Sheet.Main.css} type={type} {...otherProps}>
         {renderItems()}
       </Sheet.Main.Component>
     )

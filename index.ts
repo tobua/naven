@@ -6,6 +6,7 @@ export type { CSS } from '@stitches/react'
 export * from './style/index'
 export { globalTheme } from './style/global-theme'
 export { createComponent } from './utility/component'
+export { mergeStyles } from './utility/merge-styles'
 // Element
 export { default as Accordion } from './markup/element/Accordion'
 export { default as Alert } from './markup/element/Alert'

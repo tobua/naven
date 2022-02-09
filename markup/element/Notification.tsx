@@ -20,7 +20,7 @@ let rerender: () => void
 interface AddNotificationProps {
   message: string
   duration?: number
-  type: NotificationType
+  type?: NotificationType
   closeable?: boolean
 }
 
@@ -60,11 +60,7 @@ export const addNotification = ({
 }
 
 export interface Props {
-  Component: {
-    small?: true
-    //   gap?: string | number
-    //   space?: string | number
-  } & HTMLAttributes<HTMLDivElement>
+  Component: HTMLAttributes<HTMLDivElement>
 }
 
 const styles = () => ({
@@ -182,5 +178,3 @@ export default createComponent(styles)<Props>(function Notification({ props, She
     </Sheet.Main.Component>
   )
 })
-
-// Container rowGap = gap

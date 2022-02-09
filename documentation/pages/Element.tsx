@@ -42,6 +42,7 @@ import Code from 'naven/Code'
 import Tooltip from 'naven/Tooltip'
 import DatePicker from 'naven/Date'
 import Dropdown from 'naven/Dropdown'
+import 'react-datepicker/dist/react-datepicker.css'
 import { theme } from '../configuration'
 import { PropertyTable } from 'markup/PropertyTable'
 import { ElementPreview } from 'markup/ElementPreview'
@@ -376,7 +377,12 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
           <Input placeholder="with placeholder" />
           <Input placeholder="with placeholder" value="with value" onChange={() => {}} />
           <Input placeholder="is required" required />
-          <Input placeholder="is required" value="required but has value" required />
+          <Input
+            placeholder="is required"
+            value="required but has value"
+            onChange={() => {}}
+            required
+          />
         </Horizontal>
       </ElementPreview.Preview>
       <PropertyTable>
@@ -415,6 +421,7 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
         <TextArea
           placeholder="Placeholder"
           value="Textarea with 2 rows and initial value"
+          onChange={() => {}}
           rows={2}
         />
         <TextArea placeholder="Required textarea" rows={2} required />
@@ -509,11 +516,19 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
       </PropertyTable>
     </ElementPreview>
     <ElementPreview
-      title="Checkbox"
-      code={`<Checkbox label="Accept Terms" checked={terms} onChange={() => setTerms(!terms)} />`}
+      title="Checkbox / Radio"
+      code={`const checkbox = <Checkbox label="Accept Terms" checked={terms} onChange={() => setTerms(!terms)} />
+      
+const Radios = (
+  <>
+    <Radio label="Female" name="gender" checked={selection === 'female'} onChange={() => setGender('female')} />
+    <Radio label="Male" name="gender" checked={selection === 'male'} onChange={() => setGender('male')} />
+  </>
+)`}
     >
       <ElementPreview.Preview>
         <Checkboxes />
+        <Radios />
       </ElementPreview.Preview>
       <PropertyTable>
         <>
@@ -531,25 +546,10 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
           <Text>randomly generated</Text>
           <InlineCode>string</InlineCode>
         </>
-      </PropertyTable>
-    </ElementPreview>
-    <ElementPreview
-      title="Radio"
-      code={`<Radio label="Female" name="gender" checked={selection === 'female'} onChange={() => setGender('female')} />`}
-    >
-      <ElementPreview.Preview>
-        <Radios />
-      </ElementPreview.Preview>
-      <PropertyTable>
         <>
-          <Text>label</Text>
-          <Text> </Text>
-          <Text>string</Text>
-        </>
-        <>
-          <Text>wrapperCss</Text>
-          <Text> </Text>
-          <Text>SerializedStyles</Text>
+          <Text>name</Text>
+          <Text>required for radio</Text>
+          <InlineCode>string</InlineCode>
         </>
       </PropertyTable>
     </ElementPreview>
@@ -561,6 +561,7 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
 </Accordion>`}
     >
       <ElementPreview.Preview>
+        {/* // TODO bug second and third content text will also inherit bold from headers text */}
         <Accordion headers={['First', <Text bold>Second</Text>, 'Third']}>
           <Text>First Content</Text>
           <Text>Second Content</Text>
@@ -587,15 +588,7 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
 </Badge>`}
     >
       <ElementPreview.Preview>
-        <Horizontal
-          styles={{
-            Main: {
-              css: {
-                overflow: 'visible',
-              },
-            },
-          }}
-        >
+        <Horizontal>
           <Badge>
             <Text>Hey Badge</Text>
           </Badge>
@@ -610,13 +603,8 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
       <PropertyTable>
         <>
           <Text>count</Text>
-          <Text> </Text>
-          <Text>number | string</Text>
-        </>
-        <>
-          <Text>cssDot</Text>
-          <Text> </Text>
-          <Text>SerializedStyles</Text>
+          <Text>required</Text>
+          <InlineCode>number | string</InlineCode>
         </>
       </PropertyTable>
     </ElementPreview>
@@ -660,8 +648,8 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
         </>
         <>
           <Text>backgroundColor</Text>
-          <Text>Color.white.var</Text>
-          <Text>string</Text>
+          <Text>theme.color.background</Text>
+          <InlineCode>string</InlineCode>
         </>
         <>
           <Text>...props</Text>
@@ -674,8 +662,9 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
     </ElementPreview>
     <ElementPreview
       title="Notification"
-      code={`<Notification wrapperCss={css\`right: auto; left: 0;\`} />
-    
+      code={`<Notification css={{ right: auto, left: 0 }} />
+
+addNotification({ message: 'Login successful.' })
 addNotification({ message: 'No internet connection.', type: 'error'})
 addNotification({ message: "Couldn't find entry.", type: 'warning', duration: 3 })
 addNotification({ message: 'Failed to get data, please try again later.', type: 'error', closeable: true })`}
@@ -684,23 +673,7 @@ addNotification({ message: 'Failed to get data, please try again later.', type: 
         <NotificationToggle />
       </ElementPreview.Preview>
       <Heading as="h3" style="code">{`<Notification />`}</Heading>
-      <PropertyTable>
-        <>
-          <Text>gap</Text>
-          <Text> </Text>
-          <InlineCode>string | number</InlineCode>
-        </>
-        <>
-          <Text>wrapperCss</Text>
-          <Text> </Text>
-          <InlineCode>SerializedStyles</InlineCode>
-        </>
-        <>
-          <Text>containerCss</Text>
-          <Text> </Text>
-          <InlineCode>SerializedStyles</InlineCode>
-        </>
-      </PropertyTable>
+      <PropertyTable />
       <Heading as="h3" style="code">{`addNotification`}</Heading>
       <PropertyTable css={false} space={false}>
         <>
@@ -794,26 +767,36 @@ addNotification({ message: 'Failed to get data, please try again later.', type: 
     </ElementPreview>
     <ElementPreview
       title="List"
-      code={`const UnstyledList = <List>
-  <Text>First</Text>
-  <Text>Second</Text>
-</List>
-const HorizontalUnorderedList = <List listStyle horizontal>
-  <Text>First</Text>
-  <Text>Second</Text>
-</List>
-const VerticalOrderedList = <List listStyle type={List.Type.ordered}>
-  <Text>Ordered</Text>
-  <Text>Second</Text>
-</List>
-const DescriptionList = <List type={List.Type.description}>
-  <List.Description term="Frontend">
-    HTML, CSS and JavaScript
-  </List.Description>
-  <List.Description term={<Text>Backend</Text>}>
-    <Text>Node, PHP etc.</Text>
-  </List.Description>
-</List>`}
+      code={`const UnstyledList = (
+  <List>
+    <Text>First</Text>
+    <Text>Second</Text>
+  </List>
+)
+const HorizontalUnorderedDiscList = (
+  <List type="disc" horizontal>
+    <Text>First</Text>
+    <Text>Second</Text>
+  </List>
+)
+const VerticalOrderedList = (
+  <List type="ordered">
+    <Text>Ordered</Text>
+    <Text>Second</Text>
+  </List>
+)
+const DescriptionList = (
+  <List type="description">
+    {({ Description }) => (
+      <>
+        <Description term="Frontend">HTML, CSS and JavaScript</Description>
+        <Description term={<Text>Backend</Text>}>
+          <Text>Node, PHP etc.</Text>
+        </Description>
+      </>
+    )}
+  </List>
+)`}
     >
       <ElementPreview.Preview>
         <List>
@@ -858,13 +841,8 @@ const DescriptionList = <List type={List.Type.description}>
       <PropertyTable>
         <>
           <Text>type</Text>
-          <InlineCode>List.Type.unordered</InlineCode>
-          <InlineCode>List.Type | 'ul' | 'ol' | 'dl'</InlineCode>
-        </>
-        <>
-          <Text>listStyle</Text>
-          <InlineCode>false</InlineCode>
-          <InlineCode>boolean</InlineCode>
+          <Text>{`empty => unordered`}</Text>
+          <InlineCode>'ordered' | 'description | 'disc'</InlineCode>
         </>
         <>
           <Text>horizontal</Text>
@@ -874,7 +852,9 @@ const DescriptionList = <List type={List.Type.description}>
         <>
           <Text>elementProps</Text>
           <Text> </Text>
-          <InlineCode>{`{ css: SerializedStyles } & LiElement`}</InlineCode>
+          <Text>
+            all props from React <InlineCode>li</InlineCode> element
+          </Text>
         </>
         <>
           <Text>wrap</Text>
@@ -883,7 +863,7 @@ const DescriptionList = <List type={List.Type.description}>
         </>
         <>
           <Text>gap</Text>
-          <Text>Space.small</Text>
+          <Text>theme.space.small</Text>
           <Text>number | string</Text>
         </>
       </PropertyTable>
@@ -892,11 +872,13 @@ const DescriptionList = <List type={List.Type.description}>
       title="Date Picker"
       anchor="date"
       code={`import { DatePicker } from 'naven/Date'
+import 'react-datepicker/dist/react-datepicker.css'
 
 <DatePicker initialDate={new Date(1990, 1, 17)} onChange={(date) => setDate(date)} />`}
     >
       <ElementPreview.Preview>
         <DatePicker initialDate={new Date(1990, 1, 17)} />
+        <DatePicker />
       </ElementPreview.Preview>
       <PropertyTable>
         <>
@@ -910,11 +892,6 @@ const DescriptionList = <List type={List.Type.description}>
           <InlineCode>{`(date: Date) => void`}</InlineCode>
         </>
         <>
-          <Text>styleOverrides</Text>
-          <Text> </Text>
-          <Text>SerializedStyles</Text>
-        </>
-        <>
           <Text>...props</Text>
           <Text> </Text>
           <TextLink href="https://reactdatepicker.com">See react-datepicker</TextLink>
@@ -924,6 +901,7 @@ const DescriptionList = <List type={List.Type.description}>
     <ElementPreview
       title="Code"
       code={`import { Code } from 'naven/Code'
+import '@codesandbox/sandpack-react/dist/index.css'
 
 <Code template="react-ts">{\`const doubleIt = (value: number) => value * 2\`}</Code>`}
     >
@@ -932,34 +910,30 @@ const DescriptionList = <List type={List.Type.description}>
           {`// Hello JS
 export const hello = () => console.log('world')`}
         </Code>
-        <Code template="react-ts">{`// Hello TS
+        <Code template="vanilla">
+          {`// Hello JS
+export const hello = () => console.log('world')`}
+        </Code>
+        <Code template="vanilla-ts">{`// Hello TS
 export const greet = (greeting: string) => console.log(\`hello \${greeting}!\`)`}</Code>
-        <Code>
+        <Code template="react-ts">
           {`// Hello JSX / TSX
 export const Hello = () => <p>W<strong>o</strong>rld</p>`}
         </Code>
       </ElementPreview.Preview>
       <PropertyTable>
         <>
-          <Text>language</Text>
-          <Text>typescript</Text>
-          <Text>'javascript' | 'typescript'</Text>
-        </>
-        <>
-          <Text>jsx</Text>
-          <Text>false</Text>
-          <Text>boolean</Text>
-        </>
-        <>
-          <Text>style</Text>
-          <Text> </Text>
-          <Text>object</Text>
+          <Text>template</Text>
+          <InlineCode>react</InlineCode>
+          <InlineCode>
+            'react' | 'react-ts' | 'vanilla' | 'vanilla-ts' | 'angular' | 'vue' | 'vue3'
+          </InlineCode>
         </>
         <>
           <Text>...props</Text>
           <Text> </Text>
           <TextLink href="https://github.com/react-syntax-highlighter/react-syntax-highlighter">
-            See react-syntax-highlighter
+            See @codesandbox/sandpack-react
           </TextLink>
         </>
       </PropertyTable>
@@ -967,9 +941,7 @@ export const Hello = () => <p>W<strong>o</strong>rld</p>`}
     <ElementPreview
       title="Inline Code"
       anchor="inline-code"
-      code={`import { InlineCode } from 'naven'
-
-Use <InlineCode>const</InlineCode> to define variables.`}
+      code={`<Text>Use <InlineCode>const</InlineCode> to define variables.</Text>`}
     >
       <ElementPreview.Preview>
         <Paragraph>
@@ -981,7 +953,13 @@ Use <InlineCode>const</InlineCode> to define variables.`}
           <InlineCode>line-breaks</InlineCode> are present.
         </Paragraph>
       </ElementPreview.Preview>
-      <PropertyTable space={false} />
+      <PropertyTable>
+        <>
+          <Text>children</Text>
+          <Text>required</Text>
+          <InlineCode>string</InlineCode>
+        </>
+      </PropertyTable>
     </ElementPreview>
     <ElementPreview
       title="Lazy Loading"
@@ -995,7 +973,7 @@ Use <InlineCode>const</InlineCode> to define variables.`}
           result={(Component) => Component}
         />
       </ElementPreview.Preview>
-      <PropertyTable>
+      <PropertyTable css={false}>
         <>
           <Text>imports</Text>
           <Text>required</Text>
@@ -1039,8 +1017,8 @@ Use <InlineCode>const</InlineCode> to define variables.`}
     </ElementPreview>
     <ElementPreview
       title="Image"
-      code={`<Image src={yourImage} />
-<Image height={100} width={200} /> // Shows placeholder if src missing (useful for development)`}
+      code={`const imageAsset = <Image src={yourImage} />
+const imagePlaceholder = <Image height={100} width={200} /> // Shows placeholder if src missing (useful for development)`}
     >
       <ElementPreview.Preview>
         <Horizontal>
@@ -1052,12 +1030,12 @@ Use <InlineCode>const</InlineCode> to define variables.`}
         <>
           <Text>src</Text>
           <Text> </Text>
-          <Text>string</Text>
+          <InlineCode>string</InlineCode>
         </>
         <>
           <Text>width / height</Text>
           <Text>if present but src missing, placeholder displayed</Text>
-          <Text>string | number</Text>
+          <InlineCode>string | number</InlineCode>
         </>
         <>
           <Text>...props</Text>
@@ -1091,56 +1069,41 @@ Use <InlineCode>const</InlineCode> to define variables.`}
     >
       <ElementPreview.Preview>
         <Vertical
-          styles={{
-            Main: {
-              css: {
-                background: theme.color.gray200,
-                padding: theme.space.medium,
-              },
-            },
+          css={{
+            background: theme.color.gray200,
+            padding: theme.space.medium,
+            alignSelf: 'normal',
           }}
         >
           <Spacer
-            styles={{
-              Main: {
-                css: {
-                  background: theme.color.white,
-                },
-              },
+            css={{
+              background: theme.color.white,
             }}
           />
           <Spacer
             size="large"
-            styles={{
-              Main: {
-                css: {
-                  background: theme.color.white,
-                },
-              },
+            css={{
+              background: theme.color.white,
             }}
           />
           <Spacer
             line
-            styles={{
-              Main: {
-                css: {
-                  background: theme.color.white,
-                },
-              },
+            css={{
+              background: theme.color.white,
             }}
           />
         </Vertical>
       </ElementPreview.Preview>
-      <PropertyTable space={false}>
+      <PropertyTable>
         <>
           <Text>size</Text>
           <InlineCode>medium</InlineCode>
           <InlineCode>'tiny' | 'small' | 'medium' | 'large'</InlineCode>
         </>
         <>
-          <Text>type</Text>
-          <InlineCode>none</InlineCode>
-          <InlineCode>'line'</InlineCode>
+          <Text>line</Text>
+          <InlineCode>false</InlineCode>
+          <InlineCode>boolean</InlineCode>
         </>
       </PropertyTable>
     </ElementPreview>

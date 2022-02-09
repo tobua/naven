@@ -1,4 +1,4 @@
-import React, { useState, HTMLAttributes, ReactNode, DetailedHTMLProps } from 'react'
+import React, { useState, HTMLAttributes, ReactNode, DetailedHTMLProps, Children } from 'react'
 import { naven } from '../../style'
 import { createComponent } from '../../utility/component'
 import Heading from '../text/Heading'
@@ -46,7 +46,7 @@ export default createComponent(styles)<Props>(function Accordion({ props, Sheet 
   const [openIndex, setOpen] = useState<number>(initialOpen ?? 0)
   return (
     <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
-      {children.map((child: ReactNode, index: number) => {
+      {Children.map(children, (child: ReactNode, index: number) => {
         let header = headers[index]
 
         if (typeof header === 'string') {

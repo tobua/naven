@@ -20,6 +20,7 @@ const styles = () => ({
     css: {
       display: 'flex',
       overflow: 'visible',
+      alignSelf: 'normal',
       gap: naven.theme.space.medium,
     },
     props: (css: CSS, props: Props['Component']) => {

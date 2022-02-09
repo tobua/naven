@@ -10,16 +10,20 @@ import type { CSS } from '@stitches/react'
 // @ts-ignore
 import { naven } from 'naven'
 
-const extensionFromTemplate = (template: string) => {
+const entryFileFromTemplate = (template: string) => {
+  if (template === 'vanilla') {
+    return 'src/index.js'
+  }
+
   if (template === 'vanilla-ts') {
-    return 'ts'
+    return 'src/index.ts'
   }
 
   if (template === 'react-ts') {
-    return 'tsx'
+    return 'App.tsx'
   }
 
-  return 'js'
+  return 'App.js'
 }
 
 // Alternative without preview: https://codemirror.net/6/docs/guide
@@ -49,7 +53,7 @@ export default ({
           template={template}
           customSetup={{
             files: {
-              [`/App.${extensionFromTemplate(template)}`]: {
+              [`/${entryFileFromTemplate(template)}`]: {
                 code: children,
                 readOnly: true,
               },

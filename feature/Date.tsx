@@ -33,12 +33,11 @@ export default createComponent(styles)<Props>(function DatePicker({ props, Sheet
   const { initialDate = new Date(), onChange, ...otherProps } = props
   // Hook inside result will fail.
   const [startDate, setStartDate] = useState(initialDate)
+  const Picker = (ReactDatePicker as any)?.default
 
   return (
     <Sheet.Main.Component css={Sheet.Main.css}>
-      {/* @ts-ignore importing default will not work */}
-      <ReactDatePicker.default
-        style={{ marginBottom: 20 }}
+      <Picker
         selected={startDate}
         onChange={(date: Date) => {
           if (onChange) {

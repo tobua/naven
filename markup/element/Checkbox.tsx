@@ -17,7 +17,10 @@ export interface Props {
     label: string
   } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
   Main: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
-  Input: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+  Input: { look: 'checkbox' | 'radio' } & DetailedHTMLProps<
+    InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >
   Label: DetailedHTMLProps<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>
 }
 
@@ -82,13 +85,16 @@ const styles = () => ({
       '&:focus': {
         outline: 'none',
       },
-      // variants: {
-      //   type: {
-      //     radio: {
-      //       borderRadius: '100%',
-      //     },
-      //   },
-      // },
+      variants: {
+        look: {
+          radio: {
+            borderRadius: '100%',
+            '&:checked:after': {
+              display: 'none',
+            },
+          },
+        },
+      },
     },
   },
 })
@@ -116,6 +122,7 @@ export default createComponent(styles)<Props>(function Checkbox({ props, Sheet }
         ref={inputRef}
         tabIndex={-1}
         id={id}
+        look={type}
         type={type}
         {...otherProps}
       />

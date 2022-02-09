@@ -20,6 +20,7 @@ const styles = () => ({
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-start',
+      alignSelf: 'normal',
       overflow: 'visible',
       gap: naven.theme.space.medium,
     },

@@ -24,6 +24,7 @@ const styles = () => ({
     tag: 'span',
     css: {
       height: '100%',
+      minHeight: unit(20),
       width: unit(4),
       background: naven.theme.color.gray500,
       marginRight: unit(6),
@@ -37,6 +38,7 @@ const styles = () => ({
       fontSize: naven.theme.font.sizeMedium,
       radius: naven.theme.look.radius,
       border: 'none',
+      background: 'inherit',
       '&:focus': {
         outline: 'none',
       },
