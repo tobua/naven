@@ -10,6 +10,8 @@ import type { CSS } from '@stitches/react'
 // @ts-ignore
 import { naven } from 'naven'
 
+type Diff = { add?: number[]; remove?: number[] }
+
 const entryFileFromTemplate = (template: string) => {
   if (template === 'vanilla') {
     return 'src/index.js'
@@ -26,6 +28,49 @@ const entryFileFromTemplate = (template: string) => {
   return 'App.js'
 }
 
+const getDecoratorsFromDiff = (diff?: Diff) => {
+  if (!diff || (!diff.add.length && !diff.remove.length)) {
+    return {}
+  }
+
+  let decorators = []
+
+  if (diff.remove.length) {
+    decorators = decorators.concat(
+      diff.remove.map((lineNumber) => ({
+        line: lineNumber,
+        className: 'naven-code-remove',
+      }))
+    )
+  }
+
+  if (diff.add.length) {
+    decorators = decorators.concat(
+      diff.add.map((lineNumber) => ({
+        line: lineNumber,
+        className: 'naven-code-add',
+      }))
+    )
+  }
+
+  // Line numbers have to be sorted.
+  decorators = decorators.sort((first, second) => (first.line > second.line ? 1 : -1))
+
+  return {
+    style: (
+      <style>
+        {`.naven-code-remove {
+      background: #ffecec;
+    }
+    .naven-code-add {
+      background: #dbffdb;
+    }`}
+      </style>
+    ),
+    decorators,
+  }
+}
+
 // Alternative without preview: https://codemirror.net/6/docs/guide
 // Inspired by: https://github.com/reactjs/reactjs.org/blob/main/beta/src/components/MDX/CodeBlock/CodeBlock.tsx
 // Docs: https://sandpack.codesandbox.io/docs/api/react/interfaces/SandpackProps
@@ -34,8 +79,9 @@ export default ({
   css = {},
   children,
   template = 'react',
+  diff,
   ...props
-}: SandpackProps & { children?: string; css?: CSS }) => {
+}: SandpackProps & { children?: string; css?: CSS; diff?: Diff }) => {
   const Wrapper = useMemo(
     () =>
       naven.styled('div', {
@@ -47,8 +93,10 @@ export default ({
   )
 
   if (typeof children === 'string') {
+    const { decorators, style } = getDecoratorsFromDiff(diff)
     return (
       <Wrapper css={css}>
+        {style}
         <SandpackProvider
           template={template}
           customSetup={{
@@ -67,7 +115,7 @@ export default ({
               },
             }}
           >
-            <SandpackCodeViewer />
+            <SandpackCodeViewer decorators={decorators} />
           </SandpackThemeProvider>
         </SandpackProvider>
       </Wrapper>

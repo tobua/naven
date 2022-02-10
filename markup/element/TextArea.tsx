@@ -18,6 +18,7 @@ const styles = () => ({
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
+      alignSelf: 'normal',
     },
   },
   Cursor: {
@@ -39,6 +40,8 @@ const styles = () => ({
       resize: 'none',
       border: 'none',
       outline: 'none',
+      background: 'inherit',
+      width: '100%',
       fontFamily: naven.theme.font.familyRegular,
     },
   },

@@ -1,6 +1,5 @@
 import React, { HTMLAttributes, BlockquoteHTMLAttributes, useMemo } from 'react'
 import type { CSS } from '@stitches/react'
-import { Token } from '@stitches/react/types/theme'
 import memoize from 'memoize-one'
 import { naven } from '../../style'
 import { mergeStyles } from '../../utility/merge-styles'
@@ -16,10 +15,13 @@ export const Inline = ({
   bold,
   ...props
 }: HTMLAttributes<HTMLElement> & { bold?: boolean; css?: CSS }) => {
-  const styles: any = inlineStyles()
-  if (bold) {
-    styles.fontWeight = naven.theme.font.weightBold
-  }
+  const styles = useMemo(
+    () => ({
+      fontWeight: bold ? naven.theme.font.weightBold : 'inherit',
+      ...inlineStyles(),
+    }),
+    [bold]
+  )
   // @ts-ignore
   const Strong = useMemo(() => naven.styled('span', mergeStyles(styles, css)), [css])
   return <Strong {...props}>{props.children}</Strong>
@@ -64,10 +66,13 @@ export const Text = ({
   css?: CSS
   bold?: boolean
 }) => {
-  const styles: any = textStyles()
-  if (bold) {
-    styles.fontWeight = naven.theme.font.weightBold
-  }
+  const styles = useMemo(
+    () => ({
+      fontWeight: bold ? naven.theme.font.weightBold : 'inherit',
+      ...textStyles(),
+    }),
+    [bold]
+  )
   // @ts-ignore
   const Tag = useMemo(() => naven.styled('p', mergeStyles(styles, css)), [css])
   return <Tag {...props}>{props.children}</Tag>
@@ -102,10 +107,13 @@ export const Italic = ({
   bold,
   ...props
 }: HTMLAttributes<HTMLElement> & { css?: CSS; bold?: boolean }) => {
-  const styles: any = italicStyles()
-  if (bold) {
-    styles.fontWeight = naven.theme.font.weightBold
-  }
+  const styles = useMemo(
+    () => ({
+      fontWeight: bold ? naven.theme.font.weightBold : 'inherit',
+      ...italicStyles(),
+    }),
+    [bold]
+  )
   // @ts-ignore
   const Tag = useMemo(() => naven.styled('i', mergeStyles(styles, css)), [css])
   return <Tag {...props}>{props.children}</Tag>
@@ -170,10 +178,13 @@ export const Small = ({
   bold,
   ...props
 }: HTMLAttributes<HTMLElement> & { css?: CSS; bold?: boolean }) => {
-  const styles: any = smallStyles()
-  if (bold) {
-    styles.fontWeight = naven.theme.font.weightBold
-  }
+  const styles = useMemo(
+    () => ({
+      fontWeight: bold ? naven.theme.font.weightBold : 'inherit',
+      ...smallStyles(),
+    }),
+    [bold]
+  )
   // @ts-ignore
   const Tag = useMemo(() => naven.styled('small', mergeStyles(styles, css)), [css])
   return <Tag {...props}>{props.children}</Tag>

@@ -46,6 +46,7 @@ export const ElementPreview = ({ title, anchor = title.toLowerCase(), code, chil
 
     return null
   })
+
   return (
     <>
       <Header>

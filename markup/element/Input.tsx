@@ -26,7 +26,6 @@ const styles = () => ({
       height: '100%',
       minHeight: unit(20),
       width: unit(4),
-      background: naven.theme.color.gray500,
       marginRight: unit(6),
     },
   },
@@ -67,7 +66,10 @@ export default createComponent(styles)<Props>(function Input({ props, Sheet }) {
     <Sheet.Main.Component css={Sheet.Main.css}>
       <Sheet.Cursor.Component
         css={mergeStyles(
-          { animation: hasAnimation ? `${blinkAnimation()} 1s linear infinite alternate` : 'none' },
+          {
+            animation: hasAnimation ? `${blinkAnimation()} 1s linear infinite alternate` : 'none',
+            background: active ? naven.theme.color.backgroundContrast : naven.theme.color.gray500,
+          },
           Sheet.Cursor.css
         )}
       />

@@ -36,7 +36,7 @@ export const createComponent = <Styles extends { Main: any }>(initialStyles: () 
         ...safeProps
       } = props
 
-      const defaultWatchProps: any[] = [removeStyles, removeCss]
+      let defaultWatchProps: any[] = [removeStyles, removeCss]
       const spaceCustomized = stylesMemoized().Main && stylesMemoized().Main.space
 
       if (spaceCustomized) {
@@ -44,7 +44,8 @@ export const createComponent = <Styles extends { Main: any }>(initialStyles: () 
       }
 
       if (watchProps) {
-        defaultWatchProps.push(watchProps)
+        const resolvedProps = watchProps(safeProps)
+        defaultWatchProps = defaultWatchProps.concat(resolvedProps)
       }
 
       const Sheet = useMemo(() => {
@@ -75,6 +76,13 @@ export const createComponent = <Styles extends { Main: any }>(initialStyles: () 
         // TODO typeof only necessary if empty gap property added to Narrow without css or anything.
         if (spaceCustomized && typeof removeSpace !== 'undefined') {
           components.Main.css.gap = removeSpace
+
+          if (
+            typeof removeSpace === 'string' &&
+            Object.keys(naven.theme.space).includes(removeSpace)
+          ) {
+            components.Main.css.gap = naven.theme.space[removeSpace]
+          }
         }
 
         return components

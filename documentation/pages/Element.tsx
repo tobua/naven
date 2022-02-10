@@ -903,7 +903,15 @@ import 'react-datepicker/dist/react-datepicker.css'
       code={`import { Code } from 'naven/Code'
 import '@codesandbox/sandpack-react/dist/index.css'
 
-<Code template="react-ts">{\`const doubleIt = (value: number) => value * 2\`}</Code>`}
+const RegularCode = <Code template="react-ts">{\`const doubleIt = (value: number) => value * 2\`}</Code>
+
+const CodeWithDiff = (
+  <Code template="react-ts" diff={{ remove: [2], add: [3] }}>
+{\`// Hello Diff
+- export const Hello = () => <p>World</p>
++ export const Again = () => <p>Hello</p>\`}
+  </Code>
+)`}
     >
       <ElementPreview.Preview>
         <Code>
@@ -919,6 +927,16 @@ export const greet = (greeting: string) => console.log(\`hello \${greeting}!\`)`
         <Code template="react-ts">
           {`// Hello JSX / TSX
 export const Hello = () => <p>W<strong>o</strong>rld</p>`}
+        </Code>
+        <Code template="react-ts" diff={{ remove: [2, 5, 6], add: [3, 7, 8] }}>
+          {`// Hello Diff
+- export const Hello = () => <p>World</p>
++ export const Again = () => <p>Hello</p>
+// Untouched
+- const test = 5
+- const result = test * 2
++ const test: number = 6
++ const result = test * 2`}
         </Code>
       </ElementPreview.Preview>
       <PropertyTable>

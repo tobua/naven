@@ -168,12 +168,30 @@ const Body = () => {
           for development when no <InlineCode>src</InlineCode> attribute is set.
         </Paragraph>
         <Viewport />
-        <Horizontal wrap>
+        <Horizontal
+          wrap
+          css={{
+            background: theme.color.gray100,
+            padding: theme.space.small,
+            borderRadius: theme.look.radius,
+          }}
+        >
           <Dropdown
             options={[
               { label: 'Mrs.', value: 'female' },
               { label: 'Mr.', value: 'male' },
             ]}
+            backgroundColor={theme.color.gray100}
+          />
+          <Dropdown
+            options={[
+              { label: 'Mrs.', value: 'female' },
+              { label: 'Mr.', value: 'male' },
+            ]}
+            onChange={(value) => console.log('dropdown:', value)}
+            placeholder="Required value"
+            backgroundColor={theme.color.gray100}
+            required
           />
           <Input placeholder="Regular Input" value={regularInput} onValue={setRegularInput} />
           <Input placeholder="Existing Input" value={existingInput} onValue={setExistingInput} />

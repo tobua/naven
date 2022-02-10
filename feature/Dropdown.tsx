@@ -1,17 +1,53 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import Select, { Props as SelectProps, StylesConfig, GroupBase } from 'react-select'
+import memoize from 'memoize-one'
 // @ts-ignore
-import { naven, unit, cssVariable } from 'naven'
+import { naven, unit, cssVariable, createComponent, mergeStyles } from 'naven'
 
-interface Props {
-  containerStyles?: object
-  backgroundColor?: string
+const blinkAnimation = memoize(() =>
+  naven.keyframes({
+    from: {
+      opacity: 1,
+    },
+    to: {
+      opacity: 0,
+    },
+  })
+)
+
+export interface Props {
+  Component: {
+    required?: boolean
+    containerStyles?: object
+    backgroundColor?: string
+  } & SelectProps
 }
+
+const styles = () => ({
+  Main: {
+    tag: 'div',
+    css: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      alignSelf: 'normal',
+    },
+  },
+  Cursor: {
+    tag: 'span',
+    css: {
+      height: '100%',
+      width: unit(4),
+      marginRight: unit(6),
+      transition: 'background 300ms ease',
+    },
+  },
+})
 
 const customStyles: ({
   containerStyles,
   backgroundColor,
-}: Props) => StylesConfig<unknown, boolean, GroupBase<unknown>> = ({
+}: Props['Component']) => StylesConfig<unknown, boolean, GroupBase<unknown>> = ({
   containerStyles,
   backgroundColor,
 }) => ({
@@ -37,6 +73,9 @@ const customStyles: ({
     ...provided,
     background: backgroundColor,
     boxShadow: 'none',
+    marginLeft: unit(-10),
+    paddingLeft: unit(10),
+    paddingRight: unit(10),
   }),
   menuList: (provided: object) => ({
     ...provided,
@@ -48,7 +87,6 @@ const customStyles: ({
     ...provided,
     cursor: 'pointer',
     padding: 0,
-    background: backgroundColor,
     fontWeight: props.isSelected ? cssVariable(naven.theme.font.weightBold) : 'inherit',
     color: cssVariable(naven.theme.color.backgroundContrast),
   }),
@@ -56,7 +94,7 @@ const customStyles: ({
     ...provided,
     borderWidth: 0,
     boxShadow: 'none',
-    background: backgroundColor,
+    backgroundColor,
     minHeight: 'auto',
   }),
   dropdownIndicator: (provided: object) => ({
@@ -64,29 +102,70 @@ const customStyles: ({
     padding: 0,
     cursor: 'pointer',
   }),
+  indicatorSeparator: (provided: object) => ({
+    ...provided,
+    background: 'inherit',
+  }),
 })
 
-export default function Dropdown({
-  containerStyles,
-  backgroundColor = cssVariable(naven.theme.color.background),
-  ...props
-}: Props & SelectProps) {
-  return (
-    <Select
-      {...props}
-      styles={{
-        ...customStyles({ containerStyles, backgroundColor }),
-        ...props.styles,
-      }}
-      theme={(theme) => ({
-        ...theme,
-        borderRadius: naven.theme.look.radius.value,
-        colors: {
-          ...theme.colors,
-          primary: cssVariable(naven.theme.color.highlight),
-        },
-        ...props.theme,
-      })}
-    />
+export default createComponent(styles)<Props>(function Dropdown({ props, Sheet }) {
+  if (
+    typeof props.backgroundColor === 'object' &&
+    typeof props.backgroundColor.token === 'string'
+  ) {
+    props.backgroundColor = cssVariable(props.backgroundColor)
+  }
+  const {
+    required,
+    containerStyles,
+    backgroundColor = cssVariable(naven.theme.color.background),
+    ...otherProps
+  } = props
+  const [active, setActive] = useState(false)
+  const [value, setValue] = useState(otherProps.defaultValue)
+
+  const hasAnimation = required && !active && !value
+
+  const handleChange = useCallback(
+    (currentValue, action) => {
+      if (otherProps.onChange) {
+        otherProps.onChange(currentValue, action)
+      }
+      setValue(currentValue)
+    },
+    [props.onChange]
   )
-}
+
+  return (
+    <Sheet.Main.Component css={Sheet.Main.css}>
+      <Sheet.Cursor.Component
+        css={mergeStyles(
+          {
+            animation: hasAnimation ? `${blinkAnimation()} 1s linear infinite alternate` : 'none',
+            background: active ? naven.theme.color.backgroundContrast : naven.theme.color.gray500,
+          },
+          Sheet.Cursor.css
+        )}
+      />
+      <Select
+        {...otherProps}
+        styles={{
+          ...customStyles({ containerStyles, backgroundColor }),
+          ...otherProps.styles,
+        }}
+        onChange={handleChange}
+        onFocus={() => setActive(true)}
+        onBlur={() => setActive(false)}
+        theme={(theme) => ({
+          ...theme,
+          borderRadius: naven.theme.look.radius.value,
+          colors: {
+            ...theme.colors,
+            primary: cssVariable(naven.theme.color.highlight),
+          },
+          ...otherProps.theme,
+        })}
+      />
+    </Sheet.Main.Component>
+  )
+})
