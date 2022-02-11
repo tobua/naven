@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "naven": "^0.7.3",
-    "papua": "^0.1.31",
+    "naven": "^1.0.0",
+    "papua": "^0.1.37",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   }

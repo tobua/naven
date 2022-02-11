@@ -47,6 +47,8 @@ const styles = () => ({
     tag: 'label',
     css: {
       marginLeft: naven.theme.space.small,
+      fontFamily: naven.theme.font.familyRegular,
+      fontSize: naven.theme.font.sizeMedium,
       cursor: 'pointer',
     },
   },

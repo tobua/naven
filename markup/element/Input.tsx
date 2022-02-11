@@ -34,6 +34,7 @@ const styles = () => ({
     main: true,
     css: {
       padding: 0,
+      fontFamily: naven.theme.font.familyRegular,
       fontSize: naven.theme.font.sizeMedium,
       radius: naven.theme.look.radius,
       border: 'none',

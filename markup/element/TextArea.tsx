@@ -43,6 +43,7 @@ const styles = () => ({
       background: 'inherit',
       width: '100%',
       fontFamily: naven.theme.font.familyRegular,
+      fontSize: naven.theme.font.sizeMedium,
     },
   },
 })

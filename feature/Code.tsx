@@ -58,22 +58,16 @@ const getDecoratorsFromDiff = (diff?: Diff) => {
 
   return {
     style: (
-      <style>
-        {`.naven-code-remove {
-      background: #ffecec;
-    }
-    .naven-code-add {
-      background: #dbffdb;
-    }`}
-      </style>
+      <style>{`.naven-code-remove {
+  background: #ffecec;
+}
+.naven-code-add {
+  background: #dbffdb;
+}`}</style>
     ),
     decorators,
   }
 }
-
-// Alternative without preview: https://codemirror.net/6/docs/guide
-// Inspired by: https://github.com/reactjs/reactjs.org/blob/main/beta/src/components/MDX/CodeBlock/CodeBlock.tsx
-// Docs: https://sandpack.codesandbox.io/docs/api/react/interfaces/SandpackProps
 
 export default ({
   css = {},

@@ -25,7 +25,11 @@ export const createComponent = <Styles extends { Main: any }>(initialStyles: () 
   ) => {
     const NavenComponent = (
       props: Props['Component'] &
-        DefaultProps & { styles?: { [Property in keyof Styles]?: { css?: CSS } }; css?: CSS }
+        DefaultProps & {
+          styles?: { [Property in keyof Styles]?: { css?: CSS } }
+          css?: CSS
+          displayName?: string
+        }
     ) => {
       initialize()
       const {
@@ -92,6 +96,9 @@ export const createComponent = <Styles extends { Main: any }>(initialStyles: () 
     }
 
     NavenComponent.styles = stylesMemoized
+
+    // Assign component name for debugging and dev-tools.
+    Object.defineProperty(NavenComponent, 'name', { value: markup.displayName ?? markup.name })
 
     return NavenComponent
   }
