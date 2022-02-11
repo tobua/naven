@@ -123,6 +123,8 @@ export default createComponent(styles)<Props>(function Dropdown({ props, Sheet }
   } = props
   const [active, setActive] = useState(false)
   const [value, setValue] = useState(otherProps.defaultValue)
+  // @ts-ignore
+  const Component = Select.default || Select // Required to render with Next.js
 
   const hasAnimation = required && !active && !value
 
@@ -147,7 +149,7 @@ export default createComponent(styles)<Props>(function Dropdown({ props, Sheet }
           Sheet.Cursor.css
         )}
       />
-      <Select
+      <Component
         {...otherProps}
         styles={{
           ...customStyles({ containerStyles, backgroundColor }),
