@@ -19,6 +19,7 @@ const styles = () => ({
       fontFamily: naven.theme.font.familyRegular,
       fontWeight: naven.theme.font.weightBold,
       fontSize: naven.theme.font.sizeTitle,
+      lineHeight: naven.theme.font.lineHeightTitle,
       marginTop: 0,
       variants: {
         style: {
@@ -32,8 +33,25 @@ const styles = () => ({
       },
     },
     props: (innerStyles, props: Props['Component']) => {
-      if (props.as) {
+      if (props.as === 'h2') {
         innerStyles.fontSize = naven.theme.font.sizeSubtitle
+        innerStyles.lineHeight = naven.theme.font.lineHeightSubtitle
+      }
+      if (props.as === 'h3') {
+        innerStyles.fontSize = naven.theme.font.sizeH3
+        innerStyles.lineHeight = naven.theme.font.lineHeightH3
+      }
+      if (props.as === 'h4') {
+        innerStyles.fontSize = naven.theme.font.sizeH4
+        innerStyles.lineHeight = naven.theme.font.lineHeightH4
+      }
+      if (props.as === 'h5') {
+        innerStyles.fontSize = naven.theme.font.sizeH5
+        innerStyles.lineHeight = naven.theme.font.lineHeightH5
+      }
+      if (props.as === 'h6') {
+        innerStyles.fontSize = naven.theme.font.sizeH6
+        innerStyles.lineHeight = naven.theme.font.lineHeightH6
       }
     },
   },

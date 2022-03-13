@@ -89,6 +89,14 @@ export type Naven = {
       lineHeightSubtitle: Token<'lineHeightSubtitle', string, 'font', ''>
       sizeTitle: Token<'sizeTitle', string, 'font', ''>
       lineHeightTitle: Token<'lineHeightTitle', string, 'font', ''>
+      sizeH3: Token<'sizeH3', string, 'font', ''>
+      lineHeightH3: Token<'lineHeightH3', string, 'font', ''>
+      sizeH4: Token<'sizeH4', string, 'font', ''>
+      lineHeightH4: Token<'lineHeightH4', string, 'font', ''>
+      sizeH5: Token<'sizeH5', string, 'font', ''>
+      lineHeightH5: Token<'lineHeightH5', string, 'font', ''>
+      sizeH6: Token<'sizeH6', string, 'font', ''>
+      lineHeightH6: Token<'lineHeightH6', string, 'font', ''>
     }
     space: {
       tiny: Token<'tiny', string, 'space', ''>
