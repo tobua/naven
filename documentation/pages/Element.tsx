@@ -383,6 +383,7 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
             onChange={() => {}}
             required
           />
+          <Input placeholder="Custom color" cursorColor="green" />
         </Horizontal>
       </ElementPreview.Preview>
       <PropertyTable>
@@ -626,12 +627,12 @@ const Radios = (
             ]}
           />
           <Dropdown
-            backgroundColor="lightgray"
-            defaultValue={{ value: 'second', label: 'Second choice' }}
+            backgroundColor="darkgray"
             options={[
               { value: 'first', label: 'First choice' },
               { value: 'second', label: 'Second choice' },
             ]}
+            css={{ minWidth: 120, maxWidth: 300, flex: 1 }}
           />
         </Horizontal>
       </ElementPreview.Preview>

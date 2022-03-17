@@ -36,8 +36,8 @@
     "entry": "feature/*"
   },
   "dependencies": {
-    "@codesandbox/sandpack-react": "^0.14.8",
-    "@popperjs/core": "^2.11.3",
+    "@codesandbox/sandpack-react": "^0.15.0",
+    "@popperjs/core": "^2.11.4",
     "@stitches/react": "^1.2.7",
     "@types/react": "^17.0.40",
     "body-scroll-lock": "^3.1.5",

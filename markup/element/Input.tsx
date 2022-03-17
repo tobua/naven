@@ -1,4 +1,5 @@
 import React, { InputHTMLAttributes, useState, DetailedHTMLProps } from 'react'
+import type { Token } from '@stitches/react/types/theme'
 import { naven, unit } from '../../style'
 import { mergeStyles } from '../../utility/merge-styles'
 import { createComponent } from '../../utility/component'
@@ -7,6 +8,7 @@ import { blinkAnimation } from '../../style/animation'
 export interface Props {
   Component: {
     onValue?: (value: any) => void
+    cursorColor?: string | Token<string, string, 'color', ''>
   } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
   Input: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 }
@@ -47,7 +49,14 @@ const styles = () => ({
 })
 
 export default createComponent(styles)<Props>(function Input({ props, Sheet }) {
-  const { value, required, children, onValue, ...otherProps } = props
+  const {
+    value,
+    required,
+    children,
+    onValue,
+    cursorColor = naven.theme.color.backgroundContrast,
+    ...otherProps
+  } = props
   const [active, setActive] = useState(false)
 
   if (onValue) {
@@ -69,7 +78,7 @@ export default createComponent(styles)<Props>(function Input({ props, Sheet }) {
         css={mergeStyles(
           {
             animation: hasAnimation ? `${blinkAnimation()} 1s linear infinite alternate` : 'none',
-            background: active ? naven.theme.color.backgroundContrast : naven.theme.color.gray500,
+            background: active ? cursorColor : naven.theme.color.gray500,
           },
           Sheet.Cursor.css
         )}

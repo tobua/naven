@@ -18,6 +18,19 @@ import {
 import Dropdown from 'naven/Dropdown'
 import { theme, createTheme } from './configuration'
 
+const styles = {
+  form: {
+    background: theme.color.gray100,
+    padding: theme.space.small,
+    borderRadius: theme.look.radius,
+  },
+  customParagraph: {
+    background: theme.color.gray300,
+    padding: theme.space.small,
+    fontFamily: theme.font.familySerif,
+  },
+}
+
 const navigationLinks = [
   {
     title: {
@@ -148,13 +161,7 @@ const Body = () => {
             Toggle {userTheme === 'light' ? 'dark' : 'light'} theme
           </Button>
         </Horizontal>
-        <Paragraph
-          css={{
-            background: theme.color.gray300,
-            padding: theme.space.small,
-            fontFamily: theme.font.familySerif,
-          }}
-        >
+        <Paragraph css={styles.customParagraph}>
           This is a paragraph with some custom styles.
         </Paragraph>
         <div className={highlightThemeClass}>
@@ -168,14 +175,7 @@ const Body = () => {
           for development when no <InlineCode>src</InlineCode> attribute is set.
         </Paragraph>
         <Viewport />
-        <Horizontal
-          wrap
-          css={{
-            background: theme.color.gray100,
-            padding: theme.space.small,
-            borderRadius: theme.look.radius,
-          }}
-        >
+        <Horizontal wrap css={styles.form}>
           <Dropdown
             options={[
               { label: 'Mrs.', value: 'female' },

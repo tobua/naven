@@ -36,7 +36,6 @@ const styles = () => ({
     css: {
       display: 'flex',
       alignSelf: 'normal',
-      padding: naven.theme.space.small,
       resize: 'none',
       border: 'none',
       outline: 'none',
