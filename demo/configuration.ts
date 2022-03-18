@@ -9,7 +9,9 @@ const configuration = merge({
   },
 })
 
-export const { theme, styled, createTheme } = register(create(configuration), {
+const tsWorkaround = create(configuration)
+
+export const { theme, styled, createTheme } = register(tsWorkaround, {
   rootSelector: 'body',
   globalStyles: (stitches) => ({
     body: {

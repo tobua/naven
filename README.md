@@ -62,29 +62,32 @@ Configure various variables used in conjunction with `@stitches/react`. Due to l
 import { render } from 'react-dom'
 import { Header, Button, Content, Heading, Paragraph, Footer, register, create, merge } from 'naven'
 
+// Without intermediary variable type checking will slow down > 10 times.
+const avoidTypeCheckIssueWorkaround = create(
+  merge({
+    theme: {
+      color: {
+        highlight: '#00ab64',
+        interact: '#ab0047',
+      },
+      space: {
+        tiny: 3 // => value will be responsified with wasser plugin.
+        small: '8px'
+        medium: '2vw'
+      },
+      look: {
+        radius: 10
+      },
+    },
+    breakpoint: {
+      Phone: 480,
+      Tablet: 768
+    },
+  })
+)
+
 const { theme } = register(
-  create(
-    merge({
-      theme: {
-        color: {
-          highlight: '#00ab64',
-          interact: '#ab0047',
-        },
-        space: {
-          tiny: 3 // => value will be responsified with wasser plugin.
-          small: '8px'
-          medium: '2vw'
-        },
-        look: {
-          radius: 10
-        },
-      },
-      breakpoint: {
-        Phone: 480,
-        Tablet: 768
-      },
-    })
-  ),
+  avoidTypeCheckIssueWorkaround,
   {
     // Root where your application renders, set #__next for Next.js, default is #root as used in CRA.
     rootSelector: 'body',
@@ -152,7 +155,9 @@ const configuration = merge({
   },
 })
 
-export const { theme, styled, createTheme } = register(create(configuration), {
+const avoidTypeCheckIssueWorkaround = create(configuration)
+
+export const { theme, styled, createTheme } = register(avoidTypeCheckIssueWorkaround, {
   rootSelector: 'body',
 })
 ```
