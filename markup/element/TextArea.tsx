@@ -36,6 +36,7 @@ const styles = () => ({
     css: {
       display: 'flex',
       alignSelf: 'normal',
+      padding: 0,
       resize: 'none',
       border: 'none',
       outline: 'none',

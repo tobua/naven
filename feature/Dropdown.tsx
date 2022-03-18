@@ -74,9 +74,8 @@ const customStyles: ({
     ...provided,
     background: backgroundColor,
     boxShadow: 'none',
-    marginLeft: unit(-10),
-    paddingLeft: unit(10),
-    paddingRight: unit(10),
+    marginTop: 0,
+    marginBottom: 0,
   }),
   menuList: (provided: object) => ({
     ...provided,
@@ -106,6 +105,10 @@ const customStyles: ({
   indicatorSeparator: (provided: object) => ({
     ...provided,
     background: 'inherit',
+  }),
+  indicatorsContainer: (provided: object) => ({
+    ...provided,
+    height: unit(20),
   }),
 })
 
