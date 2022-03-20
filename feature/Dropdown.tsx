@@ -53,7 +53,6 @@ const customStyles: ({
 }) => ({
   container: (provided: object) => ({
     ...provided,
-    minWidth: unit(200),
     flex: 1,
     ...containerStyles,
   }),

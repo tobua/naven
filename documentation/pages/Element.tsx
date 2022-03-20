@@ -939,6 +939,16 @@ export const Hello = () => <p>W<strong>o</strong>rld</p>`}
 + const test: number = 6
 + const result = test * 2`}
         </Code>
+        <Code
+          files={{
+            '/App.js': `import { someText } from './second-file.js'
+
+export default () => (
+  <p>Hello Me again! {someText}</p>
+)`,
+            '/second-file.js': `export const someText = 'Hello!!!'`,
+          }}
+        />
       </ElementPreview.Preview>
       <PropertyTable>
         <>

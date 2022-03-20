@@ -69,6 +69,22 @@ const getDecoratorsFromDiff = (diff?: Diff) => {
   }
 }
 
+const codeOnlyTheme = {
+  palette: {
+    defaultBackground: 'inherit',
+  },
+}
+
+const replTheme = {
+  palette: {
+    accent: 'black',
+    defaultBackground: '#F5F5F5',
+    activeBackground: '#EEEEEE',
+    defaultText: '#9E9E9E',
+    inactiveText: '#9E9E9E', // Also used for coloring the border.
+  },
+}
+
 export default ({
   css = {},
   children,
@@ -102,13 +118,7 @@ export default ({
             },
           }}
         >
-          <SandpackThemeProvider
-            theme={{
-              palette: {
-                defaultBackground: 'inherit',
-              },
-            }}
-          >
+          <SandpackThemeProvider theme={props.theme ?? codeOnlyTheme}>
             <SandpackCodeViewer decorators={decorators} />
           </SandpackThemeProvider>
         </SandpackProvider>
@@ -118,7 +128,7 @@ export default ({
 
   return (
     <Wrapper css={css}>
-      <Sandpack template={template} {...props} />
+      <Sandpack template={template} theme={props.theme ?? replTheme} {...props} />
     </Wrapper>
   )
 }
