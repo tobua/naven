@@ -1,4 +1,12 @@
-import React from 'react'
+import React, { AnchorHTMLAttributes, useMemo } from 'react'
+import type { CSS } from '@stitches/react'
+import { naven } from '../../style'
 
-// eslint-disable-next-line jsx-a11y/anchor-has-content,jsx-a11y/anchor-is-valid
-export const Anchor = ({ name }: { name: string }) => <a id={name} />
+export default ({
+  css,
+  name,
+  ...props
+}: AnchorHTMLAttributes<HTMLAnchorElement> & { name: string; css?: CSS }) => {
+  const Anchor = useMemo(() => naven.styled('a', css ?? {}), [css])
+  return <Anchor id={name} css={css} {...props} />
+}

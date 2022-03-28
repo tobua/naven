@@ -1,22 +1,21 @@
-import React, { useState, Component } from 'react'
-import { Global, css as cssSheet, SerializedStyles } from '@emotion/react'
-import styled from '@emotion/styled'
-// @ts-ignore
-import { Input, spaceProp } from 'naven'
+import React, { HTMLAttributes, useState, Component, DetailedHTMLProps } from 'react'
 import ReactDatePicker from 'react-datepicker'
+// @ts-ignore
+import { Input, createComponent } from 'naven'
 
-const Wrapper = styled.div<{ css?: SerializedStyles; space?: string | number }>`
-  ${spaceProp}
-  ${({ css }) => css}
-`
-
-interface IDate {
-  css?: SerializedStyles
-  initialDate?: Date | null
-  onChange?: (date: Date) => void
-  styleOverrides?: string
-  space?: string | number
+export interface Props {
+  Component: {
+    initialDate?: Date | null
+    onChange?: (date: Date) => void
+  } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 }
+
+const styles = () => ({
+  Main: {
+    tag: 'div',
+    main: true,
+  },
+})
 
 // Will throw an error related to refs the plugin tries to
 // attach if written as functional component.
@@ -30,22 +29,15 @@ class DateInput extends Component<{ value: any; onClick: any }> {
 }
 
 // Date is already reserved in JS, therefore we use DatePicker.
-export const DatePicker = ({
-  css,
-  initialDate = new Date(),
-  onChange,
-  styleOverrides = '',
-  space,
-  ...props
-}: IDate) => {
+export default createComponent(styles)<Props>(function DatePicker({ props, Sheet }) {
+  const { initialDate = new Date(), onChange, ...otherProps } = props
   // Hook inside result will fail.
   const [startDate, setStartDate] = useState(initialDate)
+  const Picker = (ReactDatePicker as any)?.default
 
   return (
-    <Wrapper space={space} css={css}>
-      <Global styles={cssSheet(styleOverrides)} />
-      <ReactDatePicker
-        style={{ marginBottom: 20 }}
+    <Sheet.Main.Component css={Sheet.Main.css}>
+      <Picker
         selected={startDate}
         onChange={(date: Date) => {
           if (onChange) {
@@ -55,8 +47,8 @@ export const DatePicker = ({
         }}
         // @ts-ignore
         customInput={<DateInput />}
-        {...props}
+        {...otherProps}
       />
-    </Wrapper>
+    </Sheet.Main.Component>
   )
-}
+})

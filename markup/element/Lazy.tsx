@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { Loader } from './Loader'
-import { Paragraph } from './Text'
+import React, { useEffect, useState } from 'react'
+import Loader from './Loader'
+import { Text } from '../text/Various'
 
 interface Props {
   imports: Promise<any>
   result: (...imports: any) => JSX.Element
 }
 
-export const Lazy = ({ imports, result }: Props): JSX.Element => {
+export default ({ imports, result }: Props): JSX.Element => {
   const [Component, setComponent] = useState(null)
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export const Lazy = ({ imports, result }: Props): JSX.Element => {
   }
 
   if (Component === 'error') {
-    return <Paragraph>Error loading component.</Paragraph>
+    return <Text>Error loading component.</Text>
   }
 
   if (Array.isArray(Component)) {

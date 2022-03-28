@@ -1,15 +1,12 @@
 import React from 'react'
 import { create } from 'react-test-renderer'
-import { Global, Content, Header, Footer } from '../index'
+import { Content, Header, Footer } from '../index'
 
 test('Renders basic components.', () => {
   const renderer = create(
-    <>
-      <Global />
-      <Content>
-        <p>Hello Content</p>
-      </Content>
-    </>
+    <Content>
+      <p>Hello Content</p>
+    </Content>
   )
 
   const markup = renderer.toJSON()
@@ -24,15 +21,13 @@ test('Renders basic components.', () => {
 
 test('Content renders all children.', () => {
   const renderer = create(
-    <>
-      <Content>
-        <p>Hello Content</p>
-        <div>
-          <span>Hello nested</span>
-          <p>Whoo</p>
-        </div>
-      </Content>
-    </>
+    <Content>
+      <p>Hello Content</p>
+      <div>
+        <span>Hello nested</span>
+        <p>Whoo</p>
+      </div>
+    </Content>
   )
 
   const markup = renderer.toJSON()
@@ -47,15 +42,20 @@ test('Content renders all children.', () => {
 test('Renders all top-level components.', () => {
   const markup = create(
     <>
-      <Global />
       <Header>
-        <Header.Title.Text>naven test</Header.Title.Text>
-        <Header.Navigation />
+        {({ TitleText, Navigation }) => (
+          <>
+            <TitleText>naven test</TitleText>
+            <Navigation />
+          </>
+        )}
       </Header>
       <Content>
         <p>Hello Content</p>
       </Content>
-      <Footer />
+      <Footer>
+        <p>hello</p>
+      </Footer>
     </>
   ).toJSON()
 

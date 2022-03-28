@@ -1,30 +1,35 @@
-import { useState } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { render } from 'react-dom'
 import {
-  Global,
-  Header,
+  Button,
   Content,
   Footer,
+  Header,
   Heading,
   Paragraph,
-  Button,
   Horizontal,
   Alert,
-  Color,
-  Space,
-  Font,
-  Breakpoint,
   InlineCode,
   Image,
-  useBreakpoint,
-  configure,
   Input,
   Checkbox,
-  Theme,
-  css,
-  styled,
+  useBreakpoint,
 } from 'naven'
-import { Dropdown } from 'naven/Dropdown'
+import Dropdown from 'naven/Dropdown'
+import { theme, createTheme } from './configuration'
+
+const styles = {
+  form: {
+    background: theme.color.gray100,
+    padding: theme.space.small,
+    borderRadius: theme.look.radius,
+  },
+  customParagraph: {
+    background: theme.color.gray300,
+    padding: theme.space.small,
+    fontFamily: theme.font.familySerif,
+  },
+}
 
 const navigationLinks = [
   {
@@ -88,73 +93,80 @@ const Viewport = () => {
 }
 
 const Body = () => {
-  const [theme, setTheme] = useState('light')
-  const toggleTheme = () => {
-    const nextTheme = theme === 'light' ? 'dark' : 'light'
-    configure({
-      colors: {
-        backgroundContrast: nextTheme === 'light' ? Color.black.value : Color.white.value,
-        background: nextTheme === 'light' ? Color.white.value : Color.black.value,
-      },
-    })
-    setTheme(nextTheme)
-  }
+  const [userTheme, setUserTheme] = useState('light')
+  const [regularInput, setRegularInput] = useState()
+  const [existingInput, setExistingInput] = useState('existing')
+  const [requiredInput, setRequiredInput] = useState()
+  const highlightThemeClass = useMemo(
+    () =>
+      createTheme({
+        color: {
+          highlight: theme.color.warning.value,
+        },
+      }),
+    []
+  )
+  const darkThemeClass = useMemo(
+    () =>
+      createTheme({
+        color: {
+          backgroundContrast: theme.color.white.value,
+          background: theme.color.black.value,
+        },
+      }),
+    []
+  )
+  const toggleTheme = useCallback(() => {
+    const nextTheme = userTheme === 'light' ? 'dark' : 'light'
+    if (nextTheme === 'dark') {
+      document.body.classList.add(darkThemeClass)
+    } else {
+      document.body.classList.remove(darkThemeClass)
+    }
+    setUserTheme(nextTheme)
+  }, [userTheme])
 
   return (
     <>
-      <Global root="body" />
-      <Header>
-        <Header.Title.Text>naven Demo</Header.Title.Text>
-        <Header.Meta
-          links={[
-            {
-              name: 'HTML',
-              url: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
-            },
-            {
-              name: 'CSS',
-              url: 'https://sass-lang.com/',
-            },
-            {
-              name: 'JavaScript',
-              url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
-            },
-          ]}
-        />
-        <Header.Navigation links={navigationLinks} />
+      <Header wide>
+        {({ TitleText, Meta, Navigation }) => (
+          <>
+            <TitleText>naven Demo</TitleText>
+            <Meta
+              links={[
+                {
+                  name: 'HTML',
+                  url: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
+                },
+                {
+                  name: 'CSS',
+                  url: 'https://sass-lang.com/',
+                },
+                {
+                  name: 'JavaScript',
+                  url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
+                },
+              ]}
+            />
+            <Navigation links={navigationLinks} />
+          </>
+        )}
       </Header>
       <Content>
-        <Heading>naven Demo {theme}</Heading>
-        <Horizontal
-          css={css`
-            gap: ${Space.small};
-          `}
-        >
-          <Button space={0} highlight>
-            I'm a button
-          </Button>
-          <Button space={0} interact onClick={toggleTheme}>
-            Toggle {theme === 'light' ? 'dark' : 'light'} theme
+        <Heading>naven Demo {userTheme}</Heading>
+        <Horizontal wrap>
+          <Button>Text Button</Button>
+          <Button color="highlight">I'm a button</Button>
+          <Button color="interact" onClick={toggleTheme}>
+            Toggle {userTheme === 'light' ? 'dark' : 'light'} theme
           </Button>
         </Horizontal>
-        <Paragraph
-          css={css`
-            background: ${Color.Gray[300].var};
-            padding: ${Space.small};
-            ${Font.family.serif}
-          `}
-        >
+        <Paragraph css={styles.customParagraph}>
           This is a paragraph with some custom styles.
         </Paragraph>
-        <Theme
-          variables={[[Color.highlight, Color.warning.value]]}
-          css={css`
-            border: 1px solid ${Color.black.var};
-            padding: ${Space.small};
-          `}
-        >
-          <Button highlight>I'm a highlight button inside a customized theme</Button>
-        </Theme>
+        <div className={highlightThemeClass}>
+          <Button color="highlight">I'm a highlight button inside a customized theme</Button>
+        </div>
         <Image width={200} height={100} />
         <Paragraph>
           I bet you haven't heard of <InlineCode>naven</InlineCode> the new UI framework to create
@@ -163,80 +175,104 @@ const Body = () => {
           for development when no <InlineCode>src</InlineCode> attribute is set.
         </Paragraph>
         <Viewport />
-        <Horizontal wrap>
+        <Horizontal wrap css={styles.form}>
           <Dropdown
             options={[
               { label: 'Mrs.', value: 'female' },
               { label: 'Mr.', value: 'male' },
             ]}
-            space={0}
+            backgroundColor={theme.color.gray100}
           />
-          <Input placeholder="Name" space={0} />
-          <Checkbox label="Really?" space={0} />
+          <Dropdown
+            options={[
+              { label: 'Mrs.', value: 'female' },
+              { label: 'Mr.', value: 'male' },
+            ]}
+            onChange={(value) => console.log('dropdown:', value)}
+            placeholder="Required value"
+            backgroundColor={theme.color.gray100}
+            required
+          />
+          <Input placeholder="Regular Input" value={regularInput} onValue={setRegularInput} />
+          <Input placeholder="Existing Input" value={existingInput} onValue={setExistingInput} />
+          <Input
+            placeholder="Required Input"
+            value={requiredInput}
+            onValue={setRequiredInput}
+            required
+          />
+          <Checkbox label="Really?" />
         </Horizontal>
         <Alert
-          space={0}
           closeable
-          css={css`
-            ${Breakpoint.Phone} {
-              display: none;
-            }
-          `}
+          styles={{
+            Main: {
+              css: {
+                '@phone': {
+                  display: 'none',
+                },
+              },
+            },
+          }}
         >
           I'm an alert that can be closed and will disappear on phone viewport.
         </Alert>
       </Content>
       <Footer>
-        <Footer.Column
-          title={{ name: 'JSX' }}
-          links={[
-            {
-              name: 'React',
-              url: 'https://reactjs.org',
-            },
-          ]}
-        />
-        <Footer.Column
-          title={{
-            name: 'CSS-in-JS',
-          }}
-          links={[
-            {
-              name: 'Emotion',
-              url: 'https://emotion.sh',
-            },
-          ]}
-        />
-        <Footer.Column
-          title={{
-            name: 'TypeScript',
-          }}
-          links={[
-            {
-              name: 'TypeScript',
-              url: 'https://www.typescriptlang.org',
-            },
-            {
-              name: 'Documentation',
-              url: 'https://www.typescriptlang.org/docs/home.html',
-            },
-          ]}
-        />
-        <Footer.Column
-          title={{
-            name: 'Components',
-          }}
-          links={[
-            {
-              name: 'Layout',
-              url: '/layout',
-            },
-            {
-              name: 'Elements',
-              url: '/elements',
-            },
-          ]}
-        />
+        {({ Column }) => (
+          <>
+            <Column
+              title={{ name: 'JSX' }}
+              links={[
+                {
+                  name: 'React',
+                  url: 'https://reactjs.org',
+                },
+              ]}
+            />
+            <Column
+              title={{
+                name: 'CSS-in-JS',
+              }}
+              links={[
+                {
+                  name: 'Emotion',
+                  url: 'https://emotion.sh',
+                },
+              ]}
+            />
+            <Column
+              title={{
+                name: 'TypeScript',
+              }}
+              links={[
+                {
+                  name: 'TypeScript',
+                  url: 'https://www.typescriptlang.org',
+                },
+                {
+                  name: 'Documentation',
+                  url: 'https://www.typescriptlang.org/docs/home.html',
+                },
+              ]}
+            />
+            <Column
+              title={{
+                name: 'Components',
+              }}
+              links={[
+                {
+                  name: 'Layout',
+                  url: '/layout',
+                },
+                {
+                  name: 'Elements',
+                  url: '/elements',
+                },
+              ]}
+            />
+          </>
+        )}
       </Footer>
     </>
   )

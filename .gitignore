@@ -3,4 +3,4 @@ package-lock.json
 dist
 tsconfig.json
 demo/.gitignore
-doc/.gitignore
+documentation/.gitignore

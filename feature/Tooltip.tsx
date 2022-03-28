@@ -1,12 +1,26 @@
-import React, { useState, ReactNode } from 'react'
-import styled from '@emotion/styled'
-import { SerializedStyles } from '@emotion/react'
+import React, { useState, HTMLAttributes, ReactNode, DetailedHTMLProps } from 'react'
 import { usePopper } from 'react-popper'
+// @ts-ignore
+import { createComponent } from 'naven'
 
-const Wrapper = styled.div<{ css?: SerializedStyles }>`
-  display: inline-flex;
-  ${({ css }) => css}
-`
+export interface Props {
+  Component: {
+    content: ReactNode
+    arrow?: boolean
+    close?: boolean
+    children: ReactNode
+  } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+}
+
+const styles = () => ({
+  Wrapper: {
+    tag: 'div',
+    main: true,
+    css: {
+      display: 'inline-flex',
+    },
+  },
+})
 
 const wrapper = {
   marginLeft: 10,
@@ -77,7 +91,7 @@ const Content = ({ children, referenceElement, open, setOpen, arrow, close }: Co
   const [popperElement, setPopperElement] = useState(null)
   const [arrowElement, setArrowElement] = useState(null)
 
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+  const { styles: popperStyles, attributes } = usePopper(referenceElement, popperElement, {
     modifiers: [{ name: 'arrow', options: { element: arrowElement } }],
     placement: 'right',
   })
@@ -86,7 +100,7 @@ const Content = ({ children, referenceElement, open, setOpen, arrow, close }: Co
     <div
       ref={setPopperElement}
       style={{
-        ...styles.popper,
+        ...popperStyles.popper,
         ...{
           opacity: open ? 1 : 0,
           pointerEvents: open ? 'inherit' : 'none',
@@ -98,7 +112,7 @@ const Content = ({ children, referenceElement, open, setOpen, arrow, close }: Co
     >
       <div style={wrapper}>{children}</div>
       {arrow && (
-        <div ref={setArrowElement} style={styles.arrow}>
+        <div ref={setArrowElement} style={popperStyles.arrow}>
           <div style={arrowStyle} />
         </div>
       )}
@@ -124,15 +138,8 @@ const Content = ({ children, referenceElement, open, setOpen, arrow, close }: Co
   )
 }
 
-interface Props {
-  content: ReactNode
-  arrow?: boolean
-  close?: boolean
-  children: ReactNode
-  css?: SerializedStyles
-}
-
-export const Tooltip = ({ content, arrow = true, close = false, children, css }: Props) => {
+export default createComponent(styles)<Props>(function Tooltip({ props, Sheet }) {
+  const { children, content, arrow = true, close = false, ...otherProps } = props
   const [referenceElement, setReferenceElement] = useState(null)
   // Only initialize plugin (absolutely position hidden tooltip element)
   // when it's actually needed.
@@ -147,7 +154,8 @@ export const Tooltip = ({ content, arrow = true, close = false, children, css }:
 
   return (
     <>
-      <Wrapper
+      <Sheet.Wrapper.Component
+        css={Sheet.Wrapper.css}
         ref={setReferenceElement}
         role="button"
         tabIndex={0}
@@ -159,10 +167,10 @@ export const Tooltip = ({ content, arrow = true, close = false, children, css }:
           }
         }}
         onClick={() => setOpen(!open)}
-        css={css}
+        {...otherProps}
       >
         {children}
-      </Wrapper>
+      </Sheet.Wrapper.Component>
       {initialized && (
         <Content
           referenceElement={referenceElement}
@@ -176,4 +184,4 @@ export const Tooltip = ({ content, arrow = true, close = false, children, css }:
       )}
     </>
   )
-}
+})

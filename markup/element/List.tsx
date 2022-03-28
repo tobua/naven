@@ -1,127 +1,93 @@
-import React, { ReactNode, DetailedHTMLProps, LiHTMLAttributes } from 'react'
-import { SerializedStyles } from '@emotion/react'
-import styled from '@emotion/styled'
-import { Space, toPx, spaceProp, unit } from '../../style'
+import React, { HTMLAttributes, LiHTMLAttributes, ReactNode, Fragment, useCallback } from 'react'
+import type { CSS } from '@stitches/react'
+import { createComponent } from '../../utility/component'
+import { naven, unit } from '../../style'
 
-enum ListType {
-  ordered = 'ol',
-  unordered = 'ul',
-  description = 'dl',
+type ListType = 'ordered' | 'description' | 'disc'
+
+export interface Props {
+  Component: {
+    children: ReactNode | ReactNode[]
+    horizontal?: boolean
+    wrap?: boolean
+    gap?: number | string
+    type?: ListType
+    elementProps?: LiHTMLAttributes<HTMLLIElement>
+  } & HTMLAttributes<HTMLUListElement>
+  Main: { type?: ListType }
+  Item: {
+    children: ReactNode
+  }
 }
 
-type ListTypeInputs = ListType | 'ol' | 'ul' | 'dl'
-
-const getPadding = (type: ListTypeInputs, horizontal?: boolean, listStyle?: boolean) => {
-  if (horizontal || type === ListType.description || !listStyle) {
-    return '0'
+const getTag = (type?: ListType) => {
+  if (type === 'ordered') {
+    return 'ol'
   }
 
-  return unit(20)
-}
-
-const getListStyle = ({ listStyle, type }: { listStyle?: boolean; type: ListTypeInputs }) => {
-  if (!listStyle || type === ListType.description) {
-    return ''
+  if (type === 'description') {
+    return 'dl'
   }
 
-  return `list-style: ${type === ListType.ordered ? 'decimal' : 'disc'};`
+  return 'ul'
 }
 
-const ListTag = (type: ListTypeInputs) => styled(type)<ListProps & { type: ListTypeInputs }>`
-  display: flex;
-  flex-direction: ${({ horizontal }) => (horizontal ? 'row' : 'column')};
-  flex-wrap: ${({ wrap }) => (wrap ? 'wrap' : 'inherit')};
-  row-gap: ${({ gap }) => toPx(gap)};
-  column-gap: ${({ gap }) => toPx(gap)};
-  overflow: ${({ wrap }) => (wrap ? 'visible' : 'auto')};
-  padding-inline-start: ${({ horizontal, listStyle }) => getPadding(type, horizontal, listStyle)};
+const styles = () => ({
+  Main: {
+    tag: 'ul',
+    main: true,
+    css: {
+      display: 'flex',
+      flexDirection: 'column',
+      paddingInlineStart: 0,
+      listStyle: 'none',
+      gap: naven.theme.space.small,
+      variants: {
+        type: {
+          ordered: {
+            listStyle: 'decimal',
+          },
+          description: {
+            listStyle: 'auto',
+          },
+          disc: {
+            listStyle: 'disc',
+          },
+        },
+      },
+    },
+    props: (innerStyles: CSS, props: Props['Component']) => {
+      if (props.horizontal) {
+        innerStyles.flexDirection = 'row'
+      }
 
-  ${getListStyle}
-  ${spaceProp}
-  ${({ css }) => css}
-`
+      if (props.wrap) {
+        innerStyles.flexWrap = 'wrap'
+        innerStyles.overflow = 'visible'
+      }
 
-const ListElement = styled.li<{
-  horizontal?: boolean
-  listStyle?: boolean
-  css?: SerializedStyles
-}>`
-  ${({ horizontal, listStyle }) => (horizontal && listStyle ? `margin-left: ${unit(20)};` : '')}
-  ${({ css }) => css}
-`
+      if (props.gap) {
+        innerStyles.gap = props.gap
+      }
 
-const ListDt = styled.dt<{ css?: SerializedStyles }>`
-  ${({ css }) => css}
-`
-
-const ListDd = styled.dd<{ css?: SerializedStyles }>`
-  margin-left: ${unit(20)};
-  ${({ css }) => css}
-`
-
-const renderListElements = (
-  children: ReactNode | ReactNode[],
-  elementProps: any,
-  horizontal?: boolean,
-  listStyle?: boolean
-) => {
-  if (!Array.isArray(children)) {
-    return [
-      <ListElement key="0" listStyle={listStyle} horizontal={horizontal} {...elementProps}>
-        {children}
-      </ListElement>,
-    ]
-  }
-
-  return children.map((child, index) => (
-    <ListElement key={index} listStyle={listStyle} horizontal={horizontal} {...elementProps}>
-      {child}
-    </ListElement>
-  ))
-}
-
-interface ListProps {
-  horizontal?: boolean
-  wrap?: boolean
-  css?: SerializedStyles
-  gap?: number | string
-  children: ReactNode | ReactNode[]
-  space?: string | number
-  type?: ListTypeInputs
-  listStyle?: boolean
-  elementProps?: {
-    css?: SerializedStyles
-  } & DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>
-}
-
-export const List = ({
-  horizontal,
-  children,
-  elementProps,
-  gap = Space.small,
-  type = ListType.unordered,
-  listStyle = false,
-  ...props
-}: ListProps) => {
-  if (!children) {
-    return null
-  }
-
-  const Wrapper = ListTag(type)
-  const listElements =
-    type === ListType.description
-      ? children
-      : renderListElements(children, elementProps, horizontal, listStyle)
-
-  return (
-    <Wrapper horizontal={horizontal} listStyle={listStyle} gap={gap} type={type} {...props}>
-      {listElements}
-    </Wrapper>
-  )
-}
+      if ((props.type === 'ordered' || props.type === 'disc') && !props.horizontal) {
+        innerStyles.paddingInlineStart = unit(20)
+      }
+    },
+  },
+  Item: {
+    tag: 'li',
+    css: {},
+    props: (innerStyles, props: Props['Component']) => {
+      if ((props.type === 'ordered' || props.type === 'disc') && props.horizontal) {
+        innerStyles.marginLeft = unit(20)
+      }
+    },
+  },
+})
 
 // For dl tag, description lists.
-List.Description = ({
+const Description = ({
   term,
   children,
 }: {
@@ -129,9 +95,41 @@ List.Description = ({
   children: string | ReactNode
 }) => (
   <>
-    <ListDt>{term}</ListDt>
-    <ListDd>{children}</ListDd>
+    <dt>{term}</dt>
+    <dd style={{ marginLeft: 20 }}>{children}</dd>
   </>
 )
 
-List.Type = ListType
+export default createComponent(styles)<Props>(
+  function List({ props, Sheet }) {
+    const { children, horizontal, wrap, gap, elementProps, type, ...otherProps } = props
+    props.children = typeof children === 'function' ? children({ Description }) : children
+
+    const renderItem = useCallback((innerChildren: ReactNode, key = 0) => {
+      if (props.type === 'description') {
+        return <Fragment key={key}>{innerChildren}</Fragment>
+      }
+
+      return (
+        <Sheet.Item.Component css={Sheet.Item.css} key={key} {...elementProps}>
+          {innerChildren}
+        </Sheet.Item.Component>
+      )
+    }, [])
+
+    const renderItems = useCallback(() => {
+      if (!Array.isArray(props.children)) {
+        return [renderItem(props.children)]
+      }
+
+      return props.children.map((child, index) => renderItem(child, index))
+    }, [])
+
+    return (
+      <Sheet.Main.Component as={getTag(type)} css={Sheet.Main.css} type={type} {...otherProps}>
+        {renderItems()}
+      </Sheet.Main.Component>
+    )
+  },
+  (props) => [props.type, props.gap, props.wrap, props.horizontal]
+)

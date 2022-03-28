@@ -1,8 +1,8 @@
-import React, { useState, useCallback } from 'react'
-import styled from '@emotion/styled'
-import { SerializedStyles, css as cssStyles } from '@emotion/react'
-import { Space, Color, Layer, radius, toPx } from '../../style'
-import { Close } from '../../icon'
+import React, { useState, useCallback, HTMLAttributes } from 'react'
+import { naven, cssVariable } from '../../style'
+import { createComponent } from '../../utility/component'
+import { mergeStyles } from '../../utility/merge-styles'
+import Close from '../icon/Close'
 
 type NotificationType = 'info' | 'warning' | 'error'
 
@@ -17,101 +17,10 @@ interface INotification {
 const ActiveNotifications: INotification[] = []
 let rerender: () => void
 
-const Wrapper = styled.div<{ space?: string | number; css?: SerializedStyles }>`
-  display: flex;
-  justify-content: flex-end;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  padding: ${({ space }) => toPx(space)};
-  z-index: ${Layer.Notification};
-  max-width: 50%;
-  ${({ css }) => css}
-`
-
-const NotificationContainer = styled.div<{
-  gap?: string | number
-  css?: SerializedStyles
-}>`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  row-gap: ${({ gap }) => toPx(gap)};
-  ${({ css }) => css}
-`
-
-const NotificationWrapper = styled.div<{
-  type: NotificationType
-  closeable?: boolean
-  css?: SerializedStyles
-}>`
-  position: relative;
-  display: flex;
-  background-color: white;
-  border: 1px solid
-    ${({ type }) => {
-      if (type === 'error') {
-        return Color.error.var
-      }
-
-      if (type === 'warning') {
-        return Color.warning.var
-      }
-
-      return Color.highlight.var
-    }};
-  padding: ${Space.small};
-  ${({ closeable }) => (closeable ? `padding-right: calc(${Space.small} * 3);` : '')}
-  min-width: 30%;
-  ${() => radius()}
-  ${({ css }) => css}
-`
-
-const CloseContainer = styled.div`
-  position: absolute;
-  display: flex;
-  right: ${Space.small};
-  cursor: pointer;
-  width: ${Space.small};
-  height: ${Space.small};
-  top: calc(50% - calc(${Space.small} / 2));
-`
-
-interface INotificationElement {
-  id: string
-  type: NotificationType
-  closeable?: boolean
-  children: string
-  css?: SerializedStyles
-}
-
-const NotificationElement = ({ id, type, closeable, css, children }: INotificationElement) => (
-  <NotificationWrapper type={type} css={css} closeable={closeable}>
-    {closeable && (
-      <CloseContainer
-        onClick={() => {
-          ActiveNotifications.splice(
-            ActiveNotifications.findIndex((notification) => notification.id === id),
-            1
-          )
-          rerender()
-        }}
-      >
-        <Close
-          css={cssStyles`
-              flex: 1;
-            `}
-        />
-      </CloseContainer>
-    )}
-    {children}
-  </NotificationWrapper>
-)
-
 interface AddNotificationProps {
   message: string
   duration?: number
-  type: NotificationType
+  type?: NotificationType
   closeable?: boolean
 }
 
@@ -150,21 +59,106 @@ export const addNotification = ({
   }, duration * 1000)
 }
 
-interface Props {
-  gap?: string | number
-  space?: string | number
-  css?: SerializedStyles
-  wrapperCss?: SerializedStyles
-  containerCss?: SerializedStyles
+export interface Props {
+  Component: HTMLAttributes<HTMLDivElement>
 }
 
-export const Notification = ({
-  gap = Space.small,
-  space = Space.small,
-  css,
-  wrapperCss,
-  containerCss,
-}: Props) => {
+const styles = () => ({
+  Main: {
+    tag: 'div',
+    main: true,
+    css: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      position: 'fixed',
+      bottom: 0,
+      right: 0,
+      zIndex: naven.layer.Notification,
+      maxWidth: '50%',
+    },
+  },
+  Container: {
+    tag: 'div',
+    css: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+      gap: naven.theme.space.small,
+      background: naven.theme.color.background,
+      margin: naven.theme.space.small,
+      padding: naven.theme.space.small,
+    },
+  },
+  CloseContainer: {
+    tag: 'div',
+    css: {
+      position: 'absolute',
+      display: 'flex',
+      right: naven.theme.space.small,
+      cursor: 'pointer',
+      width: naven.theme.space.small,
+      height: naven.theme.space.small,
+      top: `calc(50% - calc(${naven.theme.space.small} / 2))`,
+    },
+  },
+  Element: {
+    tag: 'div',
+    css: {
+      position: 'relative',
+      display: 'flex',
+      background: naven.theme.color.background,
+      borderLeftWidth: 3,
+      borderLeftStyle: 'solid',
+      borderColor: naven.theme.color.highlight,
+      minWidth: '30%',
+      borderRadius: naven.theme.look.radius,
+      paddingLeft: naven.theme.space.tiny,
+      variants: {
+        type: {
+          error: {
+            borderColor: naven.theme.color.error,
+          },
+          warning: {
+            borderColor: naven.theme.color.warning,
+          },
+        },
+      },
+    },
+  },
+})
+
+const Element = ({
+  Sheet,
+  closeable,
+  message,
+  id,
+  ...props
+}: INotification & { Sheet: any; key?: number }) => (
+  <Sheet.Element.Component
+    css={mergeStyles(Sheet.Element.css, {
+      paddingRight: closeable ? `calc(${cssVariable(naven.theme.space.small)} * 3)` : 0,
+    })}
+    {...props}
+  >
+    {closeable && (
+      <Sheet.CloseContainer.Component
+        onClick={() => {
+          ActiveNotifications.splice(
+            ActiveNotifications.findIndex((notification) => notification.id === id),
+            1
+          )
+          rerender()
+        }}
+      >
+        <Close />
+      </Sheet.CloseContainer.Component>
+    )}
+    {message}
+  </Sheet.Element.Component>
+)
+
+export default createComponent(styles)<Props>(function Notification({ props, Sheet }) {
+  const { children, ...otherProps } = props
   const [, setState] = useState(0)
   // Forces the component to update and can be accessed from outside.
   rerender = useCallback(() => setState((count) => count + 1), [])
@@ -175,14 +169,12 @@ export const Notification = ({
   }
 
   return (
-    <Wrapper space={space} css={wrapperCss}>
-      <NotificationContainer css={containerCss} gap={gap}>
+    <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
+      <Sheet.Container.Component css={Sheet.Container.css}>
         {ActiveNotifications.map((notification, index) => (
-          <NotificationElement key={index} css={css} {...notification}>
-            {notification.message}
-          </NotificationElement>
+          <Element Sheet={Sheet} key={index} {...notification} />
         ))}
-      </NotificationContainer>
-    </Wrapper>
+      </Sheet.Container.Component>
+    </Sheet.Main.Component>
   )
-}
+})

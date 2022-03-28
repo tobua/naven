@@ -1,128 +1,136 @@
-import React, { useRef, InputHTMLAttributes } from 'react'
-import styled from '@emotion/styled'
-import { SerializedStyles } from '@emotion/react'
+import React, {
+  useCallback,
+  useRef,
+  InputHTMLAttributes,
+  DetailedHTMLProps,
+  LabelHTMLAttributes,
+  HTMLAttributes,
+} from 'react'
+import { naven, unit } from '../../style'
+import { createComponent } from '../../utility/component'
 import { uniqueID } from '../../utility/unique-id'
-import { Color, Space, radius, spaceProp } from '../../style'
 
-const CheckboxInput = styled.input<{ css?: SerializedStyles }>`
-  border: 1px solid ${Color.black.var};
-  cursor: pointer;
-  ${() => radius(2)}
-  appearance: none;
-  margin: 0;
+export interface Props {
+  Component: {
+    id?: string
+    type?: 'radio' | 'checkbox'
+    label: string
+  } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+  Main: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  Input: { look: 'checkbox' | 'radio' } & DetailedHTMLProps<
+    InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >
+  Label: DetailedHTMLProps<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>
+}
 
-  &:before {
-    content: '';
-    display: flex;
-    width: ${Space.medium};
-    height: ${Space.medium};
-  }
+const styles = () => ({
+  Main: {
+    tag: 'div',
+    css: {
+      display: 'flex',
+      alignItems: 'center',
+      '&:focus': {
+        outline: 'none',
+        color: naven.theme.color.interact,
+        input: {
+          borderColor: naven.theme.color.interact,
+          outline: 'none',
+        },
+        'input:checked': {
+          boxShadow: `inset 0 0 0 3px ${naven.theme.color.interact}`,
+        },
+      },
+    },
+  },
+  Label: {
+    tag: 'label',
+    css: {
+      marginLeft: naven.theme.space.small,
+      fontFamily: naven.theme.font.familyRegular,
+      fontSize: naven.theme.font.sizeMedium,
+      cursor: 'pointer',
+    },
+  },
+  Input: {
+    tag: 'input',
+    main: true,
+    css: {
+      position: 'relative',
+      border: 'none',
+      background: naven.theme.color.gray500,
+      cursor: 'pointer',
+      appearance: 'none',
+      margin: 0,
+      '&:before': {
+        content: '',
+        display: 'flex',
+        width: naven.theme.space.medium,
+        height: naven.theme.space.medium,
+      },
+      '&:checked': {
+        background: naven.theme.color.backgroundContrast,
+      },
+      '&:checked:after': {
+        content: '',
+        position: 'absolute',
+        top: unit(1),
+        left: unit(7),
+        display: 'table',
+        width: unit(5),
+        height: unit(10),
+        border: '2px solid #FFF',
+        borderTopWidth: 0,
+        borderLeftWidth: 0,
+        transform: 'rotate(45deg)',
+      },
+      '&:focus': {
+        outline: 'none',
+      },
+      variants: {
+        look: {
+          radio: {
+            borderRadius: '100%',
+            '&:checked:after': {
+              display: 'none',
+            },
+          },
+        },
+      },
+    },
+  },
+})
 
-  &:checked {
-    background: ${Color.black.var};
-  }
+export default createComponent(styles)<Props>(function Checkbox({ props, Sheet }) {
+  const { type = 'checkbox', label, id = uniqueID(), ...otherProps } = props
+  const inputRef = useRef<HTMLInputElement>()
 
-  &:focus {
-    outline: none;
-  }
-
-  ${({ css }) => css}
-`
-
-const RadioInput = styled.input<{ css?: SerializedStyles }>`
-  border: 1px solid ${Color.black.var};
-  cursor: pointer;
-  border-radius: 100%;
-  appearance: none;
-  margin: 0;
-
-  &:before {
-    content: '';
-    display: flex;
-    width: ${Space.medium};
-    height: ${Space.medium};
-  }
-
-  &:checked {
-    background: ${Color.black.var};
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  ${({ css }) => css}
-`
-
-const Wrapper = styled.div<{ css?: SerializedStyles; space?: string | number }>`
-  display: flex;
-  align-items: center;
-  ${({ css }) => css}
-  ${spaceProp}
-
-  &:focus {
-    outline: none;
-    color: ${Color.interact.var};
-
-    input {
-      border-color: ${Color.interact.var};
-      outline: none;
+  const toggleOnEnter = useCallback((event) => {
+    if (event.key !== 'Enter') {
+      return
     }
 
-    input:checked {
-      box-shadow: inset 0 0 0 3px ${Color.interact.var};
-    }
-  }
-`
-
-const Label = styled.label`
-  margin-left: ${Space.small};
-  cursor: pointer;
-`
-
-const toggleOnEnter = (event, inputRef) => {
-  if (event.key !== 'Enter') {
-    return
-  }
-
-  inputRef.current.checked = !inputRef.current.checked
-}
-
-type Props = InputHTMLAttributes<HTMLInputElement> & {
-  label: string
-  css?: SerializedStyles
-  wrapperCss?: SerializedStyles
-  space?: string | number
-}
-
-export const Checkbox = ({ label, id = uniqueID(), wrapperCss, space, ...props }: Props) => {
-  const inputRef = useRef()
+    inputRef.current.checked = !inputRef.current.checked
+  }, [])
 
   return (
-    <Wrapper
+    <Sheet.Main.Component
+      css={Sheet.Main.css}
       tabIndex={0}
-      css={wrapperCss}
-      space={space}
-      onKeyDown={(event) => toggleOnEnter(event, inputRef)}
+      onKeyDown={(event) => toggleOnEnter(event)}
     >
-      <CheckboxInput ref={inputRef} tabIndex={-1} id={id} type="checkbox" {...props} />
-      <Label htmlFor={id}>{label}</Label>
-    </Wrapper>
+      <Sheet.Input.Component
+        css={Sheet.Input.css}
+        ref={inputRef}
+        tabIndex={-1}
+        id={id}
+        look={type}
+        type={type}
+        {...otherProps}
+      />
+      <Sheet.Label.Component css={Sheet.Label.css} htmlFor={id}>
+        {label}
+      </Sheet.Label.Component>
+    </Sheet.Main.Component>
   )
-}
-
-export const Radio = ({ label, id = uniqueID(), wrapperCss, space, ...props }: Props) => {
-  const inputRef = useRef()
-
-  return (
-    <Wrapper
-      tabIndex={0}
-      css={wrapperCss}
-      space={space}
-      onKeyDown={(event) => toggleOnEnter(event, inputRef)}
-    >
-      <RadioInput ref={inputRef} tabIndex={-1} id={id} type="radio" {...props} />
-      <Label htmlFor={id}>{label}</Label>
-    </Wrapper>
-  )
-}
+})

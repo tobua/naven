@@ -1,39 +1,61 @@
-import React, { DetailedHTMLProps, TextareaHTMLAttributes } from 'react'
-import styled from '@emotion/styled'
-import { SerializedStyles } from '@emotion/react'
-import { Color, Space, Font, radius, spaceProp } from '../../style'
+import React, { TextareaHTMLAttributes, DetailedHTMLProps, useState } from 'react'
+import { naven, unit } from '../../style'
+import { createComponent } from '../../utility/component'
+import { mergeStyles } from '../../utility/merge-styles'
+import { blinkAnimation } from '../../style/animation'
 
-const Wrapper = styled.textarea<{
-  css?: SerializedStyles
-  space?: string | number
-}>`
-  padding: ${Space.small};
-  border: 1px solid ${Color.black.var};
-  resize: none;
-  ${() => radius()}
-  ${spaceProp}
-  ${Font.family.regular}
-  
-  &:focus {
-    box-shadow: inset 0 0 0 1px ${Color.black.var};
-    outline: none;
-  }
+export interface Props {
+  Component: {
+    onValue?: (value: string) => void
+  } & DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
+  TextArea: DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
+}
 
-  ${({ css }) => css}
-`
+const styles = () => ({
+  Main: {
+    tag: 'div',
+    css: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      alignSelf: 'normal',
+    },
+  },
+  Cursor: {
+    tag: 'span',
+    css: {
+      height: '100%',
+      width: unit(4),
+      marginRight: unit(6),
+      transition: 'background 300ms ease',
+    },
+  },
+  TextArea: {
+    tag: 'textarea',
+    main: true,
+    css: {
+      display: 'flex',
+      alignSelf: 'normal',
+      padding: 0,
+      resize: 'none',
+      border: 'none',
+      outline: 'none',
+      background: 'inherit',
+      width: '100%',
+      fontFamily: naven.theme.font.familyRegular,
+      fontSize: naven.theme.font.sizeMedium,
+    },
+  },
+})
 
-export const TextArea = ({
-  onValue,
-  ...props
-}: DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement> & {
-  onValue?: (value: string) => void
-  css?: SerializedStyles
-  space?: string | number
-}) => {
+export default createComponent(styles)<Props>(function TextArea({ props, Sheet }) {
+  const { value, onValue, required, ...otherProps } = props
+  const [active, setActive] = useState(false)
+
   if (onValue) {
     const initialOnChange = props.onChange
     // eslint-disable-next-line no-param-reassign
-    props.onChange = (event) => {
+    otherProps.onChange = (event) => {
       onValue(event.target.value)
       if (initialOnChange) {
         initialOnChange(event)
@@ -41,5 +63,27 @@ export const TextArea = ({
     }
   }
 
-  return <Wrapper {...props} />
-}
+  const hasAnimation = required && !value && !active
+
+  return (
+    <Sheet.Main.Component css={Sheet.Main.css}>
+      <Sheet.Cursor.Component
+        css={mergeStyles(
+          {
+            animation: hasAnimation ? `${blinkAnimation()} 1s linear infinite alternate` : 'none',
+            background: active ? naven.theme.color.backgroundContrast : naven.theme.color.gray500,
+          },
+          Sheet.Cursor.css
+        )}
+      />
+      <Sheet.TextArea.Component
+        css={Sheet.TextArea.css}
+        onFocus={() => setActive(true)}
+        onBlur={() => setActive(false)}
+        required={required}
+        value={value}
+        {...otherProps}
+      />
+    </Sheet.Main.Component>
+  )
+})

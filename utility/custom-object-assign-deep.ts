@@ -1,7 +1,7 @@
 // npmjs.com/object-assign-deep modified to update CSSVariables used in this project.
-
 const isCssVariable = (value: { type?: any }) =>
-  Object.prototype.hasOwnProperty.call(value, 'type') && value.type === '__css-variable'
+  Object.prototype.hasOwnProperty.call(value, 'token') &&
+  Object.prototype.hasOwnProperty.call(value, 'value')
 
 function getTypeOf(input) {
   if (input === null) {
@@ -60,7 +60,9 @@ function quickCloneObject(input) {
       continue
     }
 
-    output[key] = cloneValue(input[key])
+    if (typeof input[key] !== 'undefined') {
+      output[key] = cloneValue(input[key])
+    }
   }
 
   return output
@@ -70,6 +72,10 @@ function quickCloneObject(input) {
  * Enumerates the given array and returns a new array, with each of its values cloned (i.e. references broken).
  */
 function quickCloneArray(input) {
+  if (isCssVariable(input)) {
+    return input
+  }
+
   return input.map(cloneValue)
 }
 
@@ -79,27 +85,19 @@ const executeDeepMerge = (target: object, _objects: object[]) => {
   const output = target || {}
 
   // Enumerate the objects and their keys.
+  // eslint-disable-next-line no-plusplus
   for (let oindex = 0; oindex < objects.length; oindex++) {
     const object = objects[oindex] as any
     const keys = Object.keys(object)
 
+    // eslint-disable-next-line no-plusplus
     for (let kindex = 0; kindex < keys.length; kindex++) {
       const key = keys[kindex]
       const value = object[key]
       const type = getTypeOf(value)
       const existingValueType = getTypeOf(output[key])
 
-      if (
-        output[key] &&
-        Object.prototype.hasOwnProperty.call(output[key], 'type') &&
-        output[key].type === '__css-variable'
-      ) {
-        output[key].value = value
-      } else if (
-        type === 'object' &&
-        Object.prototype.hasOwnProperty.call(value, 'type') &&
-        value.type === '__css-variable'
-      ) {
+      if (type === 'object' && isCssVariable(value)) {
         output[key] = value
       } else if (type === 'object') {
         if (existingValueType !== 'undefined') {
