@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { Router, Page } from 'epic-react-router'
 import { Header, globalTheme } from 'naven'
 import '@codesandbox/sandpack-react/dist/index.css'
@@ -105,4 +105,4 @@ function App() {
   )
 }
 
-render(<App />, document.body)
+createRoot(document.body).render(<App />)

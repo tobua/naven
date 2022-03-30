@@ -1,8 +1,8 @@
 {
   "dependencies": {
     "naven": "^1.0.0",
-    "papua": "^0.1.37",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "papua": "^1.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   }
 }

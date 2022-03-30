@@ -27,10 +27,10 @@ npm init -y now naven ./my-app
 The following is an example of how to render a page generated with naven to display some minimal content.
 
 ```jsx
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { Header, Button, Content, Heading, Text, Important, Footer, theme } from 'naven'
 
-render(
+createRoot(document.getElementById('root')).render(
   <>
     <Header>
       {({ TitleLink, Meta }) => (
@@ -49,8 +49,7 @@ render(
     <Footer>
       <Important>Made with naven</Important>
     </Footer>
-  </>,
-  document.getElementById('root')
+  </>
 )
 ```
 
@@ -59,7 +58,7 @@ render(
 Configure various variables used in conjunction with `@stitches/react`. Due to limitations with `createStiches` for which `create` is just an alias there are three methods that have to be called in order to configure anything. Check out the [Style Demo](https://tobua.github.io/naven/demo/style) to see and try out all the default variables that can be configured.
 
 ```jsx
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { Header, Button, Content, Heading, Paragraph, Footer, register, create, merge } from 'naven'
 
 // Without intermediary variable type checking will slow down > 10 times.
@@ -115,7 +114,7 @@ const { theme } = register(
   }
 )
 
-render(
+createRoot(document.body).render(
   <>
     <Header>
       {({ TitleLink, Meta }) => (
@@ -134,8 +133,7 @@ render(
     <Footer>
       <Paragraph>Made with naven</Paragraph>
     </Footer>
-  </>,
-  document.body
+  </>
 )
 ```
 
@@ -164,21 +162,20 @@ export const { theme, styled, createTheme } = register(avoidTypeCheckIssueWorkar
 
 ```jsx
 // index.jsx
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { Header, Button, Content, Heading, Text, Important, Footer, theme } from 'naven'
 // This import ensures the plugin has access to your configuration before anything is rendered.
 import './configuration'
 import { MyButton } from './MyButton'
 
-render(
+createRoot(document.body).render(
   <>
     <Header />
     <Content>
       <Heading>naven Customized</Heading>
       <MyButton>Custom Button</MyButton>
     </Content>
-  </>,
-  document.body
+  </>
 )
 ```
 

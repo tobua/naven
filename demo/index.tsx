@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import {
   Button,
   Content,
@@ -278,4 +278,4 @@ const Body = () => {
   )
 }
 
-render(<Body />, document.body)
+createRoot(document.body).render(<Body />)

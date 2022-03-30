@@ -5,13 +5,35 @@ on:
     branches: [main]
 
 jobs:
-  test-release:
+  test-publish-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: npm install
+      - run: npm install --legacy-peer-deps
       - name: 🧪 Test
         run: npm test
+      - name: 🛠️ Build Demo
+        run: |
+          cd demo
+          npm install
+          npx papua build
+      - name: 🚀 Publish Demo
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: publish
+          folder: demo/dist
+          target-folder: demo
+      - name: 🛠️ Build Documentation
+        run: |
+          cd documentation
+          npm install --legacy-peer-deps
+          npx papua build
+      - name: 🚀 Publish Documentation
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: publish
+          folder: documentation/dist
+          target-folder: documentation
       - name: 🚧 Build
         run: npm run build
       - uses: tobua/release-npm-action@v1

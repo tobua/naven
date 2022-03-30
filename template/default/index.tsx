@@ -1,8 +1,8 @@
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { Header, Content, Footer, Heading, Paragraph } from 'naven'
 import './configuration'
 
-render(
+createRoot(document.body).render(
   <>
     <Header>
       {({ TitleText, Navigation }) => (
@@ -33,6 +33,5 @@ render(
     <Footer>
       <Paragraph>Created with naven</Paragraph>
     </Footer>
-  </>,
-  document.body
+  </>
 )
