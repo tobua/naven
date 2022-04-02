@@ -210,9 +210,12 @@ export default createComponent(styles)<Props>(function Header({ props, Sheet }) 
     }: MetaProps) => {
       const metaWrapperStyles = useMemo(
         () =>
-          mergeStyles(mergeStyles(Sheet.MetaWrapper.css, css), {
-            '@phone': { display: !navigation && hideMobile ? 'flex' : 'none' },
-          }),
+          mergeStyles(
+            {
+              '@phone': { display: !navigation && hideMobile ? 'flex' : 'none' },
+            },
+            mergeStyles(Sheet.MetaWrapper.css, css)
+          ),
         [hideMobile, navigation]
       ) as CSS
 

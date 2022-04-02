@@ -37,6 +37,7 @@ import {
   Small,
   Abbreviation,
   Definition,
+  unit,
 } from 'naven'
 import Code from 'naven/Code'
 import Tooltip from 'naven/Tooltip'
@@ -980,6 +981,12 @@ export default () => (
         <Paragraph css={{ maxWidth: 350 }}>
           Multiple <InlineCode>inline code blocks</InlineCode> shouldn't touch each other even when{' '}
           <InlineCode>line-breaks</InlineCode> are present.
+        </Paragraph>
+        <Heading as="h3">
+          Can also place <InlineCode>inline code</InlineCode> in headings
+        </Heading>
+        <Paragraph css={{ fontSize: unit(10) }}>
+          Takes up 80% the parent <InlineCode>font-size</InlineCode>
         </Paragraph>
       </ElementPreview.Preview>
       <PropertyTable>
