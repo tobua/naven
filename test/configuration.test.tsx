@@ -1,4 +1,4 @@
-import { merge, create, register, naven } from '../dist/index'
+import { merge, create, register, naven } from '../index'
 
 test('Default values without configuration.', () => {
   const avoidTypeCheckIssueWorkaround = create(merge({}))
