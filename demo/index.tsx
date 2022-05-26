@@ -16,6 +16,7 @@ import {
   useBreakpoint,
 } from 'naven'
 import Dropdown from 'naven/Dropdown'
+import Code from 'naven/Code'
 import { theme, createTheme } from './configuration'
 
 const styles = {
@@ -217,6 +218,25 @@ const Body = () => {
         >
           I'm an alert that can be closed and will disappear on phone viewport.
         </Alert>
+        <Code>
+          {`// Code block with React support by default.
+export const SayHello = () => <p>Hello World!</p>`}
+        </Code>
+        <Code template="react-ts" diff={{ remove: [2], add: [3] }}>
+          {`// TypeScript and Diff lines optional.
+- export const SayHello = () => <p>Hello World!</p>
++ export const SayGoodbye = (name: string) => <p>Bye {name}!</p>`}
+        </Code>
+        <Code
+          files={{
+            '/App.js': `import { someText } from './second-file.js'
+
+export default () => (
+  <p>Hello Me again! {someText}</p>
+)`,
+            '/second-file.js': `export const someText = 'Hello!!!'`,
+          }}
+        />
       </Content>
       <Footer>
         {({ Column }) => (

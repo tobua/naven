@@ -3,11 +3,28 @@ import type { CSS } from '@stitches/react'
 import { createComponent } from '../../utility/component'
 import { naven, unit } from '../../style'
 
+// For dl tag, description lists.
+const DescriptionList = ({
+  term,
+  children,
+}: {
+  term: string | ReactNode
+  children: string | ReactNode
+}) => (
+  <>
+    <dt>{term}</dt>
+    <dd style={{ marginLeft: 20 }}>{children}</dd>
+  </>
+)
+
 type ListType = 'ordered' | 'description' | 'disc'
 
 export interface Props {
   Component: {
-    children: ReactNode | ReactNode[]
+    children:
+      | ReactNode
+      | ReactNode[]
+      | (({ Description }: { Description: typeof DescriptionList }) => JSX.Element)
     horizontal?: boolean
     wrap?: boolean
     gap?: number | string
@@ -86,24 +103,11 @@ const styles = () => ({
   },
 })
 
-// For dl tag, description lists.
-const Description = ({
-  term,
-  children,
-}: {
-  term: string | ReactNode
-  children: string | ReactNode
-}) => (
-  <>
-    <dt>{term}</dt>
-    <dd style={{ marginLeft: 20 }}>{children}</dd>
-  </>
-)
-
 export default createComponent(styles)<Props>(
   function List({ props, Sheet }) {
     const { children, horizontal, wrap, gap, elementProps, type, ...otherProps } = props
-    props.children = typeof children === 'function' ? children({ Description }) : children
+    props.children =
+      typeof children === 'function' ? children({ Description: DescriptionList }) : children
 
     const renderItem = useCallback((innerChildren: ReactNode, key = 0) => {
       if (props.type === 'description') {

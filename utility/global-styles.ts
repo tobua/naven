@@ -54,7 +54,8 @@ export const resetStyles = (stitches: { theme: any }) => ({
 export const rootStyles = (stitches: { theme: any }) => ({
   display: 'grid',
   rowGap: stitches.theme.space.medium,
-  gridTemplateColumns: 'auto minmax(0, 250px) 980px minmax(0, 250px) auto',
+  gridTemplateColumns:
+    'auto minmax(0, 250px) calc(1000px - 2 * var(--space-large)) minmax(0, 250px) auto',
   fontSize: stitches.theme.font.sizeMedium,
   '@tablet': {
     gridTemplateColumns: '0 0 1fr 0 0',

@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react'
+import { useState } from 'react'
 import {
   Content,
   Vertical,
@@ -374,7 +374,7 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
 />`}
     >
       <ElementPreview.Preview>
-        <Horizontal>
+        <Horizontal css={{ flexWrap: 'wrap' }}>
           <Input placeholder="with placeholder" />
           <Input placeholder="with placeholder" value="with value" onChange={() => {}} />
           <Input placeholder="is required" required />
@@ -903,7 +903,6 @@ import 'react-datepicker/dist/react-datepicker.css'
     <ElementPreview
       title="Code"
       code={`import { Code } from 'naven/Code'
-import '@codesandbox/sandpack-react/dist/index.css'
 
 const RegularCode = <Code template="react-ts">{\`const doubleIt = (value: number) => value * 2\`}</Code>
 

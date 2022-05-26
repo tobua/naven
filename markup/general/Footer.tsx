@@ -7,7 +7,7 @@ import TextLink from '../text/Link'
 
 export interface Props {
   Component: {
-    children: ReactNode
+    children: ReactNode | (({ Column }) => JSX.Element)
     type?: 'wide'
   }
   TextLink: {

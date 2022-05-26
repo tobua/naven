@@ -1,13 +1,15 @@
-import { merge, create, register, naven } from '../index'
+import { merge, create, register, naven } from '../dist/index'
 
-test('Highlight color can be configured.', () => {
-  let avoidTypeCheckIssueWorkaround = create(merge({}))
-  let { theme } = register(avoidTypeCheckIssueWorkaround)
+test('Default values without configuration.', () => {
+  const avoidTypeCheckIssueWorkaround = create(merge({}))
+  const { theme } = register(avoidTypeCheckIssueWorkaround)
 
   expect(theme.color.highlight.value).toEqual('#0047FF')
   expect(naven.theme.color.highlight.value).toEqual('#0047FF')
+})
 
-  avoidTypeCheckIssueWorkaround = create(
+test('Highlight color can be configured.', () => {
+  const avoidTypeCheckIssueWorkaround = create(
     merge({
       theme: {
         color: {
@@ -17,22 +19,25 @@ test('Highlight color can be configured.', () => {
     })
   )
 
-  theme = register(avoidTypeCheckIssueWorkaround).theme
+  const { theme } = register(avoidTypeCheckIssueWorkaround)
 
   expect(theme.color.highlight.value).toEqual('#FF00FF')
   expect(naven.theme.color.highlight.value).toEqual('#FF00FF')
 })
 
 test('Other values remain untouched.', () => {
-  let avoidTypeCheckIssueWorkaround = create(merge({}))
-  let { theme, config } = register(avoidTypeCheckIssueWorkaround)
+  const avoidTypeCheckIssueWorkaround = create(merge({}))
+  const { theme, config } = register(avoidTypeCheckIssueWorkaround)
 
   expect(theme.color.interact.value).toEqual('#FF007A')
   expect(theme.color.gray300.value).toEqual('#E0E0E0')
   expect(theme.space.medium.value).toContain('20px')
   // @ts-ignore
   expect(config.media.phone).toContain('500px')
-  avoidTypeCheckIssueWorkaround = create(
+})
+
+test('Other values remain untouched with changes.', () => {
+  const avoidTypeCheckIssueWorkaround = create(
     merge({
       theme: {
         color: {
@@ -42,7 +47,7 @@ test('Other values remain untouched.', () => {
     })
   )
   // NOTE not better way to reassign multiple variables.
-  ;({ theme, config } = register(avoidTypeCheckIssueWorkaround))
+  const { theme, config } = register(avoidTypeCheckIssueWorkaround)
 
   expect(theme.color.interact.value).toEqual('#FF007A')
   expect(theme.color.gray300.value).toEqual('#E0E0E0')
@@ -52,8 +57,8 @@ test('Other values remain untouched.', () => {
 })
 
 test('Properties without units are "responsified".', () => {
-  let avoidTypeCheckIssueWorkaround = create(merge({}))
-  let { theme } = register(avoidTypeCheckIssueWorkaround)
+  const avoidTypeCheckIssueWorkaround = create(merge({}))
+  const { theme } = register(avoidTypeCheckIssueWorkaround)
 
   expect(theme.font.sizeMedium.value).toContain('calc')
   expect(theme.font.sizeMedium.value).toContain('16px')
@@ -63,8 +68,9 @@ test('Properties without units are "responsified".', () => {
   expect(theme.space.tiny.value).toContain(' 5px')
   expect(theme.space.tiny.value).not.toContain('10px')
   expect(theme.look.radius.value).toBe('0')
-
-  avoidTypeCheckIssueWorkaround = create(
+})
+test('Custom properties without units are "responsified".', () => {
+  const avoidTypeCheckIssueWorkaround = create(
     merge({
       theme: {
         font: {
@@ -80,7 +86,7 @@ test('Properties without units are "responsified".', () => {
     })
   )
 
-  theme = register(avoidTypeCheckIssueWorkaround).theme
+  const { theme } = register(avoidTypeCheckIssueWorkaround)
 
   expect(theme.font.sizeMedium.value).toContain('calc')
   expect(theme.font.sizeMedium.value).not.toContain('16px')
@@ -89,8 +95,10 @@ test('Properties without units are "responsified".', () => {
   expect(theme.space.tiny.value).not.toContain(' 5px')
   expect(theme.space.tiny.value).toContain('10px')
   expect(theme.look.radius.value).toContain('5px')
+})
 
-  avoidTypeCheckIssueWorkaround = create(
+test('Any custom properties without units are "responsified".', () => {
+  const avoidTypeCheckIssueWorkaround = create(
     merge({
       theme: {
         font: {
@@ -107,7 +115,7 @@ test('Properties without units are "responsified".', () => {
   )
 
   // No responsification for values with units.
-  theme = register(avoidTypeCheckIssueWorkaround).theme
+  const { theme } = register(avoidTypeCheckIssueWorkaround)
 
   expect(theme.font.sizeMedium.value).toBe('18vw')
   expect(theme.space.tiny.value).toBe('10vh')

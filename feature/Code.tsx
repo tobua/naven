@@ -28,6 +28,13 @@ const entryFileFromTemplate = (template: string) => {
   return 'App.js'
 }
 
+const customStyleVariables = () => `.sp-stack, .sp-layout {
+  --sp-space-4: ${naven.theme.space.small};
+  --sp-border-radius: ${naven.theme.look.radius};
+}`
+
+const replStyle = () => <style>{customStyleVariables()}</style>
+
 const getDecoratorsFromDiff = (diff?: Diff) => {
   if (!diff || (!diff.add.length && !diff.remove.length)) {
     return {}
@@ -63,26 +70,12 @@ const getDecoratorsFromDiff = (diff?: Diff) => {
 }
 .naven-code-add {
   background: #dbffdb;
-}`}</style>
+}
+
+${customStyleVariables()}`}</style>
     ),
     decorators,
   }
-}
-
-const codeOnlyTheme = {
-  palette: {
-    defaultBackground: 'inherit',
-  },
-}
-
-const replTheme = {
-  palette: {
-    accent: 'black',
-    defaultBackground: '#F5F5F5',
-    activeBackground: '#EEEEEE',
-    defaultText: '#9E9E9E',
-    inactiveText: '#9E9E9E', // Also used for coloring the border.
-  },
 }
 
 export default ({
@@ -96,9 +89,32 @@ export default ({
     () =>
       naven.styled('div', {
         alignSelf: 'normal',
-        background: naven.theme.color.gray100,
         borderRadius: naven.theme.look.radius,
       }),
+    []
+  )
+
+  const themes = useMemo(
+    () => ({
+      codeOnly: {
+        colors: {
+          surface1: naven.theme.color.gray100,
+        },
+        font: {
+          size: naven.theme.font.sizeMedium,
+        },
+      },
+      repl: {
+        colors: {
+          accent: 'black',
+          surface1: naven.theme.color.gray100,
+          surface2: naven.theme.color.gray300,
+        },
+        font: {
+          size: naven.theme.font.sizeMedium,
+        },
+      },
+    }),
     []
   )
 
@@ -109,16 +125,14 @@ export default ({
         {style}
         <SandpackProvider
           template={template}
-          customSetup={{
-            files: {
-              [`/${entryFileFromTemplate(template)}`]: {
-                code: children,
-                readOnly: true,
-              },
+          files={{
+            [`/${entryFileFromTemplate(template)}`]: {
+              code: children,
+              readOnly: true,
             },
           }}
         >
-          <SandpackThemeProvider theme={props.theme ?? codeOnlyTheme}>
+          <SandpackThemeProvider theme={props.theme ?? themes.codeOnly}>
             <SandpackCodeViewer decorators={decorators} />
           </SandpackThemeProvider>
         </SandpackProvider>
@@ -128,7 +142,8 @@ export default ({
 
   return (
     <Wrapper css={css}>
-      <Sandpack template={template} theme={props.theme ?? replTheme} {...props} />
+      {replStyle()}
+      <Sandpack template={template} theme={props.theme ?? themes.repl} {...props} />
     </Wrapper>
   )
 }
