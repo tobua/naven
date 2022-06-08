@@ -98,20 +98,20 @@ export default ({
     () => ({
       codeOnly: {
         colors: {
-          surface1: naven.theme.color.gray100,
+          surface1: naven.theme.color.gray100.toString(),
         },
         font: {
-          size: naven.theme.font.sizeMedium,
+          size: naven.theme.font.sizeMedium.toString(),
         },
       },
       repl: {
         colors: {
           accent: 'black',
-          surface1: naven.theme.color.gray100,
-          surface2: naven.theme.color.gray300,
+          surface1: naven.theme.color.gray100.toString(),
+          surface2: naven.theme.color.gray300.toString(),
         },
         font: {
-          size: naven.theme.font.sizeMedium,
+          size: naven.theme.font.sizeMedium.toString(),
         },
       },
     }),

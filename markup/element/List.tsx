@@ -19,12 +19,14 @@ const DescriptionList = ({
 
 type ListType = 'ordered' | 'description' | 'disc'
 
+type ListChildren =
+  | (({ Description }: { Description: typeof DescriptionList }) => JSX.Element)
+  | ReactNode
+  | ReactNode[]
+
 export interface Props {
   Component: {
-    children:
-      | ReactNode
-      | ReactNode[]
-      | (({ Description }: { Description: typeof DescriptionList }) => JSX.Element)
+    children: ListChildren
     horizontal?: boolean
     wrap?: boolean
     gap?: number | string
@@ -106,10 +108,10 @@ const styles = () => ({
 export default createComponent(styles)<Props>(
   function List({ props, Sheet }) {
     const { children, horizontal, wrap, gap, elementProps, type, ...otherProps } = props
-    props.children =
+    const renderedChildren =
       typeof children === 'function' ? children({ Description: DescriptionList }) : children
 
-    const renderItem = useCallback((innerChildren: ReactNode, key = 0) => {
+    const renderItem = useCallback((innerChildren: ReactNode | ReactNode[], key = 0) => {
       if (props.type === 'description') {
         return <Fragment key={key}>{innerChildren}</Fragment>
       }
@@ -122,11 +124,11 @@ export default createComponent(styles)<Props>(
     }, [])
 
     const renderItems = useCallback(() => {
-      if (!Array.isArray(props.children)) {
-        return [renderItem(props.children)]
+      if (!Array.isArray(renderedChildren)) {
+        return [renderItem(renderedChildren)]
       }
 
-      return props.children.map((child, index) => renderItem(child, index))
+      return renderedChildren.map((child, index) => renderItem(child, index))
     }, [])
 
     return (

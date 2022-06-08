@@ -216,6 +216,36 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
       </PropertyTable>
     </ElementPreview>
     <ElementPreview
+      title="Heading"
+      code={`<>
+  <Heading>Main Heading</Heading>
+  <Heading as="h2">Subtitle</Heading>
+  <Heading as="h3">h3 Heading</Heading>
+  <Heading as="h4">h4 Heading</Heading>
+  <Heading as="h5">h5 Heading</Heading>
+  <Heading as="h6">h6 Heading</Heading>
+</>`}
+    >
+      <ElementPreview.Preview>
+        <Heading as="h3">h3 Heading</Heading>
+        <Heading as="h4">h4 Heading</Heading>
+        <Heading as="h5">h5 Heading</Heading>
+        <Heading as="h6">h6 Heading</Heading>
+      </ElementPreview.Preview>
+      <PropertyTable>
+        <>
+          <Text>as</Text>
+          <Text>h1</Text>
+          <InlineCode>'h2' | 'h3' | 'h4' | 'h5' | 'h6'</InlineCode>
+        </>
+        <>
+          <Text>style</Text>
+          <Text>empty</Text>
+          <InlineCode>'code' | 'italic'</InlineCode>
+        </>
+      </PropertyTable>
+    </ElementPreview>
+    <ElementPreview
       title="Button"
       code={`<Button onClick={() => alert('Hello')}>Press me!</Button>`}
     >
