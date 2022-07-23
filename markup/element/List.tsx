@@ -4,13 +4,7 @@ import { createComponent } from '../../utility/component'
 import { naven, unit } from '../../style'
 
 // For dl tag, description lists.
-const DescriptionList = ({
-  term,
-  children,
-}: {
-  term: string | ReactNode
-  children: string | ReactNode
-}) => (
+const DescriptionList = ({ term, children }: any) => (
   <>
     <dt>{term}</dt>
     <dd style={{ marginLeft: 20 }}>{children}</dd>
@@ -32,7 +26,7 @@ export interface Props {
     gap?: number | string
     type?: ListType
     elementProps?: LiHTMLAttributes<HTMLLIElement>
-  } & HTMLAttributes<HTMLUListElement>
+  } & Omit<HTMLAttributes<HTMLUListElement>, 'children'>
   Main: { type?: ListType }
   Item: {
     children: ReactNode
