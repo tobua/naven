@@ -16,7 +16,7 @@ export default ({ imports, result }: Props): JSX.Element => {
         setComponent(_component)
       })
       .catch(() => setComponent('error'))
-  })
+  }, [])
 
   if (!Component) {
     return <Loader />
