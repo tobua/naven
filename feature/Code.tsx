@@ -6,6 +6,7 @@ import {
   SandpackCodeViewer,
 } from '@codesandbox/sandpack-react'
 import type { SandpackProps } from '@codesandbox/sandpack-react'
+import { githubLight } from '@codesandbox/sandpack-themes'
 import type { CSS } from '@stitches/react'
 // @ts-ignore
 import { naven } from 'naven'
@@ -28,9 +29,18 @@ const entryFileFromTemplate = (template: string) => {
   return 'App.js'
 }
 
+// Changes padding around code.
+// Second class avoids changing the svg button icons in REPL that are tied to space-4 as well.
 const customStyleVariables = () => `.sp-stack, .sp-layout {
   --sp-space-4: ${naven.theme.space.small};
   --sp-border-radius: ${naven.theme.look.radius};
+}
+.sp-button svg {
+  width: auto;
+  height: auto;
+}
+.sp-stack, .sp-code-editor {
+  border-radius: ${naven.theme.look.radius};
 }`
 
 const replStyle = () => <style>{customStyleVariables()}</style>
@@ -98,20 +108,30 @@ export default ({
     () => ({
       codeOnly: {
         colors: {
+          ...githubLight.colors,
           surface1: naven.theme.color.gray100.toString(),
         },
         font: {
+          ...githubLight.font,
           size: naven.theme.font.sizeMedium.toString(),
+        },
+        syntax: {
+          ...githubLight.syntax,
         },
       },
       repl: {
         colors: {
+          ...githubLight.colors,
           accent: 'black',
           surface1: naven.theme.color.gray100.toString(),
           surface2: naven.theme.color.gray300.toString(),
         },
         font: {
+          ...githubLight.font,
           size: naven.theme.font.sizeMedium.toString(),
+        },
+        syntax: {
+          ...githubLight.syntax,
         },
       },
     }),
