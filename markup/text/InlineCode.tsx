@@ -5,7 +5,7 @@ import { createComponent } from '../../utility/component'
 
 export interface Props {
   Component: {
-    children: string
+    children: string | number | (string | number)[]
   } & HTMLAttributes<HTMLElement>
 }
 

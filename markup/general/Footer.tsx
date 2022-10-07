@@ -60,23 +60,27 @@ export interface ColumnProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> 
 export default createComponent(styles)<Props>(function Footer({ props, Sheet }) {
   const { children, ...otherProps } = props
 
-  const Column = useCallback(({ links, title, ...columnProps }: ColumnProps) => {
+  const Column = useCallback(({ links = [], title, ...columnProps }: ColumnProps) => {
     if (!title && !links) {
       return children
     }
 
     return (
       <Sheet.Column.Component css={Sheet.Column.css}>
-        <Sheet.TextLink.Component bold href={title.url} css={Sheet.TextLink.css}>
-          {title.name}
-        </Sheet.TextLink.Component>
-        <List>
-          {links.map((item, rowLinkIndex) => (
-            <TextLink key={rowLinkIndex} href={item.url} css={item.css}>
-              {item.name}
-            </TextLink>
-          ))}
-        </List>
+        {title && (
+          <Sheet.TextLink.Component bold href={title.url} css={Sheet.TextLink.css}>
+            {title.name}
+          </Sheet.TextLink.Component>
+        )}
+        {links.length > 0 && (
+          <List>
+            {links.map((item, rowLinkIndex) => (
+              <TextLink key={rowLinkIndex} href={item.url} css={item.css}>
+                {item.name}
+              </TextLink>
+            ))}
+          </List>
+        )}
         {columnProps.children}
       </Sheet.Column.Component>
     )

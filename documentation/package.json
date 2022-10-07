@@ -7,9 +7,9 @@
     "deepmerge": "^4.2.2",
     "epic-react-router": "^3.0.1",
     "konfi": "^1.0.0",
-    "mobx": "^6.6.1",
+    "mobx": "^6.6.2",
     "mobx-react-lite": "^3.4.0",
-    "papua": "^2.0.1",
+    "papua": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

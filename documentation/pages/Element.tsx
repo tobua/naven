@@ -1011,6 +1011,16 @@ export default () => (
           Multiple <InlineCode>inline code blocks</InlineCode> shouldn't touch each other even when{' '}
           <InlineCode>line-breaks</InlineCode> are present.
         </Paragraph>
+        <Paragraph>
+          <span>
+            test {'test'} {5}
+          </span>
+          Can use{' '}
+          <InlineCode>
+            multiple {'strings'} and {5} numbers
+          </InlineCode>{' '}
+          as children.
+        </Paragraph>
         <Heading as="h3">
           Can also place <InlineCode>inline code</InlineCode> in headings
         </Heading>
@@ -1022,7 +1032,7 @@ export default () => (
         <>
           <Text>children</Text>
           <Text>required</Text>
-          <InlineCode>string</InlineCode>
+          <InlineCode>string | number | (string | number)[]</InlineCode>
         </>
       </PropertyTable>
     </ElementPreview>
