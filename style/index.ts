@@ -168,7 +168,7 @@ export const merge = <T>(configuration: T) => {
 export const register = <T extends Naven>(
   stitches: T,
   options?: {
-    globalStyles?: (stitches: Naven) => { [key: string]: CSS }
+    globalStyles?: (stitches: Naven) => { [key: string]: CSS } | { [key: string]: CSS }
     rootSelector?: string
     layer?: string[] | ((initial: string[]) => string[])
     wasser?: Parameters<typeof configure>[0]
@@ -187,12 +187,12 @@ export const register = <T extends Naven>(
   Object.assign(globalStyles, wasserVariables)
 
   if (globalStyles[root] !== undefined) {
-    Object.assign(globalStyles[root], rootStyles(stitches))
+    globalStyles[root] = Object.assign(rootStyles(stitches), globalStyles[root])
   } else {
     globalStyles[root] = rootStyles(stitches)
   }
 
-  let customLayer: { [x: string]: number }
+  let customLayer: { [x: string]: number } | null = null
 
   if (options?.layer) {
     if (Array.isArray(options.layer)) {
