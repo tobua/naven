@@ -36,20 +36,20 @@
     "entry": "feature/*"
   },
   "dependencies": {
-    "@codesandbox/sandpack-react": "^1.17.0",
-    "@codesandbox/sandpack-themes": "^1.17.0",
+    "@codesandbox/sandpack-react": "^2.0.11",
+    "@codesandbox/sandpack-themes": "^2.0.1",
     "@popperjs/core": "^2.11.6",
     "@stitches/react": "^1.2.8",
-    "@types/react": "^18.0.25",
+    "@types/react": "^18.0.28",
     "body-scroll-lock": "^3.1.5",
-    "laier": "^1.0.3",
+    "laier": "^1.1.0",
     "memoize-one": "^6.0.0",
     "object-assign-deep": "^0.4.0",
-    "react-datepicker": "^4.8.0",
+    "react-datepicker": "^4.10.0",
     "react-popper": "^2.3.0",
-    "react-select": "^5.6.1",
+    "react-select": "^5.7.0",
     "throttle-debounce": "^5.0.0",
-    "wasser": "^2.2.1"
+    "wasser": "^2.3.0"
   },
   "peerDependencies": {
     "react": "^18.2.0"
@@ -77,15 +77,15 @@
     "stitches"
   ],
   "devDependencies": {
-    "@testing-library/react": "^13.4.0",
-    "@types/jest": "^29.2.3",
-    "@types/node": "^18.11.9",
+    "@testing-library/react": "^14.0.0",
+    "@types/jest": "^29.4.0",
+    "@types/node": "^18.14.0",
     "@types/object-assign-deep": "^0.4.0",
     "@types/react-datepicker": "^4.8.0",
-    "@types/react-dom": "^18.0.9",
+    "@types/react-dom": "^18.0.11",
     "@types/throttle-debounce": "^5.0.0",
-    "jest-environment-jsdom": "^29.3.1",
-    "padua": "^0.6.1",
+    "jest-environment-jsdom": "^29.4.3",
+    "padua": "^1.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-test-renderer": "^18.2.0"
@@ -99,14 +99,14 @@
     }
   },
   "jest": {
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "./tsconfig.json"
-      }
-    },
     "testEnvironment": "jsdom",
     "transform": {
-      "^.+\\.tsx?$": "ts-jest",
+      "^.+\\.tsx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "./tsconfig.json"
+        }
+      ],
       "^.+\\.jsx?$": [
         "babel-jest",
         {
@@ -117,7 +117,7 @@
     "transformIgnorePatterns": []
   },
   "engines": {
-    "node": ">= 14"
+    "node": ">= 16"
   },
   "typesVersions": {
     "*": {

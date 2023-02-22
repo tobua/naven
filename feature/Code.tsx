@@ -15,11 +15,11 @@ type Diff = { add?: number[]; remove?: number[] }
 
 const entryFileFromTemplate = (template: string) => {
   if (template === 'vanilla') {
-    return 'src/index.js'
+    return 'index.js'
   }
 
   if (template === 'vanilla-ts') {
-    return 'src/index.ts'
+    return 'index.ts'
   }
 
   if (template === 'react-ts') {
@@ -39,7 +39,7 @@ const customStyleVariables = () => `.sp-stack, .sp-layout {
   width: auto;
   height: auto;
 }
-.sp-stack, .sp-code-editor {
+.sp-stack.sp-editor-viewer, .sp-code-editor {
   border-radius: ${naven.theme.look.radius};
 }`
 
