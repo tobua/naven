@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import Select, { Props as SelectProps, StylesConfig, GroupBase } from 'react-select'
+import Select, { Props as SelectProps, StylesConfig, GroupBase, ActionMeta } from 'react-select'
 import memoize from 'memoize-one'
 // @ts-ignore
 import { naven, unit, cssVariable, createComponent, mergeStyles } from 'naven'
@@ -111,6 +111,8 @@ const customStyles: ({
   }),
 })
 
+type Option = { value: any; label: string }
+
 export default createComponent(styles)<Props>(function Dropdown({ props, Sheet }) {
   if (
     typeof props.backgroundColor === 'object' &&
@@ -132,9 +134,12 @@ export default createComponent(styles)<Props>(function Dropdown({ props, Sheet }
   const hasAnimation = required && !active && !value
 
   const handleChange = useCallback(
-    (currentValue, action) => {
+    (currentValue: Option, action: ActionMeta<Option>) => {
       if (otherProps.onChange) {
         otherProps.onChange(currentValue, action)
+      }
+      if (otherProps.onValue) {
+        otherProps.onValue(currentValue.value)
       }
       setValue(currentValue)
     },

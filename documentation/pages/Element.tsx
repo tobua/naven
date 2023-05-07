@@ -644,10 +644,14 @@ const Radios = (
       title="Dropdown"
       code={`import { Dropdown } from 'naven/Dropdown'
 
-<Dropdown options={[
-  { value: 'first', label: 'First choice' },
-  { value: 'second', label: 'Second choice' },
-]} />`}
+<Dropdown
+  options={[
+    { value: 'first', label: 'First choice' },
+    { value: 'second', label: 'Second choice' },
+  ]}
+  onValue={(value) => console.log(value)}
+  onChange={(option, action) => alert(\`\${option.value} - \${action.action}\`)}
+/>`}
     >
       <ElementPreview.Preview>
         <Horizontal>
@@ -672,6 +676,11 @@ const Radios = (
           <Text>options</Text>
           <Text>required</Text>
           <TextLink href="https://react-select.com/props">See react-select</TextLink>
+        </>
+        <>
+          <Text>onValue</Text>
+          <Text></Text>
+          <InlineCode>{`(value: string) => void`}</InlineCode>
         </>
         <>
           <Text>containerStyles</Text>
