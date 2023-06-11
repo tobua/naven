@@ -41,6 +41,16 @@ const customStyleVariables = () => `.sp-stack, .sp-layout {
 }
 .sp-stack.sp-editor-viewer, .sp-code-editor {
   border-radius: ${naven.theme.look.radius};
+}
+@media screen and (max-width: 768px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .cm-content.cm-readonly {
+      font-size: ${naven.theme.font.sizeMedium};
+    }
+    .cm-content {
+      font-size: ${naven.theme.font.sizeMedium}!important;
+    }
+  }
 }`
 
 const replStyle = () => <style>{customStyleVariables()}</style>
@@ -114,6 +124,7 @@ export default ({
         font: {
           ...githubLight.font,
           size: naven.theme.font.sizeMedium.toString(),
+          lineHeight: naven.theme.font.lineHeightMedium.toString(),
         },
         syntax: {
           ...githubLight.syntax,
@@ -129,6 +140,7 @@ export default ({
         font: {
           ...githubLight.font,
           size: naven.theme.font.sizeMedium.toString(),
+          lineHeight: naven.theme.font.lineHeightMedium.toString(),
         },
         syntax: {
           ...githubLight.syntax,

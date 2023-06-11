@@ -9,7 +9,12 @@ import type { Naven, Layer } from '../types'
 import { mergeStyles } from '../utility/merge-styles'
 
 export { useBreakpoint } from './breakpoint'
-export const layer = configureLayer(['Content', 'Navigation', 'Popup', 'Notification'])
+export const layer = configureLayer([
+  'Content',
+  'Navigation',
+  'Popup',
+  'Notification',
+]) as unknown as Layer
 export const unit = wasser
 export const font = fontObject
 export const create = createStitches
@@ -192,15 +197,15 @@ export const register = <T extends Naven>(
     globalStyles[root] = rootStyles(stitches)
   }
 
-  let customLayer: { [x: string]: number } | null = null
+  let customLayer: Layer
 
   if (options?.layer) {
     if (Array.isArray(options.layer)) {
-      customLayer = configureLayer(options.layer)
+      customLayer = configureLayer(options.layer) as unknown as Layer
     } else if (typeof options.layer === 'function') {
       customLayer = configureLayer(
         options.layer(['Content', 'Navigation', 'Popup', 'Notification'])
-      )
+      ) as unknown as Layer
     }
   }
 

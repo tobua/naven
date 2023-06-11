@@ -642,7 +642,7 @@ const Radios = (
     </ElementPreview>
     <ElementPreview
       title="Dropdown"
-      code={`import { Dropdown } from 'naven/Dropdown'
+      code={`import Dropdown from 'naven/Dropdown'
 
 <Dropdown
   options={[
@@ -770,7 +770,7 @@ addNotification({ message: 'Failed to get data, please try again later.', type: 
     </ElementPreview>
     <ElementPreview
       title="Tooltip"
-      code={`import { Tooltip } from 'naven/Tooltip'
+      code={`import Tooltip from 'naven/Tooltip'
 
 <Tooltip content={<Text>Me?</Text>}>
   <Text>Who!</Text>
@@ -912,7 +912,7 @@ const DescriptionList = (
     <ElementPreview
       title="Date Picker"
       anchor="date"
-      code={`import { DatePicker } from 'naven/Date'
+      code={`import DatePicker from 'naven/Date'
 import 'react-datepicker/dist/react-datepicker.css'
 
 <DatePicker initialDate={new Date(1990, 1, 17)} onChange={(date) => setDate(date)} />`}
@@ -941,7 +941,7 @@ import 'react-datepicker/dist/react-datepicker.css'
     </ElementPreview>
     <ElementPreview
       title="Code"
-      code={`import { Code } from 'naven/Code'
+      code={`import Code from 'naven/Code'
 
 const RegularCode = <Code template="react-ts">{\`const doubleIt = (value: number) => value * 2\`}</Code>
 
