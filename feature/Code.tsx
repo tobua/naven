@@ -29,6 +29,20 @@ const entryFileFromTemplate = (template: string) => {
   return 'App.js'
 }
 
+// NOTE When there is too much overflow, Safari will adjust the text size without 100%.
+const customizeiOSFontSizeStyles = () => `@media screen and (max-width: 768px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .sp-code-editor .cm-content.cm-readonly {
+      -webkit-text-size-adjust: 100%;
+      font-size: ${naven.theme.font.sizeMedium};
+    }
+    .sp-code-editor .cm-content {
+      -webkit-text-size-adjust: 100%;
+      font-size: ${naven.theme.font.sizeMedium};
+    }
+  }
+}`
+
 // Changes padding around code.
 // Second class avoids changing the svg button icons in REPL that are tied to space-4 as well.
 const customStyleVariables = () => `.sp-stack, .sp-layout {
@@ -41,23 +55,20 @@ const customStyleVariables = () => `.sp-stack, .sp-layout {
 }
 .sp-stack.sp-editor-viewer, .sp-code-editor {
   border-radius: ${naven.theme.look.radius};
-}
-@media screen and (max-width: 768px) {
-  @supports (-webkit-overflow-scrolling: touch) {
-    .cm-content.cm-readonly {
-      font-size: ${naven.theme.font.sizeMedium};
-    }
-    .cm-content {
-      font-size: ${naven.theme.font.sizeMedium}!important;
-    }
-  }
 }`
 
-const replStyle = () => <style>{customStyleVariables()}</style>
+const replStyle = () => (
+  <style>
+    {customStyleVariables()}
+    {customizeiOSFontSizeStyles()}
+  </style>
+)
 
 const getDecoratorsFromDiff = (diff?: Diff) => {
   if (!diff || (!diff.add.length && !diff.remove.length)) {
-    return {}
+    return {
+      style: <style>{customizeiOSFontSizeStyles()}</style>,
+    }
   }
 
   let decorators = []
@@ -91,8 +102,8 @@ const getDecoratorsFromDiff = (diff?: Diff) => {
 .naven-code-add {
   background: #dbffdb;
 }
-
-${customStyleVariables()}`}</style>
+${customStyleVariables()}
+${customizeiOSFontSizeStyles()}`}</style>
     ),
     decorators,
   }
