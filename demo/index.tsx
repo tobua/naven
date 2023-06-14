@@ -95,7 +95,7 @@ const Viewport = () => {
 
 const Body = () => {
   const [userTheme, setUserTheme] = useState('light')
-  const [regularInput, setRegularInput] = useState()
+  const [regularInput, setRegularInput] = useState('')
   const [existingInput, setExistingInput] = useState('existing')
   const [requiredInput, setRequiredInput] = useState()
   const highlightThemeClass = useMemo(
@@ -194,7 +194,10 @@ const Body = () => {
             backgroundColor={theme.color.gray100}
             required
           />
-          <Input placeholder="Regular Input" value={regularInput} onValue={setRegularInput} />
+          {/* Wrapping with css object used to cause issues when value changed. */}
+          <Horizontal css={{ flexWrap: 'wrap' }}>
+            <Input placeholder="Regular Input" value={regularInput} onValue={setRegularInput} />
+          </Horizontal>
           <Input placeholder="Existing Input" value={existingInput} onValue={setExistingInput} />
           <Input
             placeholder="Required Input"

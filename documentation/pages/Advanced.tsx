@@ -96,6 +96,11 @@ export const Advanced = () => (
           <InlineCode>false</InlineCode>
           <InlineCode>boolean</InlineCode>
         </>
+        <>
+          <Text>center</Text>
+          <InlineCode>false</InlineCode>
+          <InlineCode>boolean</InlineCode>
+        </>
       </PropertyTable>
       <Heading as="h3" style="code">{`<Vertical>`}</Heading>
       <Vertical>

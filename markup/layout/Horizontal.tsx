@@ -8,6 +8,7 @@ export interface Props {
   Component: {
     children: ReactNode
     wrap?: boolean
+    center?: boolean
     space?: CSSValue
   }
 }
@@ -26,6 +27,9 @@ const styles = () => ({
     props: (css: CSS, props: Props['Component']) => {
       if (props.wrap) {
         css.flexWrap = 'wrap'
+      }
+      if (props.center) {
+        css.justifyContent = 'center'
       }
     },
   },

@@ -404,7 +404,7 @@ const DisabledCustomButton = <Button disabled styles={{ Main: { css: {
 />`}
     >
       <ElementPreview.Preview>
-        <Horizontal css={{ flexWrap: 'wrap' }}>
+        <Horizontal wrap>
           <Input placeholder="with placeholder" />
           <Input placeholder="with placeholder" value="with value" onChange={() => {}} />
           <Input placeholder="is required" required />

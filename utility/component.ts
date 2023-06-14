@@ -1,6 +1,7 @@
-import { useMemo, ElementType } from 'react'
+import { ElementType } from 'react'
 import memoize from 'memoize-one'
 import type { CSS } from '@stitches/react'
+import { useDeepMemo } from './use-deep-memo'
 import { naven } from '../style'
 import { mergeStyles } from './merge-styles'
 import { initialize } from './initialize'
@@ -51,7 +52,7 @@ export const createComponent = <Styles extends { Main: any }>(initialStyles: () 
         defaultWatchProps = defaultWatchProps.concat(resolvedProps)
       }
 
-      const Sheet = useMemo(() => {
+      const Sheet = useDeepMemo(() => {
         const merged = mergeStyles(stylesMemoized(), removeStyles as Styles)
 
         const components = Object.keys(merged).reduce((previous, current) => {
