@@ -57,16 +57,31 @@
   },
   "type": "module",
   "sideEffects": false,
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
   "exports": {
-    ".": "./dist/index.js",
-    "./Code": "./dist/feature/Code.js",
-    "./Date": "./dist/feature/Date.js",
-    "./Dropdown": "./dist/feature/Dropdown.js",
-    "./Tooltip": "./dist/feature/Tooltip.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./Code": {
+      "types": "./dist/feature/Code.d.ts",
+      "default": "./dist/feature/Code.js"
+    },
+    "./Date": {
+      "types": "./dist/feature/Date.d.ts",
+      "default": "./dist/feature/Date.js"
+    },
+    "./Dropdown": {
+      "types": "./dist/feature/Dropdown.d.ts",
+      "default": "./dist/feature/Dropdown.js"
+    },
+    "./Tooltip": {
+      "types": "./dist/feature/Tooltip.d.ts",
+      "default": "./dist/feature/Tooltip.js"
+    }
   },
-  "source": "index.ts",
-  "types": "dist/index.d.ts",
+  "source": "./index.ts",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -117,17 +132,10 @@
     },
     "transformIgnorePatterns": []
   },
+  "publishConfig": {
+    "provenance": true
+  },
   "engines": {
     "node": ">= 16"
-  },
-  "typesVersions": {
-    "*": {
-      "dist/index.d.ts": [
-        "dist/index.d.ts"
-      ],
-      "*": [
-        "dist/feature/*"
-      ]
-    }
   }
 }

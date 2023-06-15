@@ -14,6 +14,7 @@ import {
   Input,
   Checkbox,
   useBreakpoint,
+  TextLink,
 } from 'naven'
 import Dropdown from 'naven/Dropdown'
 import Code from 'naven/Code'
@@ -130,7 +131,7 @@ const Body = () => {
   return (
     <>
       <Header wide>
-        {({ TitleText, Meta, Navigation }) => (
+        {({ TitleText, Meta, Navigation, Middle }) => (
           <>
             <TitleText>naven Demo</TitleText>
             <Meta
@@ -149,6 +150,9 @@ const Body = () => {
                 },
               ]}
             />
+            <Middle>
+              <TextLink href="http://google.com">I'm in the Middle</TextLink>
+            </Middle>
             <Navigation links={navigationLinks} />
           </>
         )}

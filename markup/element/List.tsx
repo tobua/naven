@@ -105,17 +105,20 @@ export default createComponent(styles)<Props>(
     const renderedChildren =
       typeof children === 'function' ? children({ Description: DescriptionList }) : children
 
-    const renderItem = useCallback((innerChildren: ReactNode | ReactNode[], key = 0) => {
-      if (props.type === 'description') {
-        return <Fragment key={key}>{innerChildren}</Fragment>
-      }
+    const renderItem = useCallback(
+      (innerChildren: ReactNode | ReactNode[], key = 0) => {
+        if (props.type === 'description') {
+          return <Fragment key={key}>{innerChildren}</Fragment>
+        }
 
-      return (
-        <Sheet.Item.Component css={Sheet.Item.css} key={key} {...elementProps}>
-          {innerChildren}
-        </Sheet.Item.Component>
-      )
-    }, [])
+        return (
+          <Sheet.Item.Component css={Sheet.Item.css} key={key} {...elementProps}>
+            {innerChildren}
+          </Sheet.Item.Component>
+        )
+      },
+      [children]
+    )
 
     const renderItems = useCallback(() => {
       if (!Array.isArray(renderedChildren)) {
@@ -123,7 +126,7 @@ export default createComponent(styles)<Props>(
       }
 
       return renderedChildren.map((child, index) => renderItem(child, index))
-    }, [])
+    }, [children])
 
     return (
       <Sheet.Main.Component as={getTag(type)} css={Sheet.Main.css} type={type} {...otherProps}>

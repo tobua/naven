@@ -1,12 +1,13 @@
 import React, {
   useState,
-  useMemo,
   HTMLAttributes,
   useEffect,
   useRef,
   ReactNode,
+  ReactElement,
   useCallback,
   DetailedHTMLProps,
+  cloneElement,
 } from 'react'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { naven } from '../../style'
@@ -17,17 +18,16 @@ import TextLink from '../text/Link'
 import Spacer from '../element/Spacer'
 import Menu from '../icon/Menu'
 import Close from '../icon/Close'
-import { mergeStyles } from '../../utility/merge-styles'
 
 export interface Props {
   Component: {
     children: ReactNode
     linkActive?: (url: string) => boolean
     links?: NavigationLinks
-    middle?: ReactNode
-    meta?: ReactNode
+    middle?: ReactElement
+    meta?: ReactElement
   } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
-  Main: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  Main: { show: boolean } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
   TabElement: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 }
 
@@ -39,13 +39,27 @@ const styles = () => ({
       gridColumn: '1 / 5',
       gridRow: 2,
       zIndex: naven.layer.Navigation,
-
       '@phone': {
         /* Avoids grid space, while absolute children still visible. */
         display: 'contents',
         position: 'inherit',
         flexDirection: 'column',
         overflow: 'auto',
+      },
+      variants: {
+        show: {
+          true: {
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            margin: naven.theme.space.medium,
+            display: 'flex',
+            background: naven.theme.color.background,
+            height: `calc(100vh - ${naven.theme.space.medium} - 2 * ${naven.theme.space.small})`,
+          },
+        },
       },
     },
   },
@@ -88,10 +102,18 @@ const styles = () => ({
   ToggleIconWrapper: {
     tag: 'div',
     css: {
+      // Align to right.
+      gridColumn: '5 / 5',
       display: 'flex',
-      position: 'absolute',
-      top: naven.theme.space.small,
-      right: naven.theme.space.small,
+      justifyContent: 'flex-end',
+      variants: {
+        open: {
+          true: {
+            position: 'absolute',
+            right: 0,
+          },
+        },
+      },
     },
   },
   TabElement: {
@@ -109,14 +131,6 @@ const styles = () => ({
   },
 })
 
-// const listElementStyles = () => ({
-//   padding: 0,
-//   marginRight: naven.theme.space.small,
-//   '@phone': {
-//     marginBottom: naven.theme.space.medium,
-//   },
-// })
-
 type NavigationLinks = {
   title: Link | OptionalLink
   links?: Link[]
@@ -126,21 +140,6 @@ export default createComponent(styles)<Props>(function Navigation({ props, Sheet
   const { children, links = [], linkActive = () => false, meta, middle, ...otherProps } = props
   const scrollContainerRef = useRef()
   const [showNavigation, setShowNavigation] = useState(false)
-
-  const showNavigationStyles = useMemo(
-    () => ({
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      margin: naven.theme.space.medium,
-      display: 'flex',
-      background: naven.theme.color.background,
-      height: `calc(100vh - ${naven.theme.space.medium} - 2 * ${naven.theme.space.small})`,
-    }),
-    []
-  )
 
   useEffect(() => {
     if (scrollContainerRef.current && showNavigation) {
@@ -166,7 +165,8 @@ export default createComponent(styles)<Props>(function Navigation({ props, Sheet
     }
 
     return (
-      <Sheet.ToggleIconWrapper.Component css={Sheet.ToggleIconWrapper.css}>
+      // @ts-ignore
+      <Sheet.ToggleIconWrapper.Component css={Sheet.ToggleIconWrapper.css} open={showNavigation}>
         {showNavigation ? (
           <Close onClick={() => setShowNavigation(false)} css={iconStyles} />
         ) : (
@@ -200,19 +200,22 @@ export default createComponent(styles)<Props>(function Navigation({ props, Sheet
     )
   }, [])
 
-  const wrapperStyles = mergeStyles(Sheet.Main.css, showNavigation ? showNavigationStyles : {})
-
   return (
-    <Sheet.Main.Component css={wrapperStyles} {...otherProps} ref={scrollContainerRef}>
+    <Sheet.Main.Component
+      css={Sheet.Main.css}
+      {...otherProps}
+      show={showNavigation}
+      ref={scrollContainerRef}
+    >
       <ToggleIcon />
       <List
         css={{
           '@phone': {
             display: showNavigation ? 'flex' : 'none',
             flexDirection: 'column',
+            gap: naven.theme.space.medium,
           },
         }}
-        // elementProps={{ css: listElementStyles() }}
         horizontal
       >
         {links.map((link) => (
@@ -236,13 +239,14 @@ export default createComponent(styles)<Props>(function Navigation({ props, Sheet
         <>
           {meta || middle ? (
             <>
+              <Spacer />
               <Spacer line />
               <Spacer />
             </>
           ) : null}
-          {meta}
+          {meta && cloneElement(meta, { open: true })}
           {middle && meta ? <Spacer /> : null}
-          {middle}
+          {middle && cloneElement(middle, { open: true })}
         </>
       )}
     </Sheet.Main.Component>

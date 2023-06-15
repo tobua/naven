@@ -2,7 +2,12 @@
   "papua": {
     "title": "naven Demo",
     "publicPath": "/naven/demo",
-    "icon": "../logo.svg"
+    "icon": "../logo.svg",
+    "tsconfig": {
+      "compilerOptions": {
+        "moduleResolution": "bundler"
+      }
+    }
   },
   "dependencies": {
     "papua": "^4.2.9",

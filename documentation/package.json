@@ -1,6 +1,11 @@
 {
   "papua": {
-    "title": "naven Documentation"
+    "title": "naven Documentation",
+    "tsconfig": {
+      "compilerOptions": {
+        "moduleResolution": "bundler"
+      }
+    }
   },
   "dependencies": {
     "deep-object-diff": "^1.1.9",

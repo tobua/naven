@@ -8,6 +8,7 @@ import React, {
   DetailedHTMLProps,
   HTMLAttributes,
   ReactElement,
+  Fragment,
 } from 'react'
 import type { CSS } from '@stitches/react'
 import { naven, unit } from '../../style'
@@ -34,6 +35,7 @@ type MetaProps = {
   links?: LinkType[]
   hideMobile?: boolean
   navigation?: boolean
+  open?: boolean
   children?: ReactNode
   css?: CSS
 }
@@ -76,8 +78,6 @@ const styles = () => ({
       '@phone': {
         gridTemplateColumns: 'auto',
         gap: naven.theme.space.medium,
-        /* TODO only if navigation links available */
-        paddingRight: naven.theme.space.large,
       },
     },
     props: (css, props) => {
@@ -89,11 +89,19 @@ const styles = () => ({
   Middle: {
     tag: 'aside',
     css: {
+      gridRow: '1',
       gridColumn: '3 / 3',
       justifySelf: 'center',
       '@phone': {
         // navigation => flex
         display: 'none',
+      },
+      variants: {
+        open: {
+          true: {
+            display: 'inherit',
+          },
+        },
       },
     },
   },
@@ -133,25 +141,24 @@ const styles = () => ({
 
 const mergeChildren = (children: any, innerComponents: any, Sheet: any) => {
   // Create a copy, so we can reassign.
-  const newChildren = Children.map(
-    Array.isArray(children) ? children : [children],
-    (child) => child
-  ).filter((child) => child.type)
-  // TODO type check fails when extended, perform deep check.
-  const navigationIndex = newChildren.findIndex(
-    (child) => child.type === innerComponents.Navigation
-  )
+  let newChildren = Children.map(Array.isArray(children) ? children : [children], (child) => child)
+
+  if (newChildren.length === 1 && newChildren[0].type === Fragment) {
+    newChildren = newChildren[0].props.children
+  }
+
+  const navigationChild = newChildren.find((child) => child.type === innerComponents.Navigation)
   const metaChild = newChildren.find((child) => child.type === innerComponents.Meta)
   const middle = newChildren.filter((child) => child.type === innerComponents.Middle)
 
-  if (navigationIndex !== -1 && (middle.length || metaChild)) {
+  if (navigationChild && (middle.length || metaChild)) {
     const navigationProps = {
       middle: undefined,
       meta: undefined,
       key: 1234,
     }
 
-    if (middle[0]) {
+    if (middle.length > 0) {
       navigationProps.middle = cloneElement(middle[0], {
         navigation: true,
       })
@@ -164,7 +171,13 @@ const mergeChildren = (children: any, innerComponents: any, Sheet: any) => {
       })
     }
 
-    newChildren[navigationIndex] = cloneElement(children[navigationIndex], navigationProps)
+    newChildren = Children.map(newChildren, (child) => {
+      if (child.type === innerComponents.Navigation) {
+        return cloneElement(navigationChild, navigationProps)
+      }
+
+      return child
+    })
   }
 
   return newChildren
@@ -205,6 +218,7 @@ export default createComponent(styles)<Props>(function Header({ props, Sheet }) 
       links = [],
       hideMobile = false,
       navigation = false,
+      open = false,
       children: innerChildren,
       css,
     }: MetaProps) => {
@@ -212,7 +226,7 @@ export default createComponent(styles)<Props>(function Header({ props, Sheet }) 
         () =>
           mergeStyles(
             {
-              '@phone': { display: !navigation && hideMobile ? 'flex' : 'none' },
+              '@phone': { display: (!navigation && hideMobile) || open ? 'flex' : 'none' },
             },
             mergeStyles(Sheet.MetaWrapper.css, css)
           ),
@@ -247,7 +261,9 @@ export default createComponent(styles)<Props>(function Header({ props, Sheet }) 
   )
 
   const innerComponents = {
-    Middle: Sheet.Middle,
+    Middle: (middleProps: any) => (
+      <Sheet.Middle.Component css={Sheet.Middle.css} {...middleProps} />
+    ),
     Meta,
     TitleText,
     TitleLink,
