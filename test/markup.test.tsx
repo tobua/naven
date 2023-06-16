@@ -61,3 +61,46 @@ test('Renders all top-level components.', () => {
 
   expect(markup).toBeDefined()
 })
+
+test('Header works with different configurations.', () => {
+  // Various components
+  let markup = create(
+    <Header>
+      {({ TitleLink, Navigation, Meta, Middle }) => (
+        <>
+          <TitleLink>Page Heading</TitleLink>
+          <Middle>
+            <p>Middle Content</p>
+          </Middle>
+          <Meta links={[]} />
+          <Navigation />
+        </>
+      )}
+    </Header>
+  ).toJSON()
+
+  expect(markup).toBeDefined()
+
+  // Empty React elements
+  markup = create(
+    <Header>
+      {({ TitleText }) => (
+        <>
+          <TitleText>naven App</TitleText>
+          {false}
+          {null}
+          {undefined}
+        </>
+      )}
+    </Header>
+  ).toJSON()
+
+  expect(markup).toBeDefined()
+
+  // No Fragment wrapper
+  markup = create(
+    <Header>{({ TitleText }) => <TitleText>Simple Header Text</TitleText>}</Header>
+  ).toJSON()
+
+  expect(markup).toBeDefined()
+})

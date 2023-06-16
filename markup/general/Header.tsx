@@ -21,6 +21,9 @@ import NavigationComponent from './Navigation'
 import TextLink from '../text/Link'
 import { Text } from '../text/Various'
 
+const isElement = (element: ReactElement) =>
+  element && typeof element === 'object' && Object.prototype.hasOwnProperty.call(element, 'type')
+
 type TitleLinkProps = {
   link?: string
   children?: ReactNode
@@ -141,15 +144,24 @@ const styles = () => ({
 
 const mergeChildren = (children: any, innerComponents: any, Sheet: any) => {
   // Create a copy, so we can reassign.
-  let newChildren = Children.map(Array.isArray(children) ? children : [children], (child) => child)
+  let newChildren: ReactElement[] = Children.map(
+    Array.isArray(children) ? children : [children],
+    (child) => child
+  )
 
-  if (newChildren.length === 1 && newChildren[0].type === Fragment) {
+  if (newChildren.length === 1 && isElement(newChildren[0]) && newChildren[0].type === Fragment) {
     newChildren = newChildren[0].props.children
   }
 
-  const navigationChild = newChildren.find((child) => child.type === innerComponents.Navigation)
-  const metaChild = newChildren.find((child) => child.type === innerComponents.Meta)
-  const middle = newChildren.filter((child) => child.type === innerComponents.Middle)
+  const navigationChild = newChildren.find(
+    (child) => isElement(child) && child.type === innerComponents.Navigation
+  )
+  const metaChild = newChildren.find(
+    (child) => isElement(child) && child.type === innerComponents.Meta
+  )
+  const middle = newChildren.filter(
+    (child) => isElement(child) && child.type === innerComponents.Middle
+  )
 
   if (navigationChild && (middle.length || metaChild)) {
     const navigationProps = {

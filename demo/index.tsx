@@ -229,6 +229,9 @@ const Body = () => {
           {`// Code block with React support by default.
 export const SayHello = () => <p>Hello World!</p>`}
         </Code>
+        <Code template="vanilla-ts">
+          {`const addition = (firstValue: number, secondValue: string): number => firstValue + Number(secondValue) // Does not support highlighting for TypeScript specifically.`}
+        </Code>
         <Code template="react-ts" diff={{ remove: [2], add: [3] }}>
           {`// TypeScript and Diff lines optional.
 - export const SayHello = () => <p>Hello World!</p>
