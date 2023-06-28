@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-select/dist/declarations/src/index.d.ts b/node_modules/react-select/dist/declarations/src/index.d.ts
+index 3571ff8..20e174c 100644
+--- a/node_modules/react-select/dist/declarations/src/index.d.ts
++++ b/node_modules/react-select/dist/declarations/src/index.d.ts
+@@ -7,6 +7,8 @@ export { mergeStyles } from './styles';
+ export { defaultTheme } from './theme';
+ export { createFilter } from './filters';
+ export { components } from './components';
++export * from './Select'
++export * from './useStateManager'
+ export declare type SelectInstance<Option = unknown, IsMulti extends boolean = false, Group extends GroupBase<Option> = GroupBase<Option>> = Select<Option, IsMulti, Group>;
+ export type { StateManagerProps as Props } from './useStateManager';
+ export { useStateManager };

@@ -3,6 +3,7 @@ import Select, { Props as SelectProps, StylesConfig, GroupBase, ActionMeta } fro
 import memoize from 'memoize-one'
 // @ts-ignore
 import { naven, unit, cssVariable, createComponent, mergeStyles } from 'naven'
+import { Token } from '../types'
 
 const blinkAnimation = memoize(() =>
   naven.keyframes({
@@ -20,6 +21,7 @@ export interface Props {
     required?: boolean
     containerStyles?: object
     backgroundColor?: string
+    onValue?: (value: string) => void
   } & SelectProps
 }
 
@@ -116,7 +118,7 @@ type Option = { value: any; label: string }
 export default createComponent(styles)<Props>(function Dropdown({ props, Sheet }) {
   if (
     typeof props.backgroundColor === 'object' &&
-    typeof props.backgroundColor.token === 'string'
+    typeof (props.backgroundColor as Token)?.token === 'string'
   ) {
     props.backgroundColor = cssVariable(props.backgroundColor)
   }
@@ -128,8 +130,7 @@ export default createComponent(styles)<Props>(function Dropdown({ props, Sheet }
   } = props
   const [active, setActive] = useState(false)
   const [value, setValue] = useState(otherProps.defaultValue)
-  // @ts-ignore
-  const Component = Select.default || Select // Required to render with Next.js
+  const Component = (Select as any).default || Select // Required to render with Next.js
 
   const hasAnimation = required && !active && !value
 

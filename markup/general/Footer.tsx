@@ -12,6 +12,8 @@ export interface Props {
   }
   TextLink: {
     bold?: boolean
+    href?: string
+    children: ReactNode
   } & AnchorHTMLAttributes<HTMLAnchorElement>
 }
 

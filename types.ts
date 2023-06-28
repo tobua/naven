@@ -1,11 +1,100 @@
 import type { ReactNode } from 'react'
-import type { StyledComponent } from '@stitches/react/types/styled-component'
 import type { CSS, keyframes, styled, createTheme, globalCss } from '@stitches/react'
-import type { Token } from '@stitches/react/types/theme'
-import type configureLayer from 'laier'
+
+export interface ScaleValue {
+  token: number | string
+  value: number | string
+  scale: string
+  prefix: string
+}
+
+// Taken from @stitches/react/types/theme which can no longer be directly imported with "exports"/
+export interface Token<
+  NameType extends number | string = string,
+  ValueType extends number | string = string,
+  ScaleType extends string | void = void,
+  PrefixType extends string | void = void
+> extends ScaleValue {
+  new (name: NameType, value: ValueType, scale?: ScaleType, prefix?: PrefixType): this
+  token: NameType
+  value: ValueType
+  scale: ScaleType extends string ? ScaleType : ''
+  prefix: PrefixType extends string ? PrefixType : ''
+  variable: `--${this['prefix'] extends '' ? '' : `${this['prefix']}-`}${this['scale'] extends ''
+    ? ''
+    : `${this['scale']}-`}${this['token']}`
+  computedValue: `var(${this['variable']})`
+  toString(): this['computedValue']
+}
+
+export type Assign<T1 = {}, T2 = {}> = T1 extends any ? Omit<T1, keyof T2> & T2 : never
+export type Prefixed<K extends string, T> = `${K}${Extract<T, boolean | number | string>}`
+export type IntrinsicElementsKeys = keyof JSX.IntrinsicElements
+export declare const $$StyledComponentType: unique symbol
+export declare const $$StyledComponentProps: unique symbol
+export declare const $$StyledComponentMedia: unique symbol
+export type TransformProps<Props, Media> = {
+  [K in keyof Props]:
+    | Props[K]
+    | ({
+        [KMedia in Prefixed<'@', 'initial' | keyof Media>]?: Props[K]
+      } & {
+        [KMedia in string]: Props[K]
+      })
+}
+
+// From @stitches/react/types/styled-component
+export interface StyledComponent<Type = 'span', Props = {}, Media = {}, StyledCSS = {}>
+  extends React.ForwardRefExoticComponent<
+    Assign<
+      Type extends IntrinsicElementsKeys | React.ComponentType<any>
+        ? React.ComponentPropsWithRef<Type>
+        : never,
+      TransformProps<Props, Media> & { css?: StyledCSS }
+    >
+  > {
+  (
+    props: Assign<
+      Type extends IntrinsicElementsKeys | React.ComponentType<any>
+        ? React.ComponentPropsWithRef<Type>
+        : {},
+      TransformProps<Props, Media> & {
+        as?: never
+        css?: StyledCSS
+      }
+    >
+  ): React.ReactElement | null
+
+  <
+    C extends StyledCSS,
+    As extends string | React.ComponentType<any> = Type extends string | React.ComponentType<any>
+      ? Type
+      : any,
+    InnerProps = Type extends StyledComponent<any, infer IP, any, any> ? IP : {}
+  >(
+    props: Assign<
+      React.ComponentPropsWithRef<
+        As extends IntrinsicElementsKeys | React.ComponentType<any> ? As : never
+      >,
+      TransformProps<Assign<InnerProps, Props>, Media> & {
+        as?: As
+        css?: {
+          [K in keyof C]: K extends keyof StyledCSS ? StyledCSS[K] : never
+        }
+      }
+    >
+  ): React.ReactElement | null
+
+  className: string
+  selector: string
+
+  [$$StyledComponentType]: Type
+  [$$StyledComponentProps]: Props
+  [$$StyledComponentMedia]: Media
+}
 
 // NOTE tag can't be inferred this way props have to be added manually.
-type CustomStyledComponent<
+export type CustomStyledComponent<
   Base extends { [key: string | number | symbol]: any },
   Props
 > = StyledComponent<Base['tag'], Props, {}, CSS>

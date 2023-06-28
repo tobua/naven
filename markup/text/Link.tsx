@@ -1,4 +1,5 @@
 import React, { AnchorHTMLAttributes, ReactNode, DetailedHTMLProps } from 'react'
+import type { CSS } from '@stitches/react'
 import { naven } from '../../style'
 import { createComponent } from '../../utility/component'
 
@@ -64,7 +65,7 @@ const styles = () => ({
         },
       },
     },
-    props: (innerStyles, props) => {
+    props: (innerStyles: CSS, props: Props['Component']) => {
       if (props.bold) {
         innerStyles.fontWeight = naven.theme.font.weightBold
       }

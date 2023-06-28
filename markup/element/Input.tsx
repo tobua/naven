@@ -1,9 +1,9 @@
 import React, { InputHTMLAttributes, useState, DetailedHTMLProps } from 'react'
-import type { Token } from '@stitches/react/types/theme'
 import { naven, unit } from '../../style'
 import { mergeStyles } from '../../utility/merge-styles'
 import { createComponent } from '../../utility/component'
 import { blinkAnimation } from '../../style/animation'
+import { Token } from '../../types'
 
 export interface Props {
   Component: {

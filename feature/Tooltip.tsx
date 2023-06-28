@@ -13,7 +13,7 @@ export interface Props {
 }
 
 const styles = () => ({
-  Wrapper: {
+  Main: {
     tag: 'div',
     main: true,
     css: {
@@ -154,8 +154,8 @@ export default createComponent(styles)<Props>(function Tooltip({ props, Sheet })
 
   return (
     <>
-      <Sheet.Wrapper.Component
-        css={Sheet.Wrapper.css}
+      <Sheet.Main.Component
+        css={Sheet.Main.css}
         ref={setReferenceElement}
         role="button"
         tabIndex={0}
@@ -170,7 +170,7 @@ export default createComponent(styles)<Props>(function Tooltip({ props, Sheet })
         {...otherProps}
       >
         {children}
-      </Sheet.Wrapper.Component>
+      </Sheet.Main.Component>
       {initialized && (
         <Content
           referenceElement={referenceElement}

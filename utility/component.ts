@@ -7,12 +7,26 @@ import { mergeStyles } from './merge-styles'
 import { initialize } from './initialize'
 import type { CSSValue, Sheet } from '../types'
 
+export interface ComponentSheet {
+  tag?: string
+  main?: boolean
+  space?: boolean
+  css?: CSS
+  // TODO better type
+  extends?: any
+}
+
 export interface DefaultProps {
   as?: ElementType<any>
   space?: CSSValue
 }
 
-export const createComponent = <Styles extends { Main: any }>(initialStyles: () => Styles) => {
+export const createComponent = <
+  T extends string,
+  Styles extends Record<T, ComponentSheet> & { Main: ComponentSheet }
+>(
+  initialStyles: () => Styles
+) => {
   const stylesMemoized = memoize(initialStyles)
   return <Props extends { Component: any }>(
     markup: ({

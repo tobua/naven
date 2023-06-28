@@ -1,3 +1,4 @@
+import { test, expect } from 'vitest'
 import { mergeStyles } from '../index'
 
 test('Correctly merges top-level styles.', () => {

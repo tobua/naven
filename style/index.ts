@@ -1,11 +1,10 @@
 import { wasser, globalVariables, configure, fontObject } from 'wasser'
 import configureLayer from 'laier'
-import { createStitches, CSS } from '@stitches/react'
-import type { Token } from '@stitches/react/types/theme'
+import { createStitches, CSS, CreateStitches } from '@stitches/react'
 import objectAssignDeep from 'object-assign-deep'
 import { resetStyles, rootStyles } from '../utility/global-styles'
 import { Breakpoint, configure as configureBreakpoints } from './breakpoint'
-import type { Naven, Layer } from '../types'
+import type { Naven, Layer, Token } from '../types'
 import { mergeStyles } from '../utility/merge-styles'
 
 export { useBreakpoint } from './breakpoint'
@@ -17,7 +16,7 @@ export const layer = configureLayer([
 ]) as unknown as Layer
 export const unit = wasser
 export const font = fontObject
-export const create = createStitches
+export const create = createStitches as CreateStitches
 // eslint-disable-next-line import/no-mutable-exports
 export let naven: Naven & { layer: Layer }
 

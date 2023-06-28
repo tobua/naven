@@ -1,3 +1,4 @@
+import { test, expect } from 'vitest'
 import { merge, create, register, naven } from '../index'
 
 test('Default values without configuration.', () => {

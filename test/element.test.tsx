@@ -1,9 +1,14 @@
+/**
+ * @vitest-environment jsdom
+ */
+
 import React from 'react'
+import { test, expect, vi } from 'vitest'
 import { render, fireEvent } from '@testing-library/react'
 import { Input } from '../index'
 
 test('Input onChange handler works as expected.', () => {
-  const onChangeMock = jest.fn()
+  const onChangeMock = vi.fn()
   const { container } = render(<Input onChange={onChangeMock} />)
 
   const input = container.querySelector('input')
@@ -19,7 +24,7 @@ test('Input onChange handler works as expected.', () => {
 })
 
 test('Input onValue handler works as expected.', () => {
-  const onValueMock = jest.fn()
+  const onValueMock = vi.fn()
   const { container } = render(<Input onValue={onValueMock} />)
 
   const input = container.querySelector('input')
@@ -34,8 +39,8 @@ test('Input onValue handler works as expected.', () => {
 })
 
 test('Input onValue and onChange handlers combined work as expected.', () => {
-  const onValueMock = jest.fn()
-  const onChangeMock = jest.fn()
+  const onValueMock = vi.fn()
+  const onChangeMock = vi.fn()
   const { container } = render(<Input onValue={onValueMock} onChange={onChangeMock} />)
 
   const input = container.querySelector('input')

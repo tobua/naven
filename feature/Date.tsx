@@ -1,5 +1,5 @@
-import React, { HTMLAttributes, useState, Component, DetailedHTMLProps } from 'react'
-import ReactDatePicker from 'react-datepicker'
+import React, { useState, Component } from 'react'
+import ReactDatePicker, { ReactDatePickerProps } from 'react-datepicker'
 // @ts-ignore
 import { Input, createComponent } from 'naven'
 
@@ -7,7 +7,7 @@ export interface Props {
   Component: {
     initialDate?: Date | null
     onChange?: (date: Date) => void
-  } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  } & ReactDatePickerProps
 }
 
 const styles = () => ({

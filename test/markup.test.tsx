@@ -1,4 +1,5 @@
 import React from 'react'
+import { test, expect } from 'vitest'
 import { create } from 'react-test-renderer'
 import { Content, Header, Footer } from '../index'
 
