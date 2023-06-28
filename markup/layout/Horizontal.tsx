@@ -37,7 +37,7 @@ const styles = () => ({
 
 export default createComponent(styles)<Props>(
   function Horizontal({ props, Sheet }) {
-    const { children, wrap, ...otherProps } = props
+    const { children, wrap, center, ...otherProps } = props
     return (
       <Sheet.Main.Component css={Sheet.Main.css} {...otherProps}>
         {children}
