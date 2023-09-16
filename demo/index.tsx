@@ -15,6 +15,7 @@ import {
   Checkbox,
   useBreakpoint,
   TextLink,
+  unit,
 } from 'naven'
 import Dropdown from 'naven/Dropdown'
 import Code from 'naven/Code'
@@ -208,6 +209,16 @@ const Body = () => {
             value={requiredInput}
             onValue={setRequiredInput}
             required
+          />
+          <Input
+            placeholder="Customized Elements"
+            styles={{
+              Main: { css: { background: theme.color.background } },
+              Cursor: { tag: 'div', css: { marginRight: unit(12) } },
+              Input: {
+                css: { background: theme.color.gray200, color: theme.color.interact },
+              },
+            }}
           />
           <Checkbox label="Really?" />
         </Horizontal>

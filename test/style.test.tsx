@@ -19,3 +19,9 @@ test('Correctly merges nested styles not present initially.', () => {
   expect(result.display).toEqual('none')
   expect(result['@phone'].display).toEqual('flex')
 })
+
+test('Order is respected.', () => {
+  const result = mergeStyles({ alignSelf: 'normal' }, { alignSelf: 'center' })
+
+  expect(result.alignSelf).toEqual('center')
+})

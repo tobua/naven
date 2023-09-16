@@ -33,10 +33,11 @@ export default createComponent(styles)<Props>(function DatePicker({ props, Sheet
   const { initialDate = new Date(), onChange, ...otherProps } = props
   // Hook inside result will fail.
   const [startDate, setStartDate] = useState(initialDate)
+  const Component = (ReactDatePicker as any).default || ReactDatePicker
 
   return (
     <Sheet.Main.Component css={Sheet.Main.css}>
-      <ReactDatePicker
+      <Component
         selected={startDate}
         onChange={(date: Date) => {
           if (onChange) {

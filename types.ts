@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, ElementType } from 'react'
 import type { CSS, keyframes, styled, createTheme, globalCss } from '@stitches/react'
 
 export interface ScaleValue {
@@ -13,7 +13,7 @@ export interface Token<
   NameType extends number | string = string,
   ValueType extends number | string = string,
   ScaleType extends string | void = void,
-  PrefixType extends string | void = void
+  PrefixType extends string | void = void,
 > extends ScaleValue {
   new (name: NameType, value: ValueType, scale?: ScaleType, prefix?: PrefixType): this
   token: NameType
@@ -70,7 +70,7 @@ export interface StyledComponent<Type = 'span', Props = {}, Media = {}, StyledCS
     As extends string | React.ComponentType<any> = Type extends string | React.ComponentType<any>
       ? Type
       : any,
-    InnerProps = Type extends StyledComponent<any, infer IP, any, any> ? IP : {}
+    InnerProps = Type extends StyledComponent<any, infer IP, any, any> ? IP : {},
   >(
     props: Assign<
       React.ComponentPropsWithRef<
@@ -96,7 +96,7 @@ export interface StyledComponent<Type = 'span', Props = {}, Media = {}, StyledCS
 // NOTE tag can't be inferred this way props have to be added manually.
 export type CustomStyledComponent<
   Base extends { [key: string | number | symbol]: any },
-  Props
+  Props,
 > = StyledComponent<Base['tag'], Props, {}, CSS>
 
 export type Sheet<Styles, Props extends { [key: string | number | symbol]: any }> = {
@@ -210,4 +210,24 @@ export type Layer = { [x: string]: number }
 
 export interface IBreakpoint {
   [key: string]: number
+}
+
+export interface ComponentSheet {
+  tag?: string
+  main?: boolean
+  space?: boolean
+  css?: CSS
+  // TODO better type
+  extends?: any
+}
+
+export interface CustomStyles {
+  css?: CSS
+  tag?: string
+  props?: Function
+}
+
+export interface DefaultProps {
+  as?: ElementType<any>
+  space?: CSSValue
 }

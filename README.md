@@ -359,6 +359,30 @@ const CustomSizedBoldItalicLargeText = {
 }
 ```
 
+## Custom Styles for Individual Elements
+
+While the `css` property will apply custom styles to the main tag, the `styles` property can be used to customize the styles and other attributes for any component rendered inside.
+
+```jsx
+import { Input, Button, theme } from 'naven'
+
+const CustomInput = (
+  <Input
+    styles={{
+      Main: { css: { background: theme.color.background } },
+      Cursor: { tag: 'div', css: { marginRight: unit(12) } }, // tag can be customized as well.
+      Input: { css: { padding: theme.space.small } }, // Styles from "css" property also go to Input.
+    }}
+  />
+)
+
+const MyAlert = (
+  <Alert closeable styles={{ CloseContainer: { css: { right: theme.space.large } } }}>
+    Hey
+  </Alert>
+)
+```
+
 ## Development
 
 To view your changes live run `npm start` in the `/demo` or `/documentation` folder. This will open a preview in the browser and automatically build and watch the plugin for changes.

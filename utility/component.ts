@@ -1,29 +1,14 @@
-import { ElementType } from 'react'
 import memoize from 'memoize-one'
 import type { CSS } from '@stitches/react'
 import { useDeepMemo } from './use-deep-memo'
 import { naven } from '../style'
 import { mergeStyles } from './merge-styles'
 import { initialize } from './initialize'
-import type { CSSValue, Sheet } from '../types'
-
-export interface ComponentSheet {
-  tag?: string
-  main?: boolean
-  space?: boolean
-  css?: CSS
-  // TODO better type
-  extends?: any
-}
-
-export interface DefaultProps {
-  as?: ElementType<any>
-  space?: CSSValue
-}
+import type { Sheet, ComponentSheet, CustomStyles, DefaultProps } from '../types'
 
 export const createComponent = <
   T extends string,
-  Styles extends Record<T, ComponentSheet> & { Main: ComponentSheet }
+  Styles extends Record<T, ComponentSheet> & { Main: ComponentSheet },
 >(
   initialStyles: () => Styles
 ) => {
@@ -41,7 +26,7 @@ export const createComponent = <
     const NavenComponent = (
       props: Props['Component'] &
         DefaultProps & {
-          styles?: { [Property in keyof Styles]?: { css?: CSS } }
+          styles?: { [Property in keyof Styles]?: CustomStyles }
           css?: CSS
         }
     ) => {
