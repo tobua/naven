@@ -26,6 +26,7 @@ const styles = () => ({
       borderWidth: 1,
       borderColor: naven.theme.color.highlight,
       borderStyle: 'solid',
+      borderRadius: naven.theme.look.radius,
       variants: {
         type: {
           info: {
