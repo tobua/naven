@@ -1,5 +1,5 @@
-import React, { useState, HTMLAttributes, ReactNode, DetailedHTMLProps } from 'react'
-import { usePopper } from 'react-popper'
+import React, { useState, HTMLAttributes, ReactNode, DetailedHTMLProps, useRef } from 'react'
+import { useFloating, FloatingArrow, arrow as arrowMiddleware } from '@floating-ui/react'
 // @ts-ignore
 import { createComponent } from 'naven'
 
@@ -23,7 +23,6 @@ const styles = () => ({
 })
 
 const wrapper = {
-  marginLeft: 10,
   padding: 10,
   backgroundColor: 'white',
   borderRadius: 5,
@@ -68,119 +67,94 @@ const hideBorder = {
   background: 'white',
 }
 
-const arrowStyle = {
-  width: 10,
-  height: 10,
-  marginLeft: 5,
-  background: 'white',
-  borderLeft: '1px solid black',
-  borderBottom: '1px solid black',
-  transform: 'rotate(45deg)',
-}
-
-interface ContentProps {
-  children: ReactNode
-  referenceElement: any
-  open: boolean
-  setOpen: (state: boolean) => void
-  arrow?: boolean
-  close?: boolean
-}
-
-const Content = ({ children, referenceElement, open, setOpen, arrow, close }: ContentProps) => {
-  const [popperElement, setPopperElement] = useState(null)
-  const [arrowElement, setArrowElement] = useState(null)
-
-  const { styles: popperStyles, attributes } = usePopper(referenceElement, popperElement, {
-    modifiers: [{ name: 'arrow', options: { element: arrowElement } }],
-    placement: 'right',
-  })
-
-  return (
-    <div
-      ref={setPopperElement}
-      style={{
-        ...popperStyles.popper,
-        ...{
-          opacity: open ? 1 : 0,
-          pointerEvents: open ? 'inherit' : 'none',
-          // Otherwise tooltip overlaid by number input switches in safari.
-          zIndex: 1,
-        },
-      }}
-      {...attributes.popper}
-    >
-      <div style={wrapper}>{children}</div>
-      {arrow && (
-        <div ref={setArrowElement} style={popperStyles.arrow}>
-          <div style={arrowStyle} />
-        </div>
-      )}
-      {close && (
-        <button
-          style={closeStyle}
-          type="button"
-          onClick={() => {
-            setOpen(false)
-          }}
-          onKeyUp={(event) => {
-            if (event.key === 'Escape') {
-              setOpen(false)
-            }
-          }}
-        >
-          <span style={hideBorder} />
-          <span style={closeLine(45)} />
-          <span style={closeLine(-45)} />
-        </button>
-      )}
-    </div>
-  )
-}
-
+// BONUS closes with react-onclickoutside
 export default createComponent(styles)<Props>(function Tooltip({ props, Sheet }) {
   const { children, content, arrow = true, close = false, ...otherProps } = props
-  const [referenceElement, setReferenceElement] = useState(null)
-  // Only initialize plugin (absolutely position hidden tooltip element)
-  // when it's actually needed.
-  const [initialized, setInitialized] = useState(false)
-  // Once initialized the tooltip content is always rendered but only
-  // visible if it's currently open.
   const [open, setOpen] = useState(false)
-
-  if (open && !initialized) {
-    setInitialized(true)
-  }
+  const arrowRef = useRef(null)
+  const { refs, floatingStyles, context } = useFloating({
+    open,
+    onOpenChange: setOpen,
+    placement: 'right',
+    middleware: [
+      arrowMiddleware({
+        element: arrowRef,
+      }),
+    ],
+  })
 
   return (
     <>
       <Sheet.Main.Component
         css={Sheet.Main.css}
-        ref={setReferenceElement}
-        role="button"
-        tabIndex={0}
+        ref={refs.setReference}
         aria-label="Open tooltip"
+        tabIndex={0}
         onMouseEnter={() => setOpen(true)}
+        onClick={() => setOpen(!open)}
         onKeyUp={(event) => {
           if (event.key === 'Enter') {
             setOpen(!open)
           }
         }}
-        onClick={() => setOpen(!open)}
+        role="button"
         {...otherProps}
       >
         {children}
       </Sheet.Main.Component>
-      {initialized && (
-        <Content
-          referenceElement={referenceElement}
-          arrow={arrow}
-          close={close}
-          open={open}
-          setOpen={setOpen}
+      {open && (
+        <div
+          ref={refs.setFloating}
+          style={{
+            ...floatingStyles,
+            ...{
+              opacity: open ? 1 : 0,
+              pointerEvents: open ? 'inherit' : 'none',
+              // Otherwise tooltip overlaid by number input switches in safari.
+              zIndex: 1,
+              marginLeft: 10,
+            },
+          }}
         >
-          {content}
-        </Content>
+          <div
+            style={{
+              ...wrapper,
+              ...(arrow && {
+                marginLeft: -1,
+              }),
+            }}
+          >
+            {content}
+          </div>
+          {arrow && (
+            <FloatingArrow
+              ref={arrowRef}
+              context={context}
+              stroke="black"
+              fill="white"
+              strokeWidth={1}
+            />
+          )}
+          {close && (
+            <button
+              style={closeStyle}
+              type="button"
+              aria-label="Tooltip content"
+              onClick={() => {
+                setOpen(false)
+              }}
+              onKeyUp={(event) => {
+                if (event.key === 'Escape') {
+                  setOpen(false)
+                }
+              }}
+            >
+              <span style={hideBorder} />
+              <span style={closeLine(45)} />
+              <span style={closeLine(-45)} />
+            </button>
+          )}
+        </div>
       )}
     </>
   )

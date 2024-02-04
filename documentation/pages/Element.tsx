@@ -781,6 +781,9 @@ addNotification({ message: 'Failed to get data, please try again later.', type: 
           <Tooltip content={<Text>Hello content</Text>}>
             <Text>Hover or click to show tooltip.</Text>
           </Tooltip>
+          <Tooltip close content={<Text>Content!</Text>}>
+            <Text>This tooltip can be closed.</Text>
+          </Tooltip>
         </Horizontal>
       </ElementPreview.Preview>
       <PropertyTable space={false}>
