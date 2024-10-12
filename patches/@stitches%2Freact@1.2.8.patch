@@ -1,0 +1,15 @@
+diff --git a/types/index.d.ts b/types/index.d.ts
+index 8dbcc9cad3f6c556a3f370065dd95300a02dd973..a038b557840d4fec30fb05ca795e0ddbb0435ab3 100644
+--- a/types/index.d.ts
++++ b/types/index.d.ts
+@@ -4,8 +4,9 @@ import type * as Config from './config'
+ import type * as CSSUtil from './css-util'
+ import type * as StyledComponent from './styled-component'
+ 
++export type { CreateStitches } from './config'
++
+ export { $$PropertyValue, $$ScaleValue, $$ThemeValue } from './css-util'
+-export type CreateStitches = Config.CreateStitches
+ export type CSSProperties = CSSUtil.CSSProperties
+ export type DefaultThemeMap = Config.DefaultThemeMap
+ 

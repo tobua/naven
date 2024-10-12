@@ -11,17 +11,18 @@ jobs:
       id-token: write
       contents: write
     steps:
-      - uses: actions/checkout@v3
-      - run: npm install --legacy-peer-deps
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
       - name: 🚧 Build
-        run: npm run build
+        run: bun run build
       - name: 🧪 Test
-        run: npm test
+        run: bun run test
       - name: 🛠️ Build Demo
         run: |
           cd demo
-          npm install
-          npx papua build
+          bun install
+          bun papua build
       - name: 🚀 Publish Demo
         uses: JamesIves/github-pages-deploy-action@v4
         with:
@@ -31,15 +32,14 @@ jobs:
       - name: 🛠️ Build Documentation
         run: |
           cd documentation
-          npm install --legacy-peer-deps
-          npx papua build
+          bun install
+          bun papua build
       - name: 🚀 Publish Documentation
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: publish
           folder: documentation/dist
           target-folder: documentation
-      - run: npm install -g npm@latest
-      - uses: tobua/release-npm-action@v2
+      - uses: tobua/release-npm-action@v3
         with:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

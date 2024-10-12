@@ -7,7 +7,7 @@
   "license": "MIT",
   "author": "Matthias Giger",
   "scripts": {
-    "build": "patch-package && padua build",
+    "build": "padua build",
     "start": "padua watch",
     "test": "vitest run"
   },
@@ -25,37 +25,36 @@
     "entry": "feature/*"
   },
   "dependencies": {
-    "@codesandbox/sandpack-react": "^2.11.3",
+    "@codesandbox/sandpack-react": "^2.19.9",
     "@codesandbox/sandpack-themes": "^2.0.21",
-    "@floating-ui/react": "^0.26.9",
+    "@floating-ui/react": "^0.26.24",
     "@stitches/react": "^1.2.8",
-    "@types/react": "^18.2.52",
-    "body-scroll-lock": "^3.1.5",
+    "@types/react": "^18.3.11",
+    "body-scroll-lock": "^4.0.0-beta.0",
     "fast-deep-equal": "^3.1.3",
-    "laier": "^1.2.2",
+    "laier": "^1.2.3",
     "memoize-one": "^6.0.0",
     "object-assign-deep": "^0.4.0",
-    "react-datepicker": "^6.1.0",
-    "react-select": "^5.8.0",
-    "throttle-debounce": "^5.0.0",
-    "wasser": "^2.5.0"
+    "react-datepicker": "^7.4.0",
+    "react-select": "^5.8.1",
+    "throttle-debounce": "^5.0.2",
+    "wasser": "^2.6.0"
   },
   "devDependencies": {
-    "@testing-library/react": "^14.2.1",
+    "@testing-library/react": "^16.0.1",
     "@types/body-scroll-lock": "^3.1.2",
-    "@types/jest": "^29.5.12",
-    "@types/node": "^20.11.16",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^22.7.5",
     "@types/object-assign-deep": "^0.4.3",
-    "@types/react-datepicker": "^4.19.5",
-    "@types/react-dom": "^18.2.18",
+    "@types/react-datepicker": "^7.0.0",
+    "@types/react-dom": "^18.3.1",
     "@types/throttle-debounce": "^5.0.2",
     "jest-environment-jsdom": "^29.7.0",
-    "padua": "^2.0.9",
-    "patch-package": "^8.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-test-renderer": "^18.2.0",
-    "vitest": "^1.2.2"
+    "padua": "^4.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-test-renderer": "^18.3.1",
+    "vitest": "^2.1.2"
   },
   "peerDependencies": {
     "react": ">= 18"
@@ -110,5 +109,9 @@
   },
   "engines": {
     "node": ">= 18"
+  },
+  "patchedDependencies": {
+    "react-select@5.8.1": "patches/react-select@5.8.1.patch",
+    "@stitches/react@1.2.8": "patches/@stitches%2Freact@1.2.8.patch"
   }
 }

@@ -107,7 +107,7 @@ const Body = () => {
           highlight: theme.color.warning.value,
         },
       }),
-    []
+    [],
   )
   const darkThemeClass = useMemo(
     () =>
@@ -117,7 +117,7 @@ const Body = () => {
           background: theme.color.black.value,
         },
       }),
-    []
+    [],
   )
   const toggleTheme = useCallback(() => {
     const nextTheme = userTheme === 'light' ? 'dark' : 'light'
@@ -187,7 +187,7 @@ const Body = () => {
               { label: 'Mrs.', value: 'female' },
               { label: 'Mr.', value: 'male' },
             ]}
-            backgroundColor={theme.color.gray100}
+            backgroundColor={theme.color.gray100 as unknown as string}
           />
           <Dropdown
             options={[
@@ -196,7 +196,7 @@ const Body = () => {
             ]}
             onChange={(value) => console.log('dropdown:', value)}
             placeholder="Required value"
-            backgroundColor={theme.color.gray100}
+            backgroundColor={theme.color.gray100 as unknown as string}
             required
           />
           {/* Wrapping with css object used to cause issues when value changed. */}

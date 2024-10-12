@@ -5,11 +5,12 @@ import { createComponent } from 'naven'
 
 export interface Props {
   Component: {
-    content: ReactNode
     arrow?: boolean
     close?: boolean
     children: ReactNode
-  } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  } & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, 'content'> & {
+      content: ReactNode
+    }
 }
 
 const styles = () => ({

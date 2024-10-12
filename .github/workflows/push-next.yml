@@ -8,10 +8,11 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - run: npm install
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
       - name: 🚧 Build
-        run: npm run build
+        run: bun run build
       - name: 🔢 Custom Version
         run: npm version 0.0.0-next-${{ github.sha }} --git-tag-version false
       - name: 🚀 Publish next tag

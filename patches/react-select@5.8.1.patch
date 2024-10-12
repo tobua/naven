@@ -1,7 +1,7 @@
-diff --git a/node_modules/react-select/dist/declarations/src/index.d.ts b/node_modules/react-select/dist/declarations/src/index.d.ts
-index 3571ff8..20e174c 100644
---- a/node_modules/react-select/dist/declarations/src/index.d.ts
-+++ b/node_modules/react-select/dist/declarations/src/index.d.ts
+diff --git a/dist/declarations/src/index.d.ts b/dist/declarations/src/index.d.ts
+index 3571ff8baf0d542d7d43191dd4bb16aa7945498d..20e174c6ff48a3cece6e14fd8bbf189e9c5d9158 100644
+--- a/dist/declarations/src/index.d.ts
++++ b/dist/declarations/src/index.d.ts
 @@ -7,6 +7,8 @@ export { mergeStyles } from './styles';
  export { defaultTheme } from './theme';
  export { createFilter } from './filters';

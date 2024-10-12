@@ -13,7 +13,7 @@ const blinkAnimation = memoize(() =>
     to: {
       opacity: 0,
     },
-  })
+  }),
 )
 
 export interface Props {
@@ -144,7 +144,7 @@ export default createComponent(styles)<Props>(function Dropdown({ props, Sheet }
       }
       setValue(currentValue)
     },
-    [props.onChange]
+    [props.onChange],
   )
 
   return (
@@ -155,7 +155,7 @@ export default createComponent(styles)<Props>(function Dropdown({ props, Sheet }
             animation: hasAnimation ? `${blinkAnimation()} 1s linear infinite alternate` : 'none',
             background: active ? naven.theme.color.backgroundContrast : naven.theme.color.gray500,
           },
-          Sheet.Cursor.css
+          Sheet.Cursor.css,
         )}
       />
       <Component

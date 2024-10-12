@@ -12,11 +12,11 @@
     "deepmerge": "^4.3.1",
     "epic-react-router": "^3.0.5",
     "konfi": "^1.0.0",
-    "mobx": "^6.12.0",
-    "mobx-react-lite": "^4.0.5",
-    "papua": "^5.9.7",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "mobx": "^6.13.3",
+    "mobx-react-lite": "^4.0.7",
+    "papua": "^6.0.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "localDependencies": {
     "naven": ".."

@@ -1,5 +1,5 @@
 import React, { useState, Component } from 'react'
-import ReactDatePicker, { ReactDatePickerProps } from 'react-datepicker'
+import ReactDatePicker, { DatePickerProps } from 'react-datepicker'
 // @ts-ignore
 import { Input, createComponent } from 'naven'
 
@@ -7,7 +7,7 @@ export interface Props {
   Component: {
     initialDate?: Date | null
     onChange?: (date: Date) => void
-  } & ReactDatePickerProps
+  } & DatePickerProps
 }
 
 const styles = () => ({
@@ -33,11 +33,11 @@ export default createComponent(styles)<Props>(function DatePicker({ props, Sheet
   const { initialDate = new Date(), onChange, ...otherProps } = props
   // Hook inside result will fail.
   const [startDate, setStartDate] = useState(initialDate)
-  const Component = (ReactDatePicker as any).default || ReactDatePicker
+  const PickerComponent = (ReactDatePicker as any).default || ReactDatePicker
 
   return (
     <Sheet.Main.Component css={Sheet.Main.css}>
-      <Component
+      <PickerComponent
         selected={startDate}
         onChange={(date: Date) => {
           if (onChange) {

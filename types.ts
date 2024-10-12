@@ -62,7 +62,7 @@ export interface StyledComponent<Type = 'span', Props = {}, Media = {}, StyledCS
         as?: never
         css?: StyledCSS
       }
-    >
+    >,
   ): React.ReactElement | null
 
   <
@@ -82,7 +82,7 @@ export interface StyledComponent<Type = 'span', Props = {}, Media = {}, StyledCS
           [K in keyof C]: K extends keyof StyledCSS ? StyledCSS[K] : never
         }
       }
-    >
+    >,
   ): React.ReactElement | null
 
   className: string
@@ -126,7 +126,7 @@ export type Optional<Type> = {
 //   [key: string]: TagStyles<Props>
 // }
 
-export type CSSValue = string | number | Token<string, string, string, string>
+export type CSSValue = string | number | Token<string, string, string, any>
 
 export type Link = {
   name: string
