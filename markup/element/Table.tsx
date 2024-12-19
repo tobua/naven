@@ -8,7 +8,7 @@ export interface Props {
   } & HTMLAttributes<HTMLDivElement>
 }
 
-const getColumnCount = (children: ReactElement[]) =>
+const getColumnCount = (children: ReactElement<{ children: any }>[]) =>
   Math.max(...children.filter(Boolean).map((child) => child?.props?.children?.length))
 
 const styles = () => ({
@@ -47,5 +47,5 @@ export default createComponent(styles)<Props>(
       </Sheet.Main.Component>
     )
   },
-  (props) => [props.children]
+  (props) => [props.children],
 )

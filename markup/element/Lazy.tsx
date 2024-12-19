@@ -4,10 +4,10 @@ import { Text } from '../text/Various'
 
 interface Props {
   imports: Promise<any>
-  result: (...imports: any) => JSX.Element
+  result: (...imports: any) => React.JSX.Element
 }
 
-export default ({ imports, result }: Props): JSX.Element => {
+export default ({ imports, result }: Props): React.JSX.Element => {
   const [Component, setComponent] = useState(null)
 
   useEffect(() => {

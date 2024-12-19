@@ -1,3 +1,4 @@
+import React from 'react'
 import memoize from 'memoize-one'
 import type { CSS } from '@stitches/react'
 import { useDeepMemo } from './use-deep-memo'
@@ -10,7 +11,7 @@ export const createComponent = <
   T extends string,
   Styles extends Record<T, ComponentSheet> & { Main: ComponentSheet },
 >(
-  initialStyles: () => Styles
+  initialStyles: () => Styles,
 ) => {
   const stylesMemoized = memoize(initialStyles)
   return <Props extends { Component: any }>(
@@ -20,15 +21,15 @@ export const createComponent = <
     }: {
       props: Props['Component']
       Sheet: Sheet<Styles, Props>
-    }) => JSX.Element,
-    watchProps?: (props: Props['Component']) => any[]
+    }) => React.JSX.Element,
+    watchProps?: (props: Props['Component']) => any[],
   ) => {
     const NavenComponent = (
       props: Props['Component'] &
         DefaultProps & {
           styles?: { [Property in keyof Styles]?: CustomStyles }
           css?: CSS
-        }
+        },
     ) => {
       initialize()
       const {

@@ -1,4 +1,4 @@
-import type { ReactNode, ElementType } from 'react'
+import type { JSX, ReactNode, ElementType } from 'react'
 import type { CSS, keyframes, styled, createTheme, globalCss } from '@stitches/react'
 
 export interface ScaleValue {

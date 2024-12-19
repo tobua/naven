@@ -103,7 +103,7 @@ const styles = () => ({
 
 export default createComponent(styles)<Props>(function Checkbox({ props, Sheet }) {
   const { type = 'checkbox', label, id = uniqueID(), ...otherProps } = props
-  const inputRef = useRef<HTMLInputElement>()
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const toggleOnEnter = useCallback((event) => {
     if (event.key !== 'Enter') {

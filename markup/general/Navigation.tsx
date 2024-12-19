@@ -24,8 +24,8 @@ export interface Props {
     children: ReactNode
     linkActive?: (url: string) => boolean
     links?: NavigationLinks
-    middle?: ReactElement
-    meta?: ReactElement
+    middle?: ReactElement<{ open: boolean }>
+    meta?: ReactElement<{ open: boolean }>
   } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
   Main: { show: boolean } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
   TabElement: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
@@ -138,7 +138,7 @@ type NavigationLinks = {
 
 export default createComponent(styles)<Props>(function Navigation({ props, Sheet }) {
   const { children, links = [], linkActive = () => false, meta, middle, ...otherProps } = props
-  const scrollContainerRef = useRef()
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [showNavigation, setShowNavigation] = useState(false)
 
   useEffect(() => {

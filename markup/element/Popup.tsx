@@ -60,7 +60,7 @@ const styles = () => ({
 
 export default createComponent(styles)<Props>(function Popup({ props, Sheet }) {
   const { children, show, close, onClose, ...otherProps } = props
-  const scrollContainerRef = useRef()
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (scrollContainerRef.current && show) {

@@ -14,7 +14,7 @@ const DescriptionList = ({ term, children }: any) => (
 type ListType = 'ordered' | 'description' | 'disc'
 
 type ListChildren =
-  | (({ Description }: { Description: typeof DescriptionList }) => JSX.Element)
+  | (({ Description }: { Description: typeof DescriptionList }) => React.JSX.Element)
   | ReactNode
   | ReactNode[]
 
@@ -117,7 +117,7 @@ export default createComponent(styles)<Props>(
           </Sheet.Item.Component>
         )
       },
-      [children]
+      [children],
     )
 
     const renderItems = useCallback(() => {
@@ -134,5 +134,5 @@ export default createComponent(styles)<Props>(
       </Sheet.Main.Component>
     )
   },
-  (props) => [props.type, props.gap, props.wrap, props.horizontal]
+  (props) => [props.type, props.gap, props.wrap, props.horizontal],
 )

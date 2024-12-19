@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import Select, { Props as SelectProps, StylesConfig, GroupBase, ActionMeta } from 'react-select'
+import Select, { StylesConfig, GroupBase, ActionMeta } from 'react-select'
 import memoize from 'memoize-one'
 // @ts-ignore
 import { naven, unit, cssVariable, createComponent, mergeStyles } from 'naven'
@@ -22,7 +22,7 @@ export interface Props {
     containerStyles?: object
     backgroundColor?: string
     onValue?: (value: string) => void
-  } & SelectProps
+  } & any
 }
 
 const styles = () => ({

@@ -1,47 +1,46 @@
+/**
+ * @vitest-environment jsdom
+ */
+
 import React from 'react'
 import { test, expect } from 'vitest'
-import { create } from 'react-test-renderer'
+import { render } from '@testing-library/react'
 import { Content, Header, Footer } from '../index'
 
 test('Renders basic components.', () => {
-  const renderer = create(
+  const { container } = render(
     <Content>
       <p>Hello Content</p>
-    </Content>
+    </Content>,
   )
 
-  const markup = renderer.toJSON()
+  const main = container.querySelector('main')
 
-  expect(markup).toBeDefined()
-  expect(markup.type).toEqual('main')
-  expect(typeof markup.props.className).toEqual('string')
-  expect(markup.children.length).toEqual(1)
-  expect(markup.children[0].type).toEqual('p')
-  expect(markup.children[0].children[0]).toEqual('Hello Content')
+  expect(main).toBeDefined()
+  expect(main?.className).not.toBe('')
+  expect(main?.innerHTML).toEqual('<p>Hello Content</p>')
 })
 
 test('Content renders all children.', () => {
-  const renderer = create(
+  const { container } = render(
     <Content>
       <p>Hello Content</p>
       <div>
         <span>Hello nested</span>
         <p>Whoo</p>
       </div>
-    </Content>
+    </Content>,
   )
 
-  const markup = renderer.toJSON()
+  const main = container.querySelector('main')
 
-  expect(markup).toBeDefined()
-  expect(markup.children.length).toEqual(2)
-  expect(markup.children[0].type).toEqual('p')
-  expect(markup.children[1].type).toEqual('div')
-  expect(markup.children[1].children.length).toEqual(2)
+  expect(main?.innerHTML).toEqual(
+    '<p>Hello Content</p><div><span>Hello nested</span><p>Whoo</p></div>',
+  )
 })
 
 test('Renders all top-level components.', () => {
-  const markup = create(
+  const { container } = render(
     <>
       <Header>
         {({ TitleText, Navigation }) => (
@@ -57,15 +56,18 @@ test('Renders all top-level components.', () => {
       <Footer>
         <p>hello</p>
       </Footer>
-    </>
-  ).toJSON()
+    </>,
+  )
 
-  expect(markup).toBeDefined()
+  const header = container.querySelector('header')
+
+  expect(header).toBeDefined()
+  expect(header?.innerHTML).toContain('naven test')
 })
 
 test('Header works with different configurations.', () => {
   // Various components
-  let markup = create(
+  const { container } = render(
     <Header>
       {({ TitleLink, Navigation, Meta, Middle }) => (
         <>
@@ -77,13 +79,17 @@ test('Header works with different configurations.', () => {
           <Navigation />
         </>
       )}
-    </Header>
-  ).toJSON()
+    </Header>,
+  )
 
-  expect(markup).toBeDefined()
+  const header = container.querySelector('header')
 
-  // Empty React elements
-  markup = create(
+  expect(header?.innerHTML).toContain('Middle Content')
+  expect(header?.innerHTML).toContain('Page Heading')
+})
+
+test('Header works with different configurations 1.', () => {
+  const { container } = render(
     <Header>
       {({ TitleText }) => (
         <>
@@ -93,15 +99,20 @@ test('Header works with different configurations.', () => {
           {undefined}
         </>
       )}
-    </Header>
-  ).toJSON()
+    </Header>,
+  )
 
-  expect(markup).toBeDefined()
+  const header = container.querySelector('header')
 
-  // No Fragment wrapper
-  markup = create(
-    <Header>{({ TitleText }) => <TitleText>Simple Header Text</TitleText>}</Header>
-  ).toJSON()
+  expect(header?.innerHTML).toContain('naven App')
+})
 
-  expect(markup).toBeDefined()
+test('Header works with different configurations 2.', () => {
+  const { container } = render(
+    <Header>{({ TitleText }) => <TitleText>Simple Header Text</TitleText>}</Header>,
+  )
+
+  const header = container.querySelector('header')
+
+  expect(header?.innerHTML).toContain('Simple Header Text')
 })

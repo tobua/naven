@@ -57,8 +57,8 @@ export interface Props {
         }: {
           Middle: any
           Meta: any
-          TitleText: (props: TitleTextProps) => ReactElement
-          TitleLink: (props: TitleLinkProps) => ReactElement
+          TitleText: (props: TitleTextProps) => React.JSX.Element
+          TitleLink: (props: TitleLinkProps) => React.JSX.Element
           Navigation: any
         }) => ReactNode)
     wide?: true
@@ -144,23 +144,21 @@ const styles = () => ({
 
 const mergeChildren = (children: any, innerComponents: any, Sheet: any) => {
   // Create a copy, so we can reassign.
-  let newChildren: ReactElement[] = Children.map(
-    Array.isArray(children) ? children : [children],
-    (child) => child
-  )
+  let newChildren: ReactElement<{ children: any; navigation: boolean; Sheet: any }>[] =
+    Children.map(Array.isArray(children) ? children : [children], (child) => child)
 
   if (newChildren.length === 1 && isElement(newChildren[0]) && newChildren[0].type === Fragment) {
     newChildren = newChildren[0].props.children
   }
 
   const navigationChild = newChildren.find(
-    (child) => isElement(child) && child.type === innerComponents.Navigation
+    (child) => isElement(child) && child.type === innerComponents.Navigation,
   )
   const metaChild = newChildren.find(
-    (child) => isElement(child) && child.type === innerComponents.Meta
+    (child) => isElement(child) && child.type === innerComponents.Meta,
   )
   const middle = newChildren.filter(
-    (child) => isElement(child) && child.type === innerComponents.Middle
+    (child) => isElement(child) && child.type === innerComponents.Middle,
   )
 
   if (navigationChild && (middle.length || metaChild)) {
@@ -204,7 +202,7 @@ export default createComponent(styles)<Props>(function Header({ props, Sheet }) 
         {innerChildren}
       </Sheet.TitleText.Component>
     ),
-    []
+    [],
   )
 
   const TitleLink = useCallback(
@@ -222,7 +220,7 @@ export default createComponent(styles)<Props>(function Header({ props, Sheet }) 
         {innerChildren}
       </Sheet.TitleLink.Component>
     ),
-    []
+    [],
   )
 
   const Meta = useCallback(
@@ -240,9 +238,9 @@ export default createComponent(styles)<Props>(function Header({ props, Sheet }) 
             {
               '@phone': { display: (!navigation && hideMobile) || open ? 'flex' : 'none' },
             },
-            mergeStyles(Sheet.MetaWrapper.css, css)
+            mergeStyles(Sheet.MetaWrapper.css, css),
           ),
-        [hideMobile, navigation]
+        [hideMobile, navigation],
       ) as CSS
 
       if (innerChildren) {
@@ -269,7 +267,7 @@ export default createComponent(styles)<Props>(function Header({ props, Sheet }) 
         </Sheet.MetaWrapper.Component>
       )
     },
-    []
+    [],
   )
 
   const innerComponents = {
